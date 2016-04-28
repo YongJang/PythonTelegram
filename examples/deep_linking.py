@@ -33,7 +33,7 @@
 import telebot
 import time
 
-bot = telebot.TeleBot('TOKEN')
+bot = telebot.TeleBot('207944330:AAGdpOvswmHangYooE8wBEf1p-vYP2skyL0')
 
 def extract_unique_code(text):
     # Extracts the unique_code from the sent /start command.

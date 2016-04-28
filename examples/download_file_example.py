@@ -1,7 +1,7 @@
 import telebot
 
-TOKEN = 'YOUR BOT TOKEN'
-CHAT_ID = 'YOUR CHAT ID'
+TOKEN = '207944330:AAGdpOvswmHangYooE8wBEf1p-vYP2skyL0'
+CHAT_ID = '202899924'
 
 bot = telebot.TeleBot(TOKEN)
 
