@@ -29,7 +29,7 @@ bonus = soup.find('img', id="bnusNo")['alt']
 # Handle '/start' and '/help'
 @bot.message_handler(commands=['help', 'start'])
 def send_welcome(message):
-    bot.reply_to(message, "Lotto numbers\n"+hoi.string + "results"+" ".join(numbers)+'Bonus_number: '+bonus)
+    bot.reply_to(message, "Lotto numbers\n"+hoi.string + "results\n"+" ".join(numbers)+'\nBonus_number: '+bonus)
 
 
 # Handle all other messages with content_type 'text' (content_types defaults to ['text'])
