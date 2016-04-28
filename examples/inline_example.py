@@ -5,7 +5,7 @@ import sys
 import logging
 from telebot import types
 
-API_TOKEN = '<api_token>'
+API_TOKEN = '207944330:AAGdpOvswmHangYooE8wBEf1p-vYP2skyL0'
 
 bot = telebot.TeleBot(API_TOKEN)
 telebot.logger.setLevel(logging.DEBUG)
