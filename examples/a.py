@@ -1,7 +1,7 @@
 from bs4 import BeautifulSoup
-import urllib3.request
+import urllib.request
 
-html = urllib3.request.urlopen('http://www.nlotto.co.kr/common.do?method=main&#8217;')
+html = urllib.request.urlopen('http://www.nlotto.co.kr/common.do?method=main&#8217;')
 
 soup = BeautifulSoup(html)
 
