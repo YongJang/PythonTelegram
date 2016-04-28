@@ -1,0 +1,54 @@
+from bs4 import BeautifulSoup
+import urllib2
+
+try:
+  response = urllib2.urlopen("http://www.hansung.ac.kr/web/www/home")
+  page = response.read().decode('cp949', 'ignore') 
+  response.close()
+except urllib2.HTTPError, e:
+  print e.reason.args[1]
+except urllib2.URLError, e:
+  print e.reason.args[1]
+
+soup = BeautifulSoup(page)
+
+
+** python 웹 파싱 라이브러리
+import urllib
+from bs4 import BeautifulSoup
+html = urllib.urlopen('http://comic.naver.com/webtoon/weekday.nhn')
+soup = BeautifulSoup(html, "lxml")
+titles = soup.find_all("a", "title")
+ 
+for title in titles:
+    print 'title:{0:10s} link:{1:20s}\n'.format(title['title'].encode('utf-8'), title['href'].encode('utf-8'))
+
+
+
+
+from bs4 import BeautifulSoup
+import urllib.request
+
+html = urllib.request.urlopen('http://www.nlotto.co.kr/common.do?method=main&#8217;')
+
+soup = BeautifulSoup(html)
+
+hoi = soup.find("span", id="lottoDrwNo")
+
+numbers=[]
+
+for n in range(1,7):
+    strV ="drwtNo" + str(n)
+    first = soup.find('img', id=strV)['alt']
+    numbers.append(first)
+
+bonus = soup.find('img', id="bnusNo")['alt']
+
+print('Lotto numbers')
+print(hoi.string + "results")
+print(" ".join(numbers))
+print('Bonus_number: '+bonus)
+
+
+
+
