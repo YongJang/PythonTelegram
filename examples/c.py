@@ -14,7 +14,9 @@ def getArticle() :
 
     articleHeader = navigator.find_all('h3')
 
-    print articleHeader.decode('utf-8').encode('utf-8')
+    for keyword in enumerate(articleHeader):
+		resultText = '%s'%(keyword.encode('utf-8'))
+        print resultText.decode('utf-8').encode('utf-8')
 
 def Medium_Technology() :
     getArticle()
