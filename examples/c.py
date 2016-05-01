@@ -1,10 +1,12 @@
 from bs4 import BeautifulSoup
-import urllib.request
+from urllib.request import Request, urlopen
 
 def getArticle() :
-    html = urllib.request.urlopen('https://medium.com/browse/b99480981476;')
 
-    soup = BeautifulSoup(html)
+    html = Request('https://medium.com/browse/b99480981476;')
+    webpage = urlopen(html).read()
+
+    soup = BeautifulSoup(webpage)
 
     hoi = soup.find("h3")
 
