@@ -13,7 +13,7 @@ def getArticle() :
 
 
     for n in range(0,len(bigTitle)):
-        linkList = soup.find_all("a", text=bigTitle[n].string)
+        linkList = soup.get(text=bigTitle[n].string)
         print(bigTitle[n].string)
 
     for n in range(0,len(linkList)):
