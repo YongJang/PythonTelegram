@@ -14,7 +14,7 @@ def getPost() :
     for countpage in page:
         page_array.append([countpage.get_text()])
     for i in len(page_array):
-        next_page_array[i] = page_array[countpage]
+        next_page_array[i] = page_array[i]
         print(next_page_array)
 
 
