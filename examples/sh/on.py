@@ -9,7 +9,7 @@ def getPost() :
     soup = BeautifulSoup(webpage)
     all_links = soup.find_all("a")
     for link in all_links:
-        print (link.get(href))
+        print (link.get("href"))
     hoi = soup.find_all('ul', class_ = "todayEvent")
 '''
     for n in range(0,len(hoi)):
