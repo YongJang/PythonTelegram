@@ -13,10 +13,8 @@ def getArticle() :
 
 
     for n in range(0,len(bigTitle)):
-        if "\"" not in bigTitle[n]:
             print(bigTitle[n].get_text())
-        else:
-            print(bigTitle[n].get_text())
+
 
 
 def Medium_Technology() :
