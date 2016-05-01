@@ -8,7 +8,7 @@ def getPost() :
     soup = BeautifulSoup(webpage)
     event = soup.find('a', class_="eventLink")
     for i in event:
-        print (i.get("title"))
+        print (event[i].get("title"))
 
 def Medium_Technology() :
     getPost()
