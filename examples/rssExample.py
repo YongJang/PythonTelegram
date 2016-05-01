@@ -14,6 +14,8 @@ print (d['entries'][0]['title'])
 
 print (d.entries[0]['link'])
 
+print (d.entries[0].id)
+
 for post in d.entries:
     print (post.title + ":" + post.link + "\n")
     print (post.published + ":" + "\n")
