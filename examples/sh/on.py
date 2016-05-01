@@ -8,8 +8,11 @@ def getPost() :
     soup = BeautifulSoup(webpage)
     info_title = soup.find_all("a" ,class_="emp1")
     page = soup.find_all("div" ,class_="lgiSec lgiPagination lgiPagination1")
+    page_array = []
     for countpage in page:
-        print(countpage.get_text())
+        page_array.append([countpage.get_text()])
+        print(page_array)
+
 
     for i in info_title:
         print (i.get("title"))
