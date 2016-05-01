@@ -15,7 +15,7 @@ def getArticle() :
     for n in range(0,len(bigTitle)):
         if "\"" not in bigTitle[n]:
             print(bigTitle[n].string)
-        else
+        else:
             print(bigTitle[n])
 
 
