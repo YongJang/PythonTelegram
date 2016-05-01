@@ -11,8 +11,13 @@ def getArticle() :
     bigTitle = soup.find_all("h3")
 
 
+
     for n in range(0,len(bigTitle)):
+        linkList = soup.find_all("a", text=bigTitle[n].string)
         print(bigTitle[n].string)
+
+    for n in range(0,len(linkList)):
+        print(linkList[n].string)
 
 def Medium_Technology() :
     getArticle()
