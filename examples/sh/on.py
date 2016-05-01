@@ -3,7 +3,6 @@ from bs4 import BeautifulSoup
 from urllib.request import Request, urlopen
 
 def getPost() :
-
     html = Request('http://www.jobkorea.co.kr/net/Starter/Recruit/SS/engineering?rOrderTab=10#JobList', headers={'User-Agent':'Mozilla/5.0'})
     webpage = urlopen(html).read()
     soup = BeautifulSoup(webpage)
@@ -11,11 +10,11 @@ def getPost() :
     page = soup.find_all("div" ,class_="lgiSec lgiPagination lgiPagination1")
     tag = ["소프트웨어", "프로그래머"]
     for i in info_title:
-        title_tag = i.get("title")
-        if title_tag == tag[i]:
-            print (i.get("title"))
-        else:
-            print ("nothing")
+        for j,name in enumerate(tag):
+            if title_tag == tag[j]:
+                print (i.get("title"))
+            else:
+                print ("nothing")
 
 def Medium_Technology() :
     getPost()
