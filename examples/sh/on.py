@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from bs4 import BeautifulSoup
 from urllib.request import Request, urlopen
 
@@ -8,9 +9,9 @@ def getPost() :
     soup = BeautifulSoup(webpage)
     info_title = soup.find_all("a" ,class_="emp1")
     page = soup.find_all("div" ,class_="lgiSec lgiPagination lgiPagination1")
-
+    tag = ["소프트웨어", "프로그래머"]
     for i in info_title:
-        if i.get("title") == "소프트웨어":
+        if i.get("title") == tag[i]:
             print (i.get("title"))
         else:
             print ("nothing")
