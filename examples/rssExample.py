@@ -16,6 +16,7 @@ print (d.entries[0]['link'])
 
 for post in d.entries:
     print (post.title + ":" + post.link + "\n")
+    print (post.pubDate + "\n")
 
 print (d.version)
 
