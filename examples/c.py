@@ -8,16 +8,10 @@ def getArticle() :
 
     soup = BeautifulSoup(webpage)
 
-    hoi[] = soup.find_all("h3")
+    hoi = soup.find_all("h3")
 
-    numbers=[]
-
-    for n in range(1,4):
+    for n in range(0,len(hoi)):
         print(hoi[n].string)
-        numbers.append(strV)
-
-
-    print(" ".join(numbers))
 
 def Medium_Technology() :
     getArticle()
