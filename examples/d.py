@@ -8,7 +8,7 @@ def getArticle() :
 
     soup = BeautifulSoup(webpage)
 
-    bigTitle = soup.find_all("a", class_="tit")
+    bigTitle = soup.find_all(class_="tit")
 
 
 
