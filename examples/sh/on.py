@@ -10,8 +10,8 @@ def getPost() :
     page = soup.find_all("div" ,class_="lgiSec lgiPagination lgiPagination1")
     tag = ["소프트웨어", "프로그래머"]
     for i in info_title:
-        for j,name in enumerate(tag):
-            if info_title == tag[j]:
+        for j in len(tag):
+            if tag[j] in i.get("title"):
                 print (i.get("title"))
             else:
                 print ("nothing")
