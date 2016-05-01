@@ -1,8 +1,8 @@
 
 import feedparser
 
-keyword = '인공지능'
-d = feedparser.parse('http://newssearch.naver.com/search.naver?where=rss&query=' + str(keyword,'utf-16') + '&field=0')
+keyword = '%C0%CE%B0%F8%C1%F6%B4%C9'
+d = feedparser.parse('http://newssearch.naver.com/search.naver?where=rss&query=' + keyword + '&field=0')
 
 print (d['feed']['title'])
 
