@@ -8,7 +8,7 @@ def getPost() :
 
     soup = BeautifulSoup(webpage)
 
-    hoi = soup.find_all("contentBox todayEveryArea")
+    hoi = soup.find_all('ul', class = "todayEventArea")
 
     for n in range(0,len(hoi)):
         print(hoi[n].string)
