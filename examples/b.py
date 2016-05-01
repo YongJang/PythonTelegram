@@ -1,4 +1,4 @@
-#-*- encoding: utf-8 -*-
+﻿#-*- encoding: utf-8 -*-
 #실시간 검색어
 import requests as rs
 import bs4
@@ -31,7 +31,7 @@ def getTopRank():
 	#6)키워드 출력
 	for index, keyword in enumerate(keywords):
 		resultText = '[%d위] %s'%(index,keyword.encode('utf-8'))
-		print resultText.decode('utf-8').encode('euc-kr')
+		print resultText.decode('utf-8').encode('utf-8')
 
 	print ''
 
