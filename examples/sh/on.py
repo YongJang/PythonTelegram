@@ -8,7 +8,7 @@ def getPost() :
     soup = BeautifulSoup(webpage)
     info_title = soup.find_all("a" ,class_="emp1")
     for i in info_title:
-        print(i.get(title))
+        print(i.get("title"))
     page = soup.find_all("div" ,class_="lgiSec lgiPagination lgiPagination1")
     tag = ["소프트웨어", "프로그래머"]
     '''
