@@ -11,14 +11,12 @@ def getPost() :
         print(i.get("title"))
     page = soup.find_all("div" ,class_="lgiSec lgiPagination lgiPagination1")
     tag = ["소프트웨어", "프로그래머"]
-    '''
     for i in info_title:
         for j in range(len(tag)):
-            if tag[j] in i.get("title"):
+            if i.get("title") is not None and tag[j] in i.get("title"):
                 print (i.get("title"))
             else:
                 print ("nothing")
-'''
 def Medium_Technology() :
     getPost()
 
