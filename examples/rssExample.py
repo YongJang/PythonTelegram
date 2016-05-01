@@ -6,18 +6,18 @@ print (d['feed']['title'])
 
 print (d['feed']['link'])
 
-print d.feed.subtitle
+print (d.feed.subtitle)
 
-print len(d['entries'])
+print (len(d['entries']))
 
-print d['entries'][0]['title']
+print (d['entries'][0]['title'])
 
-print d.entries[0]['link']
+print (d.entries[0]['link'])
 
 for post in d.entries:
-    print post.title + ":" + post.link + "
-    "
+    print (post.title + ":" + post.link + "
+    ")
 
-print d.version
+print (d.version)
 
-print d.headers.get('content-type')
+print (d.headers.get('content-type'))
