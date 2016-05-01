@@ -11,7 +11,7 @@ def getPost() :
     tag = ["소프트웨어", "프로그래머"]
     for i in info_title:
         for j,name in enumerate(tag):
-            if title_tag == tag[j]:
+            if info_title == tag[j]:
                 print (i.get("title"))
             else:
                 print ("nothing")
