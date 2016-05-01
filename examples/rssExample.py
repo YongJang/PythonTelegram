@@ -13,9 +13,6 @@ print (len(d['entries']))
 print (d['entries'][0]['title'])
 
 
-
-print (d.entries[0].id)
-
 for post in d.entries:
     print (post.title + ":" + post.link + "\n")
     print (post.published + ":" + post.feed.id + "\n")
