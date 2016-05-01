@@ -11,7 +11,7 @@ def getPost() :
 
     for i in info_title:
         if i.get("title") == "소프트웨어" :
-        print (i.get("title"))
+            print (i.get("title"))
 
 def Medium_Technology() :
     getPost()
