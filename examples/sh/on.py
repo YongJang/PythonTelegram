@@ -9,9 +9,11 @@ def getPost() :
     info_title = soup.find_all("a" ,class_="emp1")
     page = soup.find_all("div" ,class_="lgiSec lgiPagination lgiPagination1")
     page_array = []
+    next_page_array = []
     for countpage in page:
         page_array.append([countpage.get_text()])
-        print(page_array)
+        next_page_array[countepage] = page_array[countpage]
+        print(next_page_array)
 
 
     for i in info_title:
