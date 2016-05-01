@@ -6,7 +6,7 @@ def getPost() :
     html = Request('http://www.onoffmix.com/event?s=IT', headers={'User-Agent':'Mozilla/5.0'})
     webpage = urlopen(html).read()
     soup = BeautifulSoup(webpage)
-    event = soup.find_all("a" class_="eventLink")
+    event = soup.find_all("a" { "class":"eventLink" })
     for i in event:
         print (i.get("title"))
 
