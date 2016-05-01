@@ -10,8 +10,10 @@ def getPost() :
     page = soup.find_all("div" ,class_="lgiSec lgiPagination lgiPagination1")
 
     for i in info_title:
-        if i.get("title") == "소프트웨어" :
+        if i.get("title") == "소프트웨어":
             print (i.get("title"))
+        else:
+            print ("nothing")
 
 def Medium_Technology() :
     getPost()
