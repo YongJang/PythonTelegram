@@ -16,7 +16,7 @@ def getPost() :
 
     for item in page_ul.find_all('li'):
         if isinstance(item, tag):
-            print item.text
+            print (item.text)
     #print (len(page_num))
     '''
     for page in range(1,page_num):
