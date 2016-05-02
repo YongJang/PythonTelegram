@@ -24,7 +24,7 @@ def getPost() :
                     print ("nothing") # delete this
 
         for index in range(len(tag_href)) :
-            detail_html = Request('http://www.jobkorea.co.kr/Starter/Recruit/SS/engineering?psTab=40&rOrderTab=10&Page=' + str(tah_href[index]) + '  #JobList',headers={'User-Agent':'Mozilla/5.0'})
+            detail_html = Request('http://www.jobkorea.co.kr/Starter/Recruit/SS/engineering?psTab=40&rOrderTab=10&Page=' + str(tag_href[index]) + '  #JobList',headers={'User-Agent':'Mozilla/5.0'})
             summary = detail_html.find("div", class_="gibReadSum")
             print(summary)
 def Medium_Technology() :
