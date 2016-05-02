@@ -1,9 +1,9 @@
 
 import feedparser
-import urllib
+import urllib.parse
 
 s = u"인공지능"
-ss = urllib.quote(s.encode("utf-8"))
+ss = urllib.parse.quote(s.encode("utf-8"))
 
 keyword = '%C0%CE%B0%F8%C1%F6%B4%C9'
 d = feedparser.parse('http://newssearch.naver.com/search.naver?where=rss&query=' + ss + '&field=0')
