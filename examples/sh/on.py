@@ -8,7 +8,7 @@ firstsoup = BeautifulSoup(firstpage)
 page_num = firstsoup.find("div" , { "class" : "lgiSec lgiPagination lgiPagination1" }).find_all('li')
 print (len(page_num))
 def getPost() :
-    for page in range(1,page_num):
+    for page in page_num :
         html = Request('http://www.jobkorea.co.kr/Starter/Recruit/SS/engineering?psTab=40&rOrderTab=10&Page=' + page + '  #JobList',headers={'User-Agent':'Mozilla/5.0'})
         webpage = urlopen(html).read()
         soup = BeautifulSoup(webpage)
