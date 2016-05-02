@@ -14,10 +14,11 @@ def getPost() :
         soup = BeautifulSoup(webpage)
         info_title = soup.find_all("a" ,class_="emp1") #80
         tag = ["소프트웨어", "프로그래머","개발자"]
+        tag_href = []
         for i in info_title:
             for j in range(len(tag)) :
                 if i.get("title") is not None and tag[j] in i.get("title"):
-                    tag_href = i.get("href")
+                    tag_href.append(i.get("href"))
                     print (tag_href)
                 else:
                     print ("nothing") # delete this
