@@ -19,11 +19,14 @@ def getPost() :
             for j in range(len(tag)) :
                 if i.get("title") is not None and tag[j] in i.get("title"):
                     tag_href.append(i.get("href"))
-                    print (tag_href)
+
                 else:
                     print ("nothing") # delete this
 
-
+        for index in range(len(tag_href)) :
+            detail_html = Request('http://www.jobkorea.co.kr/Starter/Recruit/SS/engineering?psTab=40&rOrderTab=10&Page=' + str(tah_href[index]) + '  #JobList',headers={'User-Agent':'Mozilla/5.0'})
+            summary = detail_html.find("div", class_="gibReadSum")
+            print(summary)
 def Medium_Technology() :
     getPost()
 
