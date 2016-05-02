@@ -10,8 +10,14 @@ def getPost() :
 
     info_title = soup.find_all("a" ,class_="emp1")
     tag = ["소프트웨어", "프로그래머"]
-    page_num =  soup.find_all("div" ,class_="lgiSec lgiPagination lgiPagination1")
-    print (len(page_num))
+
+    page_num = soup.find_all("div" ,class_="lgiSec lgiPagination lgiPagination1")
+    page_ul = page_num.parent.find_next_sibling()
+
+    for item in page_ul.find_all('li'):
+        if isinstance(item, tag)
+            print item.text
+    #print (len(page_num))
     '''
     for page in range(1,page_num):
    	    html = Request('http://www.jobkorea.co.kr/Starter/Recruit/SS/engineering?psTab=40&rOrderTab=10&Page=' + page + '  #JobList', headers={'User-Agent':'Mozilla/5.0'})
