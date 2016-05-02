@@ -8,18 +8,20 @@ def getPost() :
     webpage = urlopen(html).read()
     soup = BeautifulSoup(webpage)
 
-    page_num =  soup.find_all("div" ,class_="lgiSec lgiPagination lgiPagination1")
     info_title = soup.find_all("a" ,class_="emp1")
     tag = ["소프트웨어", "프로그래머"]
+    page_num =  soup.find_all("li" ,class_="lgiSec lgiPagination lgiPagination1")
+    print (len(page_num))
+    '''
     for page in range(1,page_num):
-   	    html = Request('http://www.jobkorea.co.kr/Starter/Recruit/SS/engineering?psTab=40&rOrderTab=10&Page=' + page + '#JobList', headers={'User-Agent':'Mozilla/5.0'})
+   	    html = Request('http://www.jobkorea.co.kr/Starter/Recruit/SS/engineering?psTab=40&rOrderTab=10&Page=' + page + '  #JobList', headers={'User-Agent':'Mozilla/5.0'})
             for i in info_title:
-                for j in range(len(tag)):
+                for j in range(len(tag)) :
                     if i.get("title") is not None and tag[j] in i.get("title"):
                         print (i.get("title"))
                     else:
                         print ("nothing")
-
+'''
 def Medium_Technology() :
     getPost()
 
