@@ -25,7 +25,9 @@ def getPost() :
 
         for index in range(len(tag_href)) :
             detail_html = Request('http://www.jobkorea.co.kr/Starter/Recruit/SS/engineering?psTab=40&rOrderTab=10&Page=' + str(tag_href[index]) + '  #JobList',headers={'User-Agent':'Mozilla/5.0'})
-            summary = detail_html.find_all("div", class_="gibReadSum")
+            detailpage = urlopen(detail_html).read()
+            detailsoup = BeautifulSoup(detailpage)
+            summary = detailsoup.find_all("div", class_="gibReadSum")
             print(summary)
 def Medium_Technology() :
     getPost()
