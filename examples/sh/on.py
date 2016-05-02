@@ -15,7 +15,7 @@ def getPost() :
     page_ul = page_num.parent.find_next_sibling()
 
     for item in page_ul.find_all('li'):
-        if isinstance(item, tag)
+        if isinstance(item, tag):
             print item.text
     #print (len(page_num))
     '''
