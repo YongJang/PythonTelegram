@@ -15,7 +15,7 @@ def getPost() :
         info_title = soup.find_all("a" ,class_="emp1")
         print(len(info_title))
         tag = ["소프트웨어", "프로그래머"]
-        for i in range(1,info_title):
+        for i in info_title:
             for j in range(len(tag)) :
                 if i.get("title") is not None and tag[j] in i.get("title"):
                     print (i.get("title"))
