@@ -18,7 +18,7 @@ def getPost() :
         for i in info_title:
             for j in range(len(tag)) :
                 if i.get("title") is not None and tag[j] in i.get("title"):
-                    print (i.get("title"))
+                    print (i.get("href"))
                 else:
                     print ("nothing")
 
