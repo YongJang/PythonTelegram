@@ -13,7 +13,7 @@ def getPost() :
         webpage = urlopen(html).read()
         soup = BeautifulSoup(webpage)
         info_title = soup.find_all("a" ,class_="emp1") #80
-        tag = ["프로그래머", "개발", "H/W", "소프트웨어", "S/W", "웹", "Web", "네트워크", "솔루션","머신", "C++", "C", "JAVA"] # 소프트웨어 = S/W # web =웹
+        tag = ["프로그래머", "개발", "H/W", "소프트웨어", "웹", "네트워크", "솔루션","머신", "C++", "C", "JAVA"] # 소프트웨어 = S/W # web =웹
         tag_href = []
         for i in info_title :
             for j in range(len(tag)) :
