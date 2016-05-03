@@ -19,6 +19,7 @@ try:
         for n in range(0,len(keyword)):
             url = 'http://newssearch.naver.com/search.naver?where=rss&query=' + urllib.parse.quote(keyword[n].encode("utf-8")) + '&field=0'
             d = feedparser.parse(url)
+            cur.execute("INSERT INTO article url, tag, content, click_num, aType, k_group, pDate) VALUES (\'http://www.asiatoday.co.kr/view.php?key=20160503002218366\',\'인공지능\',\'이세돌 9단은 지난달 인공지능 \\'알파고\\'와 대결한 이후 6전 전승 무패 행진도 이어갔다. 이날 승리로 이세돌 9단은 원성진 9단에게 상대 전적 14승 11패로 더욱 앞서나갔다. 원성진 9단은 2국과 오는 18일 3국을 모두...\',0,\'IT\',0,'20160503');")
 
             for post in d.entries:
                 pSummary = post.summary.replace("\'","\\'")
