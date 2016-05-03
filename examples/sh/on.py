@@ -19,8 +19,9 @@ def getPost() :
             for j in range(len(tag)) :
                 if i.get("title") is not None and tag[j] in i.get("title") :
                     tag_href.append(i.get("href"))
+                    tag_href = list(set(tag_href))
 
-        tag_href = list(set(tag_href))
+
         print(tag_href)
 
         for index in range(len(tag_href)) :
