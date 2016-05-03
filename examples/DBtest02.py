@@ -20,26 +20,14 @@ try:
             url = 'http://newssearch.naver.com/search.naver?where=rss&query=' + urllib.parse.quote(keyword[n].encode("utf-8")) + '&field=0'
             d = feedparser.parse(url)
 
-            print (d['feed']['title'])
-
-            print (d['feed']['link'])
-
-            print (d.feed.subtitle)
-
-            print (len(d['entries']))
-
-            print (d['entries'][0]['title'])
-
-            print (d.entries[0]['link'])
-
-
             for post in d.entries:
-                post.summary = post.summary.replace("\'","\\\'")
-                cur.execute("INSERT INTO article (url, tag, content, click_num, aType, k_group, pDate) VALUES (\'" + post.link +"\',\'" + keyword[n] + "\',\'" + post.summary + "\', 0, \'IT\', 0, \'20160503\');")
+                pSummary = post.summary.replace("\'","\\\'")
+                cur.execute("INSERT INTO article (url, tag, content, click_num, aType, k_group, pDate) VALUES (\'" + post.link +"\',\'" + keyword[n] + "\',\'" + pSummary + "\', 0, \'IT\', 0, \'20160503\');")
+                print(post.link)
+                print(keyword[n])
+                print(pSummary)
+                print("\'20160503\'")
 
-            print (d.version)
-
-            print (d.headers.get('content-type'))
 
 
 except pymysql.Error as e:
