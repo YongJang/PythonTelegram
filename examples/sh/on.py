@@ -27,8 +27,8 @@ def getPost() :
             summary = detailsoup.find_all("div", class_="gibReadSum")
             print(summary)
             #date = detailsoup.find_all("dd")
-            date = detailsoup.find_all("dl", class_="day")
-            print(date.get_text())
+            date = detailsoup.find_all("dl", class_="day").find_all(text = True)
+            print(date)
 
 def Medium_Technology() :
     getPost()
