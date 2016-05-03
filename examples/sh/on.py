@@ -26,9 +26,10 @@ def getPost() :
             detailsoup = BeautifulSoup(detailpage)
             summary = detailsoup.find_all("div", class_="gibReadSum")
             print(summary)
-            date = detailsoup.find_all("dd")
+            #date = detailsoup.find_all("dd")
+            date = detailsoup.find_all("dl", class_="day")
             print(date)
-            #date = detailsoup.find_all("dl", class_="day")
+
 def Medium_Technology() :
     getPost()
 
