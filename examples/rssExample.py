@@ -23,7 +23,6 @@ for n in range(0,len(keyword)):
     for post in d.entries:
         print (post.title + ":" + post.link + "\n")
         print (post.published + ":" + post.summary + "\n")
-        print (post.image +"\n")
 
     print (d.version)
 

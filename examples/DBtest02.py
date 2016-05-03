@@ -10,7 +10,7 @@ try:
 
         cur = conn.cursor()
 
-        cur.execute("CREATE TABLE article (PK_aid INT UNSIGNED PRIMARY KEY AUTO_INCREMENT, url varchar(1000) NOT NULL, tag VARCHAR(40), content TEXT, click_num INT, type VARCHAR(40), k_group INT, pDate char(8));")
+        cur.execute("INSERT INTO article (url, tag, content, click_num, type, k_group, pDate) VALUES ();")
 
 except pymysql.Error as e:
         print ("Error %d: %s" % (e.args[0], e.args[1]))
