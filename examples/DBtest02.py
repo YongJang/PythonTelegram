@@ -34,7 +34,7 @@ try:
 
 
             for post in d.entries:
-                cur.execute("INSERT INTO article (url, tag, content, click_num, type, k_group, pDate) VALUES ('" + post.link +"','" + keyword[n] + "','" + post.summary + "', 0, 'IT', 0, '20160503');")
+                cur.execute("INSERT INTO article (url, tag, content, click_num, type, k_group, pDate) VALUES (\'" + post.link +"\',\'" + keyword[n] + "\',\'" + post.summary + "\', 0, \'IT\', 0, \'20160503\');")
 
             print (d.version)
 
