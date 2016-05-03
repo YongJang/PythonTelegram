@@ -20,15 +20,15 @@ def getPost() :
                 if i.get("title") is not None and tag[j] in i.get("title"):
                     tag_href.append(i.get("href"))
 
-                else:
-                    print ("nothing") # delete this
-
         for index in range(len(tag_href)) :
             detail_html = Request('http://www.jobkorea.co.kr/' + str(tag_href[index]),headers={'User-Agent':'Mozilla/5.0'})
             detailpage = urlopen(detail_html).read()
             detailsoup = BeautifulSoup(detailpage)
             summary = detailsoup.find_all("div", class_="gibReadSum")
             print(summary)
+            date = detailsoup.find_all("dd")
+            print(date)
+            #date = detailsoup.find_all("dl", class_="day")
 def Medium_Technology() :
     getPost()
 
