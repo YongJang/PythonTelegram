@@ -28,7 +28,7 @@ def getPost() :
             print(summary)
             #date = detailsoup.find_all("dd")
             date = detailsoup.find_all("dl", class_="day")
-            print(date.getText())
+            print(date.get_text())
 
 def Medium_Technology() :
     getPost()
