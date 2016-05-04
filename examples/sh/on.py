@@ -20,6 +20,7 @@ def getPost() :
             for j in range(len(tag)):
                 if i.get("title") is not None and tag[j] in i.get("title"):
                     tag_href.append(i.get("href"))
+        break
 
         for index in range(len(tag_href)):
             detail_html = Request('http://www.jobkorea.co.kr/' + str(tag_href[index]), headers={'User-Agent':'Mozilla/5.0'})
@@ -32,7 +33,8 @@ def getPost() :
             for d in date:
                 datetext = d.getText().replace('.', '')
                 print(datetext)
-
+            break
+        
 def Medium_Technology():
     getPost()
 
