@@ -14,7 +14,7 @@ def getPost() :
         soup = BeautifulSoup(webpage)
         info_title = soup.find_all("a" ,class_="emp1") #80
         tag_href = []
-        tag = ["프로그래머", "개발", "소프트웨어", "웹", "네트워크", "솔루션","머신", "C++", "C", "JAVA"]
+        tag = ["프로그래머", "개발", "소프트웨어","JAVA"]
         for i in info_title:
             for j in range(len(tag)):
                 if i.get("title") is not None and tag[j] in i.get("title"):
