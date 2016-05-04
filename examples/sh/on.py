@@ -30,7 +30,8 @@ def getPost() :
             date = detailsoup.find_all("dl", class_="day")
             #date = detailsoup.find("dl",{ "class" : "day"}).find_all(text = True)
             for d in date:
-                print(d.getText().replace('.', '')[2,4])
+                datetext = d.getText().replace('.', '')
+                print(datetext[3][:8])
 
 def Medium_Technology():
     getPost()
