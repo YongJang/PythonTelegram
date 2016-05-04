@@ -14,18 +14,19 @@ def getPost() :
         soup = BeautifulSoup(webpage)
         info_title = soup.find_all("a" ,class_="emp1") #80
         tag_href = []
-        tag = ["프로그래머", "개발", "소프트웨어"]
+        tag = ["프로그래머", "개발", "소프트웨어","웹","S/W","H/W","솔루션"]
         for i in info_title:
             for j in range(len(tag)):
                 if i.get("title") is not None and tag[j] in i.get("title"):
                     tag_href.append(i.get("href"))
-
+                    print(tag_href)
         for index in range(len(tag_href)):
             detail_html = Request('http://www.jobkorea.co.kr/' + str(tag_href[index]), headers={'User-Agent':'Mozilla/5.0'})
             detailpage = urlopen(detail_html).read()
             detailsoup = BeautifulSoup(detailpage)
-            summary = detailsoup.find_all("div", class_="gibReadSum")
-            print(summary)
+            print(detailsoup)
+            #summary = detailsoup.find_all("div", class_="gibReadSum")
+            #print(summary)
 
             date = detailsoup.find_all("dl", class_="day")
             #date = detailsoup.find("dl",{ "class" : "day"}).find_all(text = True)
