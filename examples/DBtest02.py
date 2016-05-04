@@ -20,8 +20,8 @@ try:
             url = 'http://newssearch.naver.com/search.naver?where=rss&query=' + urllib.parse.quote(keyword[n].encode("utf-8")) + '&field=0'
             d = feedparser.parse(url)
             cur.execute("INSERT INTO article (url, tag, content, click_num, aType, k_group, pDate) VALUES ('url','tag','content',0,'IT',0,'20160503');")
-            cur.commit()
-            
+            conn.commit()
+
             for post in d.entries:
                 pSummary = post.summary.replace("\'","`")
                 cur.execute("INSERT INTO article (url, tag, content, click_num, aType, k_group, pDate) VALUES (\'" + post.link +"\',\'" + keyword[n] + "\',\'" + pSummary + "\', 0, \'IT\', 0, \'20160503\');")
