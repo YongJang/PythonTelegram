@@ -23,6 +23,7 @@ try:
             for post in d.entries:
                 pSummary = post.summary.replace("\'","\\\'")
                 cur.execute("INSERT INTO article (url, tag, content, click_num, aType, k_group, pDate) VALUES (\'" + post.link +"\',\'" + keyword[n] + "\',\'" + pSummary + "\', 0, \'IT\', 0, \'20160503\');")
+                print (post.published)
 
         conn.commit()
 
