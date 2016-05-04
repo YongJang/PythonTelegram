@@ -19,8 +19,8 @@ try:
         for n in range(0,len(keyword)):
             url = 'http://newssearch.naver.com/search.naver?where=rss&query=' + urllib.parse.quote(keyword[n].encode("utf-8")) + '&field=0'
             d = feedparser.parse(url)
-            cur.execute("INSERT INTO article (url, tag, content, click_num, aType, k_group, pDate) VALUES ('url','tag','content',0,'IT',0,'20160503');")
-            conn.commit()
+
+
 
             for post in d.entries:
                 pSummary = post.summary.replace("\'","`")
@@ -30,7 +30,7 @@ try:
                 print(pSummary)
                 print("\'20160503\'")
 
-
+        conn.commit()
 
 except pymysql.Error as e:
         print ("Error %d: %s" % (e.args[0], e.args[1]))
