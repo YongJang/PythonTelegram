@@ -20,7 +20,7 @@ def getPost() :
             for j in range(len(tag)):
                 if i.get("title") is not None and tag[j] in i.get("title"):
                     tag_href.append(i.get("href"))
-                    print(tag_href)
+                    print('http://www.jobkorea.co.kr/'+tag_href)
 
         for index in range(len(tag_href)):
             detail_html = Request('http://www.jobkorea.co.kr/' + str(tag_href[index]), headers={'User-Agent':'Mozilla/5.0'})
