@@ -25,7 +25,6 @@ def getPost() :
             detail_html = Request('http://www.jobkorea.co.kr/' + str(tag_href[index]), headers={'User-Agent':'Mozilla/5.0'})
             detailpage = urlopen(detail_html).read()
             detailsoup = BeautifulSoup(detailpage)
-            print('http://www.jobkorea.co.kr/' + str(tag_href[index]))
             #summary = detailsoup.find_all("div", class_="gibReadSum")
             #print(summary)
             date = detailsoup.find_all("dl", class_="day")
