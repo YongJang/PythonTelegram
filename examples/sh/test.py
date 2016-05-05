@@ -22,9 +22,8 @@ def getPost() :
         #시작일
         #2016.05.30
         for d in date:
-            datetext = d.getText().strip()
-            deadline = datetext[3]
-            print(deadline)
+            datetext = d.getText().strip('\n')
+            print(datetext)
             '''
             year = deadline[0:3]
             month = deadline[5:6]
