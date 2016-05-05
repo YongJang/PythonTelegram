@@ -17,7 +17,7 @@ def getPost() :
         webpage = urlopen(html).read()
         soup = BeautifulSoup(webpage)
         info = soup.find_all(class_="title")
-        date = detailsoup.find("dl",{ "class" : "day"}).find_all("dd")
+        date = soup.find("dl",{ "class" : "day"}).find_all("dd")
         #date = detailsoup.find_all("dl", class_="day")
         #시작일
         #2016.05.30
