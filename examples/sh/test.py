@@ -20,7 +20,7 @@ def getPost() :
         #date = soup.find("dl",{ "class" : "day"}).find_all("dd")
         date = soup.find_all("dl", class_="day")
         datedt = date.clear()
-        print(datedd)
+        print(datedt)
         for d in date:
             datetext = d.getText().strip()
             print(datetext)
