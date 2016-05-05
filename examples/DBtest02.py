@@ -25,12 +25,39 @@ try:
                 pDate = post.published
                 #Wed, 04 May 2016 11:26:00 +0900
                 month = pDate[8:10]
+                if month == 'Jan':
+                    month = '01'
+                elif month == 'Feb':
+                    month = '02'
+                elif month == 'Mar':
+                    month = '03'
+                elif month == 'Apr':
+                    month = '04'
+                elif month == 'May':
+                    month = '05'
+                elif month == 'Jun':
+                    month = '06'
+                elif month == 'Jul':
+                    month = '07'
+                elif month == 'Aug':
+                    month = '08'
+                elif month == 'Sep':
+                    month = '09'
+                elif month == 'Oct':
+                    month = '10'
+                elif month == 'Nov':
+                    month = '11'
+                else:
+                    month ='12'
+
                 day = pDate[5:6]
                 year = pDate[12:15]
                 pDate = year + month + day
 
+                print (pDate)
+
                 cur.execute("INSERT INTO article (url, tag, content, click_num, aType, k_group, pDate) VALUES (\'" + post.link +"\',\'" + keyword[n] + "\',\'" + pSummary + "\', 0, \'IT\', 0, \'" + pDate + "\');")
-                print (post.published)
+                
 
         conn.commit()
 
