@@ -10,7 +10,7 @@ page_num = firstsoup.find("div" , { "class" : "lgiSec lgiPagination lgiPaginatio
 
 def getPost() :
     hrefs=[]  #href 가져오기 40 개
-    for page in range(len(page_num)):
+    for page in range(0,len(page_num)):
         time.sleep(3)
         html = Request('http://www.jobkorea.co.kr/Starter/Recruit/SS/engineering?psTab=40&rOrderTab=10&Page=' + str(page) + '  #JobList', headers={'User-Agent':'Mozilla/5.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1; .NET CLR 1.1.4322; .NET CLR 2.0.50727; .NET CLR 3.0.04506.30)'})
         webpage = urlopen(html).read()
@@ -20,7 +20,7 @@ def getPost() :
             if t.get("href") is not None :
                 hrefs.append(t.get("href"))
 
-        for index in range(len(hrefs)):
+        for index in range(0,len(hrefs)):
             time.sleep(3)
             detail_html = Request('http://www.jobkorea.co.kr/' + str(hrefs[index]), headers={'User-Agent':'Mozilla/5.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1; .NET CLR 1.1.4322; .NET CLR 2.0.50727; .NET CLR 3.0.04506.30)'})
             detailpage = urlopen(detail_html).read()
