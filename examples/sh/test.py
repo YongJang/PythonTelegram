@@ -11,25 +11,27 @@ page_num = firstsoup.find("div" , { "class" : "lgiSec lgiPagination lgiPaginatio
 def getPost() :
     i = 17001522
     hrefs=[]  #href 가져오기 40 개
-    for page in range(1,26):
+    for page in range(1,3):
         time.sleep(1)
         html = Request('http://www.jobkorea.co.kr/Recruit/GI_Read/' + str(i) + '?Oem_Code=C1&rPageCode=ST&PageGbn=ST', headers={'User-Agent':'Mozilla/5.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1; .NET CLR 1.1.4322; .NET CLR 2.0.50727; .NET CLR 3.0.04506.30)'})
         webpage = urlopen(html).read()
         soup = BeautifulSoup(webpage)
         info = soup.find_all(class_="title")
-        date = soup.find("dl",{ "class" : "day"}).find_all("dd")
-        #date = detailsoup.find_all("dl", class_="day")
+        #date = soup.find("dl",{ "class" : "day"}).find_all("dd")
+        date = soup.find_all("dl", class_="day")
         #시작일
         #2016.05.30
         for d in date:
             datetext = d.getText().strip()
-            deadline = datetext[1]
+            deadline = datetext[3]
+            print(deadline)
+            '''
             year = deadline[0:3]
             month = deadline[5:6]
             day = deadline[8:9]
             pDate = year + month + day
             print(pDate)
-
+            '''
 
 
 
