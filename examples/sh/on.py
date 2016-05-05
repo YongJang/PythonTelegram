@@ -13,7 +13,7 @@ def getPost() :
         webpage = urlopen(html).read()
         soup = BeautifulSoup(webpage)
         #title
-        info_title = soup.find_all("a" ,href=True) #href 가져오기
+        info_title = soup.find_all("div" ,class_="subjectNormal").get('href') #href 가져오기
         print (len(info_title))
         tag = ["프로그래머", "개발", "소프트웨어","웹","S/W","H/W","솔루션"]
 
