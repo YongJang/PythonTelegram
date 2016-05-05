@@ -20,7 +20,7 @@ def getPost() :
         print (i)
         i = i+1
 
-        print (info.get(text))
+        print (info.get("text"))
     print("!!!!!")
 
 
