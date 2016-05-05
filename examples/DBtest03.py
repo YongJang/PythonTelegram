@@ -58,7 +58,7 @@ try:
                 pDate = year + month + day
 
                 if post.link not in urlData:
-                    cur.execute("INSERT INTO article (url, tag, content, click_num, aType, k_group, pDate) VALUES (\'" + post.link +"\',\'" + keyword[n] + "\',\'" + pSummary + "\', 0, \'IT\', 0, \'" + pDate + "\');")
+                    cur.execute("INSERT INTO article (url, tag, content, click_num, aType, k_group, pDate) VALUES (\'" + post.link +"\',\'" + keyword[n] + "\',\'" + pSummary + "\', 0, \'Article\', 0, \'" + pDate + "\');")
                 else:
                     continue
 
