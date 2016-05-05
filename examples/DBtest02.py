@@ -22,7 +22,14 @@ try:
 
             for post in d.entries:
                 pSummary = post.summary.replace("\'","\\\'")
-                cur.execute("INSERT INTO article (url, tag, content, click_num, aType, k_group, pDate) VALUES (\'" + post.link +"\',\'" + keyword[n] + "\',\'" + pSummary + "\', 0, \'IT\', 0, \'20160503\');")
+                pDate = post.published
+                #Wed, 04 May 2016 11:26:00 +0900
+                month = pDate[8:10]
+                day = pDate[5:6]
+                year = pDate[12:15]
+                pDate = year + month + day
+
+                cur.execute("INSERT INTO article (url, tag, content, click_num, aType, k_group, pDate) VALUES (\'" + post.link +"\',\'" + keyword[n] + "\',\'" + pSummary + "\', 0, \'IT\', 0, \'" + pDate + "\');")
                 print (post.published)
 
         conn.commit()
