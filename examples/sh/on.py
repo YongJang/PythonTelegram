@@ -2,38 +2,20 @@
 from bs4 import BeautifulSoup
 from urllib.request import Request, urlopen
 
-firsthtml = Request('http://www.jobkorea.co.kr/Starter/Recruit/SS/engineering?psTab=40&rOrderTab=10&Page=1#JobList', headers={'User-Agent':'Mozilla/5.0'})
+firsthtml = Request('http://www.jobkorea.co.kr/Starter/Recruit/SS/engineering?psTab=40&rOrderTab=10&Page=1#JobList', headers={'User-Agent':'Mozilla/5.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1; .NET CLR 1.1.4322; .NET CLR 2.0.50727; .NET CLR 3.0.04506.30)'})
 firstpage = urlopen(firsthtml).read()
 firstsoup = BeautifulSoup(firstpage)
 page_num = firstsoup.find("div" , { "class" : "lgiSec lgiPagination lgiPagination1" }).find_all('li') #page개수
 
 def getPost() :
     for page in range(len(page_num)):
-        html = Request('http://www.jobkorea.co.kr/Starter/Recruit/SS/engineering?psTab=40&rOrderTab=10&Page=' + str(page) + '  #JobList', headers={'User-Agent':'Mozilla/5.0'})
+        html = Request('http://www.jobkorea.co.kr/Starter/Recruit/SS/engineering?psTab=40&rOrderTab=10&Page=' + str(page) + '  #JobList', headers={'User-Agent':'Mozilla/5.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1; .NET CLR 1.1.4322; .NET CLR 2.0.50727; .NET CLR 3.0.04506.30)'})
         webpage = urlopen(html).read()
         soup = BeautifulSoup(webpage)
         #title
         info_title = soup.find_all("a" ,href=True) #href 가져오기
-        tag_href = []
+        print (len(info_title))
         tag = ["프로그래머", "개발", "소프트웨어","웹","S/W","H/W","솔루션"]
-        '''
-        for i in info_title:
-            for j in range(len(tag)):
-                if i.get("title") is not None and tag[j] in i.get("title"):
-                    tag_href.append(i.get("href"))
-        '''
-        for index in range(len(info_title)):
-            detail_html = Request('http://www.jobkorea.co.kr/' + str(info_title[index]), headers={'User-Agent':'Mozilla/5.0'})
-            detailpage = urlopen(detail_html).read()
-            detailsoup = BeautifulSoup(detailpage)
-            #summary = detailsoup.find_all("div", class_="gibReadSum")
-            #print(summary)
-            date = detailsoup.find_all("dl", class_="day")
-            #date = detailsoup.find("dl",{ "class" : "day"}).find_all(text = True)
-            for d in date:
-                datetext = d.getText().replace('.', '')
-                print(datetext)
-
 
 def Medium_Technology():
     getPost()
