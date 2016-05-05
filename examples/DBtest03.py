@@ -20,8 +20,8 @@ try:
             url = 'http://newssearch.naver.com/search.naver?where=rss&query=' + urllib.parse.quote(keyword[n].encode("utf-8")) + '&field=0'
             d = feedparser.parse(url)
 
-            cur.execute("""SELECT url from article""")
-            urlData = cur.fetchall()
+            urlData = cur.execute("""SELECT url from article""")
+
 
             print ("urlData : " +urlData)
 
