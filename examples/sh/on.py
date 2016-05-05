@@ -28,8 +28,8 @@ def getPost() :
             titles = detailsoup.find("span",{"class" : "title"})
             if titles is not None :
                 print (titles.text)
-            date = detailsoup.find_all("dl", class_="day")
-            #date = detailsoup.find("dl",{ "class" : "day"}).find_all(text = True)
+            #date = detailsoup.find_all("dl", class_="day")
+            date = detailsoup.find("dl",{ "class" : "day"}).find_all("dd")
             for d in date:
                 datetext = d.getText().replace('.', '')
                 print(datetext)
