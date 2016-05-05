@@ -24,7 +24,7 @@ try:
                 pSummary = post.summary.replace("\'","\\\'")
                 pDate = post.published
                 #Wed, 04 May 2016 11:26:00 +0900
-                month = pDate[8:10]
+                month = pDate[8:11]
                 if month == 'Jan':
                     month = '01'
                 elif month == 'Feb':
@@ -50,14 +50,17 @@ try:
                 else:
                     month ='12'
 
-                day = pDate[5:6]
-                year = pDate[12:15]
+                day = pDate[5:7]
+                year = pDate[12:16]
                 pDate = year + month + day
+                print("year " + year)
+                print("month " + month)
+                print("day "+ day)
 
                 print (pDate)
 
                 cur.execute("INSERT INTO article (url, tag, content, click_num, aType, k_group, pDate) VALUES (\'" + post.link +"\',\'" + keyword[n] + "\',\'" + pSummary + "\', 0, \'IT\', 0, \'" + pDate + "\');")
-                
+
 
         conn.commit()
 
