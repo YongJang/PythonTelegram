@@ -14,7 +14,7 @@ def getPost() :
         soup = BeautifulSoup(webpage)
         #title
         info_title = soup.find_all("div" ,class_="subjectNormal") #href 가져오기 40 개
-        for t in range(len(info_title))
+        for t in range(len(info_title)) :
             print(t.get('href'))
 
 
