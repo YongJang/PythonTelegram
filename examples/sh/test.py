@@ -17,12 +17,19 @@ def getPost() :
         webpage = urlopen(html).read()
         soup = BeautifulSoup(webpage)
         info = soup.find_all(class_="title")
-        print (i)
-        i = i+1
+        date = detailsoup.find("dl",{ "class" : "day"}).find_all("dd")
+        #date = detailsoup.find_all("dl", class_="day")
+        #시작일
+        #2016.05.30
+        for d in date:
+            datetext = d.getText().strip()
+            deadline = datetext[1]
+            year = deadline[0:3]
+            month = deadline[5:6]
+            day = deadline[8:9]
+            pDate = year + month + day
+            print(pDate)
 
-        for n in range(0,len(info)):
-                print(info[n].get_text())
-    print("!!!!!")
 
 
 
