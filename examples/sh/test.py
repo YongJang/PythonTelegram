@@ -19,8 +19,8 @@ def getPost() :
         info = soup.find_all(class_="title")
         print (i)
         i = i+1
-        for n in range(1,len(info)):
-            print (info[n].get_text())
+
+        print (info.get_text())
     print("!!!!!")
 
 
