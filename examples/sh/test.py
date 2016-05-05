@@ -18,7 +18,7 @@ def getPost() :
         soup = BeautifulSoup(webpage)
         info = soup.find_all(class_="title")
         #date = soup.find("dl",{ "class" : "day"}).find_all("dd")
-        date = soup.find_all("dl", class_="day").strip()
+        date = soup.find_all("dl", class_="day")
         date_dd = date.dd.unwrap()
         print(date_dd)
         #
