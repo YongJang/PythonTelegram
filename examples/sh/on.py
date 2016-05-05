@@ -13,9 +13,11 @@ def getPost() :
         webpage = urlopen(html).read()
         soup = BeautifulSoup(webpage)
         #title
-        info_title = soup.find_all("div" , class_= "subjectNormal") #href 가져오기 40 개
+        #soup.find_all("a" ,class_="emp1")
+        info_title = soup.find_all("a" ,class_="emp1")  #href 가져오기 40 개
         for t in info_title :
-            print(t.a.find(href=True))
+            if t.get("href") is not None :
+                print(t.get("href"))
 
 
         #tags = ["프로그래머", "개발", "소프트웨어","웹","S/W","H/W","솔루션"]
