@@ -5,7 +5,7 @@ from urllib.request import Request, urlopen
 firsthtml = Request('http://www.jobkorea.co.kr/Starter/Recruit/SS/engineering?psTab=40&rOrderTab=10&Page=1#JobList', headers={'User-Agent':'Mozilla/5.0'})
 firstpage = urlopen(firsthtml).read()
 firstsoup = BeautifulSoup(firstpage)
-page_num = firstsoup.find("div" , { "class" : "lgiSec lgiPagination lgiPagination1" }).find_all('li')
+page_num = firstsoup.find("div" , { "class" : "lgiSec lgiPagination lgiPagination1" }).find_all('li') #page개수
 
 def getPost() :
     for page in range(len(page_num)):
