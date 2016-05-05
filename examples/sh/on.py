@@ -15,8 +15,8 @@ def getPost() :
         #title
         info_title = soup.find("div" ,  { "class" : "subjectNormal" }) #href 가져오기 40 개
         for t in info_title :
-            s = t.findChild(href=True)
-            print (s.string)
+            print(t.a.find('href'))
+
 
         #tags = ["프로그래머", "개발", "소프트웨어","웹","S/W","H/W","솔루션"]
 
