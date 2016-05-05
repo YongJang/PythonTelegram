@@ -20,11 +20,6 @@ try:
             url = 'http://newssearch.naver.com/search.naver?where=rss&query=' + urllib.parse.quote(keyword[n].encode("utf-8")) + '&field=0'
             d = feedparser.parse(url)
 
-            urlData = cur.execute("""SELECT url from article""")
-
-
-            print ("urlData : " +urlData)
-
             for post in d.entries:
                 pSummary = post.summary.replace("\'","\\\'")
                 pDate = post.published
@@ -59,7 +54,7 @@ try:
                 year = pDate[12:16]
                 pDate = year + month + day
 
-                if post.link not in urlData:
+                if cur.execute("""SELECT url from article where url = %s""", post.link) < 1:
                     cur.execute("INSERT INTO article (url, tag, content, click_num, aType, k_group, pDate) VALUES (\'" + post.link +"\',\'" + keyword[n] + "\',\'" + pSummary + "\', 0, \'Article\', 0, \'" + pDate + "\');")
                 else:
                     continue
