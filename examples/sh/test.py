@@ -25,9 +25,9 @@ def getPost() :
             deadline = datetext.replace('\n', ' ')
             #시작일 : 2016.05.05(목) 마감일 : 2016.05.11(수)
 
-            year = deadline[27:30]
-            month = deadline[32:33]
-            day = deadline[35:36]
+            year = deadline[26:30]
+            month = deadline[31:33]
+            day = deadline[34:36]
             pDate = year + month + day
             print(pDate)
 
