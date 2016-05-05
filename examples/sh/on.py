@@ -18,7 +18,7 @@ def getPost() :
         tag = ["프로그래머", "개발", "소프트웨어","웹","S/W","H/W","솔루션"]
         for i in info_title:
             for j in range(len(tag)):
-                if i.get("title") is None and tag[j] in i.get("title"):
+                if i.get("title") is not None and tag[j] in i.get("title"):
                     tag_href.append(i.get("href"))
 
         for index in range(len(tag_href)):
