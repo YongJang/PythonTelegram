@@ -14,7 +14,7 @@ try:
 
 
 
-        keyword = ["인공지능","빅데이터"]
+        keyword = ["인공지능"]
 
         for n in range(0,len(keyword)):
             url = 'http://newssearch.naver.com/search.naver?where=rss&query=' + urllib.parse.quote(keyword[n].encode("utf-8")) + '&field=0'
@@ -22,6 +22,8 @@ try:
 
             cur.execute("""SELECT url from article""")
             urlData = cur.fetchall()
+
+            print ("urlData : " +urlData)
 
             for post in d.entries:
                 pSummary = post.summary.replace("\'","\\\'")
