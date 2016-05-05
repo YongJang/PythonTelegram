@@ -9,17 +9,16 @@ firstsoup = BeautifulSoup(firstpage)
 page_num = firstsoup.find("div" , { "class" : "lgiSec lgiPagination lgiPagination1" }).find_all('li') #page개수
 
 def getPost() :
+    i = 0
     hrefs=[]  #href 가져오기 40 개
-    for page in range(len(page_num)):
-        time.sleep(3)
-        html = Request('http://www.jobkorea.co.kr/Starter/Recruit/SS/engineering?psTab=40&rOrderTab=10&Page=' + str(page) + '  #JobList', headers={'User-Agent':'Mozilla/5.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1; .NET CLR 1.1.4322; .NET CLR 2.0.50727; .NET CLR 3.0.04506.30)'})
+    for page in range(1:100):
+        time.sleep(1)
+        html = Request('http://www.jobkorea.co.kr/Recruit/GI_Read/17001522?Oem_Code=C1&rPageCode=ST&PageGbn=ST', headers={'User-Agent':'Mozilla/5.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1; .NET CLR 1.1.4322; .NET CLR 2.0.50727; .NET CLR 3.0.04506.30)'})
         webpage = urlopen(html).read()
         soup = BeautifulSoup(webpage)
         info = soup.find_all("a" ,class_="emp1")
-        for t in info :
-            if t.get("href") is not None :
-                hrefs.append(t.get("href"))
-                print(hrefs)
+        print (i++)
+        print (info)
     print("!!!!!")
 
 
