@@ -22,7 +22,7 @@ def getPost() :
 
         for d in date:
             datetext = d.getText().strip()
-            print(datetext.replace('\n', ' '))
+            deadline = datetext.replace('\n', ' ')
             #시작일 : 2016.05.05(목) 마감일 : 2016.05.11(수)
 
             year = deadline[27:30]
@@ -30,7 +30,7 @@ def getPost() :
             day = deadline[35:36]
             pDate = year + month + day
             print(pDate)
-            
+
 
 
 
