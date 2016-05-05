@@ -17,7 +17,8 @@ def getPost() :
         webpage = urlopen(html).read()
         soup = BeautifulSoup(webpage)
         info = soup.find_all("a" ,class_="emp1")
-        print (i++)
+        print (i)
+        i = i+1
         print (info)
     print("!!!!!")
 
