@@ -19,11 +19,10 @@ def getPost() :
         info = soup.find_all(class_="title")
         #date = soup.find("dl",{ "class" : "day"}).find_all("dd")
         date = soup.find_all("dl", class_="day")
-        date_dd = date.unwrap()
-        print(date_dd)
-        #
+        datedd = date.dd.extract()
+        print(datedd)
         for d in date:
-            datetext = d.getText()
+            datetext = d.getText().strip()
             print(datetext)
             '''
             year = deadline[0:3]
