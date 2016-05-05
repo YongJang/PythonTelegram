@@ -19,7 +19,8 @@ def getPost() :
         info = soup.find_all("span" ,class_="title")
         print (i)
         i = i+1
-        print (info.text)
+        for n in range(1,len(info)):
+            print (info[n].get_text())
     print("!!!!!")
 
 
