@@ -13,7 +13,7 @@ def getPost() :
         webpage = urlopen(html).read()
         soup = BeautifulSoup(webpage)
         #title
-        info_title = soup.find_all("div" , class_=subjectNormal") #href 가져오기 40 개
+        info_title = soup.find_all("div" , class_= "subjectNormal") #href 가져오기 40 개
         for t in info_title :
             print(t.a.find_all('href'))
 
