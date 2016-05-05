@@ -16,11 +16,11 @@ def getPost() :
         html = Request('http://www.jobkorea.co.kr/Recruit/GI_Read/' + str(i) + '?Oem_Code=C1&rPageCode=ST&PageGbn=ST', headers={'User-Agent':'Mozilla/5.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1; .NET CLR 1.1.4322; .NET CLR 2.0.50727; .NET CLR 3.0.04506.30)'})
         webpage = urlopen(html).read()
         soup = BeautifulSoup(webpage)
-        info = soup.find_all(class_="title")
+        info = soup.find_all("span", class_="title")
         print (i)
         i = i+1
 
-        print (info[0].get_text())
+        print (info.get(text))
     print("!!!!!")
 
 
