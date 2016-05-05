@@ -53,11 +53,6 @@ try:
                 day = pDate[5:7]
                 year = pDate[12:16]
                 pDate = year + month + day
-                print("year " + year)
-                print("month " + month)
-                print("day "+ day)
-
-                print (pDate)
 
                 cur.execute("INSERT INTO article (url, tag, content, click_num, aType, k_group, pDate) VALUES (\'" + post.link +"\',\'" + keyword[n] + "\',\'" + pSummary + "\', 0, \'IT\', 0, \'" + pDate + "\');")
 
