@@ -22,7 +22,7 @@ def getPost() :
         #
         for d in date:
             datetext = d.getText().strip()
-            print(datetext.contents[3])
+            print(datetext.dd.unwrap())
             '''
             year = deadline[0:3]
             month = deadline[5:6]
