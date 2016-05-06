@@ -25,7 +25,7 @@ try:
         def getPost() :
             i = 17001522
             hrefs=[]  #href 가져오기 40 개
-            for page in range(1,3):
+            for page in range(1,5):
                 time.sleep(1)
                 html = Request('http://www.jobkorea.co.kr/Recruit/GI_Read/' + str(i) + '?Oem_Code=C1&rPageCode=ST&PageGbn=ST', headers={'User-Agent':'Mozilla/5.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1; .NET CLR 1.1.4322; .NET CLR 2.0.50727; .NET CLR 3.0.04506.30)'})
                 webpage = urlopen(html).read()
@@ -38,16 +38,17 @@ try:
                     datetext = d.getText().strip()
                     deadline = datetext.replace('\n', ' ')
                     #시작일 : 2016.05.05(목) 마감일 : 2016.05.11(수)
-
                     year = deadline[26:30]
                     month = deadline[31:33]
                     day = deadline[34:36]
                     pDate = year + month + day
                     print(pDate)
 
-                if cur.execute("""SELECT url from job where url = %s""", 'http://www.jobkorea.co.kr/' + str(i) + '?Oem_Code=C1&rPageCode=ST&PageGbn=ST') < 1:
+                if cur.execute("""SELECT url from job where url = %s""", 'http://www.jobkorea.co.kr/Recruit/GI_Read/' + str(i) + '?Oem_Code=C1&rPageCode=ST&PageGbn=ST') < 1:
                     cur.execute("INSERT INTO job (url, tag, content, click_num, aType, k_group, pDate) VALUES (\'http://www.jobkorea.co.kr/" + str(i) + "?Oem_Code=C1&rPageCode=ST&PageGbn=ST\',\'" + "소프트웨어" + "\',\' contents \' , 0, \'Job\', 0, \'" + pDate + "\');")
+                    i = i+1
                 else:
+                    i = i+1
                     continue
 
             conn.commit()
