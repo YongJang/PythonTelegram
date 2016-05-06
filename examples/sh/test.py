@@ -34,7 +34,7 @@ try:
                 #date = soup.find("dl",{ "class" : "day"}).find_all("dd")
                 date = soup.find_all("dl", class_="day")
                 keywords = soup.find("div", {"class" : "keyword"}).find_all("li")
-                print(keywords.getText())
+                print(keywords)
 
                 for d in date:
                     datetext = d.getText().strip()
