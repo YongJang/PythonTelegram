@@ -19,7 +19,7 @@ try:
 
         firsthtml = Request('http://www.jobkorea.co.kr/Starter/Recruit/SS/engineering?psTab=40&rOrderTab=10&Page=1#JobList', headers={'User-Agent':'Mozilla/5.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1; .NET CLR 1.1.4322; .NET CLR 2.0.50727; .NET CLR 3.0.04506.30)'})
         firstpage = urlopen(firsthtml).read()
-        firstsoup = BeautifulSoup(firstpage)
+        firstsoup = BeautifulSoup(firstpage , from_encoding="utf-8")
         page_num = firstsoup.find("div" , { "class" : "lgiSec lgiPagination lgiPagination1" }).find_all('li') #page개수
 
         def getPost() :
@@ -29,7 +29,7 @@ try:
                 time.sleep(1)
                 html = Request('http://www.jobkorea.co.kr/Recruit/GI_Read/' + str(i) + '?Oem_Code=C1&rPageCode=ST&PageGbn=ST', headers={'User-Agent':'Mozilla/5.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1; .NET CLR 1.1.4322; .NET CLR 2.0.50727; .NET CLR 3.0.04506.30)'})
                 webpage = urlopen(html).read()
-                soup = BeautifulSoup(webpage)
+                soup = BeautifulSoup(webpage, from_encoding="utf-8")
                 info = soup.find_all(class_="title")
                 print(info.text)
                 #date = soup.find("dl",{ "class" : "day"}).find_all("dd")
