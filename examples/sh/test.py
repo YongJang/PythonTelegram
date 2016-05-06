@@ -31,10 +31,11 @@ try:
                 webpage = urlopen(html).read()
                 soup = BeautifulSoup(webpage)
                 info = soup.find_all(class_="title")
+                print(info.text)
                 #date = soup.find("dl",{ "class" : "day"}).find_all("dd")
                 date = soup.find_all("dl", class_="day")
-                keywords = soup.find("div", {"class" : "keyword"}).find_all("li")[3]
-                print(keywords)
+                keywords = soup.find("div", {"class" : "keyword"}).find("dt"="키워드")
+                print(keywords.li.a.text)
 
                 for d in date:
                     datetext = d.getText().strip()
@@ -47,7 +48,7 @@ try:
                     print(pDate)
 
                 if cur.execute("""SELECT url from job where url = %s""", 'http://www.jobkorea.co.kr/Recruit/GI_Read/' + str(i) + '?Oem_Code=C1&rPageCode=ST&PageGbn=ST') < 1:
-                    cur.execute("INSERT INTO job (url, tag, content, click_num, aType, k_group, pDate) VALUES (\'http://www.jobkorea.co.kr/" + str(i) + "?Oem_Code=C1&rPageCode=ST&PageGbn=ST\',\'" + "소프트웨어" + "\',\' contents \' , 0, \'Job\', 0, \'" + pDate + "\');")
+                    cur.execute("INSERT INTO job (url, title, tag, content, click_num, aType, k_group, pDate) VALUES (\'http://www.jobkorea.co.kr/" + str(i) + "?Oem_Code=C1&rPageCode=ST&PageGbn=ST\',\'" + info.text + "\' ,\'" + "소프트웨어" + "\',\' contents \' , 0, \'Job\', 0, \'" + pDate + "\');")
                     i = i+1
                 else:
                     i = i+1
