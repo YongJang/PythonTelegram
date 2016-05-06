@@ -34,7 +34,7 @@ try:
                 #print(info.text)
                 #date = soup.find("dl",{ "class" : "day"}).find_all("dd")
                 date = soup.find_all("dl", class_="day")
-                keywords = soup.find("dt", text="키워드").find("dd").find("ui")
+                keywords = soup.find("dt", text="키워드").findChildren()
                 print(keywords)
                 #keywords = soup.find("div", {"class" : "keyword"}).find_all("dt"="키워드")
                 #soup.find_all('dt', text=False):
