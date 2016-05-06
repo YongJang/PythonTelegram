@@ -23,7 +23,7 @@ try:
         firstsoup = BeautifulSoup(firstpage)
         page_num = firstsoup.find("div" , { "class" : "lgiSec lgiPagination lgiPagination1" }).find_all('li') #page개수
 
-    
+
         hrefs=[]  #href 가져오기 40 개
         for page in range(0,len(page_num)):
             time.sleep(3) #30*60 = 1800
@@ -59,10 +59,10 @@ try:
                     pDate = year + month + day
                     print(pDate)
 
-                if cur.execute("""SELECT url from job where url = %s""", 'http://www.jobkorea.co.kr/' + str(hrefs[index])) < 1:
-                    cur.execute("INSERT INTO job (url, tag, content, click_num, aType, k_group, pDate) VALUES (\'http://www.jobkorea.co.kr/" + str(hrefs[index])  +"\',\'" + "소프트웨어" + "\',\' contents \' , 0, \'Job\', 0, \'" + pDate + "\');")
-                else:
-                    continue
+                    if cur.execute("""SELECT url from job where url = %s""", 'http://www.jobkorea.co.kr/' + str(hrefs[index])) < 1:
+                        cur.execute("INSERT INTO job (url, tag, content, click_num, aType, k_group, pDate) VALUES (\'http://www.jobkorea.co.kr/" + str(hrefs[index])  +"\',\'" + "소프트웨어" + "\',\' contents \' , 0, \'Job\', 0, \'" + pDate + "\');")
+                    else:
+                        continue
 
 
         conn.commit()
