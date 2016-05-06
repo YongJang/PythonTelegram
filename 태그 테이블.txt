@@ -1,0 +1,27 @@
+IT	인공지능	머신러닝
+IT	인공지능	딥러닝
+IT	인공지능	머하웃
+IT	인공지능	스파크
+IT	인공지능	하둡
+IT	빅데이터	R
+IT	빅데이터	통계
+IT	빅데이터	분석
+IT	빅데이터	구글 Analytics
+IT	웹		Spring
+IT	웹		php
+IT	웹		
+IT	운영체제	Windows
+IT	프로그래밍	소프트웨어개발
+IT	프로그래밍	php
+IT	프로그래밍	Spring
+IT	소프트웨어개발	C++
+IT	소프트웨어개발	시스템프로그래머
+IT	소프트웨어개발	php
+사회	경제		GDP
+사회	경제		CPI
+사회	경영	
+
+
+
+PK_id	url	title	tag1	tag2		tag3				content	click_num	aType	k_group	pDate
+1	"http:	ffff	IT	소프트웨어개발	C++,50,시스템프로그래머,50	
