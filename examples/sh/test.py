@@ -31,7 +31,7 @@ try:
                 webpage = urlopen(html).read()
                 soup = BeautifulSoup(webpage, from_encoding="utf-8")
                 info = soup.find_all(class_="title")
-                print(info.text)
+                #print(info.text)
                 #date = soup.find("dl",{ "class" : "day"}).find_all("dd")
                 date = soup.find_all("dl", class_="day")
                 keywords = soup.find_all("dt", text_="키워드")
