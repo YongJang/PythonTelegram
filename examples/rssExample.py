@@ -21,6 +21,12 @@ for n in range(0,len(keyword)):
 
 
     for post in d.entries:
+        print ("======== Entries =========")
+        print (post.title + ":" + post.link + "\n")
+        print (post.published + ":" + post.summary + "\n")
+
+    for post in d.feed:
+        print ("======= Feed ==========")
         print (post.title + ":" + post.link + "\n")
         print (post.published + ":" + post.summary + "\n")
 
