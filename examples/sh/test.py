@@ -46,7 +46,7 @@ try:
                     print(pDate)
 
                 if cur.execute("""SELECT url from job where url = %s""", 'http://www.jobkorea.co.kr/' + str(i) + '?Oem_Code=C1&rPageCode=ST&PageGbn=ST') < 1:
-                    cur.execute("INSERT INTO job (url, tag, content, click_num, aType, k_group, pDate) VALUES (\'http://www.jobkorea.co.kr/" + str(i) + "?Oem_Code=C1&rPageCode=ST&PageGbn=ST\',\'" + keyword[n] + "\',\' contents \' , 0, \'Job\', 0, \'" + pDate + "\');")
+                    cur.execute("INSERT INTO job (url, tag, content, click_num, aType, k_group, pDate) VALUES (\'http://www.jobkorea.co.kr/" + str(i) + "?Oem_Code=C1&rPageCode=ST&PageGbn=ST\',\'" + "소프트웨어" + "\',\' contents \' , 0, \'Job\', 0, \'" + pDate + "\');")
                 else:
                     continue
 
