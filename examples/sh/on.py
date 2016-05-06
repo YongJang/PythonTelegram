@@ -27,7 +27,7 @@ def getPost() :
             detailsoup = BeautifulSoup(detailpage)
             titles = detailsoup.find("span",{"class" : "title"})
             if titles is not None :
-                print (titles.text.strip())
+                print (titles.text.strip()) #채용정보 스크랩 이거 날려야함.
             date = detailsoup.find_all("dl", class_="day")
             for d in date:
                 datetext = d.getText().strip()

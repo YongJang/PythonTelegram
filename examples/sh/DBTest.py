@@ -53,13 +53,13 @@ try:
                         pDate = year + month + day
                         print(pDate)
 
-                        if cur.execute("""SELECT hrefs[index] from article where url = %s""", hrefs[index]) < 1:
-                            cur.execute("INSERT INTO article (url, tag, content, click_num, aType, k_group, pDate) VALUES ('http://www.jobkorea.co.kr/'+\'" + hrefs[index]  +"\',\'" + keyword[n] + "\',0 , 0, \'Article\', 0, \'" + pDate + "\');")
+                        if cur.execute("""SELECT hrefs[index] from article where url = %s""", 'http://www.jobkorea.co.kr/' + str(hrefs[index])) < 1:
+                            cur.execute("INSERT INTO job (url, tag, content, click_num, aType, k_group, pDate) VALUES (\'http://www.jobkorea.co.kr/" + str(hrefs[index])  +"\',\'" + keyword[n] + "\',0 , 0, \'Job\', 0, \'" + pDate + "\');")
                         else:
                             continue
 
 
-        conn.commit()
+            conn.commit()
 
 except pymysql.Error as e:
         print ("Error %d: %s" % (e.args[0], e.args[1]))
