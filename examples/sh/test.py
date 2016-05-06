@@ -37,7 +37,7 @@ try:
                 keywords = soup.find("dt", text="키워드").find_all("a")
                 #keywords = soup.find("div", {"class" : "keyword"}).find_all("dt"="키워드")
                 #soup.find_all('dt', text=False):
-                print(keywords.getText())
+                print(keywords.text)
 
                 for d in date:
                     datetext = d.getText().strip()
