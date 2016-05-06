@@ -33,7 +33,7 @@ try:
                 info = soup.find_all(class_="title")
                 #date = soup.find("dl",{ "class" : "day"}).find_all("dd")
                 date = soup.find_all("dl", class_="day")
-                keywords = soup.find("div", {"class" : "keyword"})
+                keywords = soup.find("div", {"class" : "keyword"}).find_all("li")
                 print(keywords.getText())
 
                 for d in date:
