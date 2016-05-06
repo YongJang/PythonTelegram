@@ -24,8 +24,10 @@ class TestSuite(unittest.TestCase):
             entry['pData'] = score[record][7]
             entries.append(entry)
         for entry in entries:
-            print 'ID' + str(entry['PK_aid']) + 'TAG: ' + entry['tag'] + 'Contents: ' + entry['content']
-    #self.failIf(score != 520)
+            print 'ID: ' + str(entry['PK_aid']) +\
+                  ' TAG: ' + entry['tag'] +\
+                  ' Contents: ' + entry['content']
+                  #self.failIf(score != 520)
 
 def main():
   unittest.main()
