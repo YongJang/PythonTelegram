@@ -33,48 +33,47 @@ def getPost() :
             if t.get("href") is not None :
                 hrefs.append(t.get("href"))
                 print(t.get("href"))
-        """
-        for index in range(0,len(hrefs)):
-            time.sleep(3) #30*60 = 1800
-            if sleep_i >= 10 :
-                sleep_i = 0
-                conn.commit()
-                time.sleep(2000)
-            detail_html = Request('http://www.jobkorea.co.kr/' + str(hrefs[index]), headers={'User-Agent':'Mozilla/5.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1; .NET CLR 1.1.4322; .NET CLR 2.0.50727; .NET CLR 3.0.04506.30)'})
-            sleep_i = sleep_i + 1
-            detailpage = urlopen(detail_html).read()
-            detailsoup = BeautifulSoup(detailpage , from_encoding="utf-8")
-            titles = detailsoup.find("span",{"class" : "title"})
-            if titles is not None :
-                print (titles.text)
-
-            date = detailsoup.find_all("dl", class_="day")
-            keyword = detailsoup.find('dt', text = '키워드').next_element.next_element.next_element.find_all("a", href = True , target ="_top")
-
-            if keyword is not None :
-                for k in range(len(keyword)) :
-                    print(k.getText())
-
-
-            for d in date:
-                datetext = d.getText().strip()
-                deadline = datetext.replace('\n', ' ')
-                #시작일 : 2016.05.05(목) 마감일 : 2016.05.11(수)
-                year = deadline[26:30]
-                month = deadline[31:33]
-                day = deadline[34:36]
-                pDate = year + month + day
-                print(pDate)
-
-                if cur.execute("""SELECT url from job where url = %s""", 'http://www.jobkorea.co.kr/' + str(hrefs[index])) < 1:
-                    cur.execute("INSERT INTO job (url, tag, content, click_num, aType, k_group, pDate) VALUES (\'http://www.jobkorea.co.kr/" + str(hrefs[index])  +"\',\'" + "소프트웨어" + "\',\' contents \' , 0, \'Job\', 0, \'" + pDate + "\');")
-                else:
-                    continue
-
-
-                    conn.commit()
-            '''
-            """
+#
+#        for index in range(0,len(hrefs)):
+#            time.sleep(3) #30*60 = 1800
+#            if sleep_i >= 10 :
+#                sleep_i = 0
+#                conn.commit()
+#                time.sleep(2000)
+#            detail_html = Request('http://www.jobkorea.co.kr/' + str(hrefs[index]), headers={'User-Agent':'Mozilla/5.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1; .NET CLR 1.1.4322; .NET CLR 2.0.50727; .NET CLR 3.0.04506.30)'})
+#            sleep_i = sleep_i + 1
+#            detailpage = urlopen(detail_html).read()
+#            detailsoup = BeautifulSoup(detailpage , from_encoding="utf-8")
+#            titles = detailsoup.find("span",{"class" : "title"})
+#            if titles is not None :
+#                print (titles.text)
+#
+#            date = detailsoup.find_all("dl", class_="day")
+#            keyword = detailsoup.find('dt', text = '키워드').next_element.next_element.next_element.find_all("a", href = True , target ="_top")
+#
+#            if keyword is not None :
+#                for k in range(len(keyword)) :
+#                    print(k.getText())
+#
+#
+#            for d in date:
+#                datetext = d.getText().strip()
+#                deadline = datetext.replace('\n', ' ')
+#                #시작일 : 2016.05.05(목) 마감일 : 2016.05.11(수)
+#                year = deadline[26:30]
+#                month = deadline[31:33]
+#                day = deadline[34:36]
+#                pDate = year + month + day
+#                print(pDate)
+#
+#                if cur.execute("""SELECT url from job where url = %s""", 'http://www.jobkorea.co.kr/' + str(hrefs[index])) < 1:
+#                    cur.execute("INSERT INTO job (url, tag, content, click_num, aType, k_group, pDate) VALUES (\'http://www.jobkorea.co.kr/" + str(hrefs[index])  +"\',\'" + "소프트웨어" + "\',\' contents \' , 0, \'Job\', 0, \'" + pDate + "\');")
+#                else:
+#                    continue
+#
+#
+#                    conn.commit()
+            
 
 def Medium_Technology():
     getPost()
