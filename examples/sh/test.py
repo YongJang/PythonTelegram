@@ -35,11 +35,9 @@ try:
                 #date = soup.find("dl",{ "class" : "day"}).find_all("dd")
                 date = soup.find_all("dl", class_="day")
                 keywords = soup.find("dt", text = "키워드").next_element.next_element.next_element.find_all("a", href = True , target ="_top")
-                
-                #keywords = soup.find("div", {"class" : "keyword"}).find_all("dt"="키워드")
-                #soup.find_all('dt', text=False):
-                for k in range(len(keywords)) :
-                    print(k.getText())
+                print(len(keywords))
+                #for k in range(len(keywords)) :
+                    #print(k.getText())
 
                 for d in date:
                     datetext = d.getText().strip()
