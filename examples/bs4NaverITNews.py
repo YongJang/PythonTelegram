@@ -20,6 +20,7 @@ if __name__ == '__main__' :
             print(sys.stdin.encoding)
             conn = pymysql.connect(host='telegramdb.cctjzlx6kmlc.ap-northeast-1.rds.amazonaws.com', port=3306, user='yongjang', passwd='yongjang', db='telegramdb', charset='utf8')
             print("Database connection success!!")
+            cur = conn.cursor()
             Naver_IT_News()
     except pymysql.Error as e:
             print ("Error %d: %s" % (e.args[0], e.args[1]))
