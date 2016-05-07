@@ -47,7 +47,7 @@ try:
                 detailpage = urlopen(detail_html).read()
                 detailsoup = BeautifulSoup(detailpage , from_encoding="utf-8")
                 titles = detailsoup.find("span",{"class" : "title"})
-                if titles.text is not None :
+                if titles.getText() is not None :
                     print (titles.text)
 
                 date = detailsoup.find_all("dl", class_="day")
