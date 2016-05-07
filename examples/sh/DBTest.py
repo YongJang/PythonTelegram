@@ -57,8 +57,8 @@ try:
                     keyword = detailsoup.find('dt', text = '키워드').next_element.next_element.next_element.find_all("a", href = True , target ="_top")
 
                     if keyword is not None :
-                        for k in range(len(keyword)) :
-                            print(k.getText())
+                        for k in keyword :
+                            print(k.text)
 
 
                     for d in date:
