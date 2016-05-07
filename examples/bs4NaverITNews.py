@@ -1,5 +1,6 @@
 import pymysql
 import sys
+import time
 from bs4 import BeautifulSoup
 from urllib.request import Request, urlopen
 
@@ -9,8 +10,14 @@ def getPost() :
     soup = BeautifulSoup(page , from_encoding="utf-8")
     page_num_list = soup.find("div" , { "class" : "paging" }).find_all('a') #page개수
     page_num = len(page_num_list)
-    print("page_num :")
-    print(page_num)
+    date_num_list = soup.find("div" , { "class" : "viewday" }).find_all('a') #page개수
+    date_num = len(date_num_list)
+    print("page_num :" + str(page_num))
+    print("date_num :" + str(date_num))
+
+    for n in range(len(page_num_list))
+        print(page_num_list[n])
+        print(date_num_list[n])
 
 
 def Naver_IT_News() :
