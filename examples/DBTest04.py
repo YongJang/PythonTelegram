@@ -14,6 +14,7 @@ import time
 
 
 def getPost() :
+    sleep_i = 0
     hrefs=[]  #href 가져오기 40 개
     firsthtml = Request('http://www.jobkorea.co.kr/Starter/Recruit/SS/engineering?psTab=40&rOrderTab=10&Page=1#JobList', headers={'User-Agent':'Mozilla/5.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1; .NET CLR 1.1.4322; .NET CLR 2.0.50727; .NET CLR 3.0.04506.30)'})
     sleep_i = sleep_i + 1
@@ -84,7 +85,6 @@ if __name__ == '__main__' :
             conn = pymysql.connect(host='telegramdb.cctjzlx6kmlc.ap-northeast-1.rds.amazonaws.com', port=3306, user='yongjang', passwd='yongjang', db='telegramdb', charset='utf8')
             print("connection success!!")
             cur = conn.cursor()
-            sleep_i = 0
             Medium_Technology()
 
     except pymysql.Error as e:
