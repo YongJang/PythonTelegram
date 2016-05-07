@@ -52,11 +52,10 @@ try:
 
                 date = detailsoup.find_all("dl", class_="day")
 
-                keyword_tag = detailsoup.find("dt", text = "키워드")
-                #.next_element.next_element.next_element.find_all("a", href = True , target ="_top")
-                #print(len(keyword_tag))
-                for k in keyword_tag :
-                    print(k.getText())
+                keyword = detailsoup.find("dt", text = "키워드").next_element.next_element.next_element.find_all("a", href = True , target ="_top")
+                if keyword is not None :
+                    for k in keyword :
+                        print(k.getText())
 
 
                 for d in date:
