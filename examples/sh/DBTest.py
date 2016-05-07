@@ -49,12 +49,12 @@ try:
                 titles = detailsoup.find("span",{"class" : "title"})
                 if titles is not None :
                     print (titles.text)
-
+                date = detailsoup.find_all("dl", class_="day")
                 keywords = detailsoup.find("dt", text = "키워드").next_element.next_element.next_element.find_all("a", href = True , target ="_top")
                 for k in keywords :
                     print(k.getText())
 
-                date = detailsoup.find_all("dl", class_="day")
+
                 for d in date:
                     datetext = d.getText().strip()
                     deadline = datetext.replace('\n', ' ')
