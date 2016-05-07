@@ -75,11 +75,11 @@ try:
 
 
         conn.commit()
-        def Medium_Technology():
-            getPost()
+    def Medium_Technology():
+        getPost()
 
-        if __name__ == '__main__' :
-            Medium_Technology()
+    if __name__ == '__main__' :
+        Medium_Technology()
 except pymysql.Error as e:
         print ("Error %d: %s" % (e.args[0], e.args[1]))
         sys.exit(1)
