@@ -9,7 +9,7 @@ def getPost() :
     soup = BeautifulSoup(page , from_encoding="utf-8")
     page_num_list = soup.find("div" , { "class" : "paging" }).find_all('a') #page개수
     page_num = len(page_num_list)
-    print("page_num = page_num")
+    print("page_num =" page_num)
 
 
 def Naver_IT_News() :
