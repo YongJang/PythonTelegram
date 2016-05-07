@@ -10,7 +10,7 @@ import time
 
 # -*- coding: utf-8 -*-
 
-sleep_i = 0
+
 
 
 def getPost() :
@@ -73,7 +73,7 @@ def getPost() :
 #
 #
 #                    conn.commit()
-            
+
 
 def Medium_Technology():
     getPost()
@@ -84,6 +84,7 @@ if __name__ == '__main__' :
             conn = pymysql.connect(host='telegramdb.cctjzlx6kmlc.ap-northeast-1.rds.amazonaws.com', port=3306, user='yongjang', passwd='yongjang', db='telegramdb', charset='utf8')
             print("connection success!!")
             cur = conn.cursor()
+            sleep_i = 0
             Medium_Technology()
 
     except pymysql.Error as e:
