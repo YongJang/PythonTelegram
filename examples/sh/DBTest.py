@@ -52,7 +52,7 @@ try:
 
                 date = detailsoup.find_all("dl", class_="day")
 
-                keyword = detailsoup.find("dt", text = "키워드").next_element.next_element.next_element.find_all("a", href = True , target ="_top")
+                keyword = detailsoup.find("dt", {"text" : "키워드"}).next_element.next_element.next_element.find_all("a", href = True , target ="_top")
                 if keyword is not None :
                     for k in range(len(keyword)) :
                         print(k.getText())
