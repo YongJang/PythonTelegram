@@ -47,14 +47,12 @@ try:
                 detailpage = urlopen(detail_html).read()
                 detailsoup = BeautifulSoup(detailpage , from_encoding="utf-8")
                 titles = detailsoup.find("span",{"class" : "title"})
-                if titles.getText() is not None :
+                if titles is not None :
                     print (titles.text)
 
                 date = detailsoup.find_all("dl", class_="day")
 
-                keyword = detailsoup.find("dt", text = "키워드")
-                print(keyword.next_element())
-                # .next_element.next_element.next_element.find_all("a", href = True , target ="_top")
+                keyword = detailsoup.find("dt", text = "키워드").next_element.next_element.next_element.find_all("a", href = True , target ="_top")
                 '''
                 if keyword is not None :
                     for k in range(len(keyword)) :
