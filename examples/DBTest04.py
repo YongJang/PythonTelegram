@@ -29,7 +29,7 @@ def getPost() :
         sleep_i = sleep_i + 1
         webpage = urlopen(html).read()
         soup = BeautifulSoup(webpage , from_encoding="utf-8")
-        info = soup.find_all("a" ,class_="emp1")
+        info = soup.find("div" , { "class" : "subject subjectNormal" }).find_all('a')
         for t in info :
             if t.get("href") is not None :
                 hrefs.append(t.get("href"))
