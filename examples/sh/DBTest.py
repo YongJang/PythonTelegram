@@ -2,8 +2,7 @@
 import pymysql
 import sys
 import feedparser
-import urllib.request
-from bs4 import *
+from urllib.request import Request, urlopen
 import urllib.parse
 from bs4 import BeautifulSoup
 import time
