@@ -51,14 +51,13 @@ try:
                     print (titles.text)
 
                 date = detailsoup.find_all("dl", class_="day")
-
                 keyword = detailsoup.find("dt", text = "키워드").next_element.next_element.next_element.find_all("a", href = True , target ="_top")
-                '''
+
                 if keyword is not None :
                     for k in range(len(keyword)) :
                         print(k.getText())
 
-                '''
+
                 for d in date:
                     datetext = d.getText().strip()
                     deadline = datetext.replace('\n', ' ')
@@ -76,7 +75,11 @@ try:
 
 
         conn.commit()
+        def Medium_Technology():
+            getPost()
 
+        if __name__ == '__main__' :
+            Medium_Technology()
 except pymysql.Error as e:
         print ("Error %d: %s" % (e.args[0], e.args[1]))
         sys.exit(1)
