@@ -5,7 +5,7 @@ import feedparser
 import urllib.request
 from bs4 import *
 import urllib.parse
-#from bs4 import BeautifulSoup
+from bs4 import BeautifulSoup
 import time
 
 
