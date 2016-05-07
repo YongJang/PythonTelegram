@@ -29,11 +29,10 @@ def getPost() :
         sleep_i = sleep_i + 1
         webpage = urlopen(html).read()
         soup = BeautifulSoup(webpage , from_encoding="utf-8")
-        info = soup.find("div" , { "class" : "subject subjectNormal" }).find_all('a')
+        info = soup.find("div" , { "class" : "subject subjectNormal" }).find_all('a' : { "class" : "emp1" })
         for t in info :
-            if t.get("href") is not None :
-                hrefs.append(t.get("href"))
-                print(t.get("href"))
+            hrefs.append(t.get("href"))
+            print(t.get("href"))
 #
 #        for index in range(0,len(hrefs)):
 #            time.sleep(3) #30*60 = 1800
