@@ -2,10 +2,12 @@
 import pymysql
 import sys
 import feedparser
+import urllib.request
+from bs4 import *
 import urllib.parse
-from bs4 import BeautifulSoup
-from urllib.request import Request, urlopen
+#from bs4 import BeautifulSoup
 import time
+
 
 try:
         print(sys.stdin.encoding)
