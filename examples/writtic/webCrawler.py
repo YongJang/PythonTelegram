@@ -45,8 +45,9 @@ class Crawling:
         반환형 : Information 클래스 리스트
         """
         words = w
-        for i in w:
-            print "키워드" + i[0] + "는" + str(i[1]) + "번 나왔습니다."
+        print words
+        #for i in w:
+            #print "키워드" + i[0] + "는" + str(i[1]) + "번 나왔습니다."
         result = []
         for index, url in enumerate(list):
             news_url = url.encode('utf-8')
@@ -66,8 +67,8 @@ class Crawling:
             #print u"기사에 ("+word[0]+u")이 들어가 있는 갯수"+str(text.count(word[0]))
             for word in words:
                 word[1] = text.count(word[0])
-                if word[1] is not 0:
-                    print "키워드는" + str(word[1]) + "번 나왔습니다."
+                #if word[1] is not 0:
+                    #print "키워드는" + str(word[1]) + "번 나왔습니다."
             #상위 5개 태그만 선별
 
             temps = sorted(words, key=itemgetter(1), reverse=True)
