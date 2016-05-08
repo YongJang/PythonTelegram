@@ -36,6 +36,7 @@ markup.row(itembtn3,itembtn4)
 # Handle all other messages with content_type 'text' (content_types defaults to ['text'])
 @bot.message_handler(func=lambda message: True)
 def echo_message(message):
+    chat_id = message.chat.id
     if message.text == "Hello" or message.text ==  "Hi" or message.text ==  "안녕" or message.text ==  "안녕하세요" :
         bot.reply_to(message, "Hello " + message.from_user.first_name + "!!")
         bot.send_message(chat_id, "button", reply_markup = markup)
