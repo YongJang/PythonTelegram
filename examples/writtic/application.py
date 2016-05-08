@@ -1,4 +1,6 @@
+#!/usr/bin/python
 #-*- coding: utf-8 -*-
+
 # 데이터베이스를 위한 라이브러리
 import os
 import sys

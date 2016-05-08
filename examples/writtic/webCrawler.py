@@ -1,11 +1,18 @@
+#!/usr/bin/python
 #-*- encoding: utf-8 -*-
 import requests as rs
 import bs4
 import time
+import sys
 from operator import itemgetter
 from datetime import datetime, date, timedelta
 from jobjangDTO import Information
+reload(sys)
+sys.setdefaultencoding('utf-8')
 class Crawling:
+    def __init__(self):
+        reload(sys)
+        sys.setdefaultencoding('utf-8')
     def getDateInNews(self, date):
         u"""
         기사에서 받은 날짜(YYYY-MM-DD)를 YYYYMMDD 문자열로 반환한다.
