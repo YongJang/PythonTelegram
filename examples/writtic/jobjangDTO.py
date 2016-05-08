@@ -1,6 +1,5 @@
 class Infomation:
-    def __init__(self, aid, url, tag, title, content, click_num=0, a_type="", k_group=0, p_date):
-        self.__aid = aid
+    def __init__(self, url="", tag="", title="", content="", click_num=0, a_type="Article", k_group=0, p_date=""):
         self.__url = url
         self.__tag = tag
         self.__title = title
@@ -9,10 +8,6 @@ class Infomation:
         self.__a_type = a_type
         self.__k_group = k_group
         self.__date = p_date
-    def getAid(self):
-        return self.__aid
-    def setAid(self, aid):
-        self.__aid = aid
     def getUrl(self):
         return self.__url
     def setUrl(self, url):
@@ -45,3 +40,6 @@ class Infomation:
         return self.__p_date
     def setPDate(self, p_date):
         self.__p_date = p_date
+    def toString(self):
+        return "Infomation [url="+self.__url+", tag="+self.__tag+", title="+self.__title+\
+            ", pDate="+self.__p_date]
