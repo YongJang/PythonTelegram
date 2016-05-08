@@ -4,7 +4,8 @@
 
 import pymysql
 import sys
-import telebot import types
+import telebot
+from telebot import types
 
 API_TOKEN = '207944330:AAGdpOvswmHangYooE8wBEf1p-vYP2skyL0'
 
