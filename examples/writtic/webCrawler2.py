@@ -50,7 +50,7 @@ def getContent(list, words):
             #print u"기사에 ("+word[0]+u")이 들어가 있는 갯수"+str(text.count(word[0]))
 def getUrl():
     u"""
-    뉴스 항목별, 날짜별, 페이지별 URL들을 각각 생성해 반환한다.
+    네이버 뉴스 기사가 표현하는 모든 항목별, 날짜별, 페이지별 URL들을 각각 생성해 반환한다.
     """
     #sid2=731 : 모바일
     sid1s = [[u"IT/과학", 105]] #,[u"경제", 101]]
@@ -64,11 +64,18 @@ def getUrl():
         for sid1 in sid1s:
             for sid2 in sid2s:
                 url = u"http://news.naver.com/main/list.nhn?sid2="+str(sid2[1])+"&sid1="+str(sid1[1])+"&mid=shm&mode=LS2D&date="+date+"&page=1"
-                getPage(url)
-                urls.append(url)
-                #print url
+                pages=getPage(url+u"&page=1")
+                for page in range(pages):
+                    #최종 URL(sid1, sid2, date, page별 URL)을 배열에 저장
+                    final_url = url+u"&page="+str(page+1)
+                    urls.append(final_url)
+                    print final_url
     return urls
 def getPage(url):
+    u"""
+    날짜별 표현된 뉴스기사가 20개 이상인 URL은 별도의 페이지로 나누어 표현되는데,
+    이를 인식하고 페이지를 카운트하여 반환한다.
+    """
     response = rs.get(url)
     html_content = response.text.encode(response.encoding)
     navigator = bs4.BeautifulSoup(html_content, 'html.parser')
@@ -131,9 +138,8 @@ daemon_flag = True;
 def Daemon():
     while (daemon_flag):
         w = [[u"게임", 0], [u"신작", 0], [u"FPS", 0]]
-        #getUrl();
-        #getContent(getNews(), w);
-        print getPage("http://news.naver.com/main/list.nhn?mode=LS2D&mid=shm&sid1=105&sid2=731")
+        getUrl();
+        getContent(getNews(), w);
         time.sleep(5)
 
 if __name__ == '__main__':
