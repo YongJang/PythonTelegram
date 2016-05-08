@@ -27,7 +27,7 @@ try:
 
         def getPost(sleep_i) :
             hrefs=[]  #href 가져오기 40 개
-            k_lsit = []
+            k_list = []
             for page in range(0,len(page_num)):
                 time.sleep(3) #30*60 = 1800
                 html = Request('http://www.jobkorea.co.kr/Starter/Recruit/SS/engineering?psTab=40&rOrderTab=10&Page=' + str(page) + '  #JobList', headers={'User-Agent':'Mozilla/5.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1; .NET CLR 1.1.4322; .NET CLR 2.0.50727; .NET CLR 3.0.04506.30)'})
@@ -59,7 +59,7 @@ try:
                     if keyword is not None :
                         for k in keyword :
                             k_lsit.append(k.text)
-                            print(k_lsit)
+                            print(k_list)
 
 
                     for d in date:
@@ -73,7 +73,7 @@ try:
                         print(pDate)
 
                         if cur.execute("""SELECT url from job where url = %s""", 'http://www.jobkorea.co.kr/' + str(hrefs[index])) < 1:
-                            cur.execute("INSERT INTO job (url, high , low , content, click_num, aType, k_group, pDate) VALUES (\'http://www.jobkorea.co.kr/" + str(hrefs[index])  +"\',\'" + k_lsit[0] + "\',\'" + k_lsit[1] + "\' ,\' contents \' , 0, \'Job\', 0, \'" + pDate + "\');")
+                            cur.execute("INSERT INTO job (url, high , low , content, click_num, aType, k_group, pDate) VALUES (\'http://www.jobkorea.co.kr/" + str(hrefs[index])  +"\',\'" + k_list[1] + "\',\'" + k_list[2] + "\' ,\' contents \' , 0, \'Job\', 0, \'" + pDate + "\');")
                         else:
                             continue
 
