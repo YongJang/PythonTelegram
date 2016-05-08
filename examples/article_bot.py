@@ -14,6 +14,7 @@ bot = telebot.TeleBot(API_TOKEN)
 # Handle '/start' and '/help'
 @bot.message_handler(commands=['start'])
 def send_welcome(message):
+    chat_id = message.chat.id
     bot.reply_to(message, "Wellcome!! This is an article bot!")
 
 @bot.message_handler(commands=['help'])
@@ -37,7 +38,7 @@ markup.row(itembtn3,itembtn4)
 def echo_message(message):
     if message.text == "Hello" or message.text ==  "Hi" or message.text ==  "안녕" or message.text ==  "안녕하세요" :
         bot.reply_to(message, "Hello " + message.from_user.first_name + "!!")
-        bot.send_message(chai_id, "button", reply_markup = markup)
+        bot.send_message(chat_id, "button", reply_markup = markup)
     else:
         bot.reply_to(message, message.text)
 
