@@ -1,5 +1,7 @@
 # This is a simple echo bot using the decorator mechanism.
 # It echoes any incoming text messages.
+# INLINE KEYBOARD REFERENCED FROM https://github.com/yagop/node-telegram-bot-api/issues/109 -- yongjang
+
 import pymysql
 import sys
 import telebot
