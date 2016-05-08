@@ -14,11 +14,13 @@ class TestSuite(unittest.TestCase):
         #storage.populate()
         #score = storage.getArticle()
         w = storage.getTags(u"IT")
-        for e in w:
-            print "keyword: " + e[0]
-        result = crawling.getContent(crawling.getNews(1), w);
+        words = []
+        #words = ["게임"]
+        for index, word in enumerate(w):
+            words.append(""+word)
+        result = crawling.getContent(crawling.getNews(10), words);
         for index, e in enumerate(result):
-            resultText = '[%d개]' % (index+1) + e.getTag() + e.getPDate()
+            resultText = u"[%d개]" % (index+1) + e.getTag() + u" " + e.getPDate()
             print resultText
         #storage.setInfo(result, 1)
         #entries = storage.getInfo()

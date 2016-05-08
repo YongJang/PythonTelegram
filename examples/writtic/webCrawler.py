@@ -3,16 +3,10 @@
 import requests as rs
 import bs4
 import time
-import sys
 from operator import itemgetter
 from datetime import datetime, date, timedelta
 from jobjangDTO import Information
-reload(sys)
-sys.setdefaultencoding('utf-8')
 class Crawling:
-    def __init__(self):
-        reload(sys)
-        sys.setdefaultencoding('utf-8')
     def getDateInNews(self, date):
         u"""
         기사에서 받은 날짜(YYYY-MM-DD)를 YYYYMMDD 문자열로 반환한다.
@@ -44,10 +38,11 @@ class Crawling:
         BS4로 추출된 기사URL에서 내용물을 뽑아낸다.
         반환형 : Information 클래스 리스트
         """
-        words = w
-        print words
-        #for i in w:
-            #print "키워드" + i[0] + "는" + str(i[1]) + "번 나왔습니다."
+        words=[]
+        for index, word in enumerate(w):
+            temp = word.decode('utf-8')
+            words.append([temp, 0])
+            #print "키워드" + word[0] + "는" + str(word[1]) + "번 나왔습니다."
         result = []
         for index, url in enumerate(list):
             news_url = url.encode('utf-8')
@@ -64,19 +59,23 @@ class Crawling:
             #기사 내용 추출
             text = content.find(id = "articleBodyContents").get_text()
             #기사 내용과 키워드 매칭 & 카운트
-            #print u"기사에 ("+word[0]+u")이 들어가 있는 갯수"+str(text.count(word[0]))
-            for word in words:
-                word[1] = text.count(word[0])
-                #if word[1] is not 0:
-                    #print "키워드는" + str(word[1]) + "번 나왔습니다."
+            temp = u"기본 0"
+            c = 0
+            for index, word in enumerate(words):
+                print u"[%d개]"%(index) + word[0]
+                word[1] = text.count(u"" + word[0])
+                if word[1] is not 0:
+                    #print u"키워드(" + word[0] + u")는" + str(word[1]) + u"번 나왔습니다."
+                    temp = temp + u" " + word[0] + u" " + str(word[1])
+                #print u"기사에 (" + word[0] + u")이 들어가 있는 갯수 : " +str(word[1])
             #상위 5개 태그만 선별
 
-            temps = sorted(words, key=itemgetter(1), reverse=True)
-            temp = ""
-            for t in temps:
-                #print "키워드" + t[0] + "는" + str(t[1]) + "번 나왔습니다."
-                if t[1] is not 0:
-                    temp = temp + t[0] + " " + str(t[1]) + " "
+            #temps = sorted(words, key=itemgetter(1), reverse=True)
+            #temp = u""
+            #for t in temps:
+                #print u"키워드" + t[0] + u"는" + str(t[1]) + u"번 나왔습니다."
+            #    if t[1] is not 0:
+            #        temp = temp + t[0] + u" " + str(t[1]) + u" "
             #내용물 SET
             info = Information()
 
@@ -87,8 +86,8 @@ class Crawling:
             info.setTag(temp)
 
             result.append(info)
-            #if temp.getTag() is not None:
-            #    print info.toString()
+            if info.getTag() != u"":
+                print info.toString()
         return result
 
     def getUrl(self, SPAN):

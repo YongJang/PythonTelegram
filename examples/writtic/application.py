@@ -50,8 +50,8 @@ class Storage():
         else:
             for record in range(total):
                 if row[record][0] == category:
-                    temp = row[record][1].decode('utf-8').encode('utf-8')
-                    entries.append([temp, 0])
+                    temp = row[record][1]
+                    entries.append(temp)
         cur.close()
         return entries
     def getInfo(self):
