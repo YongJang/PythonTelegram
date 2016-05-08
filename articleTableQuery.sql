@@ -20,7 +20,7 @@ CREATE TABLE article (PK_aid INT UNSIGNED PRIMARY KEY AUTO_INCREMENT, url varcha
 CREATE TABLE tags (high varchar(40), low varchar(40))default character set utf8;
 set character_set_connection=utf8;
 set names utf8;
-load data local infile 'C:\\Users\\Administrator\\Documents\\GitHub\\PythonTelegram\\ITtags4.csv' into table tags fields terminated by ',' enclosed by '"' lines terminated by '\n';
+load data local infile 'E:\\PythonTelegram\\ITtags4.csv' into table tags fields terminated by ',' enclosed by '"' lines terminated by '\n';
 CREATE TABLE tags (high varchar(40), low varchar(40))default character set utf8;
 select * from tags;
 
