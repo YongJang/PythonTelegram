@@ -1,6 +1,8 @@
 # This is a simple echo bot using the decorator mechanism.
 # It echoes any incoming text messages.
 # INLINE KEYBOARD REFERENCED FROM https://github.com/yagop/node-telegram-bot-api/issues/109 -- yongjang
+# https://github.com/eternnoir/pyTelegramBotAPI/blob/bot20/examples/bot20-pass_generator-example.py
+
 
 import pymysql
 import sys
