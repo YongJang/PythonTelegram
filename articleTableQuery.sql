@@ -7,5 +7,8 @@ CREATE TABLE tags(high varchar(40), mid varchar(40), bottom varchar(40));
 drop table tags;
 CREATE TABLE article (PK_aid INT UNSIGNED PRIMARY KEY AUTO_INCREMENT, url varchar(1000) NOT NULL, high VARCHAR(40), low VARCHAR(40), title TEXT, content TEXT, click_num INT, aType VARCHAR(40), k_group INT, pDate char(8))default character set utf8;
 CREATE TABLE tags (high varchar(40), low varchar(40))default character set utf8;
+set character_set_connection=utf8;
+set names utf8;
 load data local infile 'C:\\Users\\Administrator\\Documents\\GitHub\\PythonTelegram\\ITtags4.csv' into table tags fields terminated by ',' enclosed by '"' lines terminated by '\n';
+CREATE TABLE tags (high varchar(40), low varchar(40))default character set utf8;
 select * from tags;
