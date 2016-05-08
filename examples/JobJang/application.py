@@ -40,7 +40,7 @@ class Storage():
         total = len(row)
         entries = []
         if total < 1:
-            print 'No entries'
+            print ('No entries')
         else:
             for record in range(total):
                 if row[record][0] is category:
@@ -56,7 +56,7 @@ class Storage():
         total = len(row)
         entries = []
         if total < 1:
-            print 'No entries'
+            print ('No entries')
         else:
             for record in range(total):
                 entry = {}
