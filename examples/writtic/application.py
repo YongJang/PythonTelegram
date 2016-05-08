@@ -104,6 +104,10 @@ class Storage():
         cur.execute("SELECT * FROM article")
         row = cur.fetchall()
         return row
+    def __del__(self):
+        if self.db:
+            self.db.cursor().close()
+            self.db.close()
 
 if __name__ == "__main__":
     application.run(host='0.0.0.0', port=3300)
