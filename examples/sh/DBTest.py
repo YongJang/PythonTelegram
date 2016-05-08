@@ -40,6 +40,7 @@ try:
                         hrefs.append(t.get("href"))
 
                 for index in range(0,len(hrefs)):
+                    db_tags = []
                     time.sleep(3) #30*60 = 1800
                     if sleep_i >= 10 :
                         sleep_i = 0
@@ -63,8 +64,16 @@ try:
                         for k_count in range(len(k_list)) :
                             result = k_list.count(k_list[k_count])
                             print(result)
+                            if cur.execute("""SELECT * from tags where low = %s""", result) > 0 :
+                                db_tags.append(result)
                         #print u"기사에 ("+word[0]+u")이 들어가 있는 갯수"+str(text.count(word[0]))
+                    # 통신,15,네트워크,15
+                    tag_str = ""
+                    for n in range(len(db_tags)) :
+                        tag_str += db_tags[n]
+                        tag_str += ',15,'
 
+                    tag_str = [-len(tag_str)]
 
                     for d in date:
                         datetext = d.getText().strip()
@@ -77,7 +86,7 @@ try:
                         print(pDate)
 
                         if cur.execute("""SELECT url from job where url = %s""", 'http://www.jobkorea.co.kr/' + str(hrefs[index])) < 1:
-                            cur.execute("INSERT INTO job (url, high , low , content, click_num, aType, k_group, pDate) VALUES (\'http://www.jobkorea.co.kr/" + str(hrefs[index])  +"\',\' IT \',\'" + k_list[0] + "\' ,\' contents \' , 0, \'Job\', 0, \'" + pDate + "\');")
+                            cur.execute("INSERT INTO job (url, high , low , content, click_num, aType, k_group, pDate) VALUES (\'http://www.jobkorea.co.kr/" + str(hrefs[index])  +"\',\' IT \',\'" + tag_str + "\' ,\' contents \' , 0, \'Job\', 0, \'" + pDate + "\');")
                         else :
                             continue
 
