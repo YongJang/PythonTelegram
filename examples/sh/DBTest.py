@@ -58,7 +58,7 @@ try:
 
                     if keyword is not None :
                         for k in keyword :
-                            k_lsit = k.text.append()
+                            k_lsit.append(k.text)
                             print(k_lsit)
 
 
