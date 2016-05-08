@@ -3,7 +3,7 @@ import requests as rs
 import bs4
 import time
 from datetime import datetime, date, timedelta
-from jobjangDTO import Infomation
+from jobjangDTO import Information
 class Crawling:
     SPAN = 1
     def getDateInNews(date):
@@ -36,8 +36,7 @@ class Crawling:
     def getContent(list, words):
         u"""
         BS4로 추출된 기사URL에서 내용물을 뽑아낸다.
-        반환형 : Infomation 클래스 리스트
-        [url, 제목, 내용, {태그1:갯수}, {태그2:갯수}, {태그3:갯수}, {태그4:갯수}, {태그5:갯수}, ]
+        반환형 : Information 클래스 리스트
         """
         result = []
         for index, url in enumerate(list):
@@ -64,7 +63,7 @@ class Crawling:
                 temp += t[0]+u" "+str(t[1])+u" "
 
             #내용물 SET
-            result.append(Infomation())
+            result.append(Information())
             result[index].setUrl(news_url)
             result[index].setTitle(header)
             result[index].setContent(text)

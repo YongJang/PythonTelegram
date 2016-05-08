@@ -3,7 +3,8 @@
 import os
 import flask
 import pymysql
-from jobjangDTO import Infomation
+from jobjangDTO import Information
+from webCrawler import Crawling
 application = flask.Flask(__name__)
 application.debug = True
 
@@ -34,25 +35,46 @@ class Storage():
         기사, 채용정보를 DB에서 모두 받아온다.
         """
         cur = self.db.cursor()
-        cur.execute("SELECT * FROM infomation")
+        cur.execute("SELECT * FROM information")
         row = cur.fetchall()
-        return row
+        total = len(row)
+        entries = []
+        if total < 1:
+            print 'No entries'
+        else:
+            for record in range(total):
+                entry = {}
+                entry['url'] = score[record][0]
+                entry['tag'] = score[record][1]
+                entry['title'] = score[record][2]
+                entry['content'] = score[record][3]
+                entry['click_num'] = score[record][4]
+                entry['a_type'] = score[record][5]
+                entry['k_group'] = score[record][6]
+                entry['p_data'] = score[record][7]
+                entries.append(entry)
+            for entry in entries:
+                print ' ID: ' + str(entry['pk_aid']) + '\n' +\
+                      ' TAG: ' + entry['tag']  + '\n' +\
+                      ' Contents: ' + entry['content'] + '\n'
+        return entries
 
     def setInfo(self, info, type):
         u"""
         기사, 채용정보를 DB에 저장한다.
         """
         cur = self.db.cursor()
-        if type is 1:
-            cur.execute("INSERT INTO infomation(url, tag, title, content, click_num, a_type, k_group, p_date)" + \
-                        "VALUES (\'" + info.getUrl +"\',\'" + info.getTag + "\',\'" + \
-                        info.getContent + "\',\'" + info.getClickNum + "\'Article\',\'" + \
-                        info.getKGroup + "\',\'" + info.getPDate + "\');")
-        else:
-            cur.execute("INSERT INTO infomation(url, tag, title, content, click_num, a_type, k_group, p_date)" + \
-                        "VALUES (\'" + info.getUrl +"\',\'" + info.getTag + "\',\'" + \
-                        info.getContent + "\',\'" + info.getClickNum + "\'Jobkorea\',\'" + \
-                        info.getKGroup + "\',\'" + info.getPDate + "\');")
+        for index, info enumerate(info):
+            if type is 1:
+                cur.execute("INSERT INTO information(url, tag, title, content, click_num, a_type, k_group, p_date)" + \
+                            "VALUES (\'" + info.getUrl +"\',\'" + info.getTag + "\',\'" + info.getTitle + "\',\'" + \
+                            info.getContent + "\',\'" + info.getClickNum + "\'Article\',\'" + \
+                            info.getKGroup + "\',\'" + info.getPDate + "\');")
+            else:
+                cur.execute("INSERT INTO information(url, tag, title, content, click_num, a_type, k_group, p_date)" + \
+                            "VALUES (\'" + info.getUrl +"\',\'" + info.getTag + "\',\'" + info.getTitle + "\',\'" +\
+                            info.getContent + "\',\'" + info.getClickNum + "\'Jobkorea\',\'" + \
+                            info.getKGroup + "\',\'" + info.getPDate + "\');")
     def populate(self):
         cur = self.db.cursor()
         cur.execute("INSERT INTO scores(score) VALUES(520)")
