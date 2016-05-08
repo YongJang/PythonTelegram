@@ -18,7 +18,7 @@ class TestSuite(unittest.TestCase):
         #words = ["게임"]
         for index, word in enumerate(w):
             words.append(""+word)
-        result = crawling.getContent(crawling.getNews(10), words);
+        result = crawling.getContent(crawling.getNews(1), words);
         for index, e in enumerate(result):
             resultText = u"[%d개]" % (index+1) + e.getTag() + u" " + e.getPDate()
             print resultText
