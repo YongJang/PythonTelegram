@@ -21,12 +21,12 @@ def help_message(message):
 
 @bot.message_handler(commands=['user'])
 def user_message(message):
-    bot.reply_to(message, "Hello " + message.from_user.first_name + "!!")
+    bot.reply_to(message, "Hi " + message.from_user.first_name + "!!")
 
 # Handle all other messages with content_type 'text' (content_types defaults to ['text'])
 @bot.message_handler(func=lambda message: True)
 def echo_message(message):
-    if message.text in "Hello" or "Hi" or "안녕" or "안녕하세요" :
+    if message.text == "Hello" or message.text ==  "Hi" or message.text ==  "안녕" or message.text ==  "안녕하세요" :
         bot.reply_to(message, "Hello " + message.from_user.first_name + "!!")
     else:
         bot.reply_to(message, message.text)
