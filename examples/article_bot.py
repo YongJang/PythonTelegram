@@ -24,7 +24,7 @@ def user_message(message):
 # Handle all other messages with content_type 'text' (content_types defaults to ['text'])
 @bot.message_handler(func=lambda message: True)
 def echo_message(message):
-    if message in "Hello" or "Hi" or "안녕" or "안녕하세요" :
+    if message.text in "Hello" or "Hi" or "안녕" or "안녕하세요" :
         bot.reply_to(message, "Hello " + message.from_user.first_name + "!!")
     else:
         bot.reply_to(message, message.text)
