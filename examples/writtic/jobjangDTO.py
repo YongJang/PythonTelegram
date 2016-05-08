@@ -1,5 +1,5 @@
 class Information:
-    def __init__(self, url="", tag="", title="", content="", click_num=0, a_type="Article", k_group=0, p_date=""):
+    def __init__(self, url=u"", tag=u"", title=u"", content=u"", click_num=0, a_type=u"", k_group=0, p_date=u""):
         self.__url = url
         self.__tag = tag
         self.__title = title

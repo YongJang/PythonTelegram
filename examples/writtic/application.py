@@ -12,8 +12,8 @@ application.debug = True
 def hello_world():
     storage = Storage()
     storage.populate()
-    score = storage.score()
-    return "Are you OK %d!" % score
+    row = storage.row()
+    return "Are you OK %d!" % row
 
 
 class Storage():
@@ -26,10 +26,26 @@ class Storage():
             port = int(os.getenv('MYSQL_PORT_3306_TCP_PORT', '3306'))
             )
 
-    cur = self.db.cursor()
-    cur.execute("set names utf8")
-    cur.execute("DROP TABLE IF EXISTS scores")
-    #cur.execute("CREATE TABLE scores(score INT)")
+        cur = self.db.cursor()
+        cur.execute("set names utf8")
+    #cur.execute("DROP TABLE IF EXISTS rows")
+    #cur.execute("CREATE TABLE rows(row INT)")
+    def getTags(self, category):
+        u"""
+        태그 DB를 모두 받아온다.
+        """
+        cur = self.db.cursor()
+        cur.execute("SELECT * FROM tags")
+        row = cur.fetchall()
+        total = len(row)
+        entries = []
+        if total < 1:
+            print 'No entries'
+        else:
+            for record in range(total):
+                if row[record][0] is category:
+                    entries.append([row[record][1], 0])
+        return entries
     def getInfo(self):
         u"""
         기사, 채용정보를 DB에서 모두 받아온다.
@@ -44,40 +60,34 @@ class Storage():
         else:
             for record in range(total):
                 entry = {}
-                entry['url'] = score[record][0]
-                entry['tag'] = score[record][1]
-                entry['title'] = score[record][2]
-                entry['content'] = score[record][3]
-                entry['click_num'] = score[record][4]
-                entry['a_type'] = score[record][5]
-                entry['k_group'] = score[record][6]
-                entry['p_data'] = score[record][7]
+                entry['url'] = row[record][0]
+                entry['tag'] = row[record][1]
+                entry['title'] = row[record][2]
+                entry['content'] = row[record][3]
+                entry['click_num'] = row[record][4]
+                entry['a_type'] = row[record][5]
+                entry['k_group'] = row[record][6]
+                entry['p_data'] = row[record][7]
                 entries.append(entry)
-            for entry in entries:
-                print ' ID: ' + str(entry['pk_aid']) + '\n' +\
-                      ' TAG: ' + entry['tag']  + '\n' +\
-                      ' Contents: ' + entry['content'] + '\n'
         return entries
 
-    def setInfo(self, info, type):
+    def setInfo(self, infos, type):
         u"""
         기사, 채용정보를 DB에 저장한다.
         """
         cur = self.db.cursor()
-        for index, info enumerate(info):
+        for index, info in enumerate(infos):
             if type is 1:
                 cur.execute("INSERT INTO information(url, tag, title, content, click_num, a_type, k_group, p_date)" + \
-                            "VALUES (\'" + info.getUrl +"\',\'" + info.getTag + "\',\'" + info.getTitle + "\',\'" + \
-                            info.getContent + "\',\'" + info.getClickNum + "\'Article\',\'" + \
-                            info.getKGroup + "\',\'" + info.getPDate + "\');")
+                            "VALUES (\'" + str(info.getUrl) +"\',\'" + str(info.getTag) + "\',\'" + str(info.getTitle) + "\',\'" + \
+                            str(info.getContent) + "\', 0, \'Article\', 0, \'" + str(info.getPDate) + "\')")
             else:
                 cur.execute("INSERT INTO information(url, tag, title, content, click_num, a_type, k_group, p_date)" + \
-                            "VALUES (\'" + info.getUrl +"\',\'" + info.getTag + "\',\'" + info.getTitle + "\',\'" +\
-                            info.getContent + "\',\'" + info.getClickNum + "\'Jobkorea\',\'" + \
-                            info.getKGroup + "\',\'" + info.getPDate + "\');")
+                            "VALUES (\'" + info.getUrl +"\',\'" + info.getTag + "\',\'" + info.getTitle + "\',\'" + \
+                            info.getContent + "\', 0, \'Article\', 0, \'" + info.getPDate + "\')")
     def populate(self):
         cur = self.db.cursor()
-        cur.execute("INSERT INTO scores(score) VALUES(520)")
+        cur.execute("INSERT INTO rows(row) VALUES(520)")
 
     def getArticle(self):
         cur = self.db.cursor()
