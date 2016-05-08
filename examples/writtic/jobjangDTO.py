@@ -15,7 +15,7 @@ class Infomation:
     def getTag(self):
         return self.__tag
     def setTag(self, tag):
-        self.__aid = tag
+        self.__tag = tag
     def getTitle(self):
         return self.__title
     def setTitle(self, title):
@@ -41,5 +41,5 @@ class Infomation:
     def setPDate(self, p_date):
         self.__p_date = p_date
     def toString(self):
-        return "Infomation [url="+self.__url+", tag="+self.__tag+", title="+self.__title+\
-            ", pDate="+self.__p_date]
+        return u"Infomation [url="+self.__url+u", tag="+self.__tag+u", title="+self.__title+\
+            u", pDate="+self.__p_date+u"]"
