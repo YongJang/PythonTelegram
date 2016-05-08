@@ -1,8 +1,9 @@
 #-*- coding: utf-8 -*-
+# 데이터베이스를 위한 라이브러리
 import os
 import flask
 import pymysql
-
+from jobjangDTO import Infomation
 application = flask.Flask(__name__)
 application.debug = True
 
@@ -12,6 +13,7 @@ def hello_world():
     storage.populate()
     score = storage.score()
     return "Are you OK %d!" % score
+
 
 class Storage():
     def __init__(self):
@@ -25,10 +27,32 @@ class Storage():
 
     cur = self.db.cursor()
     cur.execute("set names utf8")
-    #cur.execute("DROP TABLE IF EXISTS scores")
+    cur.execute("DROP TABLE IF EXISTS scores")
     #cur.execute("CREATE TABLE scores(score INT)")
+    def getInfo(self):
+        u"""
+        기사, 채용정보를 DB에서 모두 받아온다.
+        """
+        cur = self.db.cursor()
+        cur.execute("SELECT * FROM infomation")
+        row = cur.fetchall()
+        return row
 
-
+    def setInfo(self, info, type):
+        u"""
+        기사, 채용정보를 DB에 저장한다.
+        """
+        cur = self.db.cursor()
+        if type is 1:
+            cur.execute("INSERT INTO infomation(url, tag, title, content, click_num, a_type, k_group, p_date)" + \
+                        "VALUES (\'" + info.getUrl +"\',\'" + info.getTag + "\',\'" + \
+                        info.getContent + "\',\'" + info.getClickNum + "\'Article\',\'" + \
+                        info.getKGroup + "\',\'" + info.getPDate + "\');")
+        else:
+            cur.execute("INSERT INTO infomation(url, tag, title, content, click_num, a_type, k_group, p_date)" + \
+                        "VALUES (\'" + info.getUrl +"\',\'" + info.getTag + "\',\'" + \
+                        info.getContent + "\',\'" + info.getClickNum + "\'Jobkorea\',\'" + \
+                        info.getKGroup + "\',\'" + info.getPDate + "\');")
     def populate(self):
         cur = self.db.cursor()
         cur.execute("INSERT INTO scores(score) VALUES(520)")

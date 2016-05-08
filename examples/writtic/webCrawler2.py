@@ -3,6 +3,62 @@ import requests as rs
 import bs4
 import time
 from datetime import datetime, date, timedelta
+class Infomation:
+    def __init__(self, url="", tag="", title="", content="", click_num=0, a_type="Article", k_group=0, p_date=""):
+        self.__url = url
+        self.__tag = tag
+        self.__title = title
+        self.__content = content
+        self.__click_num = click_num
+        self.__a_type = a_type
+        self.__k_group = k_group
+        self.__date = p_date
+    def getUrl(self):
+        return self.__url
+    def setUrl(self, url):
+        self.__url = url
+    def getTag(self):
+        return self.__tag
+    def setTag(self, tag):
+        self.__aid = tag
+    def getTitle(self):
+        return self.__title
+    def setTitle(self, title):
+        self.__title = title
+    def getContent(self):
+        return self.__content
+    def setContent(self, content):
+        self.__content = content
+    def getClickNum(self):
+        return self.__click_num
+    def setClickNum(self, click_num):
+        self.__click_num = click_num
+    def getAType(self):
+        return self.__a_type
+    def setAType(self, a_type):
+        self.__a_type = a_type
+    def getKGroup(self):
+        return self.__k_group
+    def setKGroup(self, k_group):
+        self.__k_group = k_group
+    def getPDate(self):
+        return self.__p_date
+    def setPDate(self, p_date):
+        self.__p_date = p_date
+    def toString(self):
+        return "Infomation [url="+self.__url+", tag="+self.__tag+", title="+self.__title+\
+            ", pDate="+self.__p_date
+
+SPAN = 1
+def getDateInNews(date):
+    u"""
+    기사에서 받은 날짜(YYYY-MM-DD)를 YYYYMMDD 문자열로 반환한다.
+    """
+    d = ""
+    d += date[0:4]
+    d += date[5:7]
+    d += date[8:10]
+    return d
 def getDate(d):
     u"""
     날짜 데이터를 YYYYMMDD 형식으로 뽑아준다
@@ -24,29 +80,40 @@ def getDate(d):
 def getContent(list, words):
     u"""
     BS4로 추출된 기사URL에서 내용물을 뽑아낸다.
+    반환형 : Infomation 클래스 리스트
+    [url, 제목, 내용, {태그1:갯수}, {태그2:갯수}, {태그3:갯수}, {태그4:갯수}, {태그5:갯수}, ]
     """
+    result = []
     for index, url in enumerate(list):
-        #미리 긁어온 url로부터 주소 받아옴
         news_url = url.encode('utf-8')
-        #요청
         response = rs.get(news_url)
-        #응답으로부터 HTML 추출
         html_content = response.text.encode(response.encoding);
-        #HTML 파싱
         navigator = bs4.BeautifulSoup(html_content, 'html.parser')
-        #네비게이터를 이용해 원하는 링크 리스트 가져오기
         content = navigator.find("div", id = "main_content")
         #기사 입력일 추출
         datetext = navigator.find("span", {"class":"t11"}).get_text()
-        #print datetext
+        print datetext
         #기사 제목 추출
         header = content.h3.get_text()
-        #print header
         #기사 내용 추출
         text = content.find(id = "articleBodyContents").get_text()
-        #기사 내용과 키워드 매칭
+        #기사 내용과 키워드 매칭 & 카운트
         for word in words:
-            print u""
+            word[1] = text.count(word[0])
+        #상위 5개 태그만 선별
+        temps = sorted(words, key=lambda l:l[1])
+        temp = ""
+        for i in range(3):
+            temp += temps[i][0]+str(temps[i][1])
+        #내용물 SET
+        result.append(Infomation())
+        result[index].setUrl(news_url)
+        result[index].setTitle(header)
+        result[index].setContent(text)
+        result[index].setPDate(getDateInNews(datetext))
+        result[index].setTag(temp)
+        print result[index].toString()
+    return result
             #print u"기사에 ("+word[0]+u")이 들어가 있는 갯수"+str(text.count(word[0]))
 def getUrl():
     u"""
@@ -59,7 +126,7 @@ def getUrl():
             [u"게임/리뷰", 229], [u"과학 일반", 228]]
     d = datetime.today()
     urls = []
-    for i in range(10):
+    for i in range(SPAN):
         date = getDate(d - timedelta(i))
         for sid1 in sid1s:
             for sid2 in sid2s:
@@ -69,7 +136,7 @@ def getUrl():
                     #최종 URL(sid1, sid2, date, page별 URL)을 배열에 저장
                     final_url = url+u"&page="+str(page+1)
                     urls.append(final_url)
-                    print final_url
+                    #print final_url
     return urls
 def getPage(url):
     u"""
@@ -108,13 +175,14 @@ def getNews():
         #헤드라인이 존재하는지 확인
         if headLineTags is not None:
             headLineTag = headLineTags.find_all("dt")
-        resultList = [item.a for item in headLineTag]
+            resultList = [item.a for item in headLineTag]
         #비헤드라인 10개
         normalTags = navigator.find("ul", {"class":"type06"})
         #비헤드라인이 존재하는지 확인
         if normalTags is not None:
             normalTag = normalTags.find_all("dt")
-        for item in normalTag:resultList.append(item.a)
+            for item in normalTag:
+                resultList.append(item.a)
 
         #링크 추출 (중복 링크 포함)
         url_lists = url_lists + [item['href'] for item in resultList]
@@ -126,11 +194,11 @@ def getNews():
         #print time.ctime()
         #print ''
 
-	    #키워드 출력
-        for index, url_list in enumerate(url_lists):
-            resultText = '[%d개] %s'%(index+1,url_list.encode('utf-8'))
-            print resultText
-        time.sleep(1)
+	    #URL 출력
+        #for index, url_list in enumerate(url_lists):
+        #    resultText = '[%d개] %s'%(index+1,url_list.encode('utf-8'))
+            #print resultText
+        time.sleep(0.05)
         #print ''
     return url_lists
 
@@ -138,7 +206,6 @@ daemon_flag = True;
 def Daemon():
     while (daemon_flag):
         w = [[u"게임", 0], [u"신작", 0], [u"FPS", 0]]
-        getUrl();
         getContent(getNews(), w);
         time.sleep(5)
 
