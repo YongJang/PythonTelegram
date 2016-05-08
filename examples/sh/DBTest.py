@@ -59,7 +59,7 @@ try:
                     if keyword is not None :
                         for k in keyword :
                             k_list.append(k.text)
-                            print(k_list)
+                        print(k_list)
 
 
                     for d in date:
