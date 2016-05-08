@@ -1,6 +1,8 @@
 #-*- coding: utf-8 -*-
 import unittest
 from application import Storage
+from webCrawler import Crawling
+from jobjangDTO import Information
 
 class TestSuite(unittest.TestCase):
   def test(self):

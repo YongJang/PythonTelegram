@@ -126,7 +126,6 @@ class Crawling:
             html_content = response.text.encode(response.encoding);
     	    #HTML 파싱
             navigator = bs4.BeautifulSoup(html_content, 'html.parser')
-
     	    #네비게이터를 이용해 원하는 링크 리스트 가져오기
             #헤드라인 10개
             headLineTags = navigator.find("ul", {"class":"type06_headline"})
