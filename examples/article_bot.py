@@ -4,7 +4,7 @@
 
 import pymysql
 import sys
-import telebot
+import telebot import types
 
 API_TOKEN = '207944330:AAGdpOvswmHangYooE8wBEf1p-vYP2skyL0'
 
@@ -23,11 +23,20 @@ def help_message(message):
 def user_message(message):
     bot.reply_to(message, "Hi " + message.from_user.first_name + "!!")
 
+markup = types.ReplyKeyboardMarkup()
+itembtn1 = types.KeyboardButton('1')
+itembtn2 = types.KeyboardButton('2')
+itembtn3 = types.KeyboardButton('3')
+itembtn4 = types.KeyboardButton('4')
+markup.row(itembtn1,itembtn2)
+markup.row(itembtn3,itembtn4)
+
 # Handle all other messages with content_type 'text' (content_types defaults to ['text'])
 @bot.message_handler(func=lambda message: True)
 def echo_message(message):
     if message.text == "Hello" or message.text ==  "Hi" or message.text ==  "안녕" or message.text ==  "안녕하세요" :
         bot.reply_to(message, "Hello " + message.from_user.first_name + "!!")
+        bot.send_message(chai_id, "button", reply_markup = markup)
     else:
         bot.reply_to(message, message.text)
 
