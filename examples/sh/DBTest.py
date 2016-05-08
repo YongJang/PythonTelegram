@@ -60,6 +60,10 @@ try:
                         for k in keyword :
                             k_list.append(k.text)
                         print(k_list)
+                        for k_count in range(len(k_list)) :
+                            result = k_list.count(k_list[k_count])
+                            print(result)
+                        #print u"기사에 ("+word[0]+u")이 들어가 있는 갯수"+str(text.count(word[0]))
 
 
                     for d in date:
