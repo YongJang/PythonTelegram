@@ -2,32 +2,7 @@ import pymysql
 import sys
 import feedparser
 import urllib.parse
-def monthToNum(month):
-    if month == 'Jan':
-        month = '01'
-    elif month == 'Feb':
-        month = '02'
-    elif month == 'Mar':
-        month = '03'
-    elif month == 'Apr':
-        month = '04'
-    elif month == 'May':
-        month = '05'
-    elif month == 'Jun':
-        month = '06'
-    elif month == 'Jul':
-        month = '07'
-    elif month == 'Aug':
-        month = '08'
-    elif month == 'Sep':
-        month = '09'
-    elif month == 'Oct':
-        month = '10'
-    elif month == 'Nov':
-        month = '11'
-    else:
-        month ='12'
-    return month
+
 try:
         print(sys.stdin.encoding)
 
@@ -50,7 +25,31 @@ try:
                 pDate = post.published
                 #Wed, 04 May 2016 11:26:00 +0900
                 month = pDate[8:11]
-                monthToNum(month)
+                if month == 'Jan':
+                    month = '01'
+                elif month == 'Feb':
+                    month = '02'
+                elif month == 'Mar':
+                    month = '03'
+                elif month == 'Apr':
+                    month = '04'
+                elif month == 'May':
+                    month = '05'
+                elif month == 'Jun':
+                    month = '06'
+                elif month == 'Jul':
+                    month = '07'
+                elif month == 'Aug':
+                    month = '08'
+                elif month == 'Sep':
+                    month = '09'
+                elif month == 'Oct':
+                    month = '10'
+                elif month == 'Nov':
+                    month = '11'
+                else:
+                    month ='12'
+
                 day = pDate[5:7]
                 year = pDate[12:16]
                 pDate = year + month + day

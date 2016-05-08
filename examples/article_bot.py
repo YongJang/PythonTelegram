@@ -9,10 +9,17 @@ API_TOKEN = '207944330:AAGdpOvswmHangYooE8wBEf1p-vYP2skyL0'
 bot = telebot.TeleBot(API_TOKEN)
 
 # Handle '/start' and '/help'
-@bot.message_handler(commands=['help', 'start'])
+@bot.message_handler(commands=['start'])
 def send_welcome(message):
     bot.reply_to(message, "Wellcome!! This is an article bot!")
 
+@bot.message_handler(commands=['help'])
+def help_message(message):
+    bot.reply_to(message, "This is a help message!")
+
+@bot.message_handler(commands=['user'])
+def user_message(message):
+    bot.reply_to(message, "This is a user message!" +message.from_user.first_name)
 
 # Handle all other messages with content_type 'text' (content_types defaults to ['text'])
 @bot.message_handler(func=lambda message: True)
