@@ -1,6 +1,7 @@
 #-*- coding: utf-8 -*-
 # 데이터베이스를 위한 라이브러리
 import os
+import sys
 import flask
 import pymysql
 from jobjangDTO import Information
@@ -23,11 +24,14 @@ class Storage():
             passwd = os.getenv('MYSQL_PASSWORD', 'yongjang'),
             db = os.getenv('MYSQL_INSTANCE_NAME', 'telegramdb'),
             host = os.getenv('MYSQL_PORT_3306_TCP_ADDR', 'telegramdb.cctjzlx6kmlc.ap-northeast-1.rds.amazonaws.com'),
-            port = int(os.getenv('MYSQL_PORT_3306_TCP_PORT', '3306'))
+            port = int(os.getenv('MYSQL_PORT_3306_TCP_PORT', '3306')),
+            charset = 'utf8'
             )
 
         cur = self.db.cursor()
         cur.execute("set names utf8")
+        reload(sys)
+        sys.setdefaultencoding('utf-8')
     #cur.execute("DROP TABLE IF EXISTS rows")
     #cur.execute("CREATE TABLE rows(row INT)")
     def getTags(self, category):
@@ -43,8 +47,10 @@ class Storage():
             print 'No entries'
         else:
             for record in range(total):
-                if row[record][0] is category:
-                    entries.append([row[record][1], 0])
+                if row[record][0] == category:
+                    temp = row[record][1].decode('utf-8').encode('utf-8')
+                    entries.append([temp, 0])
+        cur.close()
         return entries
     def getInfo(self):
         u"""
@@ -59,16 +65,17 @@ class Storage():
             print 'No entries'
         else:
             for record in range(total):
-                entry = {}
-                entry['url'] = row[record][0]
-                entry['tag'] = row[record][1]
-                entry['title'] = row[record][2]
-                entry['content'] = row[record][3]
-                entry['click_num'] = row[record][4]
-                entry['a_type'] = row[record][5]
-                entry['k_group'] = row[record][6]
-                entry['p_data'] = row[record][7]
+                entry = Information()
+                entry.setUrl(row[record][1])
+                entry.setTag(row[record][2])
+                entry.setTitle(row[record][3])
+                entry.setContent(row[record][4])
+                entry.setClickNum(row[record][5])
+                entry.setAType(row[record][6])
+                entry.setKGroup(row[record][7])
+                entry.setPDate(row[record][8])
                 entries.append(entry)
+        cur.close()
         return entries
 
     def setInfo(self, infos, type):
@@ -79,12 +86,13 @@ class Storage():
         for index, info in enumerate(infos):
             if type is 1:
                 cur.execute("INSERT INTO information(url, tag, title, content, click_num, a_type, k_group, p_date)" + \
-                            "VALUES (\'" + str(info.getUrl) +"\',\'" + str(info.getTag) + "\',\'" + str(info.getTitle) + "\',\'" + \
-                            str(info.getContent) + "\', 0, \'Article\', 0, \'" + str(info.getPDate) + "\')")
+                            "VALUES (\'" + str(info.getUrl()) +"\',\'" + str(info.getTag()) + "\',\'" + str(info.getTitle()) + "\',\'" + \
+                            str(info.getContent()) + "\', 0, \'Article\', 0, \'" + str(info.getPDate()) + "\')")
             else:
                 cur.execute("INSERT INTO information(url, tag, title, content, click_num, a_type, k_group, p_date)" + \
                             "VALUES (\'" + info.getUrl +"\',\'" + info.getTag + "\',\'" + info.getTitle + "\',\'" + \
                             info.getContent + "\', 0, \'Article\', 0, \'" + info.getPDate + "\')")
+        cur.close()
     def populate(self):
         cur = self.db.cursor()
         cur.execute("INSERT INTO rows(row) VALUES(520)")

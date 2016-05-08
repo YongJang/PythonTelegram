@@ -2,6 +2,7 @@
 import requests as rs
 import bs4
 import time
+from operator import itemgetter
 from datetime import datetime, date, timedelta
 from jobjangDTO import Information
 class Crawling:
@@ -9,11 +10,10 @@ class Crawling:
         u"""
         기사에서 받은 날짜(YYYY-MM-DD)를 YYYYMMDD 문자열로 반환한다.
         """
-        d = u""
-        d += date[0:4]
-        d += date[5:7]
-        d += date[8:10]
-        return d
+        year = date[0:4]
+        month = date[5:7]
+        day = date[8:10]
+        return year + month + day
     def getDate(self, d):
         u"""
         날짜 데이터를 YYYYMMDD 형식으로 뽑아준다
@@ -32,20 +32,24 @@ class Crawling:
             day = str(d.day)
         today = today + day
         return today
-    def getContent(self, list, words):
+    def getContent(self, list, w):
         u"""
         BS4로 추출된 기사URL에서 내용물을 뽑아낸다.
         반환형 : Information 클래스 리스트
         """
+        words = w
+        for i in w:
+            print "키워드" + i[0] + "는" + str(i[1]) + "번 나왔습니다."
         result = []
         for index, url in enumerate(list):
             news_url = url.encode('utf-8')
             response = rs.get(news_url)
             html_content = response.text.encode(response.encoding);
-            navigator = bs4.BeautifulSoup(html_content, 'html.parser')
+            navigator = bs4.BeautifulSoup(html_content, 'html.parser', from_encoding='utf-8')
             content = navigator.find("div", id = "main_content")
             #기사 입력일 추출
             datetext = navigator.find("span", {"class":"t11"}).get_text()
+            datetext = self.getDateInNews(datetext)
             #print datetext
             #기사 제목 추출
             header = content.h3.get_text()
@@ -55,20 +59,28 @@ class Crawling:
             #print u"기사에 ("+word[0]+u")이 들어가 있는 갯수"+str(text.count(word[0]))
             for word in words:
                 word[1] = text.count(word[0])
+                if word[1] is not 0:
+                    print "키워드는" + str(word[1]) + "번 나왔습니다."
             #상위 5개 태그만 선별
-            temps = sorted(words, key=lambda word:word[1], reverse=True)
-            temp = u""
-            for t in temps:
-                temp += t[0]+u" "+str(t[1])+u" "
 
+            temps = sorted(words, key=itemgetter(1), reverse=True)
+            temp = ""
+            for t in temps:
+                #print "키워드" + t[0] + "는" + str(t[1]) + "번 나왔습니다."
+                if t[1] is not 0:
+                    temp = temp + t[0] + " " + str(t[1]) + " "
             #내용물 SET
-            result.append(Information())
-            result[index].setUrl(news_url)
-            result[index].setTitle(header)
-            result[index].setContent(text)
-            result[index].setPDate(self.getDateInNews(datetext))
-            result[index].setTag(temp)
-            #print result[index].toString()
+            info = Information()
+
+            info.setUrl(news_url)
+            info.setTitle(header)
+            info.setContent(text)
+            info.setPDate(datetext)
+            info.setTag(temp)
+
+            result.append(info)
+            #if temp.getTag() is not None:
+            #    print info.toString()
         return result
 
     def getUrl(self, SPAN):
@@ -87,11 +99,11 @@ class Crawling:
             date = self.getDate(d - timedelta(i))
             for sid1 in sid1s:
                 for sid2 in sid2s:
-                    url = u"http://news.naver.com/main/list.nhn?sid2="+str(sid2[1])+"&sid1="+str(sid1[1])+"&mid=shm&mode=LS2D&date="+date+"&page=1"
-                    pages=self.getPage(url+u"&page=1")
+                    url = u"http://news.naver.com/main/list.nhn?sid2="+str(sid2[1])+"&sid1="+str(sid1[1])+"&mid=shm&mode=LS2D&date="+date
+                    pages=self.getPage(url+"&page=1")
                     for page in range(pages):
                         #최종 URL(sid1, sid2, date, page별 URL)을 배열에 저장
-                        final_url = url+u"&page="+str(page+1)
+                        final_url = url+"&page="+str(page+1)
                         urls.append(final_url)
                         #print final_url
         return urls
@@ -102,7 +114,7 @@ class Crawling:
         """
         response = rs.get(url)
         html_content = response.text.encode(response.encoding)
-        navigator = bs4.BeautifulSoup(html_content, 'html.parser')
+        navigator = bs4.BeautifulSoup(html_content, 'html.parser', from_encoding='utf-8')
         pages = navigator.find("div", {"class":"paging"})
         if pages is not None:
             page_nums = pages.find_all('a')
@@ -124,7 +136,7 @@ class Crawling:
     	    #응답으로 부터 HTML 추출
             html_content = response.text.encode(response.encoding);
     	    #HTML 파싱
-            navigator = bs4.BeautifulSoup(html_content, 'html.parser')
+            navigator = bs4.BeautifulSoup(html_content, 'html.parser', from_encoding='utf-8')
     	    #네비게이터를 이용해 원하는 링크 리스트 가져오기
             #헤드라인 10개
             headLineTags = navigator.find("ul", {"class":"type06_headline"})
@@ -147,10 +159,10 @@ class Crawling:
             url_lists = list(set(url_lists))
 
     	    #URL 출력
-            #for index, url_list in enumerate(url_lists):
-            #    resultText = '[%d개] %s'%(index+1,url_list.encode('utf-8'))
-                #print resultText
-            time.sleep(0.03)
+            for index, url_list in enumerate(url_lists):
+                resultText = '[%d개] %s'%(index+1,url_list.encode('utf-8'))
+                print resultText
+            time.sleep(0.0001)
             #print ''
         return url_lists
 u"""

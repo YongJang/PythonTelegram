@@ -1,3 +1,4 @@
+#-*- coding: utf-8 -*-
 class Information:
     def __init__(self, url=u"", tag=u"", title=u"", content=u"", click_num=0, a_type=u"", k_group=0, p_date=u""):
         self.__url = url
@@ -7,7 +8,7 @@ class Information:
         self.__click_num = click_num
         self.__a_type = a_type
         self.__k_group = k_group
-        self.__date = p_date
+        self.__p_date = p_date
     def getUrl(self):
         return self.__url
     def setUrl(self, url):
