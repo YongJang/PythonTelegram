@@ -70,8 +70,7 @@ try:
                     # 통신,15,네트워크,15
                     tag_str = ""
                     for n in range(len(db_tags)) :
-                        tag_str += db_tags[n]
-                        tag_str += ',15,'
+                        print (',15 '.join(n))
 
 
 
