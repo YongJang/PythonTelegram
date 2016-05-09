@@ -62,7 +62,7 @@ class Crawling:
             temp = u"기본 0"
             c = 0
             for index, word in enumerate(words):
-                print u"[%d개]"%(index) + word[0]
+                #print u"[%d개]"%(index) + word[0]
                 word[1] = text.count(u"" + word[0])
                 if word[1] is not 0:
                     #print u"키워드(" + word[0] + u")는" + str(word[1]) + u"번 나왔습니다."
@@ -164,13 +164,12 @@ class Crawling:
 
             #중복 링크 제거
             url_lists = list(set(url_lists))
-
-    	    #URL 출력
-            for index, url_list in enumerate(url_lists):
-                resultText = '[%d개] %s'%(index+1,url_list.encode('utf-8'))
-                print resultText
             time.sleep(0.0001)
             #print ''
+        #URL 출력
+        for index, url_list in enumerate(url_lists):
+            resultText = '[%d개] %s'%(index+1,url_list.encode('utf-8'))
+            print resultText
         return url_lists
 u"""
     daemon_flag = True;
