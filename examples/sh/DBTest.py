@@ -73,7 +73,7 @@ try:
                         tag_str += db_tags[n]
                         tag_str += ',15,'
 
-                    tag_str = [-len(tag_str)]
+                    tag_str = tag_str[-len(tag_str)]
 
                     for d in date:
                         datetext = d.getText().strip()
