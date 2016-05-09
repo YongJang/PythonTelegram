@@ -87,13 +87,14 @@ class Storage():
         cur = self.db.cursor()
         for index, info in enumerate(infos):
             if type is 1:
-                cur.execute("INSERT INTO information(url, tag, title, content, click_num, a_type, k_group, p_date)" + \
-                            "VALUES (\'" + str(info.getUrl()) +"\',\'" + str(info.getTag()) + "\',\'" + str(info.getTitle()) + "\',\'" + \
-                            str(info.getContent()) + "\', 0, \'Article\', 0, \'" + str(info.getPDate()) + "\')")
+                cur.execute(u"INSERT INTO information(url, tag, title, content, click_num, a_type, k_group, p_date) " + \
+                            u"VALUES (\'" + info.getUrl() +u"\',\'" + info.getTag() + u"\',\'" + info.getTitle() + u"\',\'" + \
+                            info.getContent() + u"\', 0, \'Article\', 0, \'" + info.getPDate() + u"\')")
+                print "[%d]Data Insertion Success!!"%(index+1)
             else:
-                cur.execute("INSERT INTO information(url, tag, title, content, click_num, a_type, k_group, p_date)" + \
-                            "VALUES (\'" + info.getUrl +"\',\'" + info.getTag + "\',\'" + info.getTitle + "\',\'" + \
-                            info.getContent + "\', 0, \'Article\', 0, \'" + info.getPDate + "\')")
+                cur.execute(u"INSERT INTO information(url, tag, title, content, click_num, a_type, k_group, p_date) " + \
+                            u"VALUES (\'" + info.getUrl +u"\',\'" + info.getTag + u"\',\'" + info.getTitle + u"\',\'" + \
+                            info.getContent + u"\', 0, \'Article\', 0, \'" + info.getPDate + u"\')")
         cur.close()
     def populate(self):
         cur = self.db.cursor()

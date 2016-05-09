@@ -22,13 +22,13 @@ class TestSuite(unittest.TestCase):
         for index, e in enumerate(result):
             resultText = u"[%d개]" % (index+1) + e.getTag() + u" " + e.getPDate()
             print resultText
-        #storage.setInfo(result, 1)
-        #entries = storage.getInfo()
-        #for entry in entries:
-        #    print ' URL: ' + str(entry.getUrl()) + '\n' +\
-        #          ' TAG: ' + str(entry.getTag())  + '\n' +\
-        #          ' title: ' + str(entry.getTitle()) + '\n'
-        #time.sleep(5)
+        storage.setInfo(result, 1)
+        entries = storage.getInfo()
+        for entry in entries:
+            print ' URL: ' + entry.getUrl() + '\n' +\
+                  ' TAG: ' + entry.getTag() + '\n' +\
+                  ' title: ' + entry.getTitle() + '\n'
+        time.sleep(5)
 
 def main():
     reload(sys)
