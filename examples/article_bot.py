@@ -13,6 +13,16 @@ API_TOKEN = '207944330:AAGdpOvswmHangYooE8wBEf1p-vYP2skyL0'
 
 bot = telebot.TeleBot(API_TOKEN)
 
+markup = types.ReplyKeyboardMarkup()
+itembtn1 = types.KeyboardButton('1')
+itembtn2 = types.KeyboardButton('2')
+itembtn3 = types.KeyboardButton('3')
+itembtn4 = types.KeyboardButton('4')
+markup.row(itembtn1,itembtn2)
+markup.row(itembtn3,itembtn4)
+
+hideBoard = types.ReplyKeyboardHide()
+
 # Handle '/start' and '/help'
 @bot.message_handler(commands=['start'])
 def send_welcome(message):
@@ -27,13 +37,7 @@ def help_message(message):
 def user_message(message):
     bot.reply_to(message, "Hi " + message.from_user.first_name + "!!")
 
-markup = types.ReplyKeyboardMarkup()
-itembtn1 = types.KeyboardButton('1')
-itembtn2 = types.KeyboardButton('2')
-itembtn3 = types.KeyboardButton('3')
-itembtn4 = types.KeyboardButton('4')
-markup.row(itembtn1,itembtn2)
-markup.row(itembtn3,itembtn4)
+
 
 # Handle all other messages with content_type 'text' (content_types defaults to ['text'])
 @bot.message_handler(func=lambda message: True)
@@ -45,4 +49,24 @@ def echo_message(message):
     else:
         bot.reply_to(message, message.text)
 
+
+@bot.message_handler(func=lambda message: get_user_step(message.chat.id) == 1)
+def msg_button_select(m):
+    cid = m.chat.id
+    text = m.text
+
+    # for some reason the 'upload_photo' status isn't quite working (doesn't show at all)
+    bot.send_chat_action(cid, 'typing')
+
+    if text == "1":  # send the appropriate image based on the reply to the "/getImage" command
+        bot.send_message(cid, "1", reply_markup = hideBoard)
+    elif text == "2":
+        bot.send_message(cid, "2", reply_markup = hideBoard)
+    elif text == "3":
+        bot.send_message(cid, "3", reply_markup = hideBoard)
+    elif text == "4":
+        bot.send_message(cid, "4", reply_markup = hideBoard)
+    else :
+        bot.send_message(cid, "Don't type bullsh*t, if I give you a predefined keyboard!")
+        bot.send_message(cid, "Please try again")
 bot.polling()
