@@ -61,7 +61,7 @@ try:
                         for k in keyword :
                             k_list.append(k.text) # k_list에 키워드text 넣기
                             if cur.execute("""SELECT * from tags where low = %s""", k_list) > 0 :
-                                db_tags.append(k_list[k])
+                                db_tags.append(k_list)
 
                         for k_count in range(len(k_list)) :
                             result = k_list.count(k_list[k_count]) # 숫자세기
