@@ -10,7 +10,7 @@ import sys
 import telebot
 from telebot import types
 import urllib
-import urllib2
+import urllib.parse
 import json
 import logging
 import re
@@ -103,19 +103,19 @@ def msg_button_select(m):
 # /me 요청시
 class MeHandler(webapp2.RequestHandler):
     def get(self):
-        self.response.write(json.dumps(json.load(urllib2.urlopen(BASE_URL + 'getMe'))))
+        self.response.write(json.dumps(json.load(urllib.parse.request(BASE_URL + 'getMe'))))
 
 # /updates 요청시
 class GetUpdatesHandler(webapp2.RequestHandler):
     def get(self):
-        self.response.write(json.dumps(json.load(urllib2.urlopen(BASE_URL + 'getUpdates'))))
+        self.response.write(json.dumps(json.load(urllib.parse.request(BASE_URL + 'getUpdates'))))
 
 # /set-wehook 요청시
 class SetWebhookHandler(webapp2.RequestHandler):
     def get(self):
         url = self.request.get('url')
         if url:
-            self.response.write(json.dumps(json.load(urllib2.urlopen(BASE_URL + 'setWebhook', urllib.urlencode({'url': url})))))
+            self.response.write(json.dumps(json.load(urllib.parse.request(BASE_URL + 'setWebhook', urllib.urlencode({'url': url})))))
 
 # /webhook 요청시 (텔레그램 봇 API)
 class WebhookHandler(webapp2.RequestHandler):
