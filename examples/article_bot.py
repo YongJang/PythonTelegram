@@ -16,6 +16,7 @@ import re
 
 API_TOKEN = '207944330:AAGdpOvswmHangYooE8wBEf1p-vYP2skyL0'
 
+BASE_URL = 'https://api.telegram.org/bot' + API_TOKEN + '/'
 bot = telebot.TeleBot(API_TOKEN)
 
 markup = types.ReplyKeyboardMarkup()
@@ -27,6 +28,13 @@ markup.row(itembtn1,itembtn2)
 markup.row(itembtn3,itembtn4)
 
 hideBoard = types.ReplyKeyboardHide()
+
+# 봇이 응답할 명령어
+CMD_START     = '/start'
+CMD_STOP      = '/stop'
+CMD_HELP      = '/help'
+CMD_USER      = '/user'
+CMD_BROADCAST = '/broadcast'
 
 # Handle '/start' and '/help'
 @bot.message_handler(commands=['start'])
