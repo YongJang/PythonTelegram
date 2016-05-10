@@ -202,6 +202,7 @@ def msg_button_select(m):
         bot.send_message(cid, "Don't type bullsh*t, if I give you a predefined keyboard!")
         bot.send_message(cid, "Please try again")
 
+u"""
 # 웹 요청에 대한 핸들러 정의
 # /me 요청시
 class MeHandler(webapp2.RequestHandler):
@@ -226,5 +227,7 @@ class WebhookHandler(webapp2.RequestHandler):
         body = json.loads(self.request.body)
         self.response.write(json.dumps(body))
         process_cmds(body['message'])
+
+"""
 
 bot.polling()
