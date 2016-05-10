@@ -87,19 +87,16 @@ def msg_button_select(m):
 # /me 요청시
 class MeHandler(webapp2.RequestHandler):
     def get(self):
-        urlfetch.set_default_fetch_deadline(60)
         self.response.write(json.dumps(json.load(urllib2.urlopen(BASE_URL + 'getMe'))))
 
 # /updates 요청시
 class GetUpdatesHandler(webapp2.RequestHandler):
     def get(self):
-        urlfetch.set_default_fetch_deadline(60)
         self.response.write(json.dumps(json.load(urllib2.urlopen(BASE_URL + 'getUpdates'))))
 
 # /set-wehook 요청시
 class SetWebhookHandler(webapp2.RequestHandler):
     def get(self):
-        urlfetch.set_default_fetch_deadline(60)
         url = self.request.get('url')
         if url:
             self.response.write(json.dumps(json.load(urllib2.urlopen(BASE_URL + 'setWebhook', urllib.urlencode({'url': url})))))
@@ -107,9 +104,8 @@ class SetWebhookHandler(webapp2.RequestHandler):
 # /webhook 요청시 (텔레그램 봇 API)
 class WebhookHandler(webapp2.RequestHandler):
     def post(self):
-        urlfetch.set_default_fetch_deadline(60)
         body = json.loads(self.request.body)
         self.response.write(json.dumps(body))
-        process_cmds(body['me
+        process_cmds(body['message'])
 
 bot.polling()
