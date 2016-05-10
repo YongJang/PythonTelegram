@@ -31,12 +31,6 @@ markup.row(itembtn3,itembtn4)
 
 hideBoard = types.ReplyKeyboardHide()
 
-reply_markup = json.dumps({
-    'keyboard': keyboard,
-    'resize_keyboard': True,
-    'one_time_keyboard': False,
-    'selective': (reply_to != None),
-    })
 
 # 봇이 응답할 명령어
 CMD_START     = '/start'
@@ -53,6 +47,14 @@ CUSTOM_KEYBOARD = [
         [CMD_USER],
         ]
 
+keyboard = CUSTOM_KEYBOARD
+
+reply_markup = json.dumps({
+    'keyboard': keyboard,
+    'resize_keyboard': True,
+    'one_time_keyboard': False,
+    'selective': (reply_to != None),
+    })
 # Handle '/start' and '/help'
 @bot.message_handler(commands=['start'])
 def send_welcome(message):
