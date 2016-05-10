@@ -70,7 +70,7 @@ try:
                     # 통신,15,네트워크,15
                     tag_str = ""
                     for n in range(len(db_tags)) :
-                        print (',15 '.join(n))
+                        tag_str = ',15, '.join(n)
 
 
 
@@ -85,7 +85,7 @@ try:
                         print(pDate)
 
                         if cur.execute("""SELECT url from job where url = %s""", 'http://www.jobkorea.co.kr/' + str(hrefs[index])) < 1:
-                            cur.execute("INSERT INTO job (url, high , low , content, click_num, aType, k_group, pDate) VALUES (\'http://www.jobkorea.co.kr/" + str(hrefs[index])  +"\',\' IT \',\'" + str(tag_str) + "\' ,\' contents \' , 0, \'Job\', 0, \'" + pDate + "\');")
+                            cur.execute("INSERT INTO job (url, high , low , content, click_num, aType, k_group, pDate) VALUES (\'http://www.jobkorea.co.kr/" + str(hrefs[index])  +"\',\' IT \',\'" + tag_str + "\' ,\' contents \' , 0, \'Job\', 0, \'" + pDate + "\');")
                         else :
                             continue
 
