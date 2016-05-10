@@ -1,4 +1,3 @@
-#!/usr/bin/python
 #-*- encoding: utf-8 -*-
 import requests as rs
 import bs4
@@ -69,13 +68,7 @@ class Crawling:
                     temp = temp + u" " + word[0] + u" " + str(word[1])
                 #print u"기사에 (" + word[0] + u")이 들어가 있는 갯수 : " +str(word[1])
             #상위 5개 태그만 선별
-
             #temps = sorted(words, key=itemgetter(1), reverse=True)
-            #temp = u""
-            #for t in temps:
-                #print u"키워드" + t[0] + u"는" + str(t[1]) + u"번 나왔습니다."
-            #    if t[1] is not 0:
-            #        temp = temp + t[0] + u" " + str(t[1]) + u" "
             #내용물 SET
             info = Information()
 
@@ -106,7 +99,7 @@ class Crawling:
             date = self.getDate(d - timedelta(i))
             for sid1 in sid1s:
                 for sid2 in sid2s:
-                    url = u"http://news.naver.com/main/list.nhn?sid2="+str(sid2[1])+"&sid1="+str(sid1[1])+"&mid=shm&mode=LS2D&date="+date
+                    url = "http://news.naver.com/main/list.nhn?sid2="+str(sid2[1])+"&sid1="+str(sid1[1])+"&mid=shm&mode=LS2D&date="+date
                     pages=self.getPage(url+"&page=1")
                     for page in range(pages):
                         #최종 URL(sid1, sid2, date, page별 URL)을 배열에 저장
