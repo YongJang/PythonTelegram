@@ -73,7 +73,7 @@ def send_msg(chat_id, text, reply_to=None, no_preview=True, keyboard=None):
             })
         params['reply_markup'] = reply_markup
     try:
-        urllib.request(BASE_URL + 'sendMessage', urllib.urlencode(params)).read()
+        urllib.request(BASE_URL + 'sendMessage', urllib.parse.quote(params)).read()
     except Exception as e:
         logging.exception(e)
 
