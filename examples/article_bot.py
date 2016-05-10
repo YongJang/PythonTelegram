@@ -47,6 +47,19 @@ CUSTOM_KEYBOARD = [
         [CMD_USER],
         ]
 
+u"""
+json_keyboard = json.dumps({'keyboard': [["A button"], ["B button"]],
+                            'one_time_keyboard': False,
+                            'resize_keyboard': True})
+
+
+TelegramAPI.post(TELEGRAM_URL + "sendMessage",
+                 data=dict(chat_id=CHAT_ID,
+                           text="Has to be non-empty",
+                           reply_markup=json_keyboard))
+"""
+
+
 # 메시지 발송 관련 함수들
 def send_msg(chat_id, text, reply_to=None, no_preview=True, keyboard=None):
     u"""send_msg: 메시지 발송
