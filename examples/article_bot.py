@@ -29,12 +29,27 @@ markup.row(itembtn3,itembtn4)
 
 hideBoard = types.ReplyKeyboardHide()
 
+reply_markup = json.dumps({
+    'keyboard': keyboard,
+    'resize_keyboard': True,
+    'one_time_keyboard': False,
+    'selective': (reply_to != None),
+    })
+
 # 봇이 응답할 명령어
 CMD_START     = '/start'
 CMD_STOP      = '/stop'
 CMD_HELP      = '/help'
 CMD_USER      = '/user'
 CMD_BROADCAST = '/broadcast'
+
+# 커스텀 키보드
+CUSTOM_KEYBOARD = [
+        [CMD_START],
+        [CMD_STOP],
+        [CMD_HELP],
+        [CMD_USER],
+        ]
 
 # Handle '/start' and '/help'
 @bot.message_handler(commands=['start'])
@@ -58,7 +73,7 @@ def echo_message(message):
     chat_id = message.chat.id
     if message.text == "Hello" or message.text ==  "Hi" or message.text ==  "안녕" or message.text ==  "안녕하세요" :
         bot.reply_to(message, "Hello " + message.from_user.first_name + "!!")
-        bot.send_message(chat_id, "button", reply_markup = markup)
+        bot.send_message(chat_id, "button", keyboard = CUSTOM_KEYBOARD)
     else:
         bot.reply_to(message, message.text)
 
