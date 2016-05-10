@@ -101,9 +101,11 @@ def echo_message(message):
     chat_id = message.chat.id
     if message.text == "Hello" or message.text ==  "Hi" or message.text ==  "안녕" or message.text ==  "안녕하세요" :
         bot.reply_to(message, "Hello " + message.from_user.first_name + "!!")
-        bot.send_message(chat_id, "button", keyboard = CUSTOM_KEYBOARD)
+        #bot.send_message(chat_id, "button", keyboard = CUSTOM_KEYBOARD)
+        send_msg(chat_id, "abc123", keyboard=CUSTOM_KEYBOARD)
     else:
         bot.reply_to(message, message.text)
+        process_cmds(message)
 
 
 u"""
