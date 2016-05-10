@@ -24,7 +24,7 @@ try:
         firstpage = urlopen(firsthtml).read()
         firstsoup = BeautifulSoup(firstpage , from_encoding="utf-8")
         page_num = firstsoup.find("div" , { "class" : "lgiSec lgiPagination lgiPagination1" }).find_all('li') #page개수
-
+        #href 가져오기 40 개
         def getPost(sleep_i) :
             hrefs=[]  #href 가져오기 40 개
             k_list = []
@@ -34,7 +34,7 @@ try:
                 sleep_i = sleep_i + 1
                 webpage = urlopen(html).read()
                 soup = BeautifulSoup(webpage , from_encoding="utf-8")
-                info = soup.find_all("a" ,onclick="GI_Click_Cnt('ST','B02');")
+                info = soup.find_all("a" ,onclick="GI_Click_Cnt('ST','B02');") # href 찾기
                 for t in info :
                     if t.get("href") is not None :
                         hrefs.append(t.get("href"))
@@ -47,31 +47,31 @@ try:
                         conn.commit()
                         time.sleep(2000)
                     detail_html = Request('http://www.jobkorea.co.kr/' + str(hrefs[index]), headers={'User-Agent':'Mozilla/5.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1; .NET CLR 1.1.4322; .NET CLR 2.0.50727; .NET CLR 3.0.04506.30)'})
-                    sleep_i = sleep_i + 1
+                    sleep_i = sleep_i + 1 # 상세페이지 들어가기
                     detailpage = urlopen(detail_html).read()
                     detailsoup = BeautifulSoup(detailpage , from_encoding="utf-8")
                     titles = detailsoup.find("span",{"class" : "title"})
-                    if titles is not None :
+                    if titles is not None : # 상세페이지의 title
                         print (titles.text)
 
-                    date = detailsoup.find_all("dl", class_="day")
-                    keyword = detailsoup.find('dt', text = '키워드').next_element.next_element.next_element.find_all("a", href = True , target ="_top")
+                    date = detailsoup.find_all("dl", class_="day") # 상세페이지의 마감일 찾기
+                    keyword = detailsoup.find('dt', text = '키워드').next_element.next_element.next_element.find_all("a", href = True , target ="_top") # 상세페이지의 키워드 찾기
 
                     if keyword is not None :
                         for k in keyword :
-                            k_list.append(k.text)
-                        print(k_list)
+                            k_list.append(k.text) # k_list에 키워드text 넣기
+                            if cur.execute("""SELECT * from tags where low = %s""", k_list) > 0 :
+                                db_tags.append(k_list[k])
+
                         for k_count in range(len(k_list)) :
-                            result = k_list.count(k_list[k_count])
+                            result = k_list.count(k_list[k_count]) # 숫자세기
                             print(result)
-                            if cur.execute("""SELECT * from tags where low = %s""", result) > 0 :
-                                db_tags.append(result)
+
                         #print u"기사에 ("+word[0]+u")이 들어가 있는 갯수"+str(text.count(word[0]))
                     # 통신,15,네트워크,15
                     tag_str = ""
                     for n in range(len(db_tags)) :
                         tag_str = ',15, '.join(n)
-
 
 
                     for d in date:
