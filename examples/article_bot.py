@@ -154,7 +154,7 @@ def process_cmds(msg):
     """
     msg_id = msg.message_id
     chat_id = msg.chat.id
-    text = msg.get('text')
+    text = msg.text
     if (not text):
         return
     if CMD_START == text:
