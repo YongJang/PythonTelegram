@@ -152,7 +152,7 @@ def process_cmds(msg):
     chat_id: (integer) 채팅 ID
     text:    (string)  사용자가 보낸 메시지 내용
     """
-    msg_id = msg.gessage_id
+    msg_id = msg.message_id
     chat_id = msg.chat.id
     text = msg.get('text')
     if (not text):
