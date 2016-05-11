@@ -1,10 +1,7 @@
 #!/usr/bin/python
 #-*- coding: utf-8 -*-
-import sys
-reload(sys)
-sys.setdefaultencoding('utf-8')
 class Information:
-    def __init__(self, url="", tag="", title="", content="", click_num=0, a_type="", k_group=0, p_date=""):
+    def __init__(self, url=u"", tag=u"", title=u"", content=u"", click_num=0, a_type=u"", k_group=0, p_date=u""):
         self.__url = url
         self.__tag = tag
         self.__title = title
@@ -46,5 +43,5 @@ class Information:
     def setPDate(self, p_date):
         self.__p_date = p_date
     def toString(self):
-        return "Infomation [url="+self.__url+", tag="+self.__tag+", title="+self.__title+\
-            ", pDate="+self.__p_date+"]"
+        return 'Infomation [url='+self.__url+', tag='+self.__tag+', title='+self.__title+\
+            ', pDate='+self.__p_date+']'
