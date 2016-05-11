@@ -53,7 +53,7 @@ try:
                     detailsoup = BeautifulSoup(detailpage , from_encoding="utf-8")
                     titles = detailsoup.find("span",{"class" : "title"})
                     if titles is not None : # 상세페이지의 title
-                        print (titles.text)
+                        db_title = titles.text.strip()
 
                     date = detailsoup.find_all("dl", class_="day") # 상세페이지의 마감일 찾기
                     keyword = detailsoup.find('dt', text = '키워드').next_element.next_element.next_element.find_all("a", href = True , target ="_top") # 상세페이지의 키워드 찾기
@@ -85,7 +85,7 @@ try:
                         print(pDate)
 
                         if cur.execute("""SELECT url from job where url = %s""", 'http://www.jobkorea.co.kr/' + str(hrefs[index])) < 1:
-                            cur.execute("INSERT INTO job (url, high , low , title, content, click_num, aType, k_group, pDate) VALUES (\'http://www.jobkorea.co.kr/" + str(hrefs[index])  +"\',\' IT \',\'" + tag_str + "\',\'"+ str(titles.text) + "\' ,\' contents \' , 0, \'Job\', 0, \'" + pDate + "\');")
+                            cur.execute("INSERT INTO job (url, high , low , title, content, click_num, aType, k_group, pDate) VALUES (\'http://www.jobkorea.co.kr/" + str(hrefs[index])  +"\',\' IT \',\'" + tag_str + "\',\'"+ str(db_title) + "\' ,\' contents \' , 0, \'Job\', 0, \'" + pDate + "\');")
                         else :
                             continue
 
