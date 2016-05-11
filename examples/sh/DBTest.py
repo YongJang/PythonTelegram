@@ -74,7 +74,7 @@ try:
                                     #tag_str = n.text + num
 
 
-                    tag_str = tag_str[:-1]
+                    #tag_str = tag_str[:-1]
 
                     for d in date:
                         datetext = d.getText().strip()
