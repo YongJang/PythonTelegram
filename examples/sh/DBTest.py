@@ -71,8 +71,8 @@ try:
 
                                 for n in range(len(db_tags)) :
                                     num = ",15,"
-                                    tag_str = db_tags[n] + num
-                                tag_str = tag_str[:-1]
+                                    tag_str = str(db_tags[n]) + num
+                                    tag_str = tag_str[:-1]
 
                     for d in date:
                         datetext = d.getText().strip()
