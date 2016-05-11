@@ -65,7 +65,7 @@ try:
                         for k_count in range(len(k_list)) :
                             result = k_list.count(k_list[k_count]) # 숫자세기
                             #print(result)
-                            if cur.execute("SELECT * from tags where low = '%s'", k_list ) > 0 :
+                            if cur.execute("SELECT * from tags where low = '%s'", str(k_list)) > 0 :
                                 db_tags.append(k_list) # 통신,15,네트워크,15
                                 tag_str = ""
                                 for n in range(len(db_tags)) :
