@@ -70,10 +70,9 @@ try:
                                 db_tags.append(k_list[k_count]) # 통신,15,네트워크,15
 
                                 for n in range(len(db_tags)) :
-                                    print(n.text)
                                     num = ",15,"
-                                    tag_str = n.text + num
-                                    tag_str = tag_str[:-1]
+                                    tag_str = db_tags[n] + num
+                                tag_str = tag_str[:-1]
 
                     for d in date:
                         datetext = d.getText().strip()
