@@ -71,10 +71,10 @@ try:
                                 for n in range(len(db_tags)) :
                                     print(n.text)
                                     num = ',15,'
-                                    #tag_str = n.text + num
+                                    tag_str = n.text + num
 
 
-                    #tag_str = tag_str[:-1]
+                    tag_str = tag_str[:-1]
 
                     for d in date:
                         datetext = d.getText().strip()
