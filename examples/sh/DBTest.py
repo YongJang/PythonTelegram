@@ -28,6 +28,7 @@ try:
         def getPost(sleep_i) :
             hrefs=[]  #href 가져오기 40 개
             k_list = []
+            tag_str = ""
             for page in range(0,len(page_num)):
                 time.sleep(3) #30*60 = 1800
                 html = Request('http://www.jobkorea.co.kr/Starter/Recruit/SS/engineering?psTab=40&rOrderTab=10&Page=' + str(page) + '  #JobList', headers={'User-Agent':'Mozilla/5.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1; .NET CLR 1.1.4322; .NET CLR 2.0.50727; .NET CLR 3.0.04506.30)'})
@@ -67,14 +68,14 @@ try:
                             #print(result)
                             if cur.execute("""SELECT * from tags where low = %s""", str(k_list)) > 0 :
                                 db_tags.append(k_list) # 통신,15,네트워크,15
-                                tag_str = ""
+
                                 for n in range(len(db_tags)) :
                                     print(n.text)
                                     num = ',15,'
                                     tag_str = n.text + num
 
 
-                    #tag_str = tag_str[:-1]
+                                tag_str = tag_str[:-1]
 
                     for d in date:
                         datetext = d.getText().strip()
