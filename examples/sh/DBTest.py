@@ -90,7 +90,7 @@ try:
                             continue
 
 
-                            conn.commit()
+                    conn.commit()
         def Medium_Technology():
             getPost(sleep_i)
 
