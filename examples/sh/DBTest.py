@@ -60,18 +60,19 @@ try:
                     if keyword is not None :
                         for k in keyword :
                             k_list.append(k.text) # k_list에 키워드text 넣기
-                            if cur.execute("""SELECT * from tags where low = %s""", k.text) > 0 :
-                                db_tags.append(k.text)
 
                         for k_count in range(len(k_list)) :
                             result = k_list.count(k_list[k_count]) # 숫자세기
                             print(result)
-
-                        #print u"기사에 ("+word[0]+u")이 들어가 있는 갯수"+str(text.count(word[0]))
+                        if cur.execute("""SELECT * from tags where low = %s""", k_list ) > 0 :
+                            db_tags.append(k_list)
                     # 통신,15,네트워크,15
                     tag_str = ""
                     for n in range(len(db_tags)) :
-                        tag_str = ',15,'+ tag_str
+                        num = ',15,'
+                        tag_str = n.text + num
+
+                    tag_str = tag_str[:-1]
 
                     for d in date:
                         datetext = d.getText().strip()
