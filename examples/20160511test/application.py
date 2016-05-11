@@ -83,7 +83,7 @@ class Storage():
         for index, info in enumerate(infos):
             if type is 1:
                 cur.execute("INSERT INTO information(url, tag, title, content, click_num, a_type, k_group, p_date)" + \
-                            "VALUES (\'" + str(info.getUrl()) +"\',\'" + str(info.getTag()) + "\',\'" + str(info.getTitle()) + "\',\'" + \
+                            "VALUES (\'" + str(info.getUrl()) +"\',\'" + str(info.getTag()) + "\',\'" + info.getTitle() + "\',\'" + \
                             str(info.getContent()) + "\', 0, \'Article\', 0, \'" + str(info.getPDate()) + "\')")
             else:
                 cur.execute("INSERT INTO information(url, tag, title, content, click_num, a_type, k_group, p_date)" + \
