@@ -62,7 +62,6 @@ try:
                         for k in keyword :
                             k_list.append(k.text) # k_list에 키워드text 넣기
 
-
                         for k_count in range(len(k_list)) :
                             result = k_list.count(k_list[k_count]) # 숫자세기
                             #print(result)
@@ -71,8 +70,8 @@ try:
 
                                 for n in range(len(db_tags)) :
                                     num = ",15,"
-                                    tag_str = str(db_tags[n]) + num
-                                    tag_str = tag_str[:-1]
+                                    tag_str = tag_str + str(db_tags[n]) + num
+                                tag_str = tag_str[:-1]
 
                     for d in date:
                         datetext = d.getText().strip()
@@ -88,7 +87,6 @@ try:
                             cur.execute("INSERT INTO job (url, high , low , title, content, click_num, aType, k_group, pDate) VALUES (\'http://www.jobkorea.co.kr/" + str(hrefs[index])  +"\',\' IT \',\'" + tag_str + "\',\'"+ str(db_title) + "\' ,\' contents \' , 0, \'Job\', 0, \'" + pDate + "\');")
                         else :
                             continue
-
 
                     conn.commit()
         def Medium_Technology():
