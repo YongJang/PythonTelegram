@@ -67,11 +67,13 @@ try:
                             #print(result)
                             if cur.execute("""SELECT * from tags where low = %s""", str((k_list)[k_count])) > 0 :
                                 db_tags.append(k_list[k_count]) # 통신,15,네트워크,15
-
+                                tag_str = ""
                                 for n in range(len(db_tags)) :
                                     num = ",15,"
                                     tag_str = tag_str + str(db_tags[n]) + num
                                 tag_str = tag_str[:-1]
+
+
 
                     for d in date:
                         datetext = d.getText().strip()
@@ -83,9 +85,11 @@ try:
                         pDate = year + month + day
                         print(pDate)
 
-                        if cur.execute("""SELECT url from job where url = %s""", 'http://www.jobkorea.co.kr/' + str(hrefs[index])) < 1:
+                        if cur.execute("""SELECT url from job where url = %s""", 'http://www.jobkorea.co.kr/' + str(hrefs[index])) < 1 and  len(tag_str) > 0:
                             cur.execute("INSERT INTO job (url, high , low , title, content, click_num, aType, k_group, pDate) VALUES (\'http://www.jobkorea.co.kr/" + str(hrefs[index])  +"\',\' IT \',\'" + tag_str + "\',\'"+ str(db_title) + "\' ,\' contents \' , 0, \'Job\', 0, \'" + pDate + "\');")
+                            db_tags = []
                         else :
+                            db_tags = []
                             continue
 
                     conn.commit()
