@@ -43,7 +43,7 @@ try:
                 for index in range(0,len(hrefs)):
                     db_tags = []
                     time.sleep(3) #30*60 = 1800
-                    if sleep_i >= 10 :
+                    if sleep_i >= 20 :
                         sleep_i = 0
                         conn.commit()
                         time.sleep(2000)
@@ -66,12 +66,12 @@ try:
                         for k_count in range(len(k_list)) :
                             result = k_list.count(k_list[k_count]) # 숫자세기
                             #print(result)
-                            if cur.execute("""SELECT * from tags where low = %s""", str((k_list)[k_count])) > 0 :
-                                db_tags.append(k_list[k_count]) # 통신,15,네트워크,15
+                            if cur.execute("""SELECT * from tags where low = %s""", str(k_list[k_count])) > 0 :
+                                db_tags.append(k_list[k_count]) # low == tags
                                 tag_str = ""
                                 for n in range(len(db_tags)) :
-                                    num = ",15,"
-                                    tag_str = tag_str + str(db_tags[n]) + num
+                                    num = ",15," # 가중치
+                                    tag_str = tag_str + str(db_tags[n]) + num # 통신,15,네트워크,15
                                     tag_str = tag_str[:-1]
 
                     if calendar is not None :
@@ -83,13 +83,13 @@ try:
                             day = deadline[34:36]
                             pDate = year + month + day
                             print(pDate)
-                    else : #<p class="regular">2016.05.12(목) ~  2016.07.31(일)</p>
-                        for d in date_second :
+                    elif : #<p class="regular">2016.05.12(목) ~  2016.07.31(일)</p>
+                        for d in date_second:
                             datetext = d.getText().strip()
                             deadline = datetext.replace('\n', ' ')
-                            year = deadline[15:18]
-                            month = deadline[19:20]
-                            day = deadline[21:22]
+                            year = deadline[19:23]
+                            month = deadline[24:26]
+                            day = deadline[27:29]
                             pDate = year + month + day
                             print(pDate)
 
