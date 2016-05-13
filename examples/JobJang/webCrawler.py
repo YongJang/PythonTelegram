@@ -59,7 +59,8 @@ class Crawling:
 
             content = navigator.find("div", id = "main_content")
             #기사 입력일 추출
-            datetext = navigator.find("span", {"class":"t11"}).get_text()
+            datelist = navigator.find("span", {"class":"t11"})
+            datetext = datelist[len(datelist)].get_text()
             datetext = self.getDateInNews(datetext)
             #print datetext
             #기사 제목 추출
