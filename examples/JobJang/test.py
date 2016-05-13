@@ -21,13 +21,11 @@ class TestSuite(unittest.TestCase):
         result = crawling.getContent(crawling.getNews(1), words);
         for index, e in enumerate(result):
             resultText = u"[%d개]" % (index+1) + e.getTag() + u" " + e.getPDate()
-            print resultText
+            print (resultText)
         storage.setInfo(result, 1)
         entries = storage.getInfo()
         for entry in entries:
-            print ' URL: ' + entry.getUrl() + '\n' +\
-                  ' TAG: ' + entry.getTag() + '\n' +\
-                  ' title: ' + entry.getTitle() + '\n'
+            print (' URL: ' + entry.getUrl() + '\n' + ' TAG: ' + entry.getTag() + '\n' + ' title: ' + entry.getTitle() + '\n')
         time.sleep(5)
 
 def main():
