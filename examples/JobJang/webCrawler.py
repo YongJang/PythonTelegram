@@ -80,7 +80,7 @@ class Crawling:
 
             result.append(info)
             if info.getTag() != "":
-                print info.toString()
+                print (info.toString())
         return result
 
     def getUrl(self, SPAN):
@@ -162,7 +162,7 @@ class Crawling:
         #URL 출력
         for index, url_list in enumerate(url_lists):
             resultText = '[%d개] %s'%(index+1,url_list.encode('utf-8'))
-            print resultText
+            print (resultText)
         return url_lists
 """
     daemon_flag = True;
