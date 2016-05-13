@@ -59,6 +59,7 @@ class Storage():
         '''
         기사, 채용정보를 DB에 저장한다.
         '''
+        self.db = pymysql.connect(host='telegramdb.cctjzlx6kmlc.ap-northeast-1.rds.amazonaws.com', port=3306, user='yongjang', passwd='yongjang', db='telegramdb', charset='utf8')
         cur = self.db.cursor()
         for index, info in enumerate(infos):
             if type is 1:
