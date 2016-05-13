@@ -70,12 +70,12 @@ class Crawling:
                 datetext = '20169999'
             #print datetext
             #기사 제목 추출
-            titleList = navigator.find(id = "articleTitle")
+            titleList = navigator.find_all(id = "articleTitle")
             title = ""
             for n in range(0, len(titleList)):
                 title = title + titleList[n].get_text()
             #기사 내용 추출
-            textList = navigator.find(id = "articleBodyContents")
+            textList = navigator.find_all(id = "articleBodyContents")
             text = ""
             for n in range(0, len(textList)):
                 text = text + textList[n].get_text()
