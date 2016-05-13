@@ -60,8 +60,11 @@ class Crawling:
             content = navigator.find("div", id = "main_content")
             #기사 입력일 추출
             datelist = navigator.find_all("span", {"class":"t11"})
-            datetext = datelist[0].get_text()
-            datetext = self.getDateInNews(datetext)
+            if datelist[0] is not None :
+                datetext = datelist[0].get_text()
+                datetext = self.getDateInNews(datetext)
+            else :
+                datetext = '20169999'
             #print datetext
             #기사 제목 추출
             header = content.h3.get_text()
