@@ -73,7 +73,7 @@ try:
                                     num = ",15," # 가중치
                                     tag_str = tag_str + str(db_tags[n]) + num # 통신,15,네트워크,15
                                     tag_str = tag_str[:-1]
-
+                    #<p class="regular">2016.05.12(목) ~  2016.07.31(일)</p>
                     if calendar is not None :
                         for d in calendar:
                             datetext = d.getText().strip()
@@ -83,7 +83,7 @@ try:
                             day = deadline[34:36]
                             pDate = year + month + day
                             print(pDate)
-                    elif : #<p class="regular">2016.05.12(목) ~  2016.07.31(일)</p>
+                    else :
                         for d in date_second:
                             datetext = d.getText().strip()
                             deadline = datetext.replace('\n', ' ')
