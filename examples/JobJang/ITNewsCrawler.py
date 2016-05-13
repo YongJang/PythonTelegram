@@ -5,9 +5,7 @@ from urllib.request import Request, urlopen
 
 class Storage():
     def __init__(self):
-        self.db = pymysql.connect(
-            host='telegramdb.cctjzlx6kmlc.ap-northeast-1.rds.amazonaws.com', port=3306, user='yongjang', passwd='yongjang', db='telegramdb', charset='utf8'
-            )
+        self.db = pymysql.connect(host='telegramdb.cctjzlx6kmlc.ap-northeast-1.rds.amazonaws.com', port=3306, user='yongjang', passwd='yongjang', db='telegramdb', charset='utf8')
 
         cur = self.db.cursor()
         cur.execute("set names utf8")
