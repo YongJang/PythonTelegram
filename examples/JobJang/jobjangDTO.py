@@ -1,8 +1,6 @@
 #!/usr/bin/python
 #-*- coding: utf-8 -*-
-import sys
-reload(sys)
-sys.setdefaultencoding('utf-8')
+
 class Information:
     def __init__(self, url="", tag="", title="", content="", click_num=0, a_type="", k_group=0, p_date=""):
         self.__url = url
