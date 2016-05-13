@@ -7,11 +7,7 @@ from urllib.request import Request, urlopen
 class Storage():
     def __init__(self):
         self.db = pymysql.connect(
-            user = os.getenv('MYSQL_USERNAME', 'yongjang'),
-            passwd = os.getenv('MYSQL_PASSWORD', 'yongjang'),
-            db = os.getenv('MYSQL_INSTANCE_NAME', 'telegramdb'),
-            host = os.getenv('MYSQL_PORT_3306_TCP_ADDR', 'telegramdb.cctjzlx6kmlc.ap-northeast-1.rds.amazonaws.com'),
-            port = int(os.getenv('MYSQL_PORT_3306_TCP_PORT', '3306'))
+            host='telegramdb.cctjzlx6kmlc.ap-northeast-1.rds.amazonaws.com', port=3306, user='yongjang', passwd='yongjang', db='telegramdb', charset='utf8'
             )
 
         cur = self.db.cursor()
