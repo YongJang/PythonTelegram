@@ -2,7 +2,6 @@
 #-*- coding: utf-8 -*-
 import unittest
 import time
-import sys
 from ITNewsCrawler import Storage
 from webCrawler import Crawling
 from jobjangDTO import Information
@@ -29,8 +28,6 @@ class TestSuite(unittest.TestCase):
         time.sleep(5)
 
 def main():
-    reload(sys)
-    sys.setdefaultencoding('utf-8')
     unittest.main()
 
 if __name__ == "__main__":

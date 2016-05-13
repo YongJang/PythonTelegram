@@ -5,6 +5,7 @@ import time
 from operator import itemgetter
 from datetime import datetime, date, timedelta
 from jobjangDTO import Information
+
 class Crawling:
     def getDateInNews(self, date):
         """
