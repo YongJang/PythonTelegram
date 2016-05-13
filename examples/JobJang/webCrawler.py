@@ -43,7 +43,7 @@ class Crawling:
         """
         words=[]
         for index, word in enumerate(w):
-            temp = word.decode('utf-8')
+            temp = word
             words.append([temp, 0])
             #print "키워드" + word[0] + "는" + str(word[1]) + "번 나왔습니다."
         result = []
