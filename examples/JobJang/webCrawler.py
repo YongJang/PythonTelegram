@@ -57,7 +57,7 @@ class Crawling:
             #navigator = bs4.BeautifulSoup(html_content)
             navigator = BeautifulSoup(html_content , from_encoding="utf-8")
 
-            content = navigator.find("div", id = "main_content")
+            content = navigator.find("div", id = "main_content").get_text()
             #기사 입력일 추출
             datelist = navigator.find_all("span", {"class":"t11"})
             if len(datelist) > 0 :
@@ -67,7 +67,7 @@ class Crawling:
                 datetext = '20169999'
             #print datetext
             #기사 제목 추출
-            header = content.h3.get_text()
+            header = navigator.find("h3", id = "articleTitle").get_text()
             #기사 내용 추출
             text = content.find(id = "articleBodyContents").get_text()
             #기사 내용과 키워드 매칭 & 카운트
