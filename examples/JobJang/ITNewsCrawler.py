@@ -1,21 +1,8 @@
-#!/usr/bin/python
-#-*- coding: utf-8 -*-
-
-# 데이터베이스를 위한 라이브러리
-import os
-import flask
 import pymysql
-from jobjangDTO import Information
-from webCrawler import Crawling
-application = flask.Flask(__name__)
-application.debug = True
-@application.route('/')
-def hello_world():
-    storage = Storage()
-    storage.populate()
-    row = storage.row()
-    return "Are you OK %d!" % row
-
+import sys
+import time
+from bs4 import BeautifulSoup
+from urllib.request import Request, urlopen
 
 class Storage():
     def __init__(self):
@@ -103,6 +90,3 @@ class Storage():
         if self.db:
             self.db.cursor().close()
             self.db.close()
-
-if __name__ == "__main__":
-    application.run(host='0.0.0.0', port=3300)
