@@ -176,7 +176,7 @@ class Crawling:
             #print ''
         #URL 출력
         for index, url_list in enumerate(url_lists):
-            resultText = '[%d개] %s'%(index+1,url_list.encode('utf-8'))
+            resultText = '[%d개] %s'%(index+1,url_list)
             print (resultText)
         return url_lists
 """
