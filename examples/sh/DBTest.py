@@ -55,7 +55,8 @@ try:
                     if titles is not None : # 상세페이지의 title
                         db_title = titles.text.strip()
 
-                    date = detailsoup.find_all("dl", class_="day") # 상세페이지의 마감일 찾기
+                    calendar = detailsoup.find_all("dl", class_="day") # 상세페이지의 마감일 찾기 (달력 형식)
+                    date_second = detailsoup.find("p", {"class" : "regular"}) # 다른 형식의 상세페이지의 마감일 (달력없는 형식)
                     keyword = detailsoup.find('dt', text = '키워드').next_element.next_element.next_element.find_all("a", href = True , target ="_top") # 상세페이지의 키워드 찾기
 
                     if keyword is not None :
@@ -71,19 +72,26 @@ try:
                                 for n in range(len(db_tags)) :
                                     num = ",15,"
                                     tag_str = tag_str + str(db_tags[n]) + num
-                                tag_str = tag_str[:-1]
+                                    tag_str = tag_str[:-1]
 
-
-
-                    for d in date:
-                        datetext = d.getText().strip()
-                        deadline = datetext.replace('\n', ' ')
-                        #시작일 : 2016.05.05(목) 마감일 : 2016.05.11(수)
-                        year = deadline[26:30]
-                        month = deadline[31:33]
-                        day = deadline[34:36]
-                        pDate = year + month + day
-                        print(pDate)
+                    if calendar is not None :
+                        for d in calendar:
+                            datetext = d.getText().strip()
+                            deadline = datetext.replace('\n', ' ')
+                            year = deadline[26:30]
+                            month = deadline[31:33]
+                            day = deadline[34:36]
+                            pDate = year + month + day
+                            print(pDate)
+                    else : #<p class="regular">2016.05.12(목) ~  2016.07.31(일)</p>
+                        for d in date_second :
+                            datetext = d.getText().strip()
+                            deadline = datetext.replace('\n', ' ')
+                            year = deadline[15:18]
+                            month = deadline[19:20]
+                            day = deadline[21:22]
+                            pDate = year + month + day
+                            print(pDate)
 
                         if cur.execute("""SELECT url from job where url = %s""", 'http://www.jobkorea.co.kr/' + str(hrefs[index])) < 1 and  len(tag_str) > 0:
                             cur.execute("INSERT INTO job (url, high , low , title, content, click_num, aType, k_group, pDate) VALUES (\'http://www.jobkorea.co.kr/" + str(hrefs[index])  +"\',\' IT \',\'" + tag_str + "\',\'"+ str(db_title) + "\' ,\' contents \' , 0, \'Job\', 0, \'" + pDate + "\');")
