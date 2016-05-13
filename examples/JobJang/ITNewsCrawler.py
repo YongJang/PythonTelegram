@@ -64,13 +64,9 @@ class Storage():
         cur = self.db.cursor()
         for index, info in enumerate(infos):
             if type is 1:
-                cur.execute("INSERT INTO information(url, tag, title, content, click_num, a_type, k_group, p_date)" + \
-                            "VALUES (\'" + str(info.getUrl()) +"\',\'" + str(info.getTag()) + "\',\'" + str(info.getTitle()) + "\',\'" + \
-                            str(info.getContent()) + "\', 0, \'Article\', 0, \'" + str(info.getPDate()) + "\')")
+                cur.execute("INSERT INTO information(url, tag, title, content, click_num, a_type, k_group, p_date) VALUES (\'" + info.getUrl() +"\',\'" + info.getTag() + "\',\'" + info.getTitle() + "\',\'" + info.getContent() + "\', 0, \'Article\', 0, \'" + str(info.getPDate()) + "\')")
             else:
-                cur.execute("INSERT INTO information(url, tag, title, content, click_num, a_type, k_group, p_date)" + \
-                            "VALUES (\'" + str(info.getUrl()) +"\',\'" + str(info.getTag()) + "\',\'" + str(info.getTitle()) + "\',\'" + \
-                            str(info.getContent()) + "\', 0, \'Article\', 0, \'" + str(info.getPDate()) + "\')")
+                cur.execute("INSERT INTO information(url, tag, title, content, click_num, a_type, k_group, p_date) VALUES (\'" + info.getUrl() +"\',\'" + info.getTag() + "\',\'" + info.getTitle() + "\',\'" + info.getContent() + "\', 0, \'Article\', 0, \'" + str(info.getPDate()) + "\')")
         cur.close()
     def populate(self):
         cur = self.db.cursor()
