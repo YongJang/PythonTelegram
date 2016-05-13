@@ -70,7 +70,7 @@ class Crawling:
                 datetext = '20169999'
             #print datetext
             #기사 제목 추출
-            titleList = navigator.find("h3", id = "articleTitle")
+            titleList = navigator.find(id = "articleTitle")
             title = ""
             for n in range(0, len(titleList)):
                 title = title + titleList[n].get_text()
@@ -95,7 +95,7 @@ class Crawling:
             info = Information()
 
             info.setUrl(news_url)
-            info.setTitle(header)
+            info.setTitle(title)
             info.setContent(text)
             info.setPDate(datetext)
             info.setTag(temp)
