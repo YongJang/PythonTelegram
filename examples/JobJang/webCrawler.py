@@ -59,7 +59,7 @@ class Crawling:
 
             contentList = navigator.find_all("div", id = "main_content")
             content = ""
-            for n in range(len(contentList)):
+            for n in range(0, len(contentList)):
                 content = content + contentList[n].get_text()
             #기사 입력일 추출
             datelist = navigator.find_all("span", {"class":"t11"})
@@ -70,14 +70,14 @@ class Crawling:
                 datetext = '20169999'
             #print datetext
             #기사 제목 추출
-            headerList = navigator.find("h3", id = "articleTitle")
-            header = ""
-            for n in range(len(headerList)):
-                header = header + headerList[n].get_text()
+            titleList = navigator.find("h3", id = "articleTitle")
+            title = ""
+            for n in range(0, len(titleList)):
+                title = title + titleList[n].get_text()
             #기사 내용 추출
             textList = navigator.find(id = "articleBodyContents")
             text = ""
-            for n in range(len(textList)):
+            for n in range(0, len(textList)):
                 text = text + textList[n].get_text()
             #기사 내용과 키워드 매칭 & 카운트
             temp = "기본 0"
