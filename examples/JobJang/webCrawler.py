@@ -69,7 +69,7 @@ class Crawling:
             #기사 제목 추출
             header = navigator.find("h3", id = "articleTitle").get_text()
             #기사 내용 추출
-            text = content.find(id = "articleBodyContents").get_text()
+            text = navigator.find(id = "articleBodyContents").get_text()
             #기사 내용과 키워드 매칭 & 카운트
             temp = "기본 0"
             c = 0
