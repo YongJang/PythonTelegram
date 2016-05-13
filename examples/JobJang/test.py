@@ -3,7 +3,7 @@
 import unittest
 import time
 import sys
-from application import Storage
+from ITNewsCrawler import Storage
 from webCrawler import Crawling
 from jobjangDTO import Information
 
