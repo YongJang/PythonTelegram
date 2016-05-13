@@ -1,6 +1,9 @@
 #-*- encoding: utf-8 -*-
-import requests as rs
-import bs4
+#import requests as rs
+#import bs4
+from urllib.request import Request, urlopen
+import urllib.parse
+from bs4 import BeautifulSoup
 import time
 from operator import itemgetter
 from datetime import datetime, date, timedelta
@@ -45,10 +48,15 @@ class Crawling:
             #print "키워드" + word[0] + "는" + str(word[1]) + "번 나왔습니다."
         result = []
         for index, url in enumerate(list):
-            news_url = url.encode('utf-8')
-            response = rs.get(news_url)
-            html_content = response.text.encode(response.encoding);
-            navigator = bs4.BeautifulSoup(html_content)
+            #news_url = url.encode('utf-8')
+            news_url = url
+            #response = rs.get(news_url)
+            response = Request(news_url, headers={'User-Agent':'Mozilla/5.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1; .NET CLR 1.1.4322; .NET CLR 2.0.50727; .NET CLR 3.0.04506.30)'})
+            #html_content = response.text.encode(response.encoding);
+            html_content = urlopen(response).read()
+            #navigator = bs4.BeautifulSoup(html_content)
+            navigator = BeautifulSoup(html_content , from_encoding="utf-8")
+
             content = navigator.find("div", id = "main_content")
             #기사 입력일 추출
             datetext = navigator.find("span", {"class":"t11"}).get_text()
@@ -113,9 +121,12 @@ class Crawling:
         날짜별 표현된 뉴스기사가 20개 이상인 URL은 별도의 페이지로 나누어 표현되는데,
         이를 인식하고 페이지를 카운트하여 반환한다.
         """
-        response = rs.get(url)
-        html_content = response.text.encode(response.encoding)
-        navigator = bs4.BeautifulSoup(html_content, 'html.parser', from_encoding='utf-8')
+        #response = rs.get(url)
+        response = response = Request(url, headers={'User-Agent':'Mozilla/5.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1; .NET CLR 1.1.4322; .NET CLR 2.0.50727; .NET CLR 3.0.04506.30)'})
+        #html_content = response.text.encode(response.encoding)
+        html_content = urlopen(response).read()
+        #navigator = bs4.BeautifulSoup(html_content)
+        navigator = BeautifulSoup(html_content , from_encoding="utf-8")
         pages = navigator.find("div", {"class":"paging"})
         if pages is not None:
             page_nums = pages.find_all('a')
@@ -133,11 +144,14 @@ class Crawling:
         for i in range(len_urls):
             naver_url = naver_urls[i]
     	    #요청
-            response = rs.get(naver_url)
+            #response = rs.get(naver_url)
+            response = response = Request(url, headers={'User-Agent':'Mozilla/5.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1; .NET CLR 1.1.4322; .NET CLR 2.0.50727; .NET CLR 3.0.04506.30)'})
     	    #응답으로 부터 HTML 추출
-            html_content = response.text.encode(response.encoding);
+            #html_content = response.text.encode(response.encoding);
+            html_content = urlopen(response).read()
     	    #HTML 파싱
-            navigator = bs4.BeautifulSoup(html_content, 'html.parser', from_encoding='utf-8')
+            #navigator = bs4.BeautifulSoup(html_content)
+            navigator = BeautifulSoup(html_content , from_encoding="utf-8")
     	    #네비게이터를 이용해 원하는 링크 리스트 가져오기
             #헤드라인 10개
             headLineTags = navigator.find("ul", {"class":"type06_headline"})
