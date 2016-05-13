@@ -60,7 +60,7 @@ class Crawling:
             content = navigator.find("div", id = "main_content")
             #기사 입력일 추출
             datelist = navigator.find_all("span", {"class":"t11"})
-            if datelist[0] is not None :
+            if len(datelist) > 0 :
                 datetext = datelist[0].get_text()
                 datetext = self.getDateInNews(datetext)
             else :
