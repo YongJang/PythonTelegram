@@ -72,9 +72,9 @@ try:
                                 for n in range(len(db_tags)) :
                                     num = ",15," # 가중치
                                     tag_str = tag_str + str(db_tags[n]) + num # 통신,15,네트워크,15
-                                    tag_str = tag_str[:-1]
-                                    print(tag_str)
-                                    print(len(tag_str))
+                                tag_str = tag_str[:-1]
+                                print(tag_str)
+                                print(len(tag_str))
                     #<p class="regular">2016.05.12(목) ~  2016.07.31(일)</p>
                     if calendar is not None :
                         for d in calendar:
