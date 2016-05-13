@@ -145,7 +145,7 @@ class Crawling:
             naver_url = naver_urls[i]
     	    #요청
             #response = rs.get(naver_url)
-            response = response = Request(url, headers={'User-Agent':'Mozilla/5.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1; .NET CLR 1.1.4322; .NET CLR 2.0.50727; .NET CLR 3.0.04506.30)'})
+            response = response = Request(naver_url, headers={'User-Agent':'Mozilla/5.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1; .NET CLR 1.1.4322; .NET CLR 2.0.50727; .NET CLR 3.0.04506.30)'})
     	    #응답으로 부터 HTML 추출
             #html_content = response.text.encode(response.encoding);
             html_content = urlopen(response).read()
