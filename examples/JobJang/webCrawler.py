@@ -47,7 +47,7 @@ class Crawling:
             news_url = url.encode('utf-8')
             response = rs.get(news_url)
             html_content = response.text.encode(response.encoding);
-            navigator = bs4.BeautifulSoup(html_content, 'html.parser', from_encoding='utf-8')
+            navigator = bs4.BeautifulSoup(html_content)
             content = navigator.find("div", id = "main_content")
             #기사 입력일 추출
             datetext = navigator.find("span", {"class":"t11"}).get_text()
