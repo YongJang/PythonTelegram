@@ -57,18 +57,19 @@ try:
                     keyword = detailsoup.find('dt', text = '키워드').next_element.next_element.next_element.find_all("a", href = True , target ="_top") # 상세페이지의 키워드 찾기
 
                     if keyword is not None :
+                        weight = "15" # 가중치
+                        tag_str = ""
+
                         for k in keyword :
                             k_list.append(k.text) # k_list에 키워드text 넣기
 
                         for k_count in range(len(k_list)) :
-                            result = k_list.count(k_list[k_count]) # 숫자세기
-
+                        #    result = k_list.count(k_list[k_count]) # 숫자세기
                             if cur.execute("""SELECT * from tags where low = %s""", str(k_list[k_count])) > 0 :
                                 db_tags.append(k_list[k_count]) # low == tags
 
                         for n in range(len(db_tags)) :
-                            num = ",15," # 가중치
-                            tag_str = tag_str + str(db_tags[n]) + num # 통신,15,네트워크,15
+                            tag_str = tag_str + str(db_tags[n]) + "," + weight + "," # 통신,15,네트워크,15
                         tag_str = tag_str[:-1]
                         del db_tags[:]
                     print(tag_str)
