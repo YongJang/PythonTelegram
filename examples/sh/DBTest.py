@@ -72,7 +72,7 @@ try:
                         for n in range(len(db_tags)) :
                             tag_str = tag_str + str(db_tags[n]) + "," + weight + "," # 통신,15,네트워크,15
                         tag_str = tag_str[:-1]
-                        db_tags = []
+                        db_tags.clear()
                     print(tag_str)
                     print(len(tag_str))
                     #<p class="regular">2016.05.12(목) ~  2016.07.31(일)</p>
