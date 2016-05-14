@@ -37,7 +37,7 @@ try:
                     if t.get("href") is not None :
                         hrefs.append(t.get("href"))
 
-                for index in range(0,len(hrefs)):
+                for index in range(0,len(hrefs)): # 40
                     db_tags = []
                     time.sleep(3) #30*60 = 1800
                     if sleep_i >= 20 :
@@ -69,7 +69,8 @@ try:
                         for n in range(len(db_tags)) :
                             num = ",15," # 가중치
                             tag_str = tag_str + str(db_tags[n]) + num # 통신,15,네트워크,15
-                    tag_str = tag_str[:-1]
+                        tag_str = tag_str[:-1]
+                        del db_tags[:]
                     print(tag_str)
                     print(len(tag_str))
                     #<p class="regular">2016.05.12(목) ~  2016.07.31(일)</p>
