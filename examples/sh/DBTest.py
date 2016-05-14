@@ -74,7 +74,7 @@ try:
                         tag_str = tag_str[:-1]
                         db_tags.clear()
                     print(tag_str)
-                    print(len(tag_str))
+                    print(len(db_tags))
                     #<p class="regular">2016.05.12(목) ~  2016.07.31(일)</p>
                     if calendar is not None :
                         for d in calendar:
