@@ -53,7 +53,7 @@ json_keyboard = json.dumps({'keyboard': [["1"], ["2"], ["3"], ["4"]],
                             'resize_keyboard': True})
 
 
-TelegramAPI.post(BASE_URL + "sendMessage",
+bot.post(BASE_URL + "sendMessage",
                  data=dict(chat_id=CHAT_ID,
                            text="Has to be non-empty",
                            reply_markup=json_keyboard))
