@@ -18,6 +18,7 @@ commands = {  # command description used in the "help" command
               'help': 'Gives you information about the available commands',
               'sendLongText': 'A test using the \'send_chat_action\' command',
               'getImage': 'A test using multi-stage messages, custom keyboard, and media sending'
+              'getArticle': 'JobJang test crawling Naver articles'
 }
 
 imageSelect = types.ReplyKeyboardMarkup(one_time_keyboard=True)  # create the image selection keyboard
