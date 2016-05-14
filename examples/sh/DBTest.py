@@ -68,7 +68,7 @@ try:
                         #    result = k_list.count(k_list[k_count]) # 숫자세기
                             if cur.execute("""SELECT * from tags where low = %s""", str(k_list[k_count])) > 0 :
                                 db_tags.append(k_list[k_count]) # low == tags
-
+                        tag_str = tag_str[:]
                         for n in range(len(db_tags)) :
                             tag_str = tag_str + str(db_tags[n]) + "," + weight + "," # 통신,15,네트워크,15
                         tag_str = tag_str[:-1]
