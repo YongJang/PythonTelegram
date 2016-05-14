@@ -36,13 +36,12 @@ try:
                 for t in info :
                     if t.get("href") is not None :
                         hrefs.append(t.get("href"))
+                for i in range(1000) :
+                    for index in range(0,len(hrefs)): # 40
+                        db_tags = []
+                        tag_str = ""
+                        time.sleep(2)
 
-                for index in range(0,len(hrefs)): # 40
-                    db_tags = []
-                    tag_str = ""
-                    time.sleep(2)
-
-                    for i in range(1000) :
                         detail_html = Request('http://www.jobkorea.co.kr/' + str(hrefs[index]), headers={'User-Agent':'Mozilla/ ' + str(i) + ' .0 (compatible; MSIE 6.0; Windows NT 5.1; SV1; .NET CLR 1.1.4322; .NET CLR 2.0.50727; .NET CLR 3.0.04506.30)'})
                         i = i + 1
                         sleep_i = sleep_i + 1 # 상세페이지 들어가기
@@ -58,8 +57,6 @@ try:
 
                         if keyword is not None :
                             weight = "15" # 가중치
-
-
                             for k in keyword :
                                 k_list.append(k.text) # k_list에 키워드text 넣기
 
@@ -70,6 +67,7 @@ try:
 
                             for n in range(len(db_tags)) :
                                 tag_str = tag_str + str(db_tags[n]) + "," + weight + "," # 통신,15,네트워크,15
+
                             tag_str = tag_str[:-1]
                             db_tags.clear()
                             k_list.clear()
@@ -102,20 +100,19 @@ try:
                             cur.execute("INSERT INTO job (url, high , low , title, content, click_num, aType, k_group, pDate) VALUES (\'http://www.jobkorea.co.kr/" + str(hrefs[index])  +"\',\' IT \',\'" + str(tag_str) + "\',\'"+ str(db_title) + "\' ,\' contents \' , 0, \'Job\', 0, \'" + pDate + "\');")
                             conn.commit()
                         else :
-
                             continue
 
 
-            def Medium_Technology():
-                getPost(sleep_i)
+        def Medium_Technology():
+            getPost(sleep_i)
 
-            if __name__ == '__main__' :
-                Medium_Technology()
+        if __name__ == '__main__' :
+            Medium_Technology()
     except pymysql.Error as e :
-            print ("Error %d: %s" % (e.args[0], e.args[1]))
-            sys.exit(1)
+        print ("Error %d: %s" % (e.args[0], e.args[1]))
+        sys.exit(1)
 
     finally:
-            if conn:
-                    cur.close()
-                    conn.close()
+        if conn:
+            cur.close()
+            conn.close()
