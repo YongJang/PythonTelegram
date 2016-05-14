@@ -78,6 +78,7 @@ try:
                     print(tag_str)
                     print(len(db_tags))
                     #<p class="regular">2016.05.12(목) ~  2016.07.31(일)</p>
+                    pDate = ""
                     if calendar is not None :
                         for d in calendar:
                             datetext = d.getText().strip()
@@ -87,12 +88,7 @@ try:
                             day = deadline[34:36]
                             pDate = year + month + day
                             print(pDate)
-                        if cur.execute("""SELECT url from job where url = %s""", 'http://www.jobkorea.co.kr/' + str(hrefs[index])) < 1 and  len(str(tag_str)) > 0:
-                            print("It is in if")
-                            cur.execute("INSERT INTO job (url, high , low , title, content, click_num, aType, k_group, pDate) VALUES (\'http://www.jobkorea.co.kr/" + str(hrefs[index])  +"\',\' IT \',\'" + str(tag_str) + "\',\'"+ str(db_title) + "\' ,\' contents \' , 0, \'Job\', 0, \'" + pDate + "\');")
-                            conn.commit()
-                        else :
-                            continue
+
                     else :
                         for d in date_second:
                             datetext = d.getText().strip()
@@ -102,14 +98,14 @@ try:
                             day = deadline[27:29]
                             pDate = year + month + day
                             print(pDate)
-                        
-                        if cur.execute("""SELECT url from job where url = %s""", 'http://www.jobkorea.co.kr/' + str(hrefs[index])) < 1 and  len(str(tag_str)) > 0:
-                            print("It is in if")
-                            cur.execute("INSERT INTO job (url, high , low , title, content, click_num, aType, k_group, pDate) VALUES (\'http://www.jobkorea.co.kr/" + str(hrefs[index])  +"\',\' IT \',\'" + str(tag_str) + "\',\'"+ str(db_title) + "\' ,\' contents \' , 0, \'Job\', 0, \'" + pDate + "\');")
-                            conn.commit()
-                        else :
 
-                            continue
+                    if cur.execute("""SELECT url from job where url = %s""", 'http://www.jobkorea.co.kr/' + str(hrefs[index])) < 1 and  len(str(tag_str)) > 0:
+                        print("It is in if")
+                        cur.execute("INSERT INTO job (url, high , low , title, content, click_num, aType, k_group, pDate) VALUES (\'http://www.jobkorea.co.kr/" + str(hrefs[index])  +"\',\' IT \',\'" + str(tag_str) + "\',\'"+ str(db_title) + "\' ,\' contents \' , 0, \'Job\', 0, \'" + pDate + "\');")
+                        conn.commit()
+                    else :
+
+                        continue
 
 
         def Medium_Technology():
