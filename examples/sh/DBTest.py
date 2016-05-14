@@ -7,7 +7,6 @@ import urllib.parse
 from bs4 import BeautifulSoup
 import time
 
-
 try:
         print(sys.stdin.encoding)
         conn = pymysql.connect(host='telegramdb.cctjzlx6kmlc.ap-northeast-1.rds.amazonaws.com', port=3306, user='yongjang', passwd='yongjang', db='telegramdb', charset='utf8')
@@ -41,7 +40,12 @@ try:
                         db_tags = []
                         tag_str = ""
                         time.sleep(2)
-
+                        '''
+                        if sleep_i >= 20 :
+                            sleep_i = 0
+                            conn.commit()
+                            time.sleep(2000)
+                        '''
                         detail_html = Request('http://www.jobkorea.co.kr/' + str(hrefs[index]), headers={'User-Agent':'Mozilla/ ' + str(i) + ' .0 (compatible; MSIE 6.0; Windows NT 5.1; SV1; .NET CLR 1.1.4322; .NET CLR 2.0.50727; .NET CLR 3.0.04506.30)'})
                         i = i + 1
                         sleep_i = sleep_i + 1 # 상세페이지 들어가기
