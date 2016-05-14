@@ -95,12 +95,12 @@ try:
 
                         if cur.execute("""SELECT url from job where url = %s""", 'http://www.jobkorea.co.kr/' + str(hrefs[index])) < 1 and  len(tag_str) > 0:
                             cur.execute("INSERT INTO job (url, high , low , title, content, click_num, aType, k_group, pDate) VALUES (\'http://www.jobkorea.co.kr/" + str(hrefs[index])  +"\',\' IT \',\'" + str(tag_str) + "\',\'"+ str(db_title) + "\' ,\' contents \' , 0, \'Job\', 0, \'" + pDate + "\');")
-                            tag_str.replace(str(tag_str),'')
+                            tag_str = tag_str.replace(str(tag_str),'')
                         else :
-                            tag_str.replace(str(tag_str),'')
+                            tag_str = tag_str.replace(str(tag_str),'')
                             continue
 
-                    conn.commit()
+                conn.commit()
         def Medium_Technology():
             getPost(sleep_i)
 
