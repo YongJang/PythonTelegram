@@ -14,11 +14,11 @@ knownUsers = []  # todo: save these in a file,
 userStep = {}  # so they won't reset every time the bot restarts
 
 commands = {  # command description used in the "help" command
-              'start': 'Get used to the bot',
-              'help': 'Gives you information about the available commands',
+              'start': '봇 사용을 시작합니다.',
+              'help': '사용 가능한 명령어들을 봅니다.',
               'sendLongText': 'A test using the \'send_chat_action\' command',
               'getImage': 'A test using multi-stage messages, custom keyboard, and media sending',
-              'getArticle': 'JobJang test crawling Naver articles'
+              'getArticle': '네이버 기사 크롤링 테스트'
 }
 
 imageSelect = types.ReplyKeyboardMarkup(one_time_keyboard=True)  # create the image selection keyboard
