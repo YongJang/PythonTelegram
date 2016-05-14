@@ -47,7 +47,6 @@ def echo_message(message):
         #bot.send_message(chat_id, "button", keyboard = CUSTOM_KEYBOARD)
     else:
         bot.reply_to(message, message.text)
-        process_cmds(message)
 
 
 
