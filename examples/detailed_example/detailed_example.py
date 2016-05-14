@@ -1,6 +1,7 @@
 """
 This is a detailed example using almost every command of the API
 https://github.com/eternnoir/pyTelegramBotAPI/issues?utf8=%E2%9C%93&q=to_dic
+https://github.com/eternnoir/pyTelegramBotAPI/releases/tag/2.0.5
 """
 
 import telebot
