@@ -97,7 +97,7 @@ try:
                             pDate = year + month + day
                             print(pDate)
 
-                        if cur.execute("""SELECT url from job where url = %s""", 'http://www.jobkorea.co.kr/' + str(hrefs[index])) < 1 and  len(tag_str) > 0:
+                        if cur.execute("""SELECT url from job where url = %s""", 'http://www.jobkorea.co.kr/' + str(hrefs[index])) < 1 and  len(str(tag_str)) > 0:
                             print("It is in if")
                             cur.execute("INSERT INTO job (url, high , low , title, content, click_num, aType, k_group, pDate) VALUES (\'http://www.jobkorea.co.kr/" + str(hrefs[index])  +"\',\' IT \',\'" + str(tag_str) + "\',\'"+ str(db_title) + "\' ,\' contents \' , 0, \'Job\', 0, \'" + pDate + "\');")
                             conn.commit()
