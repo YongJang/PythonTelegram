@@ -14,7 +14,7 @@ import urllib
 import urllib.parse
 import json
 import logging
-import re
+import requests
 
 API_TOKEN = '207944330:AAGdpOvswmHangYooE8wBEf1p-vYP2skyL0'
 
@@ -47,17 +47,17 @@ CUSTOM_KEYBOARD = [
         [CMD_USER],
         ]
 
-u"""
-json_keyboard = json.dumps({'keyboard': [["A button"], ["B button"]],
+
+json_keyboard = json.dumps({'keyboard': [["1"], ["2"], ["3"], ["4"]],
                             'one_time_keyboard': False,
                             'resize_keyboard': True})
 
 
-TelegramAPI.post(TELEGRAM_URL + "sendMessage",
+TelegramAPI.post(BASE_URL + "sendMessage",
                  data=dict(chat_id=CHAT_ID,
                            text="Has to be non-empty",
                            reply_markup=json_keyboard))
-"""
+
 
 
 # 메시지 발송 관련 함수들
@@ -86,7 +86,7 @@ def send_msg(chat_id, text, reply_to=None, no_preview=True, keyboard=None):
             })
         params['reply_markup'] = reply_markup
     try:
-        urllib.request(BASE_URL + 'sendMessage', urllib.parse.quote(params)).read()
+        requests(BASE_URL + 'sendMessage', requests.get(params)).read()
     except Exception as e:
         logging.exception(e)
 
