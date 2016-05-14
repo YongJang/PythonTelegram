@@ -74,7 +74,7 @@ try:
                         tag_str = tag_str[:-1]
                         db_tags.clear()
                         k_list.clear()
-                        
+
                     print(tag_str)
                     print(len(db_tags))
                     #<p class="regular">2016.05.12(목) ~  2016.07.31(일)</p>
@@ -106,7 +106,7 @@ try:
                             tag_str = ""
                             continue
 
-                conn.commit()
+                        conn.commit()
         def Medium_Technology():
             getPost(sleep_i)
 
