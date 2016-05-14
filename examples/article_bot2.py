@@ -17,7 +17,7 @@ commands = {  # command description used in the "help" command
               'start': 'Get used to the bot',
               'help': 'Gives you information about the available commands',
               'sendLongText': 'A test using the \'send_chat_action\' command',
-              'getImage': 'A test using multi-stage messages, custom keyboard, and media sending'
+              'getImage': 'A test using multi-stage messages, custom keyboard, and media sending',
               'getArticle': 'JobJang test crawling Naver articles'
 }
 
