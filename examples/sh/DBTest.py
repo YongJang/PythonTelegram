@@ -108,11 +108,11 @@ try:
 
         if __name__ == '__main__' :
             Medium_Technology()
-    except pymysql.Error as e :
-        print ("Error %d: %s" % (e.args[0], e.args[1]))
-        sys.exit(1)
+except pymysql.Error as e:
+    print ("Error %d: %s" % (e.args[0], e.args[1]))
+    sys.exit(1)
 
-    finally:
-        if conn:
+finally:
+    if conn:
             cur.close()
             conn.close()
