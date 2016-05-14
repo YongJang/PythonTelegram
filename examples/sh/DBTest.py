@@ -10,11 +10,8 @@ import time
 
 try:
         print(sys.stdin.encoding)
-
         conn = pymysql.connect(host='telegramdb.cctjzlx6kmlc.ap-northeast-1.rds.amazonaws.com', port=3306, user='yongjang', passwd='yongjang', db='telegramdb', charset='utf8')
-
         print("connection success!!")
-
         cur = conn.cursor()
 # -*- coding: utf-8 -*-
 
@@ -65,10 +62,10 @@ try:
 
                         for k_count in range(len(k_list)) :
                             result = k_list.count(k_list[k_count]) # 숫자세기
-                            tag_str = ""
+        
                             if cur.execute("""SELECT * from tags where low = %s""", str(k_list[k_count])) > 0 :
                                 db_tags.append(k_list[k_count]) # low == tags
-                            
+
                                 for n in range(len(db_tags)) :
                                     num = ",15," # 가중치
                                     tag_str = tag_str + str(db_tags[n]) + num # 통신,15,네트워크,15
