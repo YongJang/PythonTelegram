@@ -52,12 +52,12 @@ json_keyboard = json.dumps({'keyboard': [["1"], ["2"], ["3"], ["4"]],
                             'one_time_keyboard': False,
                             'resize_keyboard': True})
 
-
+"""
 bot.post(BASE_URL + "sendMessage",
                  data=dict(chat_id=CHAT_ID,
                            text="Has to be non-empty",
                            reply_markup=json_keyboard))
-
+"""
 
 
 # 메시지 발송 관련 함수들
