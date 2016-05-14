@@ -39,6 +39,7 @@ try:
 
                 for index in range(0,len(hrefs)): # 40
                     db_tags = []
+                    tag_str = ""
                     time.sleep(3) #30*60 = 1800
                     if sleep_i >= 20 :
                         sleep_i = 0
@@ -58,7 +59,7 @@ try:
 
                     if keyword is not None :
                         weight = "15" # 가중치
-                        tag_str = ""
+
 
                         for k in keyword :
                             k_list.append(k.text) # k_list에 키워드text 넣기
