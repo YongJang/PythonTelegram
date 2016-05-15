@@ -32,8 +32,8 @@ imageSelect.add('cock', 'kitten')
 articleSelect = types.ReplyKeyboardMarkup(one_time_keyboard=True)
 articleSelect.add('IT', '사회')
 
-articleSelectInline = types.InlineKeyboardMarkup(2)
-articleSelectInline.add('IT', '사회')
+#articleSelectInline = types.InlineKeyboardMarkup(2)
+#articleSelectInline.add('IT', '사회')
 
 hideBoard = types.ReplyKeyboardHide()  # if sent as reply_markup, will hide the keyboard
 
@@ -112,7 +112,7 @@ def command_image(m):
 @bot.message_handler(commands=['getArticle'])
 def command_image(m):
     cid = m.chat.id
-    bot.send_message(cid, "당신이 관심있는 분야를 선택하세요.", reply_markup=articleSelectInline)  # show the keyboard
+    bot.send_message(cid, "당신이 관심있는 분야를 선택하세요.", reply_markup=articleSelect)  # show the keyboard
     userStep[cid] = 100  # set the user to the next step (expecting a reply in the listener now)
 
 
