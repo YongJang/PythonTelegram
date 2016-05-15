@@ -8,7 +8,7 @@ import telebot
 from telebot import types
 import time
 import urllib
-import StringIO
+from io import StringIO
 
 TOKEN = '207944330:AAGdpOvswmHangYooE8wBEf1p-vYP2skyL0'
 
