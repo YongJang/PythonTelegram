@@ -32,8 +32,8 @@ try:
                 #print(info.text)
                 #date = soup.find("dl",{ "class" : "day"}).find_all("dd")
 
-                calendar = detailsoup.find_all("dl", class_="day") # 상세페이지의 마감일 찾기 (달력 형식)
-                date_second = detailsoup.find_all("p", class_="regular") # 다른 형식의 상세페이지의 마감일 (달력없는 형식)
+                calendar = soup.find_all("dl", class_="day") # 상세페이지의 마감일 찾기 (달력 형식)
+                date_second = soup.find_all("p", class_="regular") # 다른 형식의 상세페이지의 마감일 (달력없는 형식)
                 keywords = soup.find("dt", text = "키워드").next_element.next_element.next_element.find_all("a", href = True , target ="_top")
                 for k in keywords :
                     print(k.getText())
