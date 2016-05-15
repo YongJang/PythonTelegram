@@ -39,11 +39,11 @@ try:
 
                 for d in date:
                     datetext = d.getText().strip()
-                    deadline = datetext.replace('.', '')
+                    deadline = datetext.replace('.', ' ')
                     #<p class="regular">2016.05.11(수) ~  2016.07.30(토)</p>
-                    year = deadline[15:18]
-                    month = deadline[19:20]
-                    day = deadline[21:22]
+                    year = deadline[15:19]
+                    month = deadline[21:22]
+                    day = deadline[23:24]
                     pDate = year + month +day
                     print(pDate)
 
