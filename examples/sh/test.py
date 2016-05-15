@@ -9,11 +9,8 @@ import time
 
 try:
         print(sys.stdin.encoding)
-
         conn = pymysql.connect(host='telegramdb.cctjzlx6kmlc.ap-northeast-1.rds.amazonaws.com', port=3306, user='yongjang', passwd='yongjang', db='telegramdb', charset='utf8')
-
         print("connection success!!")
-
         cur = conn.cursor()
 # -*- coding: utf-8 -*-
 
@@ -29,8 +26,6 @@ try:
                 webpage = urlopen(html).read()
                 soup = BeautifulSoup(webpage, from_encoding="utf-8")
                 info = soup.find_all(class_="title")
-                #print(info.text)
-                #date = soup.find("dl",{ "class" : "day"}).find_all("dd")
 
                 calendar = soup.find_all("dl", class_="day") # 상세페이지의 마감일 찾기 (달력 형식)
                 date_second = soup.find_all("p", class_="regular") # 다른 형식의 상세페이지의 마감일 (달력없는 형식)
@@ -40,23 +35,25 @@ try:
 
                 pDate = ""
                 if calendar is not None :
-                    for d in calendar:
+                    for d in range(len(calendar)):
                         datetext = d.getText().strip()
                         deadline = datetext.replace('\n', ' ')
                         year = deadline[26:30]
                         month = deadline[31:33]
                         day = deadline[34:36]
                         pDate = year + month + day
+                        print("calendar에 들어왔습니다.")
                         print(pDate)
 
                 elif date_second is not None :
-                    for d in date_second:
+                    for d in range(len(date_second)):
                         datetext = d.getText().strip()
                         deadline = datetext.replace('.', ' ')
                         year = deadline[17:21]
                         month = deadline[22:24]
                         day = deadline[25:27]
                         pDate = year + month + day
+                        print("date_second에 들어왔습니다.")
                         print(pDate)
                 else :
                     print("else 문 에 들어왔습니다.")
