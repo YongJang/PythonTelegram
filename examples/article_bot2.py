@@ -7,9 +7,11 @@ https://github.com/eternnoir/pyTelegramBotAPI/releases/tag/2.0.5
 import telebot
 from telebot import types
 import time
-from urllib.request import urlopen
-from io import StringIO
+from urllib.request import Request, urlopen
+import requests
+from io import BytesIO
 from PIL import Image
+
 
 TOKEN = '207944330:AAGdpOvswmHangYooE8wBEf1p-vYP2skyL0'
 
@@ -118,8 +120,10 @@ def msg_image_select(m):
         bot.send_photo(cid, open('kitten.jpg', 'rb'), reply_markup=hideBoard)
         userStep[cid] = 0
     else:
-        imgdata = urlopen("https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcTAnUfeM4cQyki9cIY1rib2ZW7__8wtCr-JVY-1lDeD2HD4bPpP5g").read()
-        img = Image.open(StringIO(imgdata))
+        url = "https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcTAnUfeM4cQyki9cIY1rib2ZW7__8wtCr-JVY-1lDeD2HD4bPpP5g"
+        #imgdata = urlopen(url).read()
+        response = requests.get(url)
+        img = Image.open(BytesIO(response.content))
         bot.send_photo(cid, img, reply_markup = hideBoard)
         bot.send_message(cid, "Success!!")
         bot.send_message(cid, "Please try again")
