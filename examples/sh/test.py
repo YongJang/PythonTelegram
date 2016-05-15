@@ -32,31 +32,38 @@ try:
                 #print(info.text)
                 #date = soup.find("dl",{ "class" : "day"}).find_all("dd")
 
-                date = soup.find_all("p", class_="regular")
+                calendar = detailsoup.find_all("dl", class_="day") # 상세페이지의 마감일 찾기 (달력 형식)
+                date_second = detailsoup.find_all("p", class_="regular") # 다른 형식의 상세페이지의 마감일 (달력없는 형식)
                 keywords = soup.find("dt", text = "키워드").next_element.next_element.next_element.find_all("a", href = True , target ="_top")
                 for k in keywords :
                     print(k.getText())
 
-                for d in date:
-                    datetext = d.getText().strip()
-                    deadline = datetext.replace('.', ' ')
-                    print(deadline)
-                    #<p class="regular">2016.05.11(수) ~  2016.07.30(토)</p>
-                    #2016 05 12(목) ~  2016 07 31(일)
-                    year = deadline[17:21]
-                    month = deadline[22:24]
-                    day = deadline[25:27]
-                    pDate = year + month +day
-                    print(pDate)
+                pDate = ""
+                if calendar is not None :
+                    for d in calendar:
+                        datetext = d.getText().strip()
+                        deadline = datetext.replace('\n', ' ')
+                        year = deadline[26:30]
+                        month = deadline[31:33]
+                        day = deadline[34:36]
+                        pDate = year + month + day
+                        print(pDate)
 
-                #if cur.execute("""SELECT url from job where url = %s""", 'http://www.jobkorea.co.kr/Recruit/GI_Read/' + str(i) + '?Oem_Code=C1&rPageCode=ST&PageGbn=ST') < 1:
-                    #cur.execute("INSERT INTO job (url, title, tag, content, click_num, aType, k_group, pDate) VALUES (\'http://www.jobkorea.co.kr/" + str(i) + "?Oem_Code=C1&rPageCode=ST&PageGbn=ST\',  0 ,\'" + "소프트웨어" + "\',\' contents \' , 0, \'Job\', 0, \'" + pDate + "\');")
-                    #i = i+1
-                #else:
-                    #i = i+1
-                    #continue
+                elif date_second is not None :
+                    for d in date_second:
+                        datetext = d.getText().strip()
+                        deadline = datetext.replace('.', ' ')
+                        year = deadline[17:21]
+                        month = deadline[22:24]
+                        day = deadline[25:27]
+                        pDate = year + month + day
+                        print(pDate)
+                else :
+                    break
 
-            #conn.commit()
+                cur.execute("INSERT INTO job (url, title, tag, content, click_num, aType, k_group, pDate) VALUES (\'http://www.jobkorea.co.kr/Recruit/GI_Read/17067787?Oem_Code=C1&rPageCode=ST&PageGbn=ST\',  0 ,\'" + "소프트웨어" + "\',\' contents \' , 0, \'Job\', 0, \'" + pDate + "\');")
+
+                conn.commit()
 
 
         def Medium_Technology():
