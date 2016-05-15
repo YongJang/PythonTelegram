@@ -41,9 +41,9 @@ try:
                     datetext = d.getText().strip()
                     deadline = datetext.replace('.', '')
                     #시작일 : 2016.05.05(목) 마감일 : 2016.05.11(수)
-                    year = deadline[17:23]
-                    month = deadline[24:26]
-                    day = deadline[27:29]
+                    year = deadline[15:22]
+                    month = deadline[23:24]
+                    day = deadline[25:26]
                     pDate = year + month + day
                     print(pDate)
 
