@@ -32,7 +32,7 @@ imageSelect.add('cock', 'kitten')
 articleSelect = types.ReplyKeyboardMarkup(one_time_keyboard=True)
 articleSelect.add('IT', '사회')
 
-articleSelectInline = types.InlineKeyboardMarkup(one_time_keyboard=True)
+articleSelectInline = types.InlineKeyboardMarkup(2)
 articleSelectInline.add('IT', '사회')
 
 hideBoard = types.ReplyKeyboardHide()  # if sent as reply_markup, will hide the keyboard
