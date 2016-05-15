@@ -41,9 +41,20 @@ articleSelectInline = types.InlineKeyboardMarkup(2)
 # inlineButton1 = types.InlineKeyboardButton('1', switch_inline_query="a")
 # inlineButton2 = types.InlineKeyboardButton('2', switch_inline_query="b")
 
-step100Button1 = types.InlineKeyboardButton('IT', callback_data="IT")
-step100Button2 = types.InlineKeyboardButton('사회', callback_data="사회")
+step100Button1 = types.InlineKeyboardButton('IT', callback_data="100-1")
+step100Button2 = types.InlineKeyboardButton('사회', callback_data="100-2")
 articleSelectInline.add(step100Button1, step100Button2)
+
+step110Keyboard = types.InlineKeyboardMarkup(2)
+step110Button1 = types.InlineKeyboardButton('기사', callback_data="110-1")
+step110Button2 = types.InlineKeyboardButton('공모전', callback_data="110-2")
+strp110Keyboard.add(step110Button1, step110Button2)
+
+step120Keyboard = types.InlineKeyboardMarkup(2)
+step120Button1 = types.InlineKeyboardButton('기사', callback_data="120-1")
+step120Button2 = types.InlineKeyboardButton('구인 정보', callback_data="120-2")
+strp120Keyboard.add(step120Button1, step120Button2)
+
 
 hideBoard = types.ReplyKeyboardHide()  # if sent as reply_markup, will hide the keyboard
 
@@ -192,18 +203,52 @@ def command_default(m):
     bot.send_message(m.chat.id, "이게 무슨말?? \"" + m.text + "\"\nMaybe try the help page at /help")
 
 # 여기서 부터 callback_query 핸들러
-@bot.callback_query_handler(func=lambda call: call.data == "IT" and get_user_step(call.from_user.id) == 100)
+"""====================================================SET======================================================"""
+@bot.callback_query_handler(func=lambda call: call.data == "100-1" and get_user_step(call.from_user.id) == 100)
 def step100IT(call):
-    """ 하나는 """
     cid = call.from_user.id
     #bot.answer_callback_query(call.id, text="IT 기사!!")
-    bot.send_message(cid, "IT!!!")
+    bot.send_message(cid, "어떤 종류의 IT 글을 원하시나요?", reply_markup=step110Keyboard)
+    userStep[cid] = 110
+
+@bot.callback_query_handler(func=lambda call: call.data == "100-2" and get_user_step(call.from_user.id) == 100)
+def step100Social(call):
+    cid = call.from_user.id
+    #bot.answer_callback_query(call.id, text="사회 기사!!")
+    bot.send_message(cid, "어떤 종류의 사회 글을 원하시나요?", reply_markup=step120Keyboard)
+    userStep[cid] = 120
+"""============================================================================================================="""
+
+"""====================================================SET======================================================"""
+@bot.callback_query_handler(func=lambda call: call.data == "110-1" and get_user_step(call.from_user.id) == 110)
+def step100Social(call):
+    cid = call.from_user.id
+    #bot.answer_callback_query(call.id, text="사회 기사!!")
+    bot.send_message(cid, "IT 기사 목록입니다.")
     userStep[cid] = 0
 
-@bot.callback_query_handler(func=lambda call: call.data == "사회" and get_user_step(call.from_user.id) == 100)
+@bot.callback_query_handler(func=lambda call: call.data == "110-2" and get_user_step(call.from_user.id) == 110)
 def step100Social(call):
-    cid = call.id
+    cid = call.from_user.id
     #bot.answer_callback_query(call.id, text="사회 기사!!")
-    bot.send_message(cid, "사회!!!")
+    bot.send_message(cid, "IT 구인 정보 목록입니다.")
     userStep[cid] = 0
+"""============================================================================================================="""
+
+"""====================================================SET======================================================"""
+@bot.callback_query_handler(func=lambda call: call.data == "120-1" and get_user_step(call.from_user.id) == 120)
+def step100Social(call):
+    cid = call.from_user.id
+    #bot.answer_callback_query(call.id, text="사회 기사!!")
+    bot.send_message(cid, "사회 기사 목록입니다.")
+    userStep[cid] = 0
+
+@bot.callback_query_handler(func=lambda call: call.data == "120-2" and get_user_step(call.from_user.id) == 120)
+def step100Social(call):
+    cid = call.from_user.id
+    #bot.answer_callback_query(call.id, text="사회 기사!!")
+    bot.send_message(cid, "사회 구인 정보 목록입니다.")
+    userStep[cid] = 0
+"""============================================================================================================="""
+
 bot.polling()
