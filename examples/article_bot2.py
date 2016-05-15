@@ -192,11 +192,11 @@ def command_default(m):
     bot.send_message(m.chat.id, "이게 무슨말?? \"" + m.text + "\"\nMaybe try the help page at /help")
 
 # 여기서 부터 callback_query 핸들러
-@bot.callback_query_handler(func=lambda call: call.data == "IT", get_user_step(call.from_user.id) == 100)
+@bot.callback_query_handler(func=lambda call: call.data == "IT")
     bot.answer_callback_query(call.id, text="IT 기사!!")
     userStep[cid] = 0
 
-@bot.callback_query_handler(func=lambda call: call.data == "사회", get_user_step(call.from_user.id) == 100)
+@bot.callback_query_handler(func=lambda call: call.data == "사회")
     bot.answer_callback_query(call.id, text="사회 기사!!")
     userStep[cid] = 0
 bot.polling()
