@@ -58,8 +58,8 @@ try:
                         day = deadline[25:27]
                         pDate = year + month + day
                         print(pDate)
-                #else :
-                    #sbreak
+                else :
+                    print("else 문 에 들어왔습니다.")
                 print(pDate)
 
                 cur.execute("INSERT INTO testjob (url, tag, content, click_num, aType, k_group, pDate) VALUES (\'http://www.jobkorea.co.kr/Recruit/GI_Read/17067787?Oem_Code=C1&rPageCode=ST&PageGbn=ST\',\'" + "소프트웨어" + "\',\' contents \' , 0, \'Job\', 0, \'" + pDate + "\');")
