@@ -1,7 +1,10 @@
 """
 This is a detailed example using almost every command of the API
+참고하고 있는 사이트
 https://github.com/eternnoir/pyTelegramBotAPI/issues?utf8=%E2%9C%93&q=to_dic
 https://github.com/eternnoir/pyTelegramBotAPI/releases/tag/2.0.5
+InlineKeyboardButton : https://github.com/eternnoir/pyTelegramBotAPI/issues/130
+CallbackQuery : https://github.com/eternnoir/pyTelegramBotAPI/pull/148/commits/4cb8f14a20c77ce2662ab343b27f4118181293fa
 """
 
 import telebot
@@ -188,4 +191,12 @@ def command_default(m):
     # this is the standard reply to a normal message
     bot.send_message(m.chat.id, "이게 무슨말?? \"" + m.text + "\"\nMaybe try the help page at /help")
 
+# 여기서 부터 callback_query 핸들러
+@bot.callback_query_handler(func=lambda call: call.data == "IT", get_user_step(call.from_user.id) == 100)
+    bot.send_message(cid, "IT Article!!")
+    userStep[cid] = 0
+
+@bot.callback_query_handler(func=lambda call: call.data == "사회", get_user_step(call.from_user.id) == 100)
+    bot.send_message(cid, "IT Article!!")
+    userStep[cid] = 0
 bot.polling()
