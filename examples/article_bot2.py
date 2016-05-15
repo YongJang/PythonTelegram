@@ -126,6 +126,11 @@ def msg_image_select(m):
         response = urlopen(url)
         #img = Image.open(BytesIO(urlopen(response).read()))
         img = response.read()
+
+        """
+        에러 발생(미해결)
+        Photo has unsupported extension. Use one of .jpg, .jpeg, .gif, .png, .tif or .bmp
+        """
         bot.send_photo(cid, img, reply_markup = hideBoard)
         bot.send_message(cid, "Success!!")
         bot.send_message(cid, "Please try again")
