@@ -194,11 +194,14 @@ def command_default(m):
 # 여기서 부터 callback_query 핸들러
 @bot.callback_query_handler(func=lambda call: call.data == "IT" and get_user_step(call.from_user.id) == 100)
 def step100IT(call):
+    """ 하나는 """
+    cid = call.from_user.id
     bot.answer_callback_query(call.id, text="IT 기사!!")
     userStep[cid] = 0
 
 @bot.callback_query_handler(func=lambda call: call.data == "사회" and get_user_step(call.from_user.id) == 100)
 def step100Social(call):
+    cid = m.chat.id
     bot.answer_callback_query(call.id, text="사회 기사!!")
     userStep[cid] = 0
 bot.polling()
