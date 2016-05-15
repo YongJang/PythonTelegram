@@ -31,7 +31,7 @@ try:
                 info = soup.find_all(class_="title")
                 #print(info.text)
                 #date = soup.find("dl",{ "class" : "day"}).find_all("dd")
-                #<p class="regular">2016.05.11(수) ~  2016.07.30(토)</p>
+
                 date = soup.find_all("p", class_="regular")
                 keywords = soup.find("dt", text = "키워드").next_element.next_element.next_element.find_all("a", href = True , target ="_top")
                 for k in keywords :
@@ -40,10 +40,10 @@ try:
                 for d in date:
                     datetext = d.getText().strip()
                     deadline = datetext.replace('.', '')
-                    #시작일 : 2016.05.05(목) 마감일 : 2016.05.11(수)
-                    year = deadline[15:20]
-                    month = deadline[21:22]
-                    day = deadline[23:24]
+                    #<p class="regular">2016.05.11(수) ~  2016.07.30(토)</p>
+                    year = deadline[15:18]
+                    month = deadline[19:20]
+                    day = deadline[21:22]
                     pDate = year + month +day
                     print(pDate)
 
