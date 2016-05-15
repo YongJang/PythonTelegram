@@ -48,12 +48,12 @@ articleSelectInline.add(step100Button1, step100Button2)
 step110Keyboard = types.InlineKeyboardMarkup(2)
 step110Button1 = types.InlineKeyboardButton('기사', callback_data="110-1")
 step110Button2 = types.InlineKeyboardButton('공모전', callback_data="110-2")
-strp110Keyboard.add(step110Button1, step110Button2)
+step110Keyboard.add(step110Button1, step110Button2)
 
 step120Keyboard = types.InlineKeyboardMarkup(2)
 step120Button1 = types.InlineKeyboardButton('기사', callback_data="120-1")
 step120Button2 = types.InlineKeyboardButton('구인 정보', callback_data="120-2")
-strp120Keyboard.add(step120Button1, step120Button2)
+step120Keyboard.add(step120Button1, step120Button2)
 
 
 hideBoard = types.ReplyKeyboardHide()  # if sent as reply_markup, will hide the keyboard
