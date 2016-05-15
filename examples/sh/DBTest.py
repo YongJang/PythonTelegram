@@ -79,7 +79,7 @@ try:
                     print(len(db_tags))
                     #<p class="regular">2016.05.12(목) ~  2016.07.31(일)</p>
                     pDate = ""
-                    if date_second is None :
+                    if calendar is not None :
                         for d in calendar:
                             datetext = d.getText().strip()
                             deadline = datetext.replace('\n', ' ')
@@ -89,7 +89,7 @@ try:
                             pDate = year + month + day
                             print(pDate)
 
-                    else :
+                    elif date_second is not None :
                         for d in date_second:
                             datetext = d.getText().strip()
                             deadline = datetext.replace('.', ' ')
@@ -98,6 +98,8 @@ try:
                             day = deadline[25:27]
                             pDate = year + month + day
                             print(pDate)
+                    else :
+                        break
 
                     if cur.execute("""SELECT url from job where url = %s""", 'http://www.jobkorea.co.kr/' + str(hrefs[index])) < 1 and  len(str(tag_str)) > 0:
                         cur.execute("INSERT INTO job (url, high , low , title, content, click_num, aType, k_group, pDate) VALUES (\'http://www.jobkorea.co.kr/" + str(hrefs[index])  +"\',\' IT \',\'" + str(tag_str) + "\',\'"+ str(db_title) + "\' ,\' contents \' , 0, \'Job\', 0, \'" + pDate + "\');")
