@@ -7,7 +7,7 @@ https://github.com/eternnoir/pyTelegramBotAPI/releases/tag/2.0.5
 import telebot
 from telebot import types
 import time
-import urllib
+from urllib.request import urlopen
 from io import StringIO
 
 TOKEN = '207944330:AAGdpOvswmHangYooE8wBEf1p-vYP2skyL0'
