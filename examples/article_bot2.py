@@ -196,12 +196,14 @@ def command_default(m):
 def step100IT(call):
     """ 하나는 """
     cid = call.from_user.id
-    bot.answer_callback_query(call.id, text="IT 기사!!")
+    #bot.answer_callback_query(call.id, text="IT 기사!!")
+    bot.send_message(m.chat.id, "IT!!!")
     userStep[cid] = 0
 
 @bot.callback_query_handler(func=lambda call: call.data == "사회" and get_user_step(call.from_user.id) == 100)
 def step100Social(call):
     cid = m.chat.id
-    bot.answer_callback_query(call.id, text="사회 기사!!")
+    #bot.answer_callback_query(call.id, text="사회 기사!!")
+    bot.send_message(m.chat.id, "사회!!!")
     userStep[cid] = 0
 bot.polling()
