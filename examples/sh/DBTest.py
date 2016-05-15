@@ -46,7 +46,7 @@ try:
                         sleep_i = 0
                         conn.commit()
                         time.sleep(1803)
-                    detail_html = Request('http://www.jobkorea.co.kr/' + str(hrefs[index]), headers={'User-Agent':'Mozilla/5.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1; .NET CLR 1.1.4322; .NET CLR 2.0.50727; .NET CLR 3.0.04506.30)'})
+                    detail_html = Request('http://www.jobkorea.co.kr/' + str(hrefs[index]), headers={'User-Agent':'Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1; .NET CLR 1.1.4322; .NET CLR 2.0.50727; .NET CLR 3.0.04506.30)'})
                     sleep_i = sleep_i + 1 # 상세페이지 들어가기
                     detailpage = urlopen(detail_html).read()
                     detailsoup = BeautifulSoup(detailpage , from_encoding="utf-8")
@@ -79,7 +79,7 @@ try:
                     print(len(db_tags))
                     #<p class="regular">2016.05.12(목) ~  2016.07.31(일)</p>
                     pDate = ""
-                    if calendar is not None :
+                    if date_second is None :
                         for d in calendar:
                             datetext = d.getText().strip()
                             deadline = datetext.replace('\n', ' ')
