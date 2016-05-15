@@ -6,6 +6,8 @@ from urllib.request import Request, urlopen
 import urllib.parse
 from bs4 import BeautifulSoup
 import time
+import json
+import collections
 
 try:
         print(sys.stdin.encoding)
@@ -93,7 +95,7 @@ try:
                         else :
                             for d in date_second:
                                 datetext = d.getText().strip()
-                                deadline = datetext.replace('\n', ' ')
+                                deadline = datetext.replace('.', ' ')
                                 year = deadline[19:23]
                                 month = deadline[24:26]
                                 day = deadline[27:29]
