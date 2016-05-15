@@ -46,7 +46,7 @@ try:
                         if sleep_i >= 25 :
                             sleep_i = 0
                             conn.commit()
-                            time.sleep(2000)
+                            time.sleep(1803)
 
                         detail_html = Request('http://www.jobkorea.co.kr/' + str(hrefs[index]), headers={'User-Agent':'Mozilla/ ' + str(i) + ' .0 (compatible; MSIE 6.0; Windows NT 5.1; SV1; .NET CLR 1.1.4322; .NET CLR 2.0.50727; .NET CLR 3.0.04506.30)'})
                         i = i + 1
@@ -96,9 +96,9 @@ try:
                             for d in date_second:
                                 datetext = d.getText().strip()
                                 deadline = datetext.replace('.', ' ')
-                                year = deadline[19:23]
-                                month = deadline[24:26]
-                                day = deadline[27:29]
+                                year = deadline[17:21]
+                                month = deadline[22:24]
+                                day = deadline[25:27]
                                 pDate = year + month + day
                                 print(pDate)
 
