@@ -40,6 +40,7 @@ try:
                 for d in date:
                     datetext = d.getText().strip()
                     deadline = datetext.replace('.', ' ')
+                    print(deadline)
                     #<p class="regular">2016.05.11(수) ~  2016.07.30(토)</p>
                     year = deadline[15:19]
                     month = deadline[21:22]
