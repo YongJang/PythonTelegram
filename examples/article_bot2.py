@@ -117,7 +117,7 @@ def msg_image_select(m):
         bot.send_photo(cid, open('kitten.jpg', 'rb'), reply_markup=hideBoard)
         userStep[cid] = 0
     else:
-        imgdata = urllib.urlopen("https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcTAnUfeM4cQyki9cIY1rib2ZW7__8wtCr-JVY-1lDeD2HD4bPpP5g").read()
+        imgdata = urlopen("https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcTAnUfeM4cQyki9cIY1rib2ZW7__8wtCr-JVY-1lDeD2HD4bPpP5g").read()
         img = Image.open(StringIO.StringIO(imgdata))
         bot.send_photo(cid, img, reply_markup = hideBoard)
         bot.send_message(cid, "Success!!")
