@@ -43,9 +43,9 @@ try:
                     print(deadline)
                     #<p class="regular">2016.05.11(수) ~  2016.07.30(토)</p>
                     #2016 05 12(목) ~  2016 07 31(일)
-                    year = deadline[17:20]
-                    month = deadline[22:23]
-                    day = deadline[25:26]
+                    year = deadline[17:21]
+                    month = deadline[22:24]
+                    day = deadline[25:27]
                     pDate = year + month +day
                     print(pDate)
 
