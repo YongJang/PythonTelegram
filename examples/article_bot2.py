@@ -22,7 +22,7 @@ commands = {  # command description used in the "help" command
 }
 
 imageSelect = types.ReplyKeyboardMarkup(one_time_keyboard=True)  # create the image selection keyboard
-imageSelect.add('cock', 'pussy')
+imageSelect.add('cock', 'kitten')
 
 hideBoard = types.ReplyKeyboardHide()  # if sent as reply_markup, will hide the keyboard
 
@@ -111,8 +111,8 @@ def msg_image_select(m):
         bot.send_photo(cid, open('rooster.jpg', 'rb'),
                        reply_markup=hideBoard)  # send file and hide keyboard, after image is sent
         userStep[cid] = 0  # reset the users step back to 0
-    elif text == "pussy":
-        bot.send_photo(cid, open('kitten.jpg', 'rb'), reply_markup=hideBoard)
+    elif text == "kitten":
+        bot.send_photo(cid, open('https://www.google.co.kr/url?sa=i&rct=j&q=&esrc=s&source=images&cd=&cad=rja&uact=8&ved=0ahUKEwiV256199vMAhVnx6YKHdQpBesQjRwIBw&url=http%3A%2F%2Fweknowyourdreamz.com%2Fkitten.html&bvm=bv.122129774,d.dGY&psig=AFQjCNG1K3LWw8zleO1o1eYqOYe0z_0uVg&ust=1463396591550932', 'rb'), reply_markup=hideBoard)
         userStep[cid] = 0
     else:
         bot.send_message(cid, "Don't type bullsh*t, if I give you a predefined keyboard!")
