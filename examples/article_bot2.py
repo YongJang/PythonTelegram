@@ -7,6 +7,8 @@ https://github.com/eternnoir/pyTelegramBotAPI/releases/tag/2.0.5
 import telebot
 from telebot import types
 import time
+import urllib
+import StringIO
 
 TOKEN = '207944330:AAGdpOvswmHangYooE8wBEf1p-vYP2skyL0'
 
@@ -115,7 +117,10 @@ def msg_image_select(m):
         bot.send_photo(cid, open('kitten.jpg', 'rb'), reply_markup=hideBoard)
         userStep[cid] = 0
     else:
-        bot.send_message(cid, "https://www.google.co.kr/imgres?imgurl=http%3A%2F%2Fweknowyourdreamz.com%2Fimages%2Fkitten%2Fkitten-09.jpg&imgrefurl=http%3A%2F%2Fweknowyourdreamz.com%2Fkitten.html&docid=Q15vNBUwshqKQM&tbnid=xLIWfPDr2AT7IM%3A&w=1920&h=1080&bih=979&biw=1920&ved=0ahUKEwilxcXj-NvMAhXFK6YKHckHBPEQMwgdKAIwAg&iact=mrc&uact=8")
+        imgdata = urllib.urlopen("https://www.google.co.kr/imgres?imgurl=http%3A%2F%2Fweknowyourdreamz.com%2Fimages%2Fkitten%2Fkitten-09.jpg&imgrefurl=http%3A%2F%2Fweknowyourdreamz.com%2Fkitten.html&docid=Q15vNBUwshqKQM&tbnid=xLIWfPDr2AT7IM%3A&w=1920&h=1080&bih=979&biw=1920&ved=0ahUKEwilxcXj-NvMAhXFK6YKHckHBPEQMwgdKAIwAg&iact=mrc&uact=8").read()
+        img = Image.open(StringIO.StringIO(imgdata))
+        bot.send_photo(cid, img, reply_markup = hideBoard)
+        bot.send_message(cid, "Success!!")
         bot.send_message(cid, "Please try again")
 
 
