@@ -44,7 +44,8 @@ articleSelectInline = types.InlineKeyboardMarkup(2)
 step100Button1 = types.InlineKeyboardButton('IT', callback_data="100-1")
 step100Button2 = types.InlineKeyboardButton('사회', callback_data="100-2")
 step100Button3 = types.InlineKeyboardButton('친구에게 봇 추천하기', switch_inline_query="<-- [클릭] 이건 짱 좋은 봇입니다. 기사도 가져다주고 구인 정보도 가져다줌")
-articleSelectInline.add(step100Button1, step100Button2)
+articleSelectInline.add(step100Button1, step100Button2, step100Button3)
+
 
 step110Keyboard = types.InlineKeyboardMarkup(2)
 step110Button1 = types.InlineKeyboardButton('기사', callback_data="110-1")
