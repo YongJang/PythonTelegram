@@ -61,7 +61,7 @@ try:
                 else :
                     break
 
-                cur.execute("INSERT INTO testjob (url, title, tag, content, click_num, aType, k_group, pDate) VALUES (\'http://www.jobkorea.co.kr/Recruit/GI_Read/17067787?Oem_Code=C1&rPageCode=ST&PageGbn=ST\',  0 ,\'" + "소프트웨어" + "\',\' contents \' , 0, \'Job\', 0, \'" + pDate + "\');")
+                cur.execute("INSERT INTO testjob (url, tag, content, click_num, aType, k_group, pDate) VALUES (\'http://www.jobkorea.co.kr/Recruit/GI_Read/17067787?Oem_Code=C1&rPageCode=ST&PageGbn=ST\',\'" + "소프트웨어" + "\',\' contents \' , 0, \'Job\', 0, \'" + pDate + "\');")
 
                 conn.commit()
 
