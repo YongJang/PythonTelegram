@@ -133,7 +133,8 @@ def msg_image_select(m):
         url = "http://runezone.com/imagehost/images/5741/Cute-Kitten.jpg"
         #imgdata = urlopen(url).read()
         #response = Request(url, headers={'User-Agent':'Mozilla/5.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1; .NET CLR 1.1.4322; .NET CLR 2.0.50727; .NET CLR 3.0.04506.30)'})
-        response = urlopen(url)
+        req = Request(url, headers={'User-Agent':'Mozilla/5.0'})
+        response = urlopen(req)
         #img = Image.open(BytesIO(urlopen(response).read()))
         img = response.read()
 
