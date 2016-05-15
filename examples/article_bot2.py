@@ -29,6 +29,9 @@ commands = {  # command description used in the "help" command
 imageSelect = types.ReplyKeyboardMarkup(one_time_keyboard=True)  # create the image selection keyboard
 imageSelect.add('cock', 'kitten')
 
+articleSelect = types.ReplyKeyboardMarkup(one_time_keyboard=True)
+articleSelect.add('IT', '사회')
+
 hideBoard = types.ReplyKeyboardHide()  # if sent as reply_markup, will hide the keyboard
 
 
@@ -102,6 +105,13 @@ def command_image(m):
     bot.send_message(cid, "Please choose your image now", reply_markup=imageSelect)  # show the keyboard
     userStep[cid] = 1  # set the user to the next step (expecting a reply in the listener now)
 
+# 기사 가져오기
+@bot.message_handler(commands=['getArticle'])
+def command_image(m):
+    cid = m.chat.id
+    bot.send_message(cid, "당신이 관심있는 분야를 선택하세요.", reply_markup=articleSelect)  # show the keyboard
+    userStep[cid] = 100  # set the user to the next step (expecting a reply in the listener now)
+
 
 # if the user has issued the "/getImage" command, process the answer
 @bot.message_handler(func=lambda message: get_user_step(message.chat.id) == 1)
@@ -134,6 +144,25 @@ def msg_image_select(m):
         bot.send_photo(cid, img, reply_markup = hideBoard)
         bot.send_message(cid, "Success!!")
         bot.send_message(cid, "Please try again")
+
+# if the user has issued the "/getImage" command, process the answer
+@bot.message_handler(func=lambda message: get_user_step(message.chat.id) == 100)
+def msg_image_select(m):
+    cid = m.chat.id
+    text = m.text
+
+    # for some reason the 'upload_photo' status isn't quite working (doesn't show at all)
+    bot.send_chat_action(cid, 'typing')
+
+    if text == "IT":  # send the appropriate image based on the reply to the "/getImage" command
+        bot.send_message(cid, "IT Article!!")
+        userStep[cid] = 0  # reset the users step back to 0
+    elif text == "사회":
+        bot.send_message(cid, "사회 기사!!")
+        userStep[cid] = 0
+    else:
+        bot.send_message(cid, "잘못 입력하였습니다.")
+        userStep[cid] = 0
 
 
 # filter on a specific message
