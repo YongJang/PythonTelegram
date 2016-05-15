@@ -9,7 +9,7 @@ from telebot import types
 import time
 from urllib.request import urlopen
 from io import StringIO
-from PIL import image
+from PIL import Image
 
 TOKEN = '207944330:AAGdpOvswmHangYooE8wBEf1p-vYP2skyL0'
 
