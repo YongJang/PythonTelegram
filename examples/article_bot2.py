@@ -36,13 +36,14 @@ imageSelect.add('cock', 'kitten')
 articleSelect = types.ReplyKeyboardMarkup(one_time_keyboard=True)
 articleSelect.add('IT', '사회')
 
-articleSelectInline = types.InlineKeyboardMarkup(2)
+
 # 타인한테 전달하는 버튼
 # inlineButton1 = types.InlineKeyboardButton('1', switch_inline_query="a")
 # inlineButton2 = types.InlineKeyboardButton('2', switch_inline_query="b")
-
+articleSelectInline = types.InlineKeyboardMarkup(2)
 step100Button1 = types.InlineKeyboardButton('IT', callback_data="100-1")
 step100Button2 = types.InlineKeyboardButton('사회', callback_data="100-2")
+step100Button3 = types.InlineKeyboardButton('친구에게 봇 추천하기', switch_inline_query="<-- [클릭] 이건 짱 좋은 봇입니다. 기사도 가져다주고 구인 정보도 가져다줌")
 articleSelectInline.add(step100Button1, step100Button2)
 
 step110Keyboard = types.InlineKeyboardMarkup(2)
