@@ -31,6 +31,7 @@ class Storage():
             charset ='utf8'
             )
         cur = self.db.cursor()
+        print("connection success!!")
         cur.execute("set names utf8;")
     #cur.execute("DROP TABLE IF EXISTS rows")
     #cur.execute("CREATE TABLE rows(row INT)")
@@ -56,7 +57,6 @@ class Storage():
                 if row[record][0] == category:
                     temp = row[record][1]
                     entries.append(temp)
-        cur.close()
         return entries
     def getInfo(self):
         '''
@@ -81,7 +81,6 @@ class Storage():
                 entry.setKGroup(row[record][7])
                 entry.setPDate(row[record][8])
                 entries.append(entry)
-        cur.close()
         return entries
 
     def setInfo(self, infos, t):
@@ -100,16 +99,21 @@ class Storage():
             #print(type(info.getContent()))
             #print(type(info.getPDate()))
             if t is 1:
-                cur.execute("INSERT INTO information(url, tag, title,content ,click_num, a_type, k_group, p_date)" + \
-                            "VALUES (\'" + info.getUrl() +"\',\'" + tags + "\',\'" + self.escape(info.getTitle()) + \
-                            "\',\'" + self.escape(info.getContent()) + "\', 0, \'Article\', 0, \'" + \
-                            info.getPDate() + "\')")
+                if cur.execute("SELECT url from information where url=\'" + info.getUrl() + "\'") < 1:
+                    cur.execute("INSERT INTO information(url, tag, title, content ,click_num, a_type, k_group, p_date)" + \
+                                "VALUES (\'" + info.getUrl() +"\',\'" + tags + "\',\'" + self.escape(info.getTitle()) + \
+                                "\',\'" + self.escape(info.getContent()) + "\', 0, \'Article\', 0, \'" + \
+                                info.getPDate() + "\');")
+                    self.db.commit()
+                    print("[%d]success!" % (index+1))
+
+                else:
+                    continue
 
             else:
                 cur.execute("INSERT INTO information(url, tag, title, content, click_num, a_type, k_group, p_date)" + \
                             "VALUES (\'" + info.getUrl +"\',\'" + info.getTag + "\',\'" + info.getTitle + "\',\'" + \
                             info.getContent + "\', 0, \'Article\', 0, \'" + info.getPDate + "\')")
-        cur.close()
     def populate(self):
         cur = self.db.cursor()
         cur.execute("INSERT INTO rows(row) VALUES(520)")
