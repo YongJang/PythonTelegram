@@ -1,7 +1,7 @@
 #!/usr/bin/python
 #-*- coding: utf-8 -*-
 class Information:
-    def __init__(self, url=u"", tag=u"", title=u"", content=u"", click_num=0, a_type=u"", k_group=0, p_date=u""):
+    def __init__(self, url="", tag=[], title="", content="", click_num=0, a_type="", k_group=0, p_date=""):
         self.__url = url
         self.__tag = tag
         self.__title = title
@@ -43,5 +43,5 @@ class Information:
     def setPDate(self, p_date):
         self.__p_date = p_date
     def toString(self):
-        return 'Infomation [url='+self.__url+', tag='+self.__tag+', title='+self.__title+\
-            ', pDate='+self.__p_date+']'
+        return "Infomation [url="+str(self.__url)+", tag="+str(self.__tag)+", title="+str(self.__title)+\
+            ", pDate="+str(self.__p_date)+"]"

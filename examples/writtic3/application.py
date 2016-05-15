@@ -5,6 +5,10 @@
 import os
 import flask
 import pymysql
+# JSON을 위한 라이브러리
+import json
+import collections
+# 크롤링을 위한 라이브러리
 from jobjangDTO import Information
 from webCrawler import Crawling
 application = flask.Flask(__name__)
@@ -16,7 +20,6 @@ def hello_world():
     row = storage.row()
     return "Are you OK %d!" % row
 
-
 class Storage():
     def __init__(self):
         self.db = pymysql.connect(
@@ -24,13 +27,19 @@ class Storage():
             passwd = os.getenv('MYSQL_PASSWORD', 'yongjang'),
             db = os.getenv('MYSQL_INSTANCE_NAME', 'telegramdb'),
             host = os.getenv('MYSQL_PORT_3306_TCP_ADDR', 'telegramdb.cctjzlx6kmlc.ap-northeast-1.rds.amazonaws.com'),
-            port = int(os.getenv('MYSQL_PORT_3306_TCP_PORT', '3306'))
+            port = int(os.getenv('MYSQL_PORT_3306_TCP_PORT', '3306')),
+            charset ='utf8'
             )
-
         cur = self.db.cursor()
-        cur.execute("set names utf8")
+        cur.execute("set names utf8;")
     #cur.execute("DROP TABLE IF EXISTS rows")
     #cur.execute("CREATE TABLE rows(row INT)")
+    def escape(self, s):
+        '''
+        따옴표, 쌍따옴표 등 SQL 쿼리문에서 문자로 처리되어야 할 것들에 ESCAPE문을 걸어준다.
+        '''
+        if s is None: return None
+        return pymysql.escape_string(s)
     def getTags(self, category):
         '''
         태그 DB를 모두 받아온다.
@@ -75,16 +84,27 @@ class Storage():
         cur.close()
         return entries
 
-    def setInfo(self, infos, type):
+    def setInfo(self, infos, t):
         '''
         기사, 채용정보를 DB에 저장한다.
+        TAG는 JSON 타입으로 저장한다.
         '''
+
         cur = self.db.cursor()
         for index, info in enumerate(infos):
-            if type is 1:
-                cur.execute("INSERT INTO information(url, tag, title, content, click_num, a_type, k_group, p_date)" + \
-                            "VALUES (\'" + info.getUrl().encode("utf-8") +"\',\'" + info.getTag().encode("utf-8") + "\',\'" + info.getTitle().encode("utf-8") + "\',\'" + \
-                            info.getContent().encode("utf-8") + "\', 0, \'Article\', 0, \'" + info.getPDate().encode("utf-8") + "\')")
+            #tags = json.dumps(info.getTag(), ensure_ascii=False, sort_keys=False, separators=(',', ':'))#.encode('utf-8').decode('utf-8')
+            tags = json.dumps(info.getTag(), ensure_ascii=False, sort_keys=False)
+            #print(type(info.getUrl()))
+            #print(type(tags))
+            #print(type(info.getTitle()))
+            #print(type(info.getContent()))
+            #print(type(info.getPDate()))
+            if t is 1:
+                cur.execute("INSERT INTO information(url, tag, title,content ,click_num, a_type, k_group, p_date)" + \
+                            "VALUES (\'" + info.getUrl() +"\',\'" + tags + "\',\'" + self.escape(info.getTitle()) + \
+                            "\',\'" + self.escape(info.getContent()) + "\', 0, \'Article\', 0, \'" + \
+                            info.getPDate() + "\')")
+
             else:
                 cur.execute("INSERT INTO information(url, tag, title, content, click_num, a_type, k_group, p_date)" + \
                             "VALUES (\'" + info.getUrl +"\',\'" + info.getTag + "\',\'" + info.getTitle + "\',\'" + \
@@ -99,10 +119,6 @@ class Storage():
         cur.execute("SELECT * FROM article")
         row = cur.fetchall()
         return row
-    def __del__(self):
-        if self.db:
-            self.db.cursor().close()
-            self.db.close()
 
 if __name__ == "__main__":
     application.run(host='0.0.0.0', port=3300)
