@@ -123,7 +123,7 @@ def msg_image_select(m):
         url = "https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcTAnUfeM4cQyki9cIY1rib2ZW7__8wtCr-JVY-1lDeD2HD4bPpP5g"
         #imgdata = urlopen(url).read()
         #response = Request(url, headers={'User-Agent':'Mozilla/5.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1; .NET CLR 1.1.4322; .NET CLR 2.0.50727; .NET CLR 3.0.04506.30)'})
-        response = urllib.request.urlopen(url)
+        response = urlopen(url)
         #img = Image.open(BytesIO(urlopen(response).read()))
         img = response.read()
         bot.send_photo(cid, img, reply_markup = hideBoard)
