@@ -41,10 +41,10 @@ try:
                     datetext = d.getText().strip()
                     deadline = datetext.replace('.', '')
                     #시작일 : 2016.05.05(목) 마감일 : 2016.05.11(수)
-                    year = deadline[15:22]
+                    year = deadline[15:20]
                     month = deadline[23:24]
-                    day = deadline[25:26]
-                    pDate = year + month + day
+                    #day = deadline[25:26]
+                    pDate = year + month 
                     print(pDate)
 
                 #if cur.execute("""SELECT url from job where url = %s""", 'http://www.jobkorea.co.kr/Recruit/GI_Read/' + str(i) + '?Oem_Code=C1&rPageCode=ST&PageGbn=ST') < 1:
