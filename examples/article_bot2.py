@@ -34,9 +34,13 @@ articleSelect = types.ReplyKeyboardMarkup(one_time_keyboard=True)
 articleSelect.add('IT', '사회')
 
 articleSelectInline = types.InlineKeyboardMarkup(2)
-inlineButton1 = types.InlineKeyboardButton('1', switch_inline_query="a")
-inlineButton2 = types.InlineKeyboardButton('2', switch_inline_query="b")
-articleSelectInline.add(inlineButton1, inlineButton2)
+# 타인한테 전달하는 버튼
+# inlineButton1 = types.InlineKeyboardButton('1', switch_inline_query="a")
+# inlineButton2 = types.InlineKeyboardButton('2', switch_inline_query="b")
+
+step100Button1 = types.InlineKeyboardButton('IT')
+step100Button2 = types.InlineKeyboardButton('사회')
+articleSelectInline.add(step100Button1, step100Button2)
 
 hideBoard = types.ReplyKeyboardHide()  # if sent as reply_markup, will hide the keyboard
 
