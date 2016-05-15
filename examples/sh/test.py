@@ -34,6 +34,7 @@ try:
                     print(k.getText())
 
                 pDate = ""
+                print("testtt")
                 if calendar is not None :
                     for d in range(len(calendar)):
                         datetext = d.getText().strip()
