@@ -112,10 +112,10 @@ def msg_image_select(m):
                        reply_markup=hideBoard)  # send file and hide keyboard, after image is sent
         userStep[cid] = 0  # reset the users step back to 0
     elif text == "kitten":
-        bot.send_photo(cid, open('https://www.google.co.kr/imgres?imgurl=http%3A%2F%2Fweknowyourdreamz.com%2Fimages%2Fkitten%2Fkitten-09.jpg&imgrefurl=http%3A%2F%2Fweknowyourdreamz.com%2Fkitten.html&docid=Q15vNBUwshqKQM&tbnid=xLIWfPDr2AT7IM%3A&w=1920&h=1080&bih=979&biw=1920&ved=0ahUKEwilxcXj-NvMAhXFK6YKHckHBPEQMwgdKAIwAg&iact=mrc&uact=8', 'rb'), reply_markup=hideBoard)
+        bot.send_photo(cid, open('kitten.jpg', 'rb'), reply_markup=hideBoard)
         userStep[cid] = 0
     else:
-        bot.send_message(cid, "Don't type bullsh*t, if I give you a predefined keyboard!")
+        bot.send_message(cid, "https://www.google.co.kr/imgres?imgurl=http%3A%2F%2Fweknowyourdreamz.com%2Fimages%2Fkitten%2Fkitten-09.jpg&imgrefurl=http%3A%2F%2Fweknowyourdreamz.com%2Fkitten.html&docid=Q15vNBUwshqKQM&tbnid=xLIWfPDr2AT7IM%3A&w=1920&h=1080&bih=979&biw=1920&ved=0ahUKEwilxcXj-NvMAhXFK6YKHckHBPEQMwgdKAIwAg&iact=mrc&uact=8")
         bot.send_message(cid, "Please try again")
 
 
