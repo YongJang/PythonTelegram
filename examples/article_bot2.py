@@ -47,7 +47,7 @@ articleSelectInline.add(step100Button1, step100Button2)
 
 step110Keyboard = types.InlineKeyboardMarkup(2)
 step110Button1 = types.InlineKeyboardButton('기사', callback_data="110-1")
-step110Button2 = types.InlineKeyboardButton('공모전', callback_data="110-2")
+step110Button2 = types.InlineKeyboardButton('구인 정보', callback_data="110-2")
 step110Keyboard.add(step110Button1, step110Button2)
 
 step120Keyboard = types.InlineKeyboardMarkup(2)
