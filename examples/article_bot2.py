@@ -130,7 +130,7 @@ def msg_image_select(m):
         bot.send_photo(cid, open('kitten.jpg', 'rb'), reply_markup=hideBoard)
         userStep[cid] = 0
     else:
-        url = "https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcTAnUfeM4cQyki9cIY1rib2ZW7__8wtCr-JVY-1lDeD2HD4bPpP5g"
+        url = "http://runezone.com/imagehost/images/5741/Cute-Kitten.jpg"
         #imgdata = urlopen(url).read()
         #response = Request(url, headers={'User-Agent':'Mozilla/5.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1; .NET CLR 1.1.4322; .NET CLR 2.0.50727; .NET CLR 3.0.04506.30)'})
         response = urlopen(url)
@@ -175,6 +175,6 @@ def command_text_hi(m):
 @bot.message_handler(func=lambda message: True, content_types=['text'])
 def command_default(m):
     # this is the standard reply to a normal message
-    bot.send_message(m.chat.id, "I don't understand \"" + m.text + "\"\nMaybe try the help page at /help")
+    bot.send_message(m.chat.id, "이게 무슨말?? \"" + m.text + "\"\nMaybe try the help page at /help")
 
 bot.polling()
