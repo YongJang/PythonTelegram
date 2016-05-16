@@ -112,11 +112,11 @@ def command_start(m):
     if cid not in knownUsers:  # if user hasn't used the "/start" command yet:
         knownUsers.append(cid)  # save user id, so you could brodcast messages to all users of this bot later
         userStep[cid] = 0  # save user id and his current "command level", so he can use the "/getImage" command
-        bot.send_message(cid, "Hello, stranger, let me scan you...")
-        bot.send_message(cid, "Scanning complete, I know you now")
+        bot.send_message(cid, "안녕하세요. 처음 뵙겠습니다.")
+        bot.send_message(cid, "사용자 등록이 완료되었습니다.")
         command_help(m)  # show the new user the help page
     else:
-        bot.send_message(cid, "I already know you, no need for me to scan you again!")
+        bot.send_message(cid, "다시 오신 것을 환영합니다.")
 
 
 # help page
@@ -152,7 +152,7 @@ def command_long_text(m):
 @bot.message_handler(commands=['getImage'])
 def command_image(m):
     cid = m.chat.id
-    bot.send_message(cid, "Please choose your image now", reply_markup=imageSelect)  # show the keyboard
+    bot.send_message(cid, "이미지를 선택하세요.", reply_markup=imageSelect)  # show the keyboard
     userStep[cid] = 1  # set the user to the next step (expecting a reply in the listener now)
 
 # 기사 가져오기
@@ -219,14 +219,14 @@ def msg_image_select(m):
 # filter on a specific message
 @bot.message_handler(func=lambda message: message.text == "hi")
 def command_text_hi(m):
-    bot.send_message(m.chat.id, "I love you too!")
+    bot.send_message(m.chat.id, "안녕!")
 
 
 # default handler for every other text
 @bot.message_handler(func=lambda message: True, content_types=['text'])
 def command_default(m):
     # this is the standard reply to a normal message
-    bot.send_message(m.chat.id, "이게 무슨말?? \"" + m.text + "\"\nMaybe try the help page at /help")
+    bot.send_message(m.chat.id, "무슨 말인지 모르겠습니다. \"" + m.text + "\"\n여기서 사용가능한 명령어를 확인하세요! /help")
 
 # 여기서 부터 callback_query 핸들러
 """====================================================SET======================================================"""
