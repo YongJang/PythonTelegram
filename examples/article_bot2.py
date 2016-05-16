@@ -40,13 +40,14 @@ userStep = {}  # so they won't reset every time the bot restarts
 commands = {  # command description used in the "help" command
               'start': '봇 사용을 시작합니다.',
               'help': '사용 가능한 명령어들을 봅니다.',
-              'sendLongText': 'A test using the \'send_chat_action\' command',
-              'getImage': 'A test using multi-stage messages, custom keyboard, and media sending',
+              #'sendLongText': 'A test using the \'send_chat_action\' command',
+              'broadcasting':'이 봇을 사용하는 모든 유저에게 메세지를 전달합니다.',
+              'getImage': '이미지를 가져옵니다.',
               'getArticle': '네이버 기사 크롤링 테스트'
 }
 
 imageSelect = types.ReplyKeyboardMarkup(one_time_keyboard=True)  # create the image selection keyboard
-imageSelect.add('cock', 'kitten')
+imageSelect.add('닭', '고양이')
 
 articleSelect = types.ReplyKeyboardMarkup(one_time_keyboard=True)
 articleSelect.add('IT', '사회')
@@ -122,11 +123,19 @@ def command_start(m):
 @bot.message_handler(commands=['help'])
 def command_help(m):
     cid = m.chat.id
-    help_text = "The following commands are available: \n"
+    help_text = "사용가능한 명령어 목록 입니다.: \n"
     for key in commands:  # generate help text out of the commands dictionary defined at the top
         help_text += "/" + key + ": "
         help_text += commands[key] + "\n"
     bot.send_message(cid, help_text)  # send the generated help page
+
+# broadcasting
+@bot.message_handler(commands=['broadcasting'])
+def command_help(m):
+    for uid in knownUsers:
+        cid = uid
+        bot.send_message(cid, "Broadcasting 메세지 입니다.")  # send the generated help page
+
 
 
 # chat_action example (not a good one...)
@@ -163,11 +172,11 @@ def msg_image_select(m):
     # for some reason the 'upload_photo' status isn't quite working (doesn't show at all)
     bot.send_chat_action(cid, 'typing')
 
-    if text == "cock":  # send the appropriate image based on the reply to the "/getImage" command
+    if text == "닭":  # send the appropriate image based on the reply to the "/getImage" command
         bot.send_photo(cid, open('rooster.jpg', 'rb'),
                        reply_markup=hideBoard)  # send file and hide keyboard, after image is sent
         userStep[cid] = 0  # reset the users step back to 0
-    elif text == "kitten":
+    elif text == "고양이":
         bot.send_photo(cid, open('kitten.jpg', 'rb'), reply_markup=hideBoard)
         userStep[cid] = 0
     else:
