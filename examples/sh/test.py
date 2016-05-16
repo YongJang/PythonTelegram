@@ -35,8 +35,9 @@ try:
 
                 pDate = ""
                 print("testtt")
-                if calendar is not None and not calendar.isspace() :
+                if calendar is not None  :
                     for d in range(len(calendar)):
+                        pDate = ""
                         datetext = d.getText().strip()
                         deadline = datetext.replace('\n', ' ')
                         year = deadline[26:30]
@@ -46,8 +47,9 @@ try:
                         print("calendar에 들어왔습니다.")
                         print(pDate)
 
-                elif date_second is not None and not date_second.isspace() :
+                elif date_second is not None :
                     for d in range(len(date_second)):
+                        pDate = ""
                         datetext = d.getText().strip()
                         deadline = datetext.replace('.', ' ')
                         year = deadline[17:21]
