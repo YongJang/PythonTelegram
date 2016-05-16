@@ -36,7 +36,7 @@ try:
                 pDate = ""
                 print("testtt")
                 if calendar :
-                    for d in range(len(calendar)):
+                    for d in calendar:
                         datetext = d.getText().strip()
                         deadline = datetext.replace('\n', ' ')
                         year = deadline[26:30]
@@ -47,7 +47,7 @@ try:
                         print(pDate)
 
                 elif date_second :
-                    for d in range(len(date_second)):
+                    for d in date_second:
                         datetext = d.getText().strip()
                         deadline = datetext.replace('.', ' ')
                         year = deadline[17:21]
