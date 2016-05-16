@@ -15,7 +15,22 @@ import requests
 from io import BytesIO
 from PIL import Image
 import json
+import pymysql
+import sys
 
+
+print(sys.stdin.encoding)
+
+try:
+    conn = pymysql.connect(host='telegramdb.cctjzlx6kmlc.ap-northeast-1.rds.amazonaws.com', port=3306, user='yongjang', passwd='yongjang', db='telegramdb', charset='utf8')
+    print("Database Connection Success!!")
+    cur = conn.cursor()
+except pymysql.Error as e:
+    print ("Error %d: %s" % (e.args[0], e.args[1]))
+    sys.exit(1)
+if conn:
+    cur.close()
+    conn.close()
 
 TOKEN = '207944330:AAGdpOvswmHangYooE8wBEf1p-vYP2skyL0'
 
