@@ -28,9 +28,6 @@ try:
 except pymysql.Error as e:
     print ("Error %d: %s" % (e.args[0], e.args[1]))
     sys.exit(1)
-if conn:
-    cur.close()
-    conn.close()
 
 TOKEN = '207944330:AAGdpOvswmHangYooE8wBEf1p-vYP2skyL0'
 
