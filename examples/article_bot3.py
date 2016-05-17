@@ -249,6 +249,9 @@ def command_text_hi(m):
 @bot.message_handler(func=lambda message: True, content_types=['text'])
 def command_default(m):
     # this is the standard reply to a normal message
+    text = m.text
+    if text == "Jobjang":
+        command_jobjang(m)
     bot.send_message(m.chat.id, "무슨 말인지 모르겠습니다. \"" + m.text + "\"\n여기서 사용가능한 명령어를 확인하세요! /help")
 
 # 여기서 부터 callback_query 핸들러
