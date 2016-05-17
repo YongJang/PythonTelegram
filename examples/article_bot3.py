@@ -90,17 +90,17 @@ step120Button1 = types.InlineKeyboardButton('기사', callback_data="120-1")
 step120Button2 = types.InlineKeyboardButton('구인 정보', callback_data="120-2")
 step120Keyboard.add(step120Button1, step120Button2)
 
+
+""" 예제 결과화면 만들기 위해 잠시 수정
 articleKeyboard = types.InlineKeyboardMarkup(3)
 articleKeyboard2 = types.InlineKeyboardMarkup(2)
 articleKeyboardDetail = types.InlineKeyboardButton('자세히', callback_data="aDetail")
 articleKeyboardNext = types.InlineKeyboardButton('다른 기사', callback_data="aNext")
 articleKeyboardLink = types.InlineKeyboardButton('링크로 이동', callback_data="aLink")
-articleKeyboardShare = types.InlineKeyboardButton('공유하기', callback_data="share")
 
 articleKeyboard.row(articleKeyboardDetail, articleKeyboardLink, articleKeyboardNext)
-articleKeyboard.row(articleKeyboardShare)
 articleKeyboard2.row(articleKeyboardLink, articleKeyboardNext)
-articleKeyboard2.row(articleKeyboardShare)
+"""
 
 hideBoard = types.ReplyKeyboardHide()  # if sent as reply_markup, will hide the keyboard
 
@@ -291,8 +291,12 @@ def step100Social(call):
 def step100Social(call):
     cid = call.from_user.id
     #bot.answer_callback_query(call.id, text="사회 기사!!")
-    userStep[cid] = 0
-    bot.send_message(cid, "http://news.naver.com/main/read.nhn?mode=LSD&mid=shm&sid1=105&oid=421&aid=0002058351")
+    articleKeyboard = types.InlineKeyboardMarkup(3)
+    articleKeyboardDetail = types.InlineKeyboardButton('자세히', callback_data="aDetail")
+    articleKeyboardNext = types.InlineKeyboardButton('다른 기사', callback_data="110-1")
+    articleKeyboardLink = types.InlineKeyboardButton('링크로 이동', url="http://news.naver.com/main/read.nhn?mode=LSD&mid=shm&sid1=105&oid=421&aid=0002058351")
+    articleKeyboard.row(articleKeyboardDetail, articleKeyboardLink, articleKeyboardNext)
+    bot.send_message(cid, "http://news.naver.com/main/read.nhn?mode=LSD&mid=shm&sid1=105&oid=421&aid=0002058351", reply_markup=articleKeyboard)
 
 
 @bot.callback_query_handler(func=lambda call: call.data == "110-2" and get_user_step(call.from_user.id) == 110)
@@ -309,8 +313,13 @@ def step100Social(call):
 def step100Social(call):
     cid = call.from_user.id
     #bot.answer_callback_query(call.id, text="사회 기사!!")
-    userStep[cid] = 0
-    bot.send_message(cid, "http://news.naver.com/main/read.nhn?mode=LS2D&mid=shm&sid1=101&sid2=262&oid=003&aid=0007233619")
+    articleKeyboard = types.InlineKeyboardMarkup(3)
+    articleKeyboardDetail = types.InlineKeyboardButton('자세히', callback_data="aDetail")
+    articleKeyboardNext = types.InlineKeyboardButton('다른 기사', callback_data="120-1")
+    articleKeyboardLink = types.InlineKeyboardButton('링크로 이동', url="http://news.naver.com/main/read.nhn?mode=LS2D&mid=shm&sid1=101&sid2=262&oid=003&aid=0007233619")
+    articleKeyboard.row(articleKeyboardDetail, articleKeyboardLink, articleKeyboardNext)
+
+    bot.send_message(cid, "http://news.naver.com/main/read.nhn?mode=LS2D&mid=shm&sid1=101&sid2=262&oid=003&aid=0007233619", reply_markup=articleKeyboard)
 
 
 @bot.callback_query_handler(func=lambda call: call.data == "120-2" and get_user_step(call.from_user.id) == 120)
@@ -321,5 +330,23 @@ def step100Social(call):
     bot.send_message(cid, "http://www.jobkorea.co.kr/Recruit/GI_Read/17126991?Oem_Code=C1&rPageCode=ST&PageGbn=ST")
 
 """============================================================================================================="""
+@bot.callback_query_handler(func=lambda call: call.data == "aDetail")
+def step100Social(call):
+    cid = call.from_user.id
+    #bot.answer_callback_query(call.id, text="사회 기사!!")
+    articleKeyboard2 = types.InlineKeyboardMarkup(2)
+
+
+    userStep[cid] = 0
+    if get_user_step(call.from_user.id) == 110:
+        articleKeyboardNext = types.InlineKeyboardButton('다른 기사', callback_data="110-1")
+        articleKeyboardLink = types.InlineKeyboardButton('링크로 이동', url="http://news.naver.com/main/read.nhn?mode=LSD&mid=shm&sid1=105&oid=421&aid=0002058351")
+        articleKeyboard2.row(articleKeyboardLink, articleKeyboardNext)
+        bot.send_message(cid, "17일 서울 강남구 코엑스에서 개막한 월드 IT쇼에서 삼성전자와 LG전자 등은 물론 360도 카메라를 만든 씨소 등 IT 중소기업들도 앞다퉈 각사의 VR기기를 선보였다. VR 대중화를 위해 대용량 데이터 전송이 가능한 5G가 필수인 만큼 SK텔레콤과 KT 등 국내 이동통신사 역시 VR 콘텐츠를 대거 선보이며 데이터 전송속도 경쟁을 벌이고 있다.", reply_markup=articleKeyboard2)
+    else :
+        articleKeyboardNext = types.InlineKeyboardButton('다른 기사', callback_data="120-1")
+        articleKeyboardLink = types.InlineKeyboardButton('링크로 이동', url="http://news.naver.com/main/read.nhn?mode=LS2D&mid=shm&sid1=101&sid2=262&oid=003&aid=0007233619")
+        articleKeyboard2.row(articleKeyboardLink, articleKeyboardNext)
+        bot.send_message(cid, "4월 미국 산업생산은 전월 대비 0.7% 증가해 3개월 만에 반등에 성공했다고 연방준비제도이사회(Fed 연준)가 17일 발표했다.", reply_markup=articleKeyboard2)
 
 bot.polling()
