@@ -154,7 +154,6 @@ def command_start(m):
 @bot.message_handler(commands=['Jobjang'])
 def command_jobjang(m):
     cid = m.chat.id
-    bot.send_message(cid, "", reply_markup=hideBoard)  # show the keyboard
     bot.send_message(cid, "당신이 관심있는 분야를 선택하세요.", reply_markup=articleSelectInline)  # show the keyboard
     userStep[cid] = 100  # set the user to the next step (expecting a reply in the listener now)
 
