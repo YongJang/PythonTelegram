@@ -71,10 +71,10 @@ try:
                         for n in range(len(db_tags)) :
                             tag_str = tag_str + "{" + str(db_tags[n]) + ":" + weight + "},"
                             #tag_str = json.dumps(tag_str, ensure_ascii=False, sort_keys=False)
-                    tag_str = tag_str[:-1]
-                    print(len(tag_str))
-                    db_tags.clear()
-                    k_list.clear()
+                        tag_str = tag_str[:-1]
+                        print(len(tag_str))
+                        db_tags.clear()
+                        k_list.clear()
                     tag_str = json.dumps(tag_str , ensure_ascii=False, sort_keys=False)
                     print(tag_str)
                     #<p class="regular">2016.05.12(목) ~  2016.07.31(일)</p>
@@ -101,7 +101,7 @@ try:
                     else :
                         break
 
-                    if cur.execute("""SELECT url from jobs where url = %s""", 'http://www.jobkorea.co.kr/' + str(hrefs[index])) < 1 and  len(str(tag_str)) > 1:
+                    if cur.execute("""SELECT url from jobs where url = %s""", 'http://www.jobkorea.co.kr/' + str(hrefs[index])) < 1 and  tag_str.length > 1:
                         cur.execute("INSERT INTO jobs (url, high , low , title, content, click_num, aType, k_group, pDate) VALUES (\'http://www.jobkorea.co.kr/" + str(hrefs[index])  +"\',\' IT \',\'[" + str(tag_str) + "]\',\'"+ str(db_title) + "\' ,\' contents \' , 0, \'Job\', 0, \'" + pDate + "\');")
                         conn.commit()
                     else :
