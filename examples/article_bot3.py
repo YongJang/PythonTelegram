@@ -55,6 +55,7 @@ commands = {  # command description used in the "help" command
               'broadcasting':'이 봇을 사용하는 모든 유저에게 메세지를 전달합니다.',
               'getImage': '이미지를 가져옵니다.',
               'getArticle': '네이버 기사 크롤링 테스트'
+              'Jobjang':'Jobjang 서비스 시작하기'
 }
 
 imageSelect = types.ReplyKeyboardMarkup(one_time_keyboard=True)  # create the image selection keyboard
@@ -74,8 +75,9 @@ serviceSelect.row('/help')
 articleSelectInline = types.InlineKeyboardMarkup(2)
 step100Button1 = types.InlineKeyboardButton('IT', callback_data="100-1")
 step100Button2 = types.InlineKeyboardButton('사회', callback_data="100-2")
-step100Button3 = types.InlineKeyboardButton('친구에게 봇 추천하기', switch_inline_query="<-- [클릭] 이건 짱 좋은 봇입니다. 기사도 가져다주고 구인 정보도 가져다줌")
-articleSelectInline.add(step100Button1, step100Button2, step100Button3)
+#step100Button3 = types.InlineKeyboardButton('친구에게 봇 추천하기', switch_inline_query="<-- [클릭] 이건 짱 좋은 봇입니다. 기사도 가져다주고 구인 정보도 가져다줌")
+#articleSelectInline.add(step100Button1, step100Button2, step100Button3)
+articleSelectInline.add(step100Button1, step100Button2)
 
 
 step110Keyboard = types.InlineKeyboardMarkup(2)
@@ -88,6 +90,17 @@ step120Button1 = types.InlineKeyboardButton('기사', callback_data="120-1")
 step120Button2 = types.InlineKeyboardButton('구인 정보', callback_data="120-2")
 step120Keyboard.add(step120Button1, step120Button2)
 
+articleKeyboard = types.InlineKeyboardMarkup(3)
+articleKeyboard2 = types.InlineKeyboardMarkup(2)
+articleKeyboardDetail = types.InlineKeyboardButton('자세히', callback_data="aDetail")
+articleKeyboardNext = types.InlineKeyboardButton('다른 기사', callback_data="aNext")
+articleKeyboardLink = types.InlineKeyboardButton('링크로 이동', callback_data="aLink")
+articleKeyboardShare = tyes.InlineKeyboardButton('공유하기', callback_data="share")
+
+articleKeyboard.row(articleKeyboardDetail, articleKeyboardLink, articleKeyboardNext)
+articleKeyboard.row(articleKeyboardShare)
+articleKeyboard2.row(articleKeyboardLink, articleKeyboardNext)
+articleKeyboard2.row(articleKeyboardShare)
 
 hideBoard = types.ReplyKeyboardHide()  # if sent as reply_markup, will hide the keyboard
 
@@ -189,8 +202,6 @@ def command_article(m):
     userStep[cid] = 100  # set the user to the next step (expecting a reply in the listener now)
     bot.send_message(cid, "당신이 관심있는 분야를 선택하세요.", reply_markup=articleSelectInline)  # show the keyboard
 
-
-
 # if the user has issued the "/getImage" command, process the answer
 @bot.message_handler(func=lambda message: get_user_step(message.chat.id) == 1)
 def msg_image_select(m):
@@ -289,7 +300,7 @@ def step100Social(call):
     cid = call.from_user.id
     #bot.answer_callback_query(call.id, text="사회 기사!!")
     userStep[cid] = 0
-    bot.send_message(cid, "http://www.jobkorea.co.kr/Recruit/GI_Read/16994467?Oem_Code=C1&rPageCode=ST&PageGbn=ST")
+    bot.send_message(cid, "http://www.jobkorea.co.kr/Recruit/GI_Read/17122958?Oem_Code=C1&rPageCode=ST&PageGbn=ST")
 
 """============================================================================================================="""
 
@@ -299,7 +310,7 @@ def step100Social(call):
     cid = call.from_user.id
     #bot.answer_callback_query(call.id, text="사회 기사!!")
     userStep[cid] = 0
-    bot.send_message(cid, "사회 기사 목록입니다.")
+    bot.send_message(cid, "http://news.naver.com/main/read.nhn?mode=LS2D&mid=shm&sid1=101&sid2=262&oid=003&aid=0007233619")
 
 
 @bot.callback_query_handler(func=lambda call: call.data == "120-2" and get_user_step(call.from_user.id) == 120)
@@ -307,7 +318,7 @@ def step100Social(call):
     cid = call.from_user.id
     #bot.answer_callback_query(call.id, text="사회 기사!!")
     userStep[cid] = 0
-    bot.send_message(cid, "사회 구인 정보 목록입니다.")
+    bot.send_message(cid, "http://www.jobkorea.co.kr/Recruit/GI_Read/17126991?Oem_Code=C1&rPageCode=ST&PageGbn=ST")
 
 """============================================================================================================="""
 
