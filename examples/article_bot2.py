@@ -34,7 +34,21 @@ if conn:
 
 TOKEN = '207944330:AAGdpOvswmHangYooE8wBEf1p-vYP2skyL0'
 
-knownUsers = []  # todo: save these in a file,
+
+# uid 가져오기
+cur.execute("SELECT * FROM users")
+row = cur.fetchall()
+knownUsers = []
+total = len(row)
+if total < 1:
+    print('no users')
+else:
+    for record in range(total):
+        temp = row[record][0]
+        knownUsers.append(temp)
+
+######
+
 userStep = {}  # so they won't reset every time the bot restarts
 
 commands = {  # command description used in the "help" command
@@ -85,6 +99,8 @@ def get_user_step(uid):
         return userStep[uid]
     else:
         knownUsers.append(uid)
+        cur.execute("INSERT INTO users (PK_uid, step) VALUES (\'" + uid + "\',\'0\')" )
+        conn.commit()
         userStep[uid] = 0
         print ("New user detected, who hasn't used \"/start\" yet")
         return 0
