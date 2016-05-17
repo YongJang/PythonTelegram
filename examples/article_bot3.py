@@ -252,7 +252,8 @@ def command_default(m):
     text = m.text
     if text == "Jobjang":
         command_jobjang(m)
-    bot.send_message(m.chat.id, "무슨 말인지 모르겠습니다. \"" + m.text + "\"\n여기서 사용가능한 명령어를 확인하세요! /help")
+    elif:
+        bot.send_message(m.chat.id, "무슨 말인지 모르겠습니다. \"" + m.text + "\"\n여기서 사용가능한 명령어를 확인하세요! /help")
 
 # 여기서 부터 callback_query 핸들러
 """====================================================SET======================================================"""
