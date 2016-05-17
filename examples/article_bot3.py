@@ -279,14 +279,14 @@ def step100Social(call):
 def step100Social(call):
     cid = call.from_user.id
     #bot.answer_callback_query(call.id, text="사회 기사!!")
-    bot.send_message(cid, "IT 기사 목록입니다.")
+    bot.send_message(cid, "http://news.naver.com/main/read.nhn?mode=LSD&mid=shm&sid1=105&oid=421&aid=0002058351")
     userStep[cid] = 0
 
 @bot.callback_query_handler(func=lambda call: call.data == "110-2" and get_user_step(call.from_user.id) == 110)
 def step100Social(call):
     cid = call.from_user.id
     #bot.answer_callback_query(call.id, text="사회 기사!!")
-    bot.send_message(cid, "IT 구인 정보 목록입니다.")
+    bot.send_message(cid, "http://www.jobkorea.co.kr/Recruit/GI_Read/17122958?Oem_Code=C1&rPageCode=ST&PageGbn=ST")
     userStep[cid] = 0
 """============================================================================================================="""
 
