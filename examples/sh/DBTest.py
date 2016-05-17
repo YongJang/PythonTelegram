@@ -40,6 +40,7 @@ try:
 
                 for index in range(0,len(hrefs)): # 40
                     db_tags = []
+                    json_tags = []
                     tag_str = ""
                     time.sleep(2)
                     if sleep_i >= 23 :
@@ -69,8 +70,9 @@ try:
 
                         for n in range(len(db_tags)) :
                             #tag_str = tag_str + str(db_tags[n]) + "," + weight + "," # 통신,15,네트워크,15
-                            tag_str = tag_str + "{" + str(db_tags[n]) + ":" + weight + "},"
-                        tag_str = tag_str[:-1].replace('""','')
+                            json_tags = tag_str.json.dumps( str(db_tags[n]), ensure_ascii=False, sort_keys=False)
+                            tag_str = tag_str + "{" + str(json_tags[n]) + ":" + weight + "},"
+                        tag_str = tag_str[:-1]
                         db_tags.clear()
                         k_list.clear()
 
