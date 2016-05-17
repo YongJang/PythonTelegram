@@ -249,7 +249,7 @@ def command_text_hi(m):
     bot.send_message(m.chat.id, "안녕!")
 
 
-# 디폴트 
+# 디폴트
 @bot.message_handler(func=lambda message: True, content_types=['text'])
 def command_default(m):
     # this is the standard reply to a normal message
@@ -289,7 +289,7 @@ def step100Social(call):
     cid = call.from_user.id
     #bot.answer_callback_query(call.id, text="사회 기사!!")
     userStep[cid] = 0
-    bot.send_message(cid, "http://www.jobkorea.co.kr/Recruit/GI_Read/17122958?Oem_Code=C1&rPageCode=ST&PageGbn=ST")
+    bot.send_message(cid, "http://www.jobkorea.co.kr/Recruit/GI_Read/16994467?Oem_Code=C1&rPageCode=ST&PageGbn=ST")
 
 """============================================================================================================="""
 
