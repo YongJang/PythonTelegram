@@ -35,3 +35,5 @@ select * from tags;
 */
 CREATE TABLE users (PK_uid INT UNSIGNED PRIMARY KEY NOT NULL, step INT UNSIGNED);
 SELECT * FROM users;
+SET SQL_SAFE_UPDATES=0;
+DELETE FROM users where step=0;

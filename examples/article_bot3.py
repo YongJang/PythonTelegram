@@ -63,6 +63,9 @@ imageSelect.add('닭', '고양이')
 articleSelect = types.ReplyKeyboardMarkup(one_time_keyboard=True)
 articleSelect.add('IT', '사회')
 
+serviceSelect = types.ReplyKeyboardMarkup(one_time_keyboard=True)
+serviceSelect.row('Jobjang')
+
 
 # 타인한테 전달하는 버튼
 # inlineButton1 = types.InlineKeyboardButton('1', switch_inline_query="a")
@@ -127,14 +130,17 @@ def command_start(m):
         userStep[cid] = 0  # save user id and his current "command level", so he can use the "/getImage" command
         bot.send_message(cid, "안녕하세요. 처음 뵙겠습니다.")
         bot.send_message(cid, "사용자 등록이 완료되었습니다.")
-        bot.send_message(cid, "당신이 관심있는 분야를 선택하세요.", reply_markup=articleSelect)
-        userStep[cid] = 100
+        bot.send_message(cid, "사용하실 서비스를 선택하세요.", reply_markup=serviceSelect)
         #command_help(m)  # show the new user the help page
     else:
         bot.send_message(cid, "다시 오신 것을 환영합니다.")
-        bot.send_message(cid, "당신이 관심있는 분야를 선택하세요.", reply_markup=articleSelect)
-        userStep[cid] = 100
+        bot.send_message(cid, "사용하실 서비스를 선택하세요.", reply_markup=serviceSelect)
 
+@bot.message_handler(commands=['Jobjang'])
+def command_jobjang(m):
+    cid = m.chat.id
+    bot.send_message(cid, "당신이 관심있는 분야를 선택하세요.", reply_markup=articleSelectInline)  # show the keyboard
+    userStep[cid] = 100  # set the user to the next step (expecting a reply in the listener now)
 
 # help page
 @bot.message_handler(commands=['help'])
@@ -174,7 +180,7 @@ def command_image(m):
 
 # 기사 가져오기
 @bot.message_handler(commands=['getArticle'])
-def command_image(m):
+def command_article(m):
     cid = m.chat.id
     bot.send_message(cid, "당신이 관심있는 분야를 선택하세요.", reply_markup=articleSelectInline)  # show the keyboard
     userStep[cid] = 100  # set the user to the next step (expecting a reply in the listener now)
@@ -215,7 +221,7 @@ def msg_image_select(m):
 
 # if the user has issued the "/getImage" command, process the answer
 @bot.message_handler(func=lambda message: get_user_step(message.chat.id) == 100)
-def msg_image_select(m):
+def msg_article_select(m):
     cid = m.chat.id
     text = m.text
 
