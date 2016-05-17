@@ -54,7 +54,7 @@ commands = {  # command description used in the "help" command
               #'sendLongText': 'A test using the \'send_chat_action\' command',
               'broadcasting':'이 봇을 사용하는 모든 유저에게 메세지를 전달합니다.',
               'getImage': '이미지를 가져옵니다.',
-              'getArticle': '네이버 기사 크롤링 테스트'
+              'getArticle': '네이버 기사 크롤링 테스트',
               'Jobjang':'Jobjang 서비스 시작하기'
 }
 
