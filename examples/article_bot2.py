@@ -96,7 +96,7 @@ def get_user_step(uid):
         return userStep[uid]
     else:
         knownUsers.append(uid)
-        cur.execute("INSERT INTO users (PK_uid, step) VALUES (\'" + uid + "\',\'0\')" )
+        cur.execute("INSERT INTO users (PK_uid, step) VALUES (\'" + str(uid) + "\',\'0\')" )
         conn.commit()
         userStep[uid] = 0
         print ("New user detected, who hasn't used \"/start\" yet")
