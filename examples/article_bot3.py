@@ -159,7 +159,7 @@ def command_help(m):
         cid = uid
         bot.send_message(cid, "Broadcasting 메세지 입니다.")  # send the generated help page
         bot.send_message(cid, "http://www.jobkorea.co.kr/Recruit/GI_Read/17122958?Oem_Code=C1&rPageCode=ST&PageGbn=ST")
-        bot.send_message(cid, "http://news.naver.com/main/read.nhn?mode=LSD&mid=shm&sid1=105&oid=421&aid=0002058351") 
+        bot.send_message(cid, "http://news.naver.com/main/read.nhn?mode=LSD&mid=shm&sid1=105&oid=421&aid=0002058351")
 
 
 
@@ -254,7 +254,7 @@ def command_default(m):
     text = m.text
     if text == "Jobjang":
         command_jobjang(m)
-    elif:
+    else:
         bot.send_message(m.chat.id, "무슨 말인지 모르겠습니다. \"" + m.text + "\"\n여기서 사용가능한 명령어를 확인하세요! /help")
 
 # 여기서 부터 callback_query 핸들러
