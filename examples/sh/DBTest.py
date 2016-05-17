@@ -86,7 +86,7 @@ try:
                             deadline = datetext.replace('\n', ' ')
                             year = deadline[26:30]
                             month = deadline[31:33]
-                            day = deadline[34:36]``
+                            day = deadline[34:36]
                             pDate = year + month + day
                             print(pDate)
 
