@@ -70,13 +70,12 @@ try:
 
                         for n in range(len(db_tags)) :
                             #tag_str = tag_str + str(db_tags[n]) + "," + weight + "," # 통신,15,네트워크,15
-                            json_tags = tag_str.json.dumps( str(db_tags[n]), ensure_ascii=False, sort_keys=False)
-                            tag_str = tag_str + "{" + str(json_tags[n]) + ":" + weight + "},"
+                            tag_str = tag_str + "{" + str(db_tags[n]) + ":" + weight + "},"
+                            tag_str = json.dumps(tag_str, ensure_ascii=False, sort_keys=False)
                         tag_str = tag_str[:-1]
                         db_tags.clear()
                         k_list.clear()
-
-                    tag_str = json.dumps(tag_str , ensure_ascii=False, sort_keys=False)
+                    #tag_str = json.dumps(tag_str , ensure_ascii=False, sort_keys=False)
                     print(tag_str)
                     print(len(db_tags))
                     #<p class="regular">2016.05.12(목) ~  2016.07.31(일)</p>
@@ -87,7 +86,7 @@ try:
                             deadline = datetext.replace('\n', ' ')
                             year = deadline[26:30]
                             month = deadline[31:33]
-                            day = deadline[34:36]
+                            day = deadline[34:36]``
                             pDate = year + month + day
                             print(pDate)
 
