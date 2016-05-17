@@ -95,7 +95,7 @@ articleKeyboard2 = types.InlineKeyboardMarkup(2)
 articleKeyboardDetail = types.InlineKeyboardButton('자세히', callback_data="aDetail")
 articleKeyboardNext = types.InlineKeyboardButton('다른 기사', callback_data="aNext")
 articleKeyboardLink = types.InlineKeyboardButton('링크로 이동', callback_data="aLink")
-articleKeyboardShare = tyes.InlineKeyboardButton('공유하기', callback_data="share")
+articleKeyboardShare = types.InlineKeyboardButton('공유하기', callback_data="share")
 
 articleKeyboard.row(articleKeyboardDetail, articleKeyboardLink, articleKeyboardNext)
 articleKeyboard.row(articleKeyboardShare)
