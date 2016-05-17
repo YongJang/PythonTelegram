@@ -186,8 +186,9 @@ def command_image(m):
 @bot.message_handler(commands=['getArticle'])
 def command_article(m):
     cid = m.chat.id
-    bot.send_message(cid, "당신이 관심있는 분야를 선택하세요.", reply_markup=articleSelectInline)  # show the keyboard
     userStep[cid] = 100  # set the user to the next step (expecting a reply in the listener now)
+    bot.send_message(cid, "당신이 관심있는 분야를 선택하세요.", reply_markup=articleSelectInline)  # show the keyboard
+
 
 
 # if the user has issued the "/getImage" command, process the answer
@@ -229,12 +230,11 @@ def msg_article_select(m):
     cid = m.chat.id
     text = m.text
 
-    # for some reason the 'upload_photo' status isn't quite working (doesn't show at all)
     bot.send_chat_action(cid, 'typing')
 
-    if text == "IT":  # send the appropriate image based on the reply to the "/getImage" command
+    if text == "IT":
         bot.send_message(cid, "IT Article!!")
-        userStep[cid] = 0  # reset the users step back to 0
+        userStep[cid] = 0
     elif text == "사회":
         bot.send_message(cid, "사회 기사!!")
         userStep[cid] = 0
@@ -249,7 +249,7 @@ def command_text_hi(m):
     bot.send_message(m.chat.id, "안녕!")
 
 
-# default handler for every other text
+# 디폴트 
 @bot.message_handler(func=lambda message: True, content_types=['text'])
 def command_default(m):
     # this is the standard reply to a normal message
@@ -262,15 +262,17 @@ def command_default(m):
 def step100IT(call):
     cid = call.from_user.id
     #bot.answer_callback_query(call.id, text="IT 기사!!")
-    bot.send_message(cid, "어떤 종류의 IT 글을 원하시나요?", reply_markup=step110Keyboard)
     userStep[cid] = 110
+    bot.send_message(cid, "어떤 종류의 IT 글을 원하시나요?", reply_markup=step110Keyboard)
+
 
 @bot.callback_query_handler(func=lambda call: call.data == "100-2" and get_user_step(call.from_user.id) == 100)
 def step100Social(call):
     cid = call.from_user.id
     #bot.answer_callback_query(call.id, text="사회 기사!!")
-    bot.send_message(cid, "어떤 종류의 사회 글을 원하시나요?", reply_markup=step120Keyboard)
     userStep[cid] = 120
+    bot.send_message(cid, "어떤 종류의 사회 글을 원하시나요?", reply_markup=step120Keyboard)
+
 """============================================================================================================="""
 
 """====================================================SET======================================================"""
@@ -278,15 +280,17 @@ def step100Social(call):
 def step100Social(call):
     cid = call.from_user.id
     #bot.answer_callback_query(call.id, text="사회 기사!!")
-    bot.send_message(cid, "http://news.naver.com/main/read.nhn?mode=LSD&mid=shm&sid1=105&oid=421&aid=0002058351")
     userStep[cid] = 0
+    bot.send_message(cid, "http://news.naver.com/main/read.nhn?mode=LSD&mid=shm&sid1=105&oid=421&aid=0002058351")
+
 
 @bot.callback_query_handler(func=lambda call: call.data == "110-2" and get_user_step(call.from_user.id) == 110)
 def step100Social(call):
     cid = call.from_user.id
     #bot.answer_callback_query(call.id, text="사회 기사!!")
-    bot.send_message(cid, "http://www.jobkorea.co.kr/Recruit/GI_Read/17122958?Oem_Code=C1&rPageCode=ST&PageGbn=ST")
     userStep[cid] = 0
+    bot.send_message(cid, "http://www.jobkorea.co.kr/Recruit/GI_Read/17122958?Oem_Code=C1&rPageCode=ST&PageGbn=ST")
+
 """============================================================================================================="""
 
 """====================================================SET======================================================"""
@@ -294,15 +298,17 @@ def step100Social(call):
 def step100Social(call):
     cid = call.from_user.id
     #bot.answer_callback_query(call.id, text="사회 기사!!")
-    bot.send_message(cid, "사회 기사 목록입니다.")
     userStep[cid] = 0
+    bot.send_message(cid, "사회 기사 목록입니다.")
+
 
 @bot.callback_query_handler(func=lambda call: call.data == "120-2" and get_user_step(call.from_user.id) == 120)
 def step100Social(call):
     cid = call.from_user.id
     #bot.answer_callback_query(call.id, text="사회 기사!!")
-    bot.send_message(cid, "사회 구인 정보 목록입니다.")
     userStep[cid] = 0
+    bot.send_message(cid, "사회 구인 정보 목록입니다.")
+
 """============================================================================================================="""
 
 bot.polling()
