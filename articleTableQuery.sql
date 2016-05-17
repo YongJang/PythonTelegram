@@ -34,3 +34,4 @@ select * from tags;
 ========================================================================================
 */
 CREATE TABLE users (PK_uid INT UNSIGNED PRIMARY KEY NOT NULL, step INT UNSIGNED);
+SELECT * FROM users;
