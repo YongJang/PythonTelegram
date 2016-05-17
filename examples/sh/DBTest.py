@@ -103,8 +103,8 @@ try:
                     else :
                         break
 
-                    if cur.execute("""SELECT url from job where url = %s""", 'http://www.jobkorea.co.kr/' + str(hrefs[index])) < 1 and  len(str(tag_str)) > 1:
-                        cur.execute("INSERT INTO job (url, high , low , title, content, click_num, aType, k_group, pDate) VALUES (\'http://www.jobkorea.co.kr/" + str(hrefs[index])  +"\',\' IT \',\'[" + str(tag_str) + "]\',\'"+ str(db_title) + "\' ,\' contents \' , 0, \'Job\', 0, \'" + pDate + "\');")
+                    if cur.execute("""SELECT url from jobs where url = %s""", 'http://www.jobkorea.co.kr/' + str(hrefs[index])) < 1 and  len(str(tag_str)) > 1:
+                        cur.execute("INSERT INTO jobs (url, high , low , title, content, click_num, aType, k_group, pDate) VALUES (\'http://www.jobkorea.co.kr/" + str(hrefs[index])  +"\',\' IT \',\'[" + str(tag_str) + "]\',\'"+ str(db_title) + "\' ,\' contents \' , 0, \'Job\', 0, \'" + pDate + "\');")
                         conn.commit()
                     else :
                         continue
