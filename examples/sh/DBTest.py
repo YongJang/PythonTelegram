@@ -69,13 +69,14 @@ try:
                                 db_tags.append(k_list[k_count]) # low == tags
 
                         for n in range(len(db_tags)) :
+                            db_tags[n] = json.dumps(db_tags[n] , ensure_ascii=False, sort_keys=False)
                             tag_str = tag_str + "{" + str(db_tags[n]) + ":" + weight + "},"
                             #tag_str = json.dumps(tag_str, ensure_ascii=False, sort_keys=False)
                         tag_str = tag_str[:-1]
                         print(len(tag_str))
                         db_tags.clear()
                         k_list.clear()
-                    tag_str = json.dumps(tag_str , ensure_ascii=False, sort_keys=False)
+                    #tag_str = json.dumps(tag_str , ensure_ascii=False, sort_keys=False)
                     print(tag_str)
                     #<p class="regular">2016.05.12(목) ~  2016.07.31(일)</p>
                     pDate = ""
