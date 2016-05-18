@@ -46,8 +46,7 @@ try:
                     i_ip = 0
                     if sleep_i >= 23 :
                         i_ip = i_ip + 1
-                        detail_html = Request('http://www.jobkorea.co.kr/' + str(hrefs[index]), headers={'User-Agent':'Mozilla/'+str(i_ip)+'.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1; .NET CLR 1.1.4322; .NET CLR 2.0.50727; .NET CLR 3.0.04506.30)'})
-                        break
+                        #detail_html = Request('http://www.jobkorea.co.kr/' + str(hrefs[index]), headers={'User-Agent':'Mozilla/'+str(i_ip)+'.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1; .NET CLR 1.1.4322; .NET CLR 2.0.50727; .NET CLR 3.0.04506.30)'})
                         #sleep_i = 0
                         #conn.commit()
                         #time.sleep(1803)
