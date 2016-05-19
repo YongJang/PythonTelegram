@@ -26,6 +26,7 @@ try:
             hrefs=[]  #href 가져오기 40 개
             k_list = []
             tag_str = ""
+            keyword = []
             for page in range(0,len(page_num)):
                 time.sleep(3) #30*60 = 1800
                 html = Request('http://www.jobkorea.co.kr/Starter/Recruit/SS/engineering?psTab=40&rOrderTab=10&Page=' + str(page) + '  #JobList', headers={'User-Agent':'Mozilla/1.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1; .NET CLR 1.1.4322; .NET CLR 2.0.50727; .NET CLR 3.0.04506.30)'})
@@ -51,34 +52,32 @@ try:
                     detailpage = urlopen(detail_html).read()
                     detailsoup = BeautifulSoup(detailpage , from_encoding="utf-8")
                     titles = detailsoup.find("span",{"class" : "title"})
-                    keyword = ""
+
                     if titles is not None : # 상세페이지의 title
                         db_title = titles.text.strip()
 
                     calendar = detailsoup.find_all("dl", class_="day") # 상세페이지의 마감일 찾기 (달력 형식)
                     date_second = detailsoup.find_all("p", class_="regular") # 다른 형식의 상세페이지의 마감일 (달력없는 형식)
                     #keyword = detailsoup.find('dt', text = '키워드').next_element.next_element.next_element.find_all("a", href = True , target ="_top") # 상세페이지의 키워드 찾기
-                    keyword2 = []
-                    keyword2 = detailsoup.find_all("a", href = True , target ="_top") # 상세페이지의 키워드 찾기
-                    for n in range(len(keyword2)):
-                        keyword = keyword2[n]
+                    keyword = detailsoup.find_all("a", href = True , target ="_top") # 상세페이지의 키워드 찾기
+                    print(keyword)
+                    for n in range(len(keyword)):
+                        if keyword is not None :
+                            weight = "15" # 가중치
+                            for k in keyword :
+                                k_list.append(k.text) # k_list에 키워드text 넣기
 
-                    if keyword is not None :
-                        weight = "15" # 가중치
-                        for k in keyword :
-                            k_list.append(k.text) # k_list에 키워드text 넣기
+                            for k_count in range(len(k_list)) :
+                                if cur.execute("""SELECT * from tags where low = %s""", str(k_list[k_count])) > 0 :
+                                    db_tags.append(k_list[k_count]) # low == tags
 
-                        for k_count in range(len(k_list)) :
-                            if cur.execute("""SELECT * from tags where low = %s""", str(k_list[k_count])) > 0 :
-                                db_tags.append(k_list[k_count]) # low == tags
-
-                        for n in range(len(db_tags)) :
-                            db_tags[n] = json.dumps(db_tags[n] , ensure_ascii=False, sort_keys=False)
-                            tag_str = tag_str + "{" + str(db_tags[n]) + ":" + weight + "},"
-                        tag_str = tag_str[:-1]
-                        print(len(tag_str))
-                        db_tags.clear()
-                        k_list.clear()
+                            for n in range(len(db_tags)) :
+                                db_tags[n] = json.dumps(db_tags[n] , ensure_ascii=False, sort_keys=False)
+                                tag_str = tag_str + "{" + str(db_tags[n]) + ":" + weight + "},"
+                    tag_str = tag_str[:-1]
+                    print(len(tag_str))
+                    db_tags.clear()
+                    k_list.clear()
                     print(tag_str)
 
                     pDate = ""
