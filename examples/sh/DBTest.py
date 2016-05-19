@@ -51,6 +51,7 @@ try:
                     detailpage = urlopen(detail_html).read()
                     detailsoup = BeautifulSoup(detailpage , from_encoding="utf-8")
                     titles = detailsoup.find("span",{"class" : "title"})
+                    keyword = ""
                     if titles is not None : # 상세페이지의 title
                         db_title = titles.text.strip()
 
