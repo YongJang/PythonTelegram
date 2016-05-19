@@ -58,23 +58,21 @@ try:
 
                     calendar = detailsoup.find_all("dl", class_="day") # 상세페이지의 마감일 찾기 (달력 형식)
                     date_second = detailsoup.find_all("p", class_="regular") # 다른 형식의 상세페이지의 마감일 (달력없는 형식)
-                    #keyword = detailsoup.find('dt', text = '키워드').next_element.next_element.next_element.find_all("a", href = True , target ="_top") # 상세페이지의 키워드 찾기
-                    keyword = detailsoup.find_all("a", href = True , target ="_top") # 상세페이지의 키워드 찾기
+                    keyword = detailsoup.find('dt', text = '키워드').next_element.next_element.next_element.find_all("a", href = True , target ="_top") # 상세페이지의 키워드 찾기
                     print(keyword)
-                    for n in range(len(keyword)):
-                        if keyword is not None :
-                            weight = "15" # 가중치
-                            for k in keyword :
-                                k_list.append(k.text) # k_list에 키워드text 넣기
+                    if keyword is not None :
+                        weight = "15" # 가중치
+                        for k in keyword :
+                            k_list.append(k.text) # k_list에 키워드text 넣기
 
-                            for k_count in range(len(k_list)) :
-                                if cur.execute("""SELECT * from tags where low = %s""", str(k_list[k_count])) > 0 :
-                                    db_tags.append(k_list[k_count]) # low == tags
+                        for k_count in range(len(k_list)) :
+                            if cur.execute("""SELECT * from tags where low = %s""", str(k_list[k_count])) > 0 :
+                                db_tags.append(k_list[k_count]) # low == tags
 
-                            for n in range(len(db_tags)) :
-                                db_tags[n] = json.dumps(db_tags[n] , ensure_ascii=False, sort_keys=False)
-                                tag_str = tag_str + "{" + str(db_tags[n]) + ":" + weight + "},"
-                    tag_str = tag_str[:-1]
+                        for n in range(len(db_tags)) :
+                            db_tags[n] = json.dumps(db_tags[n] , ensure_ascii=False, sort_keys=False)
+                            tag_str = tag_str + "{" + str(db_tags[n]) + ":" + weight + "},"
+                        tag_str = tag_str[:-1]
                     print(len(tag_str))
                     db_tags.clear()
                     k_list.clear()
