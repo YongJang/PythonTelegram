@@ -59,7 +59,7 @@ try:
                     #keyword = detailsoup.find('dt', text = '키워드').next_element.next_element.next_element.find_all("a", href = True , target ="_top") # 상세페이지의 키워드 찾기
                     keyword2 = []
                     keyword2 = detailsoup.find_all("a", href = True , target ="_top") # 상세페이지의 키워드 찾기
-                    for n in range(len(keyword2))
+                    for n in range(len(keyword2)):
                         keyword = keyword2[n]
 
                     if keyword is not None :
