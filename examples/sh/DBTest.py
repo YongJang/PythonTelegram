@@ -54,7 +54,8 @@ try:
                     meta_desc = detailsoup.find("meta",{"name":"description"})
                     if titles is not None : # 상세페이지의 title
                         db_title = titles.text.strip()
-                    meta_all = meta_title + meta_desc
+                    meta_all =""
+                    meta_all = str(meta_title) + str(meta_desc)
                     print(meta_all)
 
                     calendar = detailsoup.find_all("dl", class_="day") # 상세페이지의 마감일 찾기 (달력 형식)
