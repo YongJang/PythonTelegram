@@ -16,7 +16,7 @@ try:
 # -*- coding: utf-8 -*-
 
         sleep_i = 0
-        firsthtml = Request('http://www.jobkorea.co.kr/Starter/Recruit/SS/engineering?psTab=40&rOrderTab=10&Page=1#JobList', headers={'User-Agent':'Mozilla/2.0 (compatible; MSIE 5.0; Windows NT 5.1; SV1; .NET CLR 1.1.4322; .NET CLR 2.0.50727; .NET CLR 3.0.04506.30)'})
+        firsthtml = Request('http://www.jobkorea.co.kr/Starter/Recruit/SS/engineering?psTab=40&rOrderTab=10&Page=1#JobList', headers={'User-Agent':'Mozilla/5.0 (compatible; MSIE 5.0; Windows NT 5.1; SV1; .NET CLR 1.1.4322; .NET CLR 2.0.50727; .NET CLR 3.0.04506.30)'})
         sleep_i = sleep_i + 1
         firstpage = urlopen(firsthtml).read()
         firstsoup = BeautifulSoup(firstpage , from_encoding="utf-8")
@@ -42,11 +42,10 @@ try:
                     json_tags = []
                     tag_str = ""
                     time.sleep(2)
-                    i_ip = 1
                     if sleep_i >= 23 :
-                        i_ip = i_ip + 1
                         sleep_i = 0
-                    detail_html = Request('http://www.jobkorea.co.kr/' + str(hrefs[index]), headers={'User-Agent':'Mozilla/'+ str(i_ip) +'.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1; .NET CLR 1.1.4322; .NET CLR 2.0.50727; .NET CLR 3.0.04506.30)'})
+                        time.sleep(1803)
+                    detail_html = Request('http://www.jobkorea.co.kr/' + str(hrefs[index]), headers={'User-Agent':'Mozilla/5.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1; .NET CLR 1.1.4322; .NET CLR 2.0.50727; .NET CLR 3.0.04506.30)'})
                     sleep_i = sleep_i + 1 # 상세페이지 들어가기
                     detailpage = urlopen(detail_html).read()
                     detailsoup = BeautifulSoup(detailpage , from_encoding="utf-8")
