@@ -57,7 +57,7 @@ try:
                     meta_all =""
                     meta_all = str(meta_title) + str(meta_desc)
                     meta_all = meta_all.replace("\"","\\\"")
-                    meta_all = meta_all.replace("\'","\\\'")
+                    #meta_all = meta_all.replace("\'","\\\'")
                     print(meta_all)
                     calendar = detailsoup.find_all("dl", class_="day") # 상세페이지의 마감일 찾기 (달력 형식)
                     date_second = detailsoup.find_all("p", class_="regular") # 다른 형식의 상세페이지의 마감일 (달력없는 형식)
