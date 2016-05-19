@@ -56,8 +56,11 @@ try:
                         db_title = titles.text.strip()
                     meta_all =""
                     meta_all = str(meta_title) + str(meta_desc)
+
                     print(meta_all)
 
+                    meta_all = meta_all.replace("\"","\\\"")
+                    meta_all = meta_all.replace("\'","\\\'")
                     calendar = detailsoup.find_all("dl", class_="day") # 상세페이지의 마감일 찾기 (달력 형식)
                     date_second = detailsoup.find_all("p", class_="regular") # 다른 형식의 상세페이지의 마감일 (달력없는 형식)
                     keyword = detailsoup.find('dt', text = '키워드').next_element.next_element.next_element.find_all("a", href = True , target ="_top") # 상세페이지의 키워드 찾기
