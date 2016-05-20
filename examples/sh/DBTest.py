@@ -57,7 +57,7 @@ try:
                     meta_all = meta_all.replace("\"","\\\"")
                     #meta_all = meta_all.replace("\'","\\\'")
                     print(meta_all)
-                    
+
                     if titles is not None : # 상세페이지의 title
                         db_title = titles.text.strip()
 
