@@ -18,12 +18,22 @@ class TestSuite(unittest.TestCase):
             r = result
             resultText = '[%d개] ' % (index+1) + r.toString() + ' From Crawling'
             print(resultText)
+        #words=[]
+        #entry = Information()
+        #entry.setUrl("테스트")
+        #entry.setTag("테스트")
+        #entry.setTitle("테스트")
+        #entry.setContent("테스트")
+        #entry.setClickNum("테스트")
+        #entry.setAType("테스트")
+        #entry.setKGroup("테스트")
+        #entry.setPDate("테스")
+        #words.append(entry)
         storage.setInfo(results, 1)
-        #entries = storage.getInfo()
-        #for index, entry in enumerate(entries):
-        #    e = Information()
-        #    e = entry
-        #    print('[%d개] ' % (index+1) + e.toString() + ' From DB')
+        entries = storage.getInfo()
+        for index, entry in enumerate(entries):
+            e = entry
+            print('[%d개] ' % (index+1) + e.toString() + ' From DB')
         #time.sleep(5)
 
 def main():

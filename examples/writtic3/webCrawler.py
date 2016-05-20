@@ -77,7 +77,7 @@ class Crawling:
                 info.setUrl(news_url)
                 info.setTitle(header)
                 info.setContent(text)
-                info.setPDate(datetext)
+                info.setPDate(datetext.encode("utf8"))
                 info.setTag(tags)
                 result.append(info)
                 print('[%d개] ' % (index+1) + info.toString() + ' Original')
@@ -162,7 +162,7 @@ class Crawling:
             time.sleep(0.000001)
         #URL 출력
         for index, url_list in enumerate(url_lists):
-            resultText = '[%d개] %s'%(index+1, url_list)
+            resultText = '[%d개] %s'%(index+1, url_list.encode('utf8'))
             print(resultText)
         return url_lists
 """

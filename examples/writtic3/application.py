@@ -1,13 +1,15 @@
 #!/usr/bin/python
 #-*- coding: utf-8 -*-
-
-# 데이터베이스를 위한 라이브러리
 import os
+import sys
 import flask
+# 데이터베이스를 위한 라이브러리
+import re
 import pymysql
 # JSON을 위한 라이브러리
 import json
 import collections
+# Apache-Spark를 위한 라이브러리
 # 크롤링을 위한 라이브러리
 from jobjangDTO import Information
 from webCrawler import Crawling
@@ -19,7 +21,6 @@ def hello_world():
     storage.populate()
     row = storage.row()
     return "Are you OK %d!" % row
-
 class Storage():
     def __init__(self):
         self.db = pymysql.connect(
@@ -28,13 +29,22 @@ class Storage():
             db = os.getenv('MYSQL_INSTANCE_NAME', 'telegramdb'),
             host = os.getenv('MYSQL_PORT_3306_TCP_ADDR', 'telegramdb.cctjzlx6kmlc.ap-northeast-1.rds.amazonaws.com'),
             port = int(os.getenv('MYSQL_PORT_3306_TCP_PORT', '3306')),
-            charset ='utf8'
+            charset ='utf8',
+            use_unicode=False,
+            init_command='SET NAMES UTF8'
             )
+        self.db.query("set character_set_connection=utf8;")
+        self.db.query("set character_set_server=utf8;")
+        self.db.query("set character_set_client=utf8;")
+        self.db.query("set character_set_results=utf8;")
+        self.db.query("set character_set_database=utf8;")
         cur = self.db.cursor()
         print("connection success!!")
-        cur.execute("set names utf8;")
-    #cur.execute("DROP TABLE IF EXISTS rows")
-    #cur.execute("CREATE TABLE rows(row INT)")
+        print(sys.stdin.encoding)
+    def stripslashes(self, s):
+        r = re.sub(r"\\(n|r)", "\n", s)
+        r = re.sub(r"\\", "", r)
+        return r
     def escape(self, s):
         '''
         따옴표, 쌍따옴표 등 SQL 쿼리문에서 문자로 처리되어야 할 것들에 ESCAPE문을 걸어준다.
@@ -54,16 +64,18 @@ class Storage():
             print('No entries')
         else:
             for record in range(total):
-                if row[record][0] == category:
-                    temp = row[record][1]
+                if row[record][0].decode('utf8', 'surrogatepass') == category:
+                    temp = row[record][1].decode('utf8', 'surrogatepass')
                     entries.append(temp)
         return entries
     def getInfo(self):
-        '''
+        """
         기사, 채용정보를 DB에서 모두 받아온다.
-        '''
+        """
         cur = self.db.cursor()
-        cur.execute("SELECT * FROM information")
+        sql = """SELECT * FROM information"""
+        cur.execute(sql)
+        #self.db.commit()
         row = cur.fetchall()
         total = len(row)
         entries = []
@@ -72,14 +84,16 @@ class Storage():
         else:
             for record in range(total):
                 entry = Information()
-                entry.setUrl(row[record][1])
-                entry.setTag(row[record][2])
-                entry.setTitle(row[record][3])
-                entry.setContent(row[record][4])
+                entry.setUrl(row[record][1].decode('utf8', 'surrogatepass'))
+                json_obj = json.loads(row[record][2].decode('utf8', 'surrogatepass'), encoding="utf-8", object_pairs_hook=collections.OrderedDict)
+                #json_obj = json.dumps(row[record][2], ensure_ascii=False, sort_keys=False, separators=(',', ':')).encode('utf-8')
+                entry.setTag(json_obj)
+                entry.setTitle(row[record][3].decode('utf8', 'surrogatepass'))
+                entry.setContent(row[record][4].decode('utf8', 'surrogatepass'))
                 entry.setClickNum(row[record][5])
-                entry.setAType(row[record][6])
+                entry.setAType(row[record][6].decode('utf8', 'surrogatepass'))
                 entry.setKGroup(row[record][7])
-                entry.setPDate(row[record][8])
+                entry.setPDate(row[record][8].decode('utf8', 'surrogatepass'))
                 entries.append(entry)
         return entries
 
@@ -88,28 +102,19 @@ class Storage():
         기사, 채용정보를 DB에 저장한다.
         TAG는 JSON 타입으로 저장한다.
         '''
-
         cur = self.db.cursor()
+        sql = ""
         for index, info in enumerate(infos):
-            #tags = json.dumps(info.getTag(), ensure_ascii=False, sort_keys=False, separators=(',', ':'))#.encode('utf-8').decode('utf-8')
             tags = json.dumps(info.getTag(), ensure_ascii=False, sort_keys=False)
-            #print(type(info.getUrl()))
-            #print(type(tags))
-            #print(type(info.getTitle()))
-            #print(type(info.getContent()))
-            #print(type(info.getPDate()))
             if t is 1:
-                if cur.execute("SELECT url from information where url=\'" + info.getUrl() + "\'") < 1:
-                    cur.execute("INSERT INTO information(url, tag, title, content ,click_num, a_type, k_group, p_date)" + \
-                                "VALUES (\'" + info.getUrl() +"\',\'" + tags + "\',\'" + self.escape(info.getTitle()) + \
-                                "\',\'" + self.escape(info.getContent()) + "\', 0, \'Article\', 0, \'" + \
-                                info.getPDate() + "\');")
-                    self.db.commit()
-                    print("[%d]success!" % (index+1))
-
-                else:
-                    continue
-
+                sql = "INSERT INTO information (url, tag, title, content, click_num, a_type, k_group, p_date) "\
+                      "SELECT %s, %s, %s, %s, 0, %s, 0, %s FROM DUAL "\
+                      "WHERE NOT EXISTS (SELECT url FROM information WHERE url=%s)"
+                values = (info.getUrl(), tags, info.getTitle(), info.getContent(), \
+                          "Article", info.getPDate(), info.getUrl())
+                cur.execute(sql, values)
+                self.db.commit()
+                print("[%d]success!" % (index+1))
             else:
                 cur.execute("INSERT INTO information(url, tag, title, content, click_num, a_type, k_group, p_date)" + \
                             "VALUES (\'" + info.getUrl +"\',\'" + info.getTag + "\',\'" + info.getTitle + "\',\'" + \
