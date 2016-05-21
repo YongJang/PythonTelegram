@@ -304,7 +304,7 @@ def step100Social(call):
     cid = call.from_user.id
     #bot.answer_callback_query(call.id, text="사회 기사!!")
     userStep[cid] = 0
-    bot.send_message(cid, "http://52.196.156.190")
+    bot.send_message(cid, "http://ec2-52-196-189-74.ap-northeast-1.compute.amazonaws.com/")
 
 """============================================================================================================="""
 
