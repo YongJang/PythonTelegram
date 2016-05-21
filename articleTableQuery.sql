@@ -37,3 +37,6 @@ CREATE TABLE users (PK_uid INT UNSIGNED PRIMARY KEY NOT NULL, step INT UNSIGNED)
 SELECT * FROM users;
 SET SQL_SAFE_UPDATES=0;
 DELETE FROM users where step=0;
+SELECT * FROM jobs;
+
+SELECT click_num, meta FROM jobs WHERE url = 'http://www.jobkorea.co.kr//Recruit/GI_Read/17169773?Oem_Code=C1&rPageCode=ST&PageGbn=ST' LIMIT 1;

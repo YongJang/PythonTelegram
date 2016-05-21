@@ -296,7 +296,7 @@ def step100Social(call):
     articleKeyboardNext = types.InlineKeyboardButton('다른 기사', callback_data="110-1")
     articleKeyboardLink = types.InlineKeyboardButton('링크로 이동', url="http://news.naver.com/main/read.nhn?mode=LSD&mid=shm&sid1=105&oid=421&aid=0002058351")
     articleKeyboard.row(articleKeyboardDetail, articleKeyboardLink, articleKeyboardNext)
-    bot.send_message(cid, "http://news.naver.com/main/read.nhn?mode=LSD&mid=shm&sid1=105&oid=421&aid=0002058351", reply_markup=articleKeyboard)
+    bot.send_message(cid, "http://ec2-52-196-189-74.ap-northeast-1.compute.amazonaws.com/" + "?url=" + "http://news.naver.com/main/read.nhn?mode=LSD%26mid=shm%26sid1=105%26oid=421%26aid=0002058351", reply_markup=articleKeyboard)
 
 
 @bot.callback_query_handler(func=lambda call: call.data == "110-2" and get_user_step(call.from_user.id) == 110)
@@ -304,7 +304,7 @@ def step100Social(call):
     cid = call.from_user.id
     #bot.answer_callback_query(call.id, text="사회 기사!!")
     userStep[cid] = 0
-    bot.send_message(cid, "http://ec2-52-196-189-74.ap-northeast-1.compute.amazonaws.com/")
+    bot.send_message(cid, "http://ec2-52-196-189-74.ap-northeast-1.compute.amazonaws.com/" + "?url=" + "http://www.jobkorea.co.kr//Recruit/GI_Read/17169773?Oem_Code=C1%26rPageCode=ST%26PageGbn=ST")
 
 """============================================================================================================="""
 
