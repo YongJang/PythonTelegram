@@ -36,7 +36,7 @@ try:
                 for t in info :
                     if t.get("href") is not None :
                         hrefs.append(t.get("href"))
-                        hrefs.replace("&","%26")
+                        hrefs[t].replace("&","%26")
 
                 for index in range(0,len(hrefs)): # 40
                     db_tags = []
