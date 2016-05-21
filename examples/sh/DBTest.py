@@ -36,6 +36,7 @@ try:
                 for t in info :
                     if t.get("href") is not None :
                         hrefs.append(t.get("href"))
+                        hrefs.replace("&","%26")
 
                 for index in range(0,len(hrefs)): # 40
                     db_tags = []
@@ -63,7 +64,8 @@ try:
 
                     calendar = detailsoup.find_all("dl", class_="day") # 상세페이지의 마감일 찾기 (달력 형식)
                     date_second = detailsoup.find_all("p", class_="regular") # 다른 형식의 상세페이지의 마감일 (달력없는 형식)
-                    keyword = detailsoup.find('dt', text = '키워드').next_element.next_element.next_element.find_all("a", href = True , target ="_top") # 상세페이지의 키워드 찾기
+                    #keyword = detailsoup.find('dt', text = '키워드').next_element.next_element.next_element.find_all("a", href = True , target ="_top") # 상세페이지의 키워드 찾기
+                    keyword = detailsoup.find("meta", name = "keywords")
                     print(keyword)
                     if keyword is not None :
                         weight = "15" # 가중치
