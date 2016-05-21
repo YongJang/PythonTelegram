@@ -71,7 +71,7 @@ try:
                     if keyword is not None :
                         weight = "15" # 가중치
                         for k in keyword :
-                            k_list.append(k.text) # k_list에 키워드text 넣기
+                            k_list.append(k.content) # k_list에 키워드text 넣기
 
                         for k_count in range(len(k_list)) :
                             if cur.execute("""SELECT * from tags where low = %s""", str(k_list[k_count])) > 0 :
