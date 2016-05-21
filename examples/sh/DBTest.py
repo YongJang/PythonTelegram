@@ -36,7 +36,7 @@ try:
                 for t in info :
                     if t.get("href") is not None :
                         hrefs.append(t.get("href"))
-                for re in range(len(hrefs))
+                for re in range(len(hrefs)) :
                     hrefs[re].replace('&','%26')
 
                 for index in range(0,len(hrefs)): # 40
