@@ -299,9 +299,9 @@ def step110IT_2(call):
         conn.commit()
         articleKeyboard = types.InlineKeyboardMarkup(2)
         articleKeyboardNext = types.InlineKeyboardButton('다른 정보', callback_data="110-2")
-        articleKeyboardLink = types.InlineKeyboardButton('링크로 이동', url=WEBSERVER_DNS + "?url=" + url)
+        articleKeyboardLink = types.InlineKeyboardButton('링크로 이동', url=WEBSERVER_DNS + "?url=" + url + "%26tb=jobs")
         articleKeyboard.row(articleKeyboardLink, articleKeyboardNext)
-        bot.send_message(cid, WEBSERVER_DNS + "?url=" + url, reply_markup=articleKeyboard)
+        bot.send_message(cid, WEBSERVER_DNS + "?url=" + url + "%26tb=jobs", reply_markup=articleKeyboard)
     else :
         bot.send_message(cid, "아직 준비중입니다.")
         bot.send_message(cid, "어떤 종류의 IT 글을 원하시나요?", reply_markup=step110Keyboard)
