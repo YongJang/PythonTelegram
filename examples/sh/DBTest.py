@@ -48,7 +48,7 @@ try:
                     time.sleep(2)
                     if sleep_i >= 23 :
                         sleep_i = 0
-                        time.sleep(1803)
+                        time.sleep(2000)
                     detail_html = Request('http://www.jobkorea.co.kr/' + str(hrefs[index]), headers={'User-Agent':'Mozilla/5.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1; .NET CLR 1.1.4322; .NET CLR 2.0.50727; .NET CLR 3.0.04506.30)'})
                     sleep_i = sleep_i + 1 # 상세페이지 들어가기
                     detailpage = urlopen(detail_html).read()
@@ -69,7 +69,7 @@ try:
                     date_second = detailsoup.find_all("p", class_="regular") # 다른 형식의 상세페이지의 마감일 (달력없는 형식)
                     keyword = detailsoup.find('dt', text = '키워드').next_element.next_element.next_element.find_all("a", href = True , target ="_top") # 상세페이지의 키워드 찾기
                     #keyword = detailsoup.find("meta", {"name" : "keywords"})
-                    print(keyword)
+                    #print(keyword)
                     if keyword is not None :
                         weight = "15" # 가중치
                         for k in keyword :
