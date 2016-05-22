@@ -17,6 +17,9 @@ set collation_connection = utf8_general_ci;
 set collation_database = utf8_general_ci;
 set collation_server = utf8_general_ci;
 CREATE TABLE jobs(PK_aid INT UNSIGNED PRIMARY KEY AUTO_INCREMENT, url varchar(1000) NOT NULL, high VARCHAR(40), low VARCHAR(300), title TEXT, content TEXT, click_num INT, aType VARCHAR(40), k_group INT, pDate char(8), meta TEXT)default character set utf8;
+
+CREATE TABLE society(PK_aid INT UNSIGNED PRIMARY KEY AUTO_INCREMENT, url varchar(1000) NOT NULL, high VARCHAR(40), low VARCHAR(300), title TEXT, content TEXT, click_num INT, aType VARCHAR(40), k_group INT, pDate char(8), meta TEXT)default character set utf8;
+
 set character_set_connection=utf8;
 set names utf8;
 load data local infile 'E:\\PythonTelegram\\ITtags4.csv' into table tags fields terminated by ',' enclosed by '"' lines terminated by '\r\n';
