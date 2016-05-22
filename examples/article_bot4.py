@@ -321,7 +321,7 @@ def step100Social(call):
                 temp = row[record][5].decode('utf8', 'surrogatepass')
                 detail = temp
         articleKeyboardNext = types.InlineKeyboardButton('다른 기사', callback_data="110-1")
-        articleKeyboardLink = types.InlineKeyboardButton('링크로 이동', url=WEBSERVER_DNS+url)
+        articleKeyboardLink = types.InlineKeyboardButton('링크로 이동', url=WEBSERVER_DNS + "?url=" + url)
         articleKeyboard2.row(articleKeyboardLink, articleKeyboardNext)
         bot.send_message(cid, detail, reply_markup=articleKeyboard2)
     else :
