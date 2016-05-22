@@ -38,7 +38,7 @@ SELECT * FROM users;
 SET SQL_SAFE_UPDATES=0;
 DELETE FROM users where step=0;
 DELETE FROM information where url = '테스트';
-SELECT * FROM jobs;
+SELECT * FROM jobs order by click_num DESC;
 desc jobs;
 /*
 ========================================================================================
@@ -58,3 +58,4 @@ SELECT * FROM information WHERE a_Type = 'Article' AND pk_aid = 256;
 SELECT * FROM shown;
 SET SQL_SAFE_UPDATES=0;
 DELETE FROM shown where uid=202899924;
+DELETE FROM shown where uid LIKE '2%';

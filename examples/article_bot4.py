@@ -61,7 +61,7 @@ commands = {
               'Jobjang':'Jobjang 서비스 시작하기'
 }
 
-imageSelect = types.ReplyKeyboardMarkup(one_time_keyboard=True)  # create the image selection keyboard
+imageSelect = types.ReplyKeyboardMarkup(one_time_keyboard=True)
 imageSelect.add('닭', '고양이')
 
 articleSelect = types.ReplyKeyboardMarkup(one_time_keyboard=True)
@@ -129,10 +129,8 @@ def listener(messages):
             print (str(m.chat.first_name) + " [" + str(m.chat.id) + "]: " + m.text)
 
 bot = telebot.TeleBot(TOKEN)
-bot.set_update_listener(listener)  # register listener
+bot.set_update_listener(listener)  # listener 등록
 
-
-# handle the "/start" command
 @bot.message_handler(commands=['start'])
 def command_start(m):
     cid = m.chat.id
@@ -158,19 +156,18 @@ def command_jobjang(m):
 def command_help(m):
     cid = m.chat.id
     help_text = "사용가능한 명령어 목록 입니다.: \n"
-    for key in commands:  # generate help text out of the commands dictionary defined at the top
+    for key in commands:
         help_text += "/" + key + ": "
         help_text += commands[key] + "\n"
-    bot.send_message(cid, help_text)  # send the generated help page
+    bot.send_message(cid, help_text)
 
 # broadcasting
 @bot.message_handler(commands=['broadcasting'])
-def command_help(m):
+def command_broadcast(m):
+    sender = m.chat.username
     for uid in knownUsers:
         cid = uid
-        bot.send_message(cid, "Broadcasting 메세지 입니다.")  # send the generated help page
-        bot.send_message(cid, "http://www.jobkorea.co.kr/Recruit/GI_Read/17122958?Oem_Code=C1&rPageCode=ST&PageGbn=ST")
-        bot.send_message(cid, "http://news.naver.com/main/read.nhn?mode=LSD&mid=shm&sid1=105&oid=421&aid=0002058351")\
+        bot.send_message(cid, sender + "님의 Broadcasting 메세지 입니다.")
 
 @bot.message_handler(commands=['getImage'])
 def command_image(m):
