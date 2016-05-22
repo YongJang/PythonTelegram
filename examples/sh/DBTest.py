@@ -38,6 +38,7 @@ try:
                         hrefs.append(t.get("href"))
                 for re in range(len(hrefs)) :
                     hrefs[re].replace('&','%26')
+                print(hrefs)
 
                 for index in range(0,len(hrefs)): # 40
                     db_tags = []
