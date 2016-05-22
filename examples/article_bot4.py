@@ -149,6 +149,7 @@ def command_start(m):
 @bot.message_handler(commands=['Jobjang'])
 def command_jobjang(m):
     cid = m.chat.id
+    bot.send_message(cid, "분야별로 필요한 정보를 받으실 수 있습니다.", reply_markup=hideBoard)
     bot.send_message(cid, "당신이 관심있는 분야를 선택하세요.", reply_markup=articleSelectInline)
     userStep[cid] = 100
 
@@ -291,9 +292,9 @@ def step110IT_2(call):
     isFirstShown = -1
     url = ""
     for n in range(len(jobsURL)):
-        if cur.execute("SELECT * FROM shown WHERE uid = " + str(cid) + " AND url = \'" + entriesURL[n] + "\';") <1:
+        if cur.execute("SELECT * FROM shown WHERE uid = " + str(cid) + " AND url = \'" + jobsURL[n] + "\';") <1:
             isFirstShown = n
-            url = entriesURL[n]
+            url = jobsURL[n]
             break;
     if isFirstShown is not -1:
         lastShown[cid] = url
