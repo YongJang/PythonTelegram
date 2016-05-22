@@ -164,7 +164,7 @@ def command_help(m):
 # broadcasting
 @bot.message_handler(commands=['broadcasting'])
 def command_broadcast(m):
-    sender = m.chat.username
+    sender = m.chat.first_name
     for uid in knownUsers:
         cid = uid
         bot.send_message(cid, sender + "님의 Broadcasting 메세지 입니다.")
