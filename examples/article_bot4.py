@@ -322,7 +322,7 @@ def step100Social(call):
             for record in range(total):
                 temp = row[record][5].decode('utf8', 'surrogatepass')
                 detail = temp
-        if len(detail>4095):
+        if len(detail)>4095:
             detail = detail[0:4092]
             detil = detail +"..."
         articleKeyboardNext = types.InlineKeyboardButton('다른 기사', callback_data="110-1")
