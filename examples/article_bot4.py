@@ -254,7 +254,7 @@ def step110IT_1(call):
     isFirstShown = -1
     url = ""
     for n in range(len(entriesURL)):
-        if cur.execute("SELECT * FROM shown WHERE uid = " + cid + " AND url = \'" + entriesURL[n] + "\';") <1:
+        if cur.execute("SELECT * FROM shown WHERE uid = " + str(cid) + " AND url = \'" + entriesURL[n] + "\';") <1:
             isFirstShown = n
             url = entriesURL[n]
             break;
