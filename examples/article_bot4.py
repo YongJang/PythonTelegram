@@ -310,7 +310,7 @@ def step100Social(call):
     articleKeyboard2 = types.InlineKeyboardMarkup(2)
     if get_user_step(call.from_user.id) == 110:
         userStep[cid] = 110
-        cur.execute('SELECT * FROM information WHERE a_Type = \'Article\' AND url = ' + url + ';')
+        cur.execute("SELECT * FROM information WHERE a_Type = \'Article\' AND url = \'" + url + "\';")
         row = cur.fetchall()
         total = len(row)
         detail = ""
