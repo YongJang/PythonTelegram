@@ -264,9 +264,9 @@ def step110IT_1(call):
         articleKeyboard = types.InlineKeyboardMarkup(3)
         articleKeyboardDetail = types.InlineKeyboardButton('자세히', callback_data="aDetail")
         articleKeyboardNext = types.InlineKeyboardButton('다른 기사', callback_data="110-1")
-        articleKeyboardLink = types.InlineKeyboardButton('링크로 이동', url=WEBSERVER_DNS + "?url=" + url + "%26tb=information")
+        articleKeyboardLink = types.InlineKeyboardButton('링크로 이동', url=WEBSERVER_DNS + "?url=" + url + "&tb=information")
         articleKeyboard.row(articleKeyboardDetail, articleKeyboardLink, articleKeyboardNext)
-        bot.send_message(cid, WEBSERVER_DNS + "?url=" + url + "%26tb=information", reply_markup=articleKeyboard)
+        bot.send_message(cid, WEBSERVER_DNS + "?url=" + url + "&tb=information", reply_markup=articleKeyboard)
     else :
         bot.send_message(cid, "아직 준비중입니다.")
         bot.send_message(cid, "어떤 종류의 IT 글을 원하시나요?", reply_markup=step110Keyboard)
@@ -299,9 +299,9 @@ def step110IT_2(call):
         conn.commit()
         articleKeyboard = types.InlineKeyboardMarkup(2)
         articleKeyboardNext = types.InlineKeyboardButton('다른 정보', callback_data="110-2")
-        articleKeyboardLink = types.InlineKeyboardButton('링크로 이동', url=WEBSERVER_DNS + "?url=" + url + "%26tb=jobs")
+        articleKeyboardLink = types.InlineKeyboardButton('링크로 이동', url=WEBSERVER_DNS + "?url=" + url + "&tb=jobs")
         articleKeyboard.row(articleKeyboardLink, articleKeyboardNext)
-        bot.send_message(cid, WEBSERVER_DNS + "?url=" + url + "%26tb=jobs", reply_markup=articleKeyboard)
+        bot.send_message(cid, WEBSERVER_DNS + "?url=" + url + "&tb=jobs", reply_markup=articleKeyboard)
     else :
         bot.send_message(cid, "아직 준비중입니다.")
         bot.send_message(cid, "어떤 종류의 IT 글을 원하시나요?", reply_markup=step110Keyboard)
@@ -352,7 +352,7 @@ def stepDetail(call):
             detail = detail[0:2040]
             detil = detail +"..."
         articleKeyboardNext = types.InlineKeyboardButton('다른 기사', callback_data="110-1")
-        articleKeyboardLink = types.InlineKeyboardButton('링크로 이동', url=WEBSERVER_DNS + "?url=" + url + "%26tb=information")
+        articleKeyboardLink = types.InlineKeyboardButton('링크로 이동', url=WEBSERVER_DNS + "?url=" + url + "&tb=information")
         articleKeyboard2.row(articleKeyboardLink, articleKeyboardNext)
         bot.send_message(cid, detail, reply_markup=articleKeyboard2)
     else :
