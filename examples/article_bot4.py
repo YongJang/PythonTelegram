@@ -284,7 +284,7 @@ def step110IT_2(call):
 
 """====================================================SET======================================================"""
 @bot.callback_query_handler(func=lambda call: call.data == "120-1" and get_user_step(call.from_user.id) == 120)
-def step100Social(call):
+def step120Social_1(call):
     cid = call.from_user.id
     #bot.answer_callback_query(call.id, text="사회 기사!!")
     articleKeyboard = types.InlineKeyboardMarkup(3)
@@ -297,7 +297,7 @@ def step100Social(call):
 
 
 @bot.callback_query_handler(func=lambda call: call.data == "120-2" and get_user_step(call.from_user.id) == 120)
-def step100Social(call):
+def step120Social_2(call):
     cid = call.from_user.id
     #bot.answer_callback_query(call.id, text="사회 기사!!")
     userStep[cid] = 0
@@ -305,7 +305,7 @@ def step100Social(call):
 
 """============================================================================================================="""
 @bot.callback_query_handler(func=lambda call: call.data == "aDetail")
-def step100Social(call):
+def stepDetail(call):
     cid = call.from_user.id
     url = lastShown[cid]
     #bot.answer_callback_query(call.id, text="사회 기사!!")
