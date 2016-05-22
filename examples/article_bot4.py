@@ -19,7 +19,7 @@ from PIL import Image
 import json
 import pymysql
 import sys
-sys.setdefaultencoding("utf-8")
+
 
 
 
@@ -248,7 +248,7 @@ def step110IT_1(call):
         print('No entries')
     else:
         for record in range(total):
-            temp = row[record][1]
+            temp = row[record][1].decode("utf-8")
             entriesURL.append(temp)
     #### entriesURL에 IT기사 URL 저장 ####
     isFirstShown = -1
