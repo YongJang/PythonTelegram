@@ -277,7 +277,7 @@ def step110IT_1(call):
 @bot.callback_query_handler(func=lambda call: call.data == "110-2" and get_user_step(call.from_user.id) == 110)
 def step110IT_2(call):
     cid = call.from_user.id
-    cur.execute("SELECT * FROM jobs WHERE a_Type = \'Job\' ORDER BY click_num DESC;")
+    cur.execute("SELECT * FROM jobs WHERE aType = \'Job\' ORDER BY click_num DESC;")
     row = cur.fetchall()
     total = len(row)
     jobsURL = []
