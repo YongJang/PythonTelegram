@@ -253,7 +253,7 @@ def step110IT_1(call):
     #### entriesURL에 IT기사 URL 저장 ####
     isFirstShown = -1
     url = ""
-    for n in range(entriesURL):
+    for n in range(len(entriesURL)):
         if cur.execute("SELECT * FROM shown WHERE uid = " + cid + " AND url = \'" + entriesURL[n] + "\';") <1:
             isFirstShown = n
             url = entriesURL[n]
