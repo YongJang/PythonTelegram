@@ -37,6 +37,20 @@ CREATE TABLE users (PK_uid INT UNSIGNED PRIMARY KEY NOT NULL, step INT UNSIGNED)
 SELECT * FROM users;
 SET SQL_SAFE_UPDATES=0;
 DELETE FROM users where step=0;
+DELETE FROM information where url = '테스트';
 SELECT * FROM jobs;
-
-SELECT click_num, meta FROM jobs WHERE url = 'http://www.jobkorea.co.kr//Recruit/GI_Read/17169773?Oem_Code=C1&rPageCode=ST&PageGbn=ST' LIMIT 1;
+desc jobs;
+/*
+========================================================================================
+*/
+SELECT * FROM jobs WHERE url = 'http://www.jobkorea.co.kr//Recruit/GI_Read/17169773?Oem_Code=C1&rPageCode=ST&PageGbn=ST' LIMIT 1;
+SELECT * FROM jobs WHERE url = 'http://www.jobkorea.co.kr//Recruit/GI_Read/17169773?Oem_Code=C1' LIMIT 1;
+/*
+========================================================================================
+*/
+CREATE TABLE relation (uid INT UNSIGNED NOT NULL, url VARCHAR(1000))default character set utf8; 
+CREATE TABLE shown (uid INT UNSIGNED NOT NULL, url VARCHAR(1000))default character set utf8; 
+/*
+========================================================================================
+*/
+SELECT * FROM information WHERE a_Type = 'Article' ORDER BY click_num DESC;
