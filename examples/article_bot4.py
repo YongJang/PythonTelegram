@@ -26,7 +26,7 @@ import sys
 print(sys.stdin.encoding)
 
 try:
-    conn = pymysql.connect(host='telegramdb.cctjzlx6kmlc.ap-northeast-1.rds.amazonaws.com', port=3306, user='yongjang', passwd='yongjang', db='telegramdb', charset='utf8')
+    conn = pymysql.connect(host='telegramdb.cctjzlx6kmlc.ap-northeast-1.rds.amazonaws.com', port=3306, user='yongjang', passwd='yongjang', db='telegramdb', charset='utf8', charset ='utf8', use_unicode=False, init_command='SET NAMES UTF8')
     print("Database Connection Success!!")
     cur = conn.cursor()
 except pymysql.Error as e:
@@ -248,7 +248,7 @@ def step110IT_1(call):
         print('No entries')
     else:
         for record in range(total):
-            temp = row[record][1].decode("utf-8")
+            temp = row[record][1].decode('utf8', 'surrogatepass')
             entriesURL.append(temp)
     #### entriesURL에 IT기사 URL 저장 ####
     isFirstShown = -1
