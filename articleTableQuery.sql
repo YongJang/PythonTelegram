@@ -54,7 +54,6 @@ CREATE TABLE shown (uid INT UNSIGNED NOT NULL, url VARCHAR(1000))default charact
 ========================================================================================
 */
 SELECT * FROM information WHERE a_Type = 'Article' ORDER BY click_num DESC;
-SELECT * FROM information WHERE a_Type = 'Article' AND pk_aid = 256;
 SELECT * FROM shown;
 SET SQL_SAFE_UPDATES=0;
 DELETE FROM shown where uid=202899924;
