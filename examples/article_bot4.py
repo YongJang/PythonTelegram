@@ -240,7 +240,7 @@ def step100Social(call):
 @bot.callback_query_handler(func=lambda call: call.data == "110-1" and get_user_step(call.from_user.id) == 110)
 def step110IT_1(call):
     cid = call.from_user.id
-    cur.execute('SELECT * FROM information WHERE a_Type = \'Article\' ORDER BY click_num DESC;')
+    cur.execute("SELECT * FROM information WHERE a_Type = \'Article\' ORDER BY click_num DESC;")
     row = cur.fetchall()
     total = len(row)
     entriesURL = []
@@ -261,6 +261,8 @@ def step110IT_1(call):
 
     if isFirstShown is not -1:
         lastShown[cid] = url
+        cur.execute("INSERT INTO shown (uid, url) VALUES (\'" + str(cid) +"\',\'" + url + "\');")
+        conn.commit()
         articleKeyboard = types.InlineKeyboardMarkup(3)
         articleKeyboardDetail = types.InlineKeyboardButton('자세히', callback_data="aDetail")
         articleKeyboardNext = types.InlineKeyboardButton('다른 기사', callback_data="110-1")
