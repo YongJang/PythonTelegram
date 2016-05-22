@@ -21,13 +21,13 @@ try:
         firstpage = urlopen(firsthtml).read()
         firstsoup = BeautifulSoup(firstpage , from_encoding="utf-8")
         page_num = firstsoup.find("div" , { "class" : "lgiSec lgiPagination lgiPagination1" }).find_all('li') #page개수
-        print(page_num)
+        print(len(page_num))
         #href 가져오기 40 개
         def getPost(sleep_i) :
             hrefs=[]  #href 가져오기 40 개
             k_list = []
             tag_str = ""
-            for page in range(0,len(page_num)):
+            for page in range(len(page_num)):
                 time.sleep(3) #30*60 = 1800
                 html = Request('http://www.jobkorea.co.kr/Starter/Recruit/SS/engineering?psTab=40&rOrderTab=10&Page=' + str(page) + '  #JobList', headers={'User-Agent':'Mozilla/5.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1; .NET CLR 1.1.4322; .NET CLR 2.0.50727; .NET CLR 3.0.04506.30)'})
                 sleep_i = sleep_i + 1
