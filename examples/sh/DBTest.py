@@ -38,7 +38,7 @@ try:
                         hrefs.append(t.get("href"))
                     #words = [word.replace('[br]','<br />') for word in words]
                 hrefs = [re.replace('&',"%26") for re in hrefs]
-                print(hrefs)
+                #print(hrefs)
 
                 for index in range(0,len(hrefs)): # 40
                     db_tags = []
@@ -59,7 +59,7 @@ try:
                     meta_all = str(meta_title) + str(meta_desc)
                     meta_all = meta_all.replace("\"","\\\"")
                     #meta_all = meta_all.replace("\'","\\\'")
-                    print(meta_all)
+                    #print(meta_all)
 
                     if titles is not None : # 상세페이지의 title
                         db_title = titles.text.strip()
@@ -82,10 +82,10 @@ try:
                             db_tags[n] = json.dumps(db_tags[n] , ensure_ascii=False, sort_keys=False)
                             tag_str = tag_str + "{" + str(db_tags[n]) + ":" + weight + "},"
                         tag_str = tag_str[:-1]
-                    print(len(tag_str))
+                    #print(len(tag_str))
                     db_tags.clear()
                     k_list.clear()
-                    print(tag_str)
+                    #print(tag_str)
 
                     pDate = ""
                     if calendar  :
