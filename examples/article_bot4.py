@@ -305,14 +305,25 @@ def step100Social(call):
 @bot.callback_query_handler(func=lambda call: call.data == "aDetail")
 def step100Social(call):
     cid = call.from_user.id
+    url = lastShown[cid]
     #bot.answer_callback_query(call.id, text="사회 기사!!")
     articleKeyboard2 = types.InlineKeyboardMarkup(2)
     if get_user_step(call.from_user.id) == 110:
         userStep[cid] = 110
+        cur.execute('SELECT * FROM information WHERE a_Type = \'Article\' AND url = ' + url + ';')
+        row = cur.fetchall()
+        total = len(row)
+        detail = ""
+        if total < 1:
+            print('No entries')
+        else:
+            for record in range(total):
+                temp = row[record][5].decode('utf8', 'surrogatepass')
+                detail = temp
         articleKeyboardNext = types.InlineKeyboardButton('다른 기사', callback_data="110-1")
-        articleKeyboardLink = types.InlineKeyboardButton('링크로 이동', url="http://news.naver.com/main/read.nhn?mode=LSD&mid=shm&sid1=105&oid=421&aid=0002058351")
+        articleKeyboardLink = types.InlineKeyboardButton('링크로 이동', url=WEBSERVER_DNS+url)
         articleKeyboard2.row(articleKeyboardLink, articleKeyboardNext)
-        bot.send_message(cid, "17일 서울 강남구 코엑스에서 개막한 월드 IT쇼에서 삼성전자와 LG전자 등은 물론 360도 카메라를 만든 씨소 등 IT 중소기업들도 앞다퉈 각사의 VR기기를 선보였다. VR 대중화를 위해 대용량 데이터 전송이 가능한 5G가 필수인 만큼 SK텔레콤과 KT 등 국내 이동통신사 역시 VR 콘텐츠를 대거 선보이며 데이터 전송속도 경쟁을 벌이고 있다.", reply_markup=articleKeyboard2)
+        bot.send_message(cid, detail, reply_markup=articleKeyboard2)
     else :
         userStep[cid] = 120
         articleKeyboardNext = types.InlineKeyboardButton('다른 기사', callback_data="120-1")
