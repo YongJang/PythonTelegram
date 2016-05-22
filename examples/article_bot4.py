@@ -277,8 +277,36 @@ def step110IT_1(call):
 @bot.callback_query_handler(func=lambda call: call.data == "110-2" and get_user_step(call.from_user.id) == 110)
 def step110IT_2(call):
     cid = call.from_user.id
-    userStep[cid] = 0
-    bot.send_message(cid, WEBSERVER_DNS + "?url=" + "http://www.jobkorea.co.kr//Recruit/GI_Read/17169773?Oem_Code=C1%26rPageCode=ST%26PageGbn=ST")
+    cur.execute("SELECT * FROM jobs WHERE a_Type = \'Job\' ORDER BY click_num DESC;")
+    row = cur.fetchall()
+    total = len(row)
+    jobsURL = []
+    if total < 1:
+        print('No entries')
+    else:
+        for record in range(total):
+            temp = row[record][1].decode('utf8', 'surrogatepass')
+            jobsURL.append(temp)
+
+    isFirstShown = -1
+    url = ""
+    for n in range(len(jobsURL)):
+        if cur.execute("SELECT * FROM shown WHERE uid = " + str(cid) + " AND url = \'" + entriesURL[n] + "\';") <1:
+            isFirstShown = n
+            url = entriesURL[n]
+            break;
+    if isFirstShown is not -1:
+        lastShown[cid] = url
+        cur.execute("INSERT INTO shown (uid, url) VALUES (\'" + str(cid) +"\',\'" + url + "\');")
+        conn.commit()
+        articleKeyboard = types.InlineKeyboardMarkup(2)
+        articleKeyboardNext = types.InlineKeyboardButton('다른 정보', callback_data="110-2")
+        articleKeyboardLink = types.InlineKeyboardButton('링크로 이동', url=WEBSERVER_DNS + "?url=" + url)
+        articleKeyboard.row(articleKeyboardLink, articleKeyboardNext)
+        bot.send_message(cid, WEBSERVER_DNS + "?url=" + url, reply_markup=articleKeyboard)
+    else :
+        bot.send_message(cid, "아직 준비중입니다.")
+        bot.send_message(cid, "어떤 종류의 IT 글을 원하시나요?", reply_markup=step110Keyboard)
 
 """============================================================================================================="""
 
@@ -335,5 +363,6 @@ def stepDetail(call):
         articleKeyboardLink = types.InlineKeyboardButton('링크로 이동', url="http://news.naver.com/main/read.nhn?mode=LS2D&mid=shm&sid1=101&sid2=262&oid=003&aid=0007233619")
         articleKeyboard2.row(articleKeyboardLink, articleKeyboardNext)
         bot.send_message(cid, "4월 미국 산업생산은 전월 대비 0.7% 증가해 3개월 만에 반등에 성공했다고 연방준비제도이사회(Fed 연준)가 17일 발표했다.", reply_markup=articleKeyboard2)
+
 
 bot.polling()
