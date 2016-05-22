@@ -1,3 +1,5 @@
+#!/usr/bin/python
+#-*- coding: utf-8 -*-
 """
 This is a detailed example using almost every command of the API
 참고하고 있는 사이트
@@ -244,7 +246,7 @@ def step110IT_1(call):
         print('No entries')
     else:
         for record in range(total):
-            temp = row[record][1]
+            temp = row[record][1].decode('utf8', 'surrogatepass')
             entriesURL.append(temp)
     #### entriesURL에 IT기사 URL 저장 ####
     isFirstShown = -1
