@@ -242,9 +242,10 @@ def command_default(m):
 #@bot.message_handler(func=lambda message: get_user_step(message.chat.id) == 200 , content_types=['text'])
 def command_News_Search(m):
     cid = m.chat.id
+    userStep[cid] = 0
     keyword = m.text
     d = feedparser.parse('http://newssearch.naver.com/search.naver?where=rss&query=' + urllib.parse.quote(keyword.encode("utf-8")) + '&field=0')
-    sendText = d['feed']['title'] + "\n" + d.feed.subtitle +"\n"
+    sendText = ""
     isFirstShown = -1
     url = ""
     for post in d.entries:
@@ -253,13 +254,15 @@ def command_News_Search(m):
             url = post
             break;
     if isFirstShown is not -1:
-        sendText = sendText + url.title + "\n" + url.link + "\n" + url.published + "\n" + url.summary
+        sendText = sendText + url.title + "\n" + url.summary + "\n" + url.published + "\n" + url.link
         if len(sendText) > 2047:
             sendText = sendText[0:2040]
+        cur.execute("INSERT INTO shown (uid, url) VALUES (\'" + str(cid) +"\',\'" + url.link + "\');")
+        conn.commit()
         bot.send_message(cid, sendText)
     else :
         bot.send_message(cid, "아직 준비중입니다.")
-    userStep[cid] = 0
+
 
 
 # 여기서 부터 callback_query 핸들러
