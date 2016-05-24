@@ -166,7 +166,6 @@ def command_jobnews(m):
     cid = m.chat.id
     userStep[cid] = 200
     text = "검색하실 키워드를 입력하세요."
-    bot.send_message(cid, text)
 
 
 # help page
@@ -233,7 +232,8 @@ def command_text_hi(m):
 @bot.message_handler(func=lambda message: True, content_types=['text'])
 def command_default(m):
     cid = m.chat.id
-    if cid == 200:
+    step = get_user_step(cid)
+    if step == 200:
         command_News_Search(m)
     else:
         text = m.text
