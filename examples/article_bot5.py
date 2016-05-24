@@ -317,6 +317,8 @@ def step110IT_1(call):
         articleKeyboardLink = types.InlineKeyboardButton('링크로 이동', url=WEBSERVER_DNS + "?url=" + url + "&tb=information")
         articleKeyboard.row(articleKeyboardDetail, articleKeyboardLink, articleKeyboardNext)
         bot.send_message(cid, WEBSERVER_DNS + "?url=" + url + "&tb=information", reply_markup=articleKeyboard)
+        text=""
+        bot.edit_message_text(text, call.from_user.id, call.message.message_id, reply_markup=articleKeyboard)
     else :
         bot.send_message(cid, "아직 준비중입니다.")
         bot.send_message(cid, "어떤 종류의 IT 글을 원하시나요?", reply_markup=step110Keyboard)
