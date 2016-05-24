@@ -27,13 +27,12 @@ try:
             hrefs=[]  #href 가져오기 40 개
             k_list = []
             tag_str = ""
-            for page in range(len(page_num)):
-                time.sleep(3) #30*60 = 1800
-                html = Request('http://www.jobkorea.co.kr/Starter/Recruit/SS/engineering?psTab=40&rOrderTab=10&Page=4#JobList', headers={'User-Agent':'Mozilla/5.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1; .NET CLR 1.1.4322; .NET CLR 2.0.50727; .NET CLR 3.0.04506.30)'})
-                sleep_i = sleep_i + 1
-                webpage = urlopen(html).read()
-                soup = BeautifulSoup(webpage , from_encoding="utf-8")
-                info = soup.find_all("a" ,onclick="GI_Click_Cnt('ST','B02');") # href 찾기
+
+            html = Request('http://www.jobkorea.co.kr/Starter/Recruit/SS/engineering?psTab=40&rOrderTab=10&Page=4#JobList', headers={'User-Agent':'Mozilla/5.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1; .NET CLR 1.1.4322; .NET CLR 2.0.50727; .NET CLR 3.0.04506.30)'})
+            sleep_i = sleep_i + 1
+            webpage = urlopen(html).read()
+            soup = BeautifulSoup(webpage , from_encoding="utf-8")
+            info = soup.find_all("a" ,onclick="GI_Click_Cnt('ST','B02');") # href 찾기
                 for t in info :
                     if t.get("href") is not None :
                         hrefs.append(t.get("href"))
