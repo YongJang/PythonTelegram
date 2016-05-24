@@ -32,7 +32,7 @@ try:
             sleep_i = sleep_i + 1
             webpage = urlopen(html).read()
             soup = BeautifulSoup(webpage , from_encoding="utf-8")
-            info = soup.find_all("a" ,onclick="GI_Click_Cnt('ST','B02');") # href 찾기
+            info = soup.find_all("a" ,onclick="GI_Click_Cnt('ST','B02');")
                 for t in info :
                     if t.get("href") is not None :
                         hrefs.append(t.get("href"))
