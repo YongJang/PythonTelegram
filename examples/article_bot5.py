@@ -365,7 +365,7 @@ def stepDetail(call):
     #bot.answer_callback_query(call.id, text="사회 기사!!")
     articleKeyboard2 = types.InlineKeyboardMarkup(2)
 
-"""IT -> 기사 -> 자세히"""
+#"""IT -> 기사 -> 자세히"""
 
     if get_user_step(call.from_user.id) == 110:
         userStep[cid] = 110
@@ -387,7 +387,7 @@ def stepDetail(call):
         articleKeyboard2.row(articleKeyboardLink, articleKeyboardNext)
         bot.send_message(cid, detail, reply_markup=articleKeyboard2)
 
-"""사회 -> 기사 -> 자세히"""
+#"""사회 -> 기사 -> 자세히"""
 
     else :
         userStep[cid] = 120
