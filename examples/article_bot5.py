@@ -228,7 +228,7 @@ def msg_image_select(m):
 def command_text_hi(m):
     bot.send_message(m.chat.id, "안녕하세요!")
 
-@bot.message_handler(func=lambda message: True, content_types=['text'] and get_user_step(m.chat.id) == 200)
+@bot.message_handler(func=lambda message: True, content_types=['text'] and get_user_step(message.chat.id) == 200)
 def command_News_Search(m):
     text = m.text
     bot.send_message(m.chat.id, "JobNews 서비스")
