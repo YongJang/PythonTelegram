@@ -228,17 +228,22 @@ def msg_image_select(m):
 def command_text_hi(m):
     bot.send_message(m.chat.id, "안녕하세요!")
 
-@bot.message_handler(func=lambda message: True, content_types=['text'] and get_user_step(message.chat.id) == 200)
-def command_News_Search(m):
-    text = m.text
-    bot.send_message(m.chat.id, "JobNews 서비스")
-    userStep[cid] = 0
 
 # 디폴트
 @bot.message_handler(func=lambda message: True, content_types=['text'])
 def command_default(m):
+    cid = m.chat.id
+    if cid == 200:
+        command_News_Search(m)
+    else:
+        text = m.text
+        bot.send_message(m.chat.id, "무슨 뜻인지 모르겠습니다. \"" + m.text + "\"\n여기서 사용가능한 명령어를 확인하세요! /help")
+def command_News_Search(m):
+    cid = m.chat.id
     text = m.text
-    bot.send_message(m.chat.id, "무슨 뜻인지 모르겠습니다. \"" + m.text + "\"\n여기서 사용가능한 명령어를 확인하세요! /help")
+    bot.send_message(cid, "JobNews 서비스")
+    userStep[cid] = 0
+
 
 # 여기서 부터 callback_query 핸들러
 """====================================================SET======================================================"""
