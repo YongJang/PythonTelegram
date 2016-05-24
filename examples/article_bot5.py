@@ -141,12 +141,12 @@ def command_start(m):
     if cid not in knownUsers:
         knownUsers.append(cid)
         userStep[cid] = 0
-        bot.send_message(cid, "안녕하세요. 처음 뵙겠습니다.")
+        bot.send_message(cid, m.chat.first_name + "님 안녕하세요. 처음 뵙겠습니다.")
         bot.send_message(cid, "사용자 등록이 완료되었습니다.")
         bot.send_message(cid, "사용하실 서비스를 선택하세요.", reply_markup=serviceSelect)
     else:
         userStep[cid] = 0
-        bot.send_message(cid, "다시 오신 것을 환영합니다.")
+        bot.send_message(cid, m.chat.first_name + "님 다시 오신 것을 환영합니다.")
         bot.send_message(cid, "사용하실 서비스를 선택하세요.", reply_markup=serviceSelect)
 
 @bot.message_handler(commands=['Jobjang'])
@@ -166,6 +166,7 @@ def command_jobnews(m):
     cid = m.chat.id
     userStep[cid] = 200
     text = "검색하실 키워드를 입력하세요."
+    bot.send_message(cid, text)
 
 
 # help page
@@ -238,10 +239,26 @@ def command_default(m):
     else:
         text = m.text
         bot.send_message(m.chat.id, "무슨 뜻인지 모르겠습니다. \"" + m.text + "\"\n여기서 사용가능한 명령어를 확인하세요! /help")
+#@bot.message_handler(func=lambda message: get_user_step(message.chat.id) == 200 , content_types=['text'])
 def command_News_Search(m):
     cid = m.chat.id
-    text = m.text
-    bot.send_message(cid, "JobNews 서비스")
+    keyword = m.text
+    d = feedparser.parse('http://newssearch.naver.com/search.naver?where=rss&query=' + urllib.parse.quote(keyword.encode("utf-8")) + '&field=0')
+    sendText = print (d['feed']['title']) + "\n" + print (d.feed.subtitle) +"\n"
+    isFirstShown = -1
+    url = ""
+    for post in d.entries:
+        if cur.execute("SELECT * FROM shown WHERE uid = " + str(cid) + " AND url = \'" + post.link + "\';") <1:
+            isFirstShown = 1
+            url = post
+            break;
+    if isFirstShown is not -1:
+        sendText = sendText + url.title + "\n" + url.link + "\n" + url.published + "\n" + url.summary
+        if len(sendText) > 2047:
+            sendText = sendText[0:2040]
+        bot.send_message(cid, sendText)
+    else :
+        bot.send_message(cid, "아직 준비중입니다.")
     userStep[cid] = 0
 
 
