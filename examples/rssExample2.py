@@ -2,7 +2,7 @@
 import feedparser
 import urllib.parse
 
-keyword = ["인공지능","빅데이터","영화","경제"]
+keyword = ["KDI","빅데이터","영화","경제"]
 
 for n in range(0,len(keyword)):
     d = feedparser.parse('http://newssearch.naver.com/search.naver?where=rss&query=' + urllib.parse.quote(keyword[n].encode("utf-8")) + '&field=0')
