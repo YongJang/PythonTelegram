@@ -1,14 +1,20 @@
+#!/usr/bin/python
 #-*- encoding: utf-8 -*-
-#import requests as rs
-#import bs4
-from urllib.request import Request, urlopen
-import urllib.parse
-from bs4 import BeautifulSoup
+import requests as rs
+import bs4
 import time
+# JSON을 위한 라이브러리
+import json
+from io import StringIO
+#<meta property="og:title" content="구글 조립형 스마트폰 `아라` 실물 공개.. &quot;내년 출시 예정&quot;">
+#<meta property="og:type" content="article">
+#<meta property="og:url" content="http://news.naver.com/main/read.nhn?mode=LSD&amp;mid=sec&amp;oid=030&amp;aid=0002480868&amp;sid1=001">
+#<meta property="og:image" content="http://imgnews.naver.net/image/origin/030/2016/05/22/2480868.jpg">
+#<meta property="og:description" content="구글이 마치 레고처럼 모듈 방식으로 기능을 추가할 수 있는 조립식 스마트폰 `아라`의 개발자 버전 실물을 올해 가을에 내놓고 내년부터 판매한다는 계획을 ...">
+#<meta property="og:article:author" content="전자신문 | 네이버 뉴스">
 from operator import itemgetter
 from datetime import datetime, date, timedelta
 from jobjangDTO import Information
-
 class Crawling:
     def getDateInNews(self, date):
         """
@@ -17,7 +23,8 @@ class Crawling:
         year = date[0:4]
         month = date[5:7]
         day = date[8:10]
-        return year + month + day
+        return "" + year + month + day
+
     def getDate(self, d):
         """
         날짜 데이터를 YYYYMMDD 형식으로 뽑아준다
@@ -36,73 +43,64 @@ class Crawling:
             day = str(d.day)
         today = today + day
         return today
-    def getContent(self, list, w):
+
+    def getContent(self, list, wordlist):
         """
         BS4로 추출된 기사URL에서 내용물을 뽑아낸다.
         반환형 : Information 클래스 리스트
+        words : Tag 리스트
+        result : 결과값
         """
         words=[]
-        for index, word in enumerate(w):
-            temp = word
-            words.append([temp, 0])
-            #print "키워드" + word[0] + "는" + str(word[1]) + "번 나왔습니다."
         result = []
+        for word in wordlist:
+            words.append([word, 0])
+
         for index, url in enumerate(list):
-            #news_url = url.encode('utf-8')
+            if url.count("sid1=105")>0:
+                high_tag = "IT"
+            else:
+                high_tag = "경제"
             news_url = url
-            #response = rs.get(news_url)
-            response = Request(news_url, headers={'User-Agent':'Mozilla/5.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1; .NET CLR 1.1.4322; .NET CLR 2.0.50727; .NET CLR 3.0.04506.30)'})
-            #html_content = response.text.encode(response.encoding);
-            html_content = urlopen(response).read()
-            #navigator = bs4.BeautifulSoup(html_content)
-            navigator = BeautifulSoup(html_content , from_encoding="utf-8")
-
-            contentList = navigator.find_all("div", id = "main_content")
-            content = ""
-            for n in range(0, len(contentList)):
-                content = content + contentList[n].get_text()
+            response = rs.get(news_url.encode('utf-8'))
+            html_content = response.text.encode(response.encoding);
+            navigator = bs4.BeautifulSoup(html_content, 'html.parser', from_encoding='utf-8')
+            content = navigator.find("div", id = "main_content")
             #기사 입력일 추출
-            datelist = navigator.find_all("span", {"class":"t11"})
-            if len(datelist) > 0 :
-                datetext = datelist[0].get_text()
-                datetext = self.getDateInNews(datetext)
-            else :
-                datetext = '20169999'
-            #print datetext
-            #기사 제목 추출
-            titleList = navigator.find_all(id = "articleTitle")
-            title = ""
-            for n in range(0, len(titleList)):
-                title = title + titleList[n].get_text()
-            #기사 내용 추출
-            textList = navigator.find_all(id = "articleBodyContents")
-            text = ""
-            for n in range(0, len(textList)):
-                text = text + textList[n].get_text()
-            #기사 내용과 키워드 매칭 & 카운트
-            temp = "기본 0"
-            c = 0
-            for index, word in enumerate(words):
-                #print "[%d개]"%(index) + word[0]
-                word[1] = text.count("" + word[0])
-                if word[1] is not 0:
-                    #print "키워드(" + word[0] + ")는" + str(word[1]) + "번 나왔습니다."
-                    temp = temp + " " + word[0] + " " + str(word[1])
-                #print "기사에 (" + word[0] + ")이 들어가 있는 갯수 : " +str(word[1])
-            #상위 5개 태그만 선별
-            #temps = sorted(words, key=itemgetter(1), reverse=True)
-            #내용물 SET
-            info = Information()
-
-            info.setUrl(news_url)
-            info.setTitle(title)
-            info.setContent(text)
-            info.setPDate(datetext)
-            info.setTag(temp)
-
-            result.append(info)
-            if info.getTag() != "":
-                print (info.toString())
+            date = navigator.find("span", {"class":"t11"})
+            if date is not None:
+                datetext = self.getDateInNews(date.get_text()).strip().replace("\"\r\n\t", '')
+                #기사 제목 추출
+                header = content.h3.get_text().strip().replace("\"\r\n\t", '')
+                #기사 내용 추출
+                text = content.find(id = "articleBodyContents").get_text()
+                text = text.strip().replace("\"\r\n\t", '')
+                #기사 내용과 키워드 매칭 & 카운트(TAG)
+                tags = "["
+                for word in words:
+                    word[1] = text.count("" + word[0])
+                    if word[1] is not 0:
+                        tags += "{\""+word[0]+"\":"+str(word[1])+"},"
+                tags = tags[:-1]
+                tags += "]"
+                #기사 표현을 위한 og meta 태그 추출
+                og_title = navigator.find("meta", property="og:title")
+                og_type = navigator.find("meta", property="og:type")
+                og_url = navigator.find("meta", property="og:url")
+                og_image = navigator.find("meta", property="og:image")
+                og_description = navigator.find("meta", property="og:description")
+                metas = str(og_title)+str(og_type)+str(og_url)+str(og_image)+str(og_description)
+                #내용물 SET
+                info = Information()
+                info.setUrl(news_url.replace('&','%26'))
+                info.setTitle(header)
+                info.setContent(text)
+                info.setPDate(datetext.encode("utf8"))
+                info.setHigh(high_tag)
+                info.setLow(tags)
+                info.setMeta(metas.replace('&','%26'))
+                result.append(info)
+                print('[%d개] ' % (index+1) + info.toString() + ' Original')
         return result
 
     def getUrl(self, SPAN):
@@ -127,44 +125,40 @@ class Crawling:
                         #최종 URL(sid1, sid2, date, page별 URL)을 배열에 저장
                         final_url = url+"&page="+str(page+1)
                         urls.append(final_url)
-                        #print final_url
         return urls
+
     def getPage(self, url):
         """
         날짜별 표현된 뉴스기사가 20개 이상인 URL은 별도의 페이지로 나누어 표현되는데,
         이를 인식하고 페이지를 카운트하여 반환한다.
         """
-        #response = rs.get(url)
-        response = response = Request(url, headers={'User-Agent':'Mozilla/5.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1; .NET CLR 1.1.4322; .NET CLR 2.0.50727; .NET CLR 3.0.04506.30)'})
-        #html_content = response.text.encode(response.encoding)
-        html_content = urlopen(response).read()
-        #navigator = bs4.BeautifulSoup(html_content)
-        navigator = BeautifulSoup(html_content , from_encoding="utf-8")
+        response = rs.get(url)
+        html_content = response.text.encode(response.encoding)
+        navigator = bs4.BeautifulSoup(html_content, 'html.parser', from_encoding='utf-8')
         pages = navigator.find("div", {"class":"paging"})
         if pages is not None:
             page_nums = pages.find_all('a')
             page_num = [item.get_text() for item in page_nums]
             return 1+len(page_num)
         return 1
+
     def getNews(self, SPAN):
         """
         BS4, request를 활용하여 URL별 존재하는 헤드라인 10개, 비헤드라인 10개 기사의
         주소를 리스팅한다.
         """
+        #기사들 주소를 담을 변수
         url_lists = []
         naver_urls = self.getUrl(SPAN)
         len_urls = len(naver_urls)
         for i in range(len_urls):
             naver_url = naver_urls[i]
     	    #요청
-            #response = rs.get(naver_url)
-            response = response = Request(naver_url, headers={'User-Agent':'Mozilla/5.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1; .NET CLR 1.1.4322; .NET CLR 2.0.50727; .NET CLR 3.0.04506.30)'})
+            response = rs.get(naver_url)
     	    #응답으로 부터 HTML 추출
-            #html_content = response.text.encode(response.encoding);
-            html_content = urlopen(response).read()
+            html_content = response.text.encode(response.encoding);
     	    #HTML 파싱
-            #navigator = bs4.BeautifulSoup(html_content)
-            navigator = BeautifulSoup(html_content , from_encoding="utf-8")
+            navigator = bs4.BeautifulSoup(html_content, 'html.parser', from_encoding='utf-8')
     	    #네비게이터를 이용해 원하는 링크 리스트 가져오기
             #헤드라인 10개
             headLineTags = navigator.find("ul", {"class":"type06_headline"})
@@ -185,12 +179,11 @@ class Crawling:
 
             #중복 링크 제거
             url_lists = list(set(url_lists))
-            time.sleep(0.0001)
-            #print ''
+            time.sleep(0.000001)
         #URL 출력
         for index, url_list in enumerate(url_lists):
-            resultText = '[%d개] %s'%(index+1,url_list)
-            print (resultText)
+            resultText = '[%d개] %s'%(index+1, url_list.encode('utf8'))
+            print(resultText)
         return url_lists
 """
     daemon_flag = True;
