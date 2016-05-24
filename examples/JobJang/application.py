@@ -70,7 +70,6 @@ class Storage():
         cur = self.db.cursor()
         sql = """SELECT * FROM information"""
         cur.execute(sql)
-        #self.db.commit()
         row = cur.fetchall()
         total = len(row)
         entries = []
@@ -81,8 +80,6 @@ class Storage():
                 entry = Information()
                 entry.setUrl(row[record][1].decode('utf8', 'surrogatepass'))
                 entry.setHigh(row[record][2].decode('utf8', 'surrogatepass'))
-                #json_obj = json.loads(row[record][3].decode('utf8', 'surrogatepass'), encoding="utf-8", object_pairs_hook=collections.OrderedDict)
-                #json_obj = json.dumps(row[record][3], ensure_ascii=False, sort_keys=False, separators=(',', ':')).encode('utf-8')
                 entry.setLow(row[record][3].decode('utf8', 'surrogatepass'))
                 entry.setTitle(row[record][4].decode('utf8', 'surrogatepass'))
                 entry.setContent(row[record][5].decode('utf8', 'surrogatepass'))
@@ -102,7 +99,6 @@ class Storage():
         cur = self.db.cursor()
         sql = ""
         for index, info in enumerate(infos):
-            #tags = json.dumps(info.getLow(), ensure_ascii=False, sort_keys=False)
             if t is 1:
                 sql = "INSERT INTO information (url, high, low, title, content, click_num, a_type, k_group, p_date, meta) "\
                       "SELECT %s, %s, %s, %s, %s, 0, %s, 0, %s, %s FROM DUAL "\
@@ -112,10 +108,6 @@ class Storage():
                 cur.execute(sql, values)
                 self.db.commit()
                 print("[%d]success!" % (index+1))
-            else:
-                cur.execute("INSERT INTO information(url, tag, title, content, click_num, a_type, k_group, p_date, meta)" + \
-                            "VALUES (\'" + info.getUrl +"\',\'" + info.getTag + "\',\'" + info.getTitle + "\',\'" + \
-                            info.getContent + "\', 0, \'Article\', 0, \'" + info.getPDate + "\')")
     def populate(self):
         cur = self.db.cursor()
         cur.execute("INSERT INTO rows(row) VALUES(520)")

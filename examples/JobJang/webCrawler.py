@@ -3,15 +3,6 @@
 import requests as rs
 import bs4
 import time
-# JSON을 위한 라이브러리
-import json
-from io import StringIO
-#<meta property="og:title" content="구글 조립형 스마트폰 `아라` 실물 공개.. &quot;내년 출시 예정&quot;">
-#<meta property="og:type" content="article">
-#<meta property="og:url" content="http://news.naver.com/main/read.nhn?mode=LSD&amp;mid=sec&amp;oid=030&amp;aid=0002480868&amp;sid1=001">
-#<meta property="og:image" content="http://imgnews.naver.net/image/origin/030/2016/05/22/2480868.jpg">
-#<meta property="og:description" content="구글이 마치 레고처럼 모듈 방식으로 기능을 추가할 수 있는 조립식 스마트폰 `아라`의 개발자 버전 실물을 올해 가을에 내놓고 내년부터 판매한다는 계획을 ...">
-#<meta property="og:article:author" content="전자신문 | 네이버 뉴스">
 from operator import itemgetter
 from datetime import datetime, date, timedelta
 from jobjangDTO import Information
@@ -76,12 +67,15 @@ class Crawling:
                 text = content.find(id = "articleBodyContents").get_text()
                 text = text.strip().replace("\"\r\n\t", '')
                 #기사 내용과 키워드 매칭 & 카운트(TAG)
+                trigger = False
                 tags = "["
                 for word in words:
                     word[1] = text.count("" + word[0])
                     if word[1] is not 0:
                         tags += "{\""+word[0]+"\":"+str(word[1])+"},"
-                tags = tags[:-1]
+                        trigger = True
+                if trigger is True:
+                    tags = tags[:-1]
                 tags += "]"
                 #기사 표현을 위한 og meta 태그 추출
                 og_title = navigator.find("meta", property="og:title")
