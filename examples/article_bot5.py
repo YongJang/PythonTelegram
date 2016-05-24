@@ -132,7 +132,7 @@ def listener(messages):
 bot = telebot.TeleBot(TOKEN)
 bot.set_update_listener(listener)  # listener 등록
 
-@bot.message_handler(commands=['start'], commands=['restart'])
+@bot.message_handler(commands=['start','restart'])
 def command_start(m):
     cid = m.chat.id
     if cid not in knownUsers:
