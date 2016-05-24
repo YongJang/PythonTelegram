@@ -65,3 +65,7 @@ SELECT * from information;
 UPDATE information SET click_num = 0 WHERE click_num > 0;
 UPDATE jobs SET click_num = 0 WHERE click_num > 0;
 UPDATE society SET click_num = 0 WHERE click_num > 0;
+
+
+CREATE TABLE bot (name varchar(200))default character set utf8;
+SELECT * from bot;
