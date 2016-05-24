@@ -148,12 +148,12 @@ def command_start(m):
 def command_jobjang(m):
     cid = m.chat.id
     if get_user_step(cid) == 110:
-        step100IT(callback_data="100-1")
+        bot.send_message(cid, "어떤 종류의 IT 글을 원하시나요?", reply_markup=step110Keyboard)
     elif get_user_step(cid) == 120:
-        step100Social(callback_data="100-2")
+        bot.send_message(cid, "어떤 종류의 사회 글을 원하시나요?", reply_markup=step120Keyboard)
     else :
         bot.send_message(cid, "분야별로 필요한 정보를 받으실 수 있습니다.")
-        bot.send_message(cid, "당신이 관심있는 분야를 선택하세요.", reply_markup=articleSelectInline)
+        bot.send_message(cid, "당신이 관심있는 분야를 선택하세요.", reply_markup=articleSelectInline, parse_mode='Markdown')
         userStep[cid] = 100
 
 
