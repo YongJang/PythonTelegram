@@ -147,9 +147,9 @@ def command_start(m):
 @bot.message_handler(commands=['Jobjang'])
 def command_jobjang(m):
     cid = m.chat.id
-    if userStep[cid] = 110:
+    if userStep[cid] == 110:
         step100IT(callback_data="100-1")
-    elif userStep[cid] = 120:
+    elif userStep[cid] == 120:
         step100Social(callback_data="100-2")
     else :
         bot.send_message(cid, "분야별로 필요한 정보를 받으실 수 있습니다.")
