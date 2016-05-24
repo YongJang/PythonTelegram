@@ -141,6 +141,7 @@ def command_start(m):
         bot.send_message(cid, "사용자 등록이 완료되었습니다.")
         bot.send_message(cid, "사용하실 서비스를 선택하세요.", reply_markup=serviceSelect)
     else:
+        userStep[cid] = 0
         bot.send_message(cid, "다시 오신 것을 환영합니다.")
         bot.send_message(cid, "사용하실 서비스를 선택하세요.", reply_markup=serviceSelect)
 
