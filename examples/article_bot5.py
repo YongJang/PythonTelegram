@@ -364,7 +364,9 @@ def stepDetail(call):
     url = lastShown[cid]
     #bot.answer_callback_query(call.id, text="사회 기사!!")
     articleKeyboard2 = types.InlineKeyboardMarkup(2)
-    """IT -> 기사 -> 자세히"""
+
+"""IT -> 기사 -> 자세히"""
+
     if get_user_step(call.from_user.id) == 110:
         userStep[cid] = 110
         cur.execute("SELECT * FROM information WHERE a_Type = \'Article\' AND url = \'" + url + "\';")
@@ -384,7 +386,9 @@ def stepDetail(call):
         articleKeyboardLink = types.InlineKeyboardButton('링크로 이동', url=WEBSERVER_DNS + "?url=" + url + "&tb=information")
         articleKeyboard2.row(articleKeyboardLink, articleKeyboardNext)
         bot.send_message(cid, detail, reply_markup=articleKeyboard2)
-    """사회 -> 기사 -> 자세히"""
+
+"""사회 -> 기사 -> 자세히"""
+
     else :
         userStep[cid] = 120
         articleKeyboardNext = types.InlineKeyboardButton('다른 기사', callback_data="120-1")
