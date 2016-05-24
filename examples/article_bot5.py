@@ -309,6 +309,7 @@ def step110IT_2(call):
 """============================================================================================================="""
 
 """====================================================SET======================================================"""
+"""사회 -> 기사"""
 @bot.callback_query_handler(func=lambda call: call.data == "120-1" and get_user_step(call.from_user.id) == 120)
 def step120Social_1(call):
     cid = call.from_user.id
@@ -321,13 +322,40 @@ def step120Social_1(call):
 
     bot.send_message(cid, "http://news.naver.com/main/read.nhn?mode=LS2D&mid=shm&sid1=101&sid2=262&oid=003&aid=0007233619", reply_markup=articleKeyboard)
 
-
+"""사회 -> 구인정보"""
 @bot.callback_query_handler(func=lambda call: call.data == "120-2" and get_user_step(call.from_user.id) == 120)
 def step120Social_2(call):
     cid = call.from_user.id
-    #bot.answer_callback_query(call.id, text="사회 기사!!")
-    userStep[cid] = 0
-    bot.send_message(cid, "http://www.jobkorea.co.kr/Recruit/GI_Read/17126991?Oem_Code=C1&rPageCode=ST&PageGbn=ST")
+    cur.execute("SELECT * FROM society WHERE aType = \'Job\' ORDER BY click_num DESC;")
+    row = cur.fetchall()
+    total = len(row)
+    jobsURL = []
+    if total < 1:
+        print('No entries')
+    else:
+        for record in range(total):
+            temp = row[record][1].decode('utf8', 'surrogatepass')
+            jobsURL.append(temp)
+
+    isFirstShown = -1
+    url = ""
+    for n in range(len(jobsURL)):
+        if cur.execute("SELECT * FROM shown WHERE uid = " + str(cid) + " AND url = \'" + jobsURL[n] + "\';") <1:
+            isFirstShown = n
+            url = jobsURL[n]
+            break;
+    if isFirstShown is not -1:
+        lastShown[cid] = url
+        cur.execute("INSERT INTO shown (uid, url) VALUES (\'" + str(cid) +"\',\'" + url + "\');")
+        conn.commit()
+        articleKeyboard = types.InlineKeyboardMarkup(2)
+        articleKeyboardNext = types.InlineKeyboardButton('다른 정보', callback_data="120-2")
+        articleKeyboardLink = types.InlineKeyboardButton('링크로 이동', url=WEBSERVER_DNS + "?url=" + url + "&tb=jobs")
+        articleKeyboard.row(articleKeyboardLink, articleKeyboardNext)
+        bot.send_message(cid, WEBSERVER_DNS + "?url=" + url + "&tb=jobs", reply_markup=articleKeyboard)
+    else :
+        bot.send_message(cid, "아직 준비중입니다.")
+        bot.send_message(cid, "어떤 종류의 사회 글을 원하시나요?", reply_markup=step120Keyboard)
 
 """============================================================================================================="""
 @bot.callback_query_handler(func=lambda call: call.data == "aDetail")
@@ -336,6 +364,7 @@ def stepDetail(call):
     url = lastShown[cid]
     #bot.answer_callback_query(call.id, text="사회 기사!!")
     articleKeyboard2 = types.InlineKeyboardMarkup(2)
+    """IT -> 기사 -> 자세히"""
     if get_user_step(call.from_user.id) == 110:
         userStep[cid] = 110
         cur.execute("SELECT * FROM information WHERE a_Type = \'Article\' AND url = \'" + url + "\';")
@@ -355,6 +384,7 @@ def stepDetail(call):
         articleKeyboardLink = types.InlineKeyboardButton('링크로 이동', url=WEBSERVER_DNS + "?url=" + url + "&tb=information")
         articleKeyboard2.row(articleKeyboardLink, articleKeyboardNext)
         bot.send_message(cid, detail, reply_markup=articleKeyboard2)
+    """사회 -> 기사 -> 자세히"""
     else :
         userStep[cid] = 120
         articleKeyboardNext = types.InlineKeyboardButton('다른 기사', callback_data="120-1")
