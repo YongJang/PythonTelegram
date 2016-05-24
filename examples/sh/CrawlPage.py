@@ -33,88 +33,88 @@ try:
             webpage = urlopen(html).read()
             soup = BeautifulSoup(webpage , from_encoding="utf-8")
             info = soup.find_all("a" ,onclick="GI_Click_Cnt('ST','B02');")
-                for t in info :
-                    if t.get("href") is not None :
-                        hrefs.append(t.get("href"))
-                    #words = [word.replace('[br]','<br />') for word in words]
-                hrefs = [re.replace('&',"%26") for re in hrefs]
-                #print(hrefs)
+            for t in info :
+                if t.get("href") is not None :
+                    hrefs.append(t.get("href"))
+                #words = [word.replace('[br]','<br />') for word in words]
+            hrefs = [re.replace('&',"%26") for re in hrefs]
+            #print(hrefs)
 
-                for index in range(0,len(hrefs)): # 40
-                    db_tags = []
-                    json_tags = []
-                    tag_str = ""
-                    time.sleep(2)
-                    if sleep_i >= 28 :
-                        sleep_i = 0
-                        time.sleep(2000)
-                    detail_html = Request('http://www.jobkorea.co.kr/' + str(hrefs[index]), headers={'User-Agent':'Mozilla/5.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1; .NET CLR 1.1.4322; .NET CLR 2.0.50727; .NET CLR 3.0.04506.30)'})
-                    sleep_i = sleep_i + 1 # 상세페이지 들어가기
-                    detailpage = urlopen(detail_html).read()
-                    detailsoup = BeautifulSoup(detailpage , from_encoding="utf-8")
-                    titles = detailsoup.find("span",{"class" : "title"})
-                    meta_title = detailsoup.find("meta", {"name" : "title"})
-                    meta_desc = detailsoup.find("meta",{"name":"description"})
-                    meta_all =""
-                    meta_all = str(meta_title) + str(meta_desc)
-                    meta_all = meta_all.replace("\"","\\\"")
-                    #meta_all = meta_all.replace("\'","\\\'")
-                    #print(meta_all)
+            for index in range(0,len(hrefs)): # 40
+                db_tags = []
+                json_tags = []
+                tag_str = ""
+                time.sleep(2)
+                if sleep_i >= 28 :
+                    sleep_i = 0
+                    time.sleep(2000)
+                detail_html = Request('http://www.jobkorea.co.kr/' + str(hrefs[index]), headers={'User-Agent':'Mozilla/5.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1; .NET CLR 1.1.4322; .NET CLR 2.0.50727; .NET CLR 3.0.04506.30)'})
+                sleep_i = sleep_i + 1 # 상세페이지 들어가기
+                detailpage = urlopen(detail_html).read()
+                detailsoup = BeautifulSoup(detailpage , from_encoding="utf-8")
+                titles = detailsoup.find("span",{"class" : "title"})
+                meta_title = detailsoup.find("meta", {"name" : "title"})
+                meta_desc = detailsoup.find("meta",{"name":"description"})
+                meta_all =""
+                meta_all = str(meta_title) + str(meta_desc)
+                meta_all = meta_all.replace("\"","\\\"")
+                #meta_all = meta_all.replace("\'","\\\'")
+                #print(meta_all)
 
-                    if titles is not None : # 상세페이지의 title
-                        db_title = titles.text.strip()
+                if titles is not None : # 상세페이지의 title
+                    db_title = titles.text.strip()
 
-                    calendar = detailsoup.find_all("dl", class_="day") # 상세페이지의 마감일 찾기 (달력 형식)
-                    date_second = detailsoup.find_all("p", class_="regular") # 다른 형식의 상세페이지의 마감일 (달력없는 형식)
-                    keyword = detailsoup.find('dt', text = '키워드').next_element.next_element.next_element.find_all("a", href = True , target ="_top") # 상세페이지의 키워드 찾기
-                    #keyword = detailsoup.find("meta", {"name" : "keywords"})
-                    #print(keyword)
-                    if keyword is not None :
-                        weight = "15" # 가중치
-                        for k in keyword :
-                            k_list.append(k.text) # k_list에 키워드text 넣기
+                calendar = detailsoup.find_all("dl", class_="day") # 상세페이지의 마감일 찾기 (달력 형식)
+                date_second = detailsoup.find_all("p", class_="regular") # 다른 형식의 상세페이지의 마감일 (달력없는 형식)
+                keyword = detailsoup.find('dt', text = '키워드').next_element.next_element.next_element.find_all("a", href = True , target ="_top") # 상세페이지의 키워드 찾기
+                #keyword = detailsoup.find("meta", {"name" : "keywords"})
+                #print(keyword)
+                if keyword is not None :
+                    weight = "15" # 가중치
+                    for k in keyword :
+                        k_list.append(k.text) # k_list에 키워드text 넣기
 
-                        for k_count in range(len(k_list)) :
-                            if cur.execute("""SELECT * from tags where low = %s""", str(k_list[k_count])) > 0 :
-                                db_tags.append(k_list[k_count]) # low == tags
+                    for k_count in range(len(k_list)) :
+                        if cur.execute("""SELECT * from tags where low = %s""", str(k_list[k_count])) > 0 :
+                            db_tags.append(k_list[k_count]) # low == tags
 
-                        for n in range(len(db_tags)) :
-                            db_tags[n] = json.dumps(db_tags[n] , ensure_ascii=False, sort_keys=False)
-                            tag_str = tag_str + "{" + str(db_tags[n]) + ":" + weight + "},"
-                        tag_str = tag_str[:-1]
-                    #print(len(tag_str))
-                    db_tags.clear()
-                    k_list.clear()
-                    #print(tag_str)
+                    for n in range(len(db_tags)) :
+                        db_tags[n] = json.dumps(db_tags[n] , ensure_ascii=False, sort_keys=False)
+                        tag_str = tag_str + "{" + str(db_tags[n]) + ":" + weight + "},"
+                    tag_str = tag_str[:-1]
+                #print(len(tag_str))
+                db_tags.clear()
+                k_list.clear()
+                #print(tag_str)
 
-                    pDate = ""
-                    if calendar  :
-                        for d in calendar:
-                            datetext = d.getText().strip()
-                            deadline = datetext.replace('\n', ' ')
-                            year = deadline[26:30]
-                            month = deadline[31:33]
-                            day = deadline[34:36]
-                            pDate = year + month + day
-                            print(pDate)
+                pDate = ""
+                if calendar  :
+                    for d in calendar:
+                        datetext = d.getText().strip()
+                        deadline = datetext.replace('\n', ' ')
+                        year = deadline[26:30]
+                        month = deadline[31:33]
+                        day = deadline[34:36]
+                        pDate = year + month + day
+                        print(pDate)
 
-                    elif date_second :
-                        for d in date_second:
-                            datetext = d.getText().strip()
-                            deadline = datetext.replace('.', ' ')
-                            year = deadline[17:21]
-                            month = deadline[22:24]
-                            day = deadline[25:27]
-                            pDate = year + month + day
-                            print(pDate)
-                    else :
-                        break
+                elif date_second :
+                    for d in date_second:
+                        datetext = d.getText().strip()
+                        deadline = datetext.replace('.', ' ')
+                        year = deadline[17:21]
+                        month = deadline[22:24]
+                        day = deadline[25:27]
+                        pDate = year + month + day
+                        print(pDate)
+                else :
+                    break
 
-                    if cur.execute("""SELECT url from jobs where url = %s""", 'http://www.jobkorea.co.kr/' + str(hrefs[index])) < 1 and  len(tag_str) > 4:
-                        cur.execute("INSERT INTO jobs (url, high , low , title, content, click_num, aType, k_group, pDate, meta) VALUES (\'http://www.jobkorea.co.kr/" + str(hrefs[index])  +"\',\' IT \',\'[" + str(tag_str) + "]\',\'"+ str(db_title) + "\' ,\' contents \' , 0, \'Job\', 0, \'" + pDate + "\',\'"+ meta_all + "\');")
-                        conn.commit()
-                    else :
-                        continue
+                if cur.execute("""SELECT url from jobs where url = %s""", 'http://www.jobkorea.co.kr/' + str(hrefs[index])) < 1 and  len(tag_str) > 4:
+                    cur.execute("INSERT INTO jobs (url, high , low , title, content, click_num, aType, k_group, pDate, meta) VALUES (\'http://www.jobkorea.co.kr/" + str(hrefs[index])  +"\',\' IT \',\'[" + str(tag_str) + "]\',\'"+ str(db_title) + "\' ,\' contents \' , 0, \'Job\', 0, \'" + pDate + "\',\'"+ meta_all + "\');")
+                    conn.commit()
+                else :
+                    continue
 
         def Medium_Technology():
             getPost(sleep_i)
