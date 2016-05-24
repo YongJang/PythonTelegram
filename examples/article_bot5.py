@@ -244,7 +244,7 @@ def command_News_Search(m):
     cid = m.chat.id
     keyword = m.text
     d = feedparser.parse('http://newssearch.naver.com/search.naver?where=rss&query=' + urllib.parse.quote(keyword.encode("utf-8")) + '&field=0')
-    sendText = print (d['feed']['title']) + "\n" + print (d.feed.subtitle) +"\n"
+    sendText = d['feed']['title'] + "\n" + d.feed.subtitle +"\n"
     isFirstShown = -1
     url = ""
     for post in d.entries:
