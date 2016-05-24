@@ -45,6 +45,7 @@ desc jobs;
 */
 SELECT * FROM jobs WHERE url = 'http://www.jobkorea.co.kr//Recruit/GI_Read/17169773?Oem_Code=C1&rPageCode=ST&PageGbn=ST' LIMIT 1;
 SELECT * FROM jobs WHERE url = 'http://www.jobkorea.co.kr//Recruit/GI_Read/17169773?Oem_Code=C1' LIMIT 1;
+SELECT * FROM society;
 /*
 ========================================================================================
 */
@@ -61,3 +62,6 @@ DELETE FROM shown where uid LIKE '2%';
 
 
 SELECT * from information where url ='http://news.naver.com/main/read.nhn?mode=LS2D%26mid=shm%26sid1=105%26sid2=227%26oid=015%26aid=0003597934';
+UPDATE information SET click_num = 0 WHERE click_num > 0;
+UPDATE jobs SET click_num = 0 WHERE click_num > 0;
+UPDATE society SET click_num = 0 WHERE click_num > 0;
