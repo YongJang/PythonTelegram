@@ -19,6 +19,8 @@ from PIL import Image
 import json
 import pymysql
 import sys
+import feedparser
+import urllib.parse
 
 
 
@@ -58,7 +60,8 @@ commands = {
               'help': '사용 가능한 명령어들을 봅니다.',
               'broadcasting':'이 봇을 사용하는 모든 유저에게 메세지를 전달합니다.',
               'getImage': '이미지를 가져옵니다.',
-              'Jobjang':'Jobjang 서비스 시작하기'
+              'Jobjang':'Jobjang 서비스 시작하기',
+              'JobNews':'JobNews 서비스 시작하기'
 }
 
 imageSelect = types.ReplyKeyboardMarkup(one_time_keyboard=True)
@@ -68,7 +71,7 @@ articleSelect = types.ReplyKeyboardMarkup(one_time_keyboard=True)
 articleSelect.add('IT', '사회')
 
 serviceSelect = types.ReplyKeyboardMarkup(one_time_keyboard=True)
-serviceSelect.row('/Jobjang')
+serviceSelect.row('/Jobjang','/JobNews')
 serviceSelect.row('/help')
 serviceSelect.row('/restart')
 
@@ -158,7 +161,12 @@ def command_jobjang(m):
         bot.send_message(cid, "당신이 관심있는 분야를 선택하세요.", reply_markup=articleSelectInline, parse_mode='Markdown')
         userStep[cid] = 100
 
-
+@bot.message_handler(commands=['JobNews'])
+def command_jobnews(m):
+    cid = m.chat.id
+    userStep[cid] = 200
+    text = "검색하실 키워드를 입력하세요."
+    bot.send_message(cid, text)
 
 
 # help page
@@ -219,6 +227,12 @@ def msg_image_select(m):
 @bot.message_handler(func=lambda message: message.text == "hi")
 def command_text_hi(m):
     bot.send_message(m.chat.id, "안녕하세요!")
+
+@bot.message_handler(func=lambda message: True, content_types=['text'] and get_user_step(m.chat.id) == 200)
+def command_News_Search(m):
+    text = m.text
+    bot.send_message(m.chat.id, "JobNews 서비스")
+    userStep[cid] = 0
 
 # 디폴트
 @bot.message_handler(func=lambda message: True, content_types=['text'])
