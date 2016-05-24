@@ -36,7 +36,7 @@ except pymysql.Error as e:
     sys.exit(1)
 
 TOKEN = '207944330:AAGdpOvswmHangYooE8wBEf1p-vYP2skyL0'
-WEBSERVER_DNS = 'ec2-52-196-18-179.ap-northeast-1.compute.amazonaws.com/'
+WEBSERVER_DNS = 'TelegramRedirect-982942058.ap-northeast-1.elb.amazonaws.com/'
 
 # uid 가져오기
 cur.execute("SELECT * FROM users")
