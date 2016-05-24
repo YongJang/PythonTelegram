@@ -350,9 +350,9 @@ def step120Social_2(call):
         conn.commit()
         articleKeyboard = types.InlineKeyboardMarkup(2)
         articleKeyboardNext = types.InlineKeyboardButton('다른 정보', callback_data="120-2")
-        articleKeyboardLink = types.InlineKeyboardButton('링크로 이동', url=WEBSERVER_DNS + "?url=" + url + "&tb=jobs")
+        articleKeyboardLink = types.InlineKeyboardButton('링크로 이동', url=WEBSERVER_DNS + "?url=" + url + "&tb=society")
         articleKeyboard.row(articleKeyboardLink, articleKeyboardNext)
-        bot.send_message(cid, WEBSERVER_DNS + "?url=" + url + "&tb=jobs", reply_markup=articleKeyboard)
+        bot.send_message(cid, WEBSERVER_DNS + "?url=" + url + "&tb=society", reply_markup=articleKeyboard)
     else :
         bot.send_message(cid, "아직 준비중입니다.")
         bot.send_message(cid, "어떤 종류의 사회 글을 원하시나요?", reply_markup=step120Keyboard)
