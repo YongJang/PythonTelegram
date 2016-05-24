@@ -70,6 +70,7 @@ articleSelect.add('IT', '사회')
 serviceSelect = types.ReplyKeyboardMarkup(one_time_keyboard=True)
 serviceSelect.row('/Jobjang')
 serviceSelect.row('/help')
+serviceSelect.row('/restart')
 
 
 # 타인한테 전달하는 버튼
@@ -131,7 +132,7 @@ def listener(messages):
 bot = telebot.TeleBot(TOKEN)
 bot.set_update_listener(listener)  # listener 등록
 
-@bot.message_handler(commands=['start'])
+@bot.message_handler(commands=['start'] or commands=['restart'])
 def command_start(m):
     cid = m.chat.id
     if cid not in knownUsers:
