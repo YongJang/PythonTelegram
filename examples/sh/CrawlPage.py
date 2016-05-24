@@ -22,7 +22,7 @@ try:
             k_list = []
             tag_str = ""
 
-            html = Request('http://www.jobkorea.co.kr/Starter/Recruit/SS/engineering?psTab=40&rOrderTab=10&Page=3#JobList', headers={'User-Agent':'Mozilla/5.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1; .NET CLR 1.1.4322; .NET CLR 2.0.50727; .NET CLR 3.0.04506.30)'})
+            html = Request('http://www.jobkorea.co.kr/Starter/Recruit/SS/engineering?psTab=40&rOrderTab=10&Page=3#JobList', headers={'User-Agent':'Mozilla/6.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1; .NET CLR 1.1.4322; .NET CLR 2.0.50727; .NET CLR 3.0.04506.30)'})
             sleep_i = sleep_i + 1
             webpage = urlopen(html).read()
             soup = BeautifulSoup(webpage , from_encoding="utf-8")
