@@ -54,14 +54,14 @@ CREATE TABLE shown (uid INT UNSIGNED NOT NULL, url VARCHAR(1000))default charact
 /*
 ========================================================================================
 */
-SELECT * FROM information WHERE a_Type = 'Article' ORDER BY click_num DESC;
+SELECT * FROM information WHERE high = 'IT' ORDER BY click_num DESC;
 SELECT * FROM shown;
 SET SQL_SAFE_UPDATES=0;
 DELETE FROM shown where uid=202899924;
 DELETE FROM shown where uid LIKE '2%';
 
 
-SELECT * from information where url ='http://news.naver.com/main/read.nhn?mode=LS2D%26mid=shm%26sid1=105%26sid2=227%26oid=015%26aid=0003597934';
+SELECT * from information;
 UPDATE information SET click_num = 0 WHERE click_num > 0;
 UPDATE jobs SET click_num = 0 WHERE click_num > 0;
 UPDATE society SET click_num = 0 WHERE click_num > 0;
