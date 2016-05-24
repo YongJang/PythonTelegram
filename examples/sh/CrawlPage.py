@@ -29,7 +29,7 @@ try:
             tag_str = ""
             for page in range(len(page_num)):
                 time.sleep(3) #30*60 = 1800
-                html = Request('http://www.jobkorea.co.kr/Starter/Recruit/SS/engineering?psTab=40&rOrderTab=10&Page=3#JobList', headers={'User-Agent':'Mozilla/5.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1; .NET CLR 1.1.4322; .NET CLR 2.0.50727; .NET CLR 3.0.04506.30)'})
+                html = Request('http://www.jobkorea.co.kr/Starter/Recruit/SS/engineering?psTab=40&rOrderTab=10&Page=4#JobList', headers={'User-Agent':'Mozilla/5.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1; .NET CLR 1.1.4322; .NET CLR 2.0.50727; .NET CLR 3.0.04506.30)'})
                 sleep_i = sleep_i + 1
                 webpage = urlopen(html).read()
                 soup = BeautifulSoup(webpage , from_encoding="utf-8")
@@ -46,7 +46,7 @@ try:
                     json_tags = []
                     tag_str = ""
                     time.sleep(2)
-                    if sleep_i >= 23 :
+                    if sleep_i >= 28 :
                         sleep_i = 0
                         time.sleep(2000)
                     detail_html = Request('http://www.jobkorea.co.kr/' + str(hrefs[index]), headers={'User-Agent':'Mozilla/5.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1; .NET CLR 1.1.4322; .NET CLR 2.0.50727; .NET CLR 3.0.04506.30)'})
