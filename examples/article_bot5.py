@@ -147,9 +147,17 @@ def command_start(m):
 @bot.message_handler(commands=['Jobjang'])
 def command_jobjang(m):
     cid = m.chat.id
-    bot.send_message(cid, "분야별로 필요한 정보를 받으실 수 있습니다.", reply_markup=hideBoard)
-    bot.send_message(cid, "당신이 관심있는 분야를 선택하세요.", reply_markup=articleSelectInline)
-    userStep[cid] = 100
+    if userStep[cid] = 110:
+        step100IT(callback_data="100-1")
+    elif userStep[cid] = 120:
+        step100Social(callback_data="100-2")
+    else :
+        bot.send_message(cid, "분야별로 필요한 정보를 받으실 수 있습니다.")
+        bot.send_message(cid, "당신이 관심있는 분야를 선택하세요.", reply_markup=articleSelectInline)
+        userStep[cid] = 100
+
+
+
 
 # help page
 @bot.message_handler(commands=['help'])
