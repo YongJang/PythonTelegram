@@ -254,12 +254,12 @@ def command_News_Search(m):
             url = post
             break;
     if isFirstShown is not -1:
-        sendText = "제목 : " + url.title + "\n키워드가 포함되어 있는 문장 : " + url.summary + "\n발간일자 : " + url.published + "\n" + url.link
+        sendText = "[제목] : " + url.title + "\n[키워드가 포함되어 있는 문장] : " + url.summary + "\n[발간일자] : " + url.published + "\n" + url.link
         if len(sendText) > 2047:
             sendText = sendText[0:2040]
         cur.execute("INSERT INTO shown (uid, url) VALUES (\'" + str(cid) +"\',\'" + url.link + "\');")
         conn.commit()
-        bot.send_message(cid, sendText)
+        bot.send_message(cid, sendText, parse_mode='HTML')
     else :
         bot.send_message(cid, "검색 결과를 찾을 수 없습니다.")
 
