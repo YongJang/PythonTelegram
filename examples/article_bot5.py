@@ -110,6 +110,7 @@ articleKeyboard2.row(articleKeyboardLink, articleKeyboardNext)
 """
 
 hideBoard = types.ReplyKeyboardHide()
+forceBoard = types.ForceReply()
 
 def get_user_step(uid):
     if uid in userStep:
@@ -166,7 +167,7 @@ def command_jobnews(m):
     cid = m.chat.id
     userStep[cid] = 200
     text = "검색하실 키워드를 입력하세요."
-    bot.send_message(cid, text)
+    bot.send_message(cid, text, reply_markup=forceBoard)
 
 
 # help page
