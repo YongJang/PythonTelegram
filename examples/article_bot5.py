@@ -73,9 +73,9 @@ articleSelect = types.ReplyKeyboardMarkup(one_time_keyboard=True)
 articleSelect.add('IT', '사회')
 
 serviceSelect = types.ReplyKeyboardMarkup(one_time_keyboard=True)
-serviceSelect.row('/Jobjang','/JobNews')
-serviceSelect.row('/help')
-serviceSelect.row('/restart')
+serviceSelect.row('/잡장')
+serviceSelect.row('/키워드 검색')
+serviceSelect.row('/도움말','/재시작')
 
 
 # 타인한테 전달하는 버튼
@@ -138,7 +138,7 @@ def listener(messages):
 bot = telebot.TeleBot(TOKEN)
 bot.set_update_listener(listener)  # listener 등록
 
-@bot.message_handler(commands=['start','restart'])
+@bot.message_handler(commands=['start','재시작'])
 def command_start(m):
     cid = m.chat.id
     try:
@@ -155,7 +155,7 @@ def command_start(m):
     except Exception as e:
 	        print(e)
 
-@bot.message_handler(commands=['Jobjang'])
+@bot.message_handler(commands=['잡장'])
 def command_jobjang(m):
     cid = m.chat.id
     if get_user_step(cid) == 110:
@@ -167,7 +167,7 @@ def command_jobjang(m):
         bot.send_message(cid, "당신이 관심있는 분야를 선택하세요.", reply_markup=articleSelectInline, parse_mode='Markdown')
         userStep[cid] = 100
 
-@bot.message_handler(commands=['JobNews'])
+@bot.message_handler(commands=['키워드 검색'])
 def command_jobnews(m):
     cid = m.chat.id
     userStep[cid] = 200
@@ -176,7 +176,7 @@ def command_jobnews(m):
 
 
 # help page
-@bot.message_handler(commands=['help'])
+@bot.message_handler(commands=['도움말'])
 def command_help(m):
     cid = m.chat.id
     help_text = "사용가능한 명령어 목록 입니다.: \n"
