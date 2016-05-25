@@ -151,6 +151,8 @@ def command_start(m):
         userStep[cid] = 0
         bot.send_message(cid, m.chat.first_name + "님 다시 오신 것을 환영합니다.")
         bot.send_message(cid, "사용하실 서비스를 선택하세요.", reply_markup=serviceSelect)
+    except Exception as e:
+	        print(e)
 
 @bot.message_handler(commands=['Jobjang'])
 def command_jobjang(m):
