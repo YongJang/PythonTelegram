@@ -421,35 +421,36 @@ def stepDetail(call):
     articleKeyboard2 = types.InlineKeyboardMarkup(2)
 
 #"""IT -> 기사 -> 자세히"""
+    try:
+        if get_user_step(call.from_user.id) == 110:
+            userStep[cid] = 110
+            cur.execute("SELECT * FROM information WHERE high = \'IT\' AND url = \'" + url + "\';")
+            row = cur.fetchall()
+            total = len(row)
+            detail = ""
+            if total < 1:
+                print('No entries')
+            else:
+                for record in range(total):
+                    temp = row[record][5].decode('utf8', 'surrogatepass')
+                    detail = temp
+            if len(detail)>2047:
+                detail = detail[0:2040]
+                detil = detail +"..."
+            articleKeyboardNext = types.InlineKeyboardButton('다른 기사', callback_data="110-1")
+            articleKeyboardLink = types.InlineKeyboardButton('링크로 이동', url=WEBSERVER_DNS + "?url=" + url + "&tb=information")
+            articleKeyboard2.row(articleKeyboardLink, articleKeyboardNext)
+            bot.send_message(cid, detail, reply_markup=articleKeyboard2)
 
-    if get_user_step(call.from_user.id) == 110:
-        userStep[cid] = 110
-        cur.execute("SELECT * FROM information WHERE high = \'IT\' AND url = \'" + url + "\';")
-        row = cur.fetchall()
-        total = len(row)
-        detail = ""
-        if total < 1:
-            print('No entries')
-        else:
-            for record in range(total):
-                temp = row[record][5].decode('utf8', 'surrogatepass')
-                detail = temp
-        if len(detail)>2047:
-            detail = detail[0:2040]
-            detil = detail +"..."
-        articleKeyboardNext = types.InlineKeyboardButton('다른 기사', callback_data="110-1")
-        articleKeyboardLink = types.InlineKeyboardButton('링크로 이동', url=WEBSERVER_DNS + "?url=" + url + "&tb=information")
-        articleKeyboard2.row(articleKeyboardLink, articleKeyboardNext)
-        bot.send_message(cid, detail, reply_markup=articleKeyboard2)
+    #"""사회 -> 기사 -> 자세히"""
 
-#"""사회 -> 기사 -> 자세히"""
-
-    else :
-        userStep[cid] = 120
-        articleKeyboardNext = types.InlineKeyboardButton('다른 기사', callback_data="120-1")
-        articleKeyboardLink = types.InlineKeyboardButton('링크로 이동', url="http://news.naver.com/main/read.nhn?mode=LS2D&mid=shm&sid1=101&sid2=262&oid=003&aid=0007233619")
-        articleKeyboard2.row(articleKeyboardLink, articleKeyboardNext)
-        bot.send_message(cid, "4월 미국 산업생산은 전월 대비 0.7% 증가해 3개월 만에 반등에 성공했다고 연방준비제도이사회(Fed 연준)가 17일 발표했다.", reply_markup=articleKeyboard2)
-
+        else :
+            userStep[cid] = 120
+            articleKeyboardNext = types.InlineKeyboardButton('다른 기사', callback_data="120-1")
+            articleKeyboardLink = types.InlineKeyboardButton('링크로 이동', url="http://news.naver.com/main/read.nhn?mode=LS2D&mid=shm&sid1=101&sid2=262&oid=003&aid=0007233619")
+            articleKeyboard2.row(articleKeyboardLink, articleKeyboardNext)
+            bot.send_message(cid, "4월 미국 산업생산은 전월 대비 0.7% 증가해 3개월 만에 반등에 성공했다고 연방준비제도이사회(Fed 연준)가 17일 발표했다.", reply_markup=articleKeyboard2)
+    except Exception as e:
+    	        print(e)
 
 bot.polling()
