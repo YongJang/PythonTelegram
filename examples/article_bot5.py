@@ -59,11 +59,11 @@ lastShown = {}
 
 commands = {
               'start': '봇 사용을 시작합니다.',
-              'help': '사용 가능한 명령어들을 봅니다.',
+              '도움말': '사용 가능한 명령어들을 봅니다.',
               'broadcasting':'이 봇을 사용하는 모든 유저에게 메세지를 전달합니다.',
               'getImage': '이미지를 가져옵니다.',
-              'Jobjang':'Jobjang 서비스 시작하기',
-              'JobNews':'JobNews 서비스 시작하기'
+              '잡장':'잡장 서비스 시작하기',
+              '키워드검색':'키워드검색 서비스 시작하기'
 }
 
 imageSelect = types.ReplyKeyboardMarkup(one_time_keyboard=True)
@@ -293,7 +293,7 @@ def step100Social(call):
 @bot.callback_query_handler(func=lambda call: call.data == "110-1" and get_user_step(call.from_user.id) == 110)
 def step110IT_1(call):
     cid = call.from_user.id
-    cur.execute("SELECT * FROM information WHERE a_Type = \'Article\' ORDER BY click_num DESC;")
+    cur.execute("SELECT * FROM information WHERE high = \'IT\' ORDER BY click_num DESC;")
     row = cur.fetchall()
     total = len(row)
     entriesURL = []
@@ -368,14 +368,38 @@ def step110IT_2(call):
 @bot.callback_query_handler(func=lambda call: call.data == "120-1" and get_user_step(call.from_user.id) == 120)
 def step120Social_1(call):
     cid = call.from_user.id
-    #bot.answer_callback_query(call.id, text="사회 기사!!")
-    articleKeyboard = types.InlineKeyboardMarkup(3)
-    articleKeyboardDetail = types.InlineKeyboardButton('자세히', callback_data="aDetail")
-    articleKeyboardNext = types.InlineKeyboardButton('다른 기사', callback_data="120-1")
-    articleKeyboardLink = types.InlineKeyboardButton('링크로 이동', url="http://news.naver.com/main/read.nhn?mode=LS2D&mid=shm&sid1=101&sid2=262&oid=003&aid=0007233619")
-    articleKeyboard.row(articleKeyboardDetail, articleKeyboardLink, articleKeyboardNext)
+    cur.execute("SELECT * FROM information WHERE high = \'경제\' ORDER BY click_num DESC;")
+    row = cur.fetchall()
+    total = len(row)
+    entriesURL = []
+    if total < 1:
+        print('No entries')
+    else:
+        for record in range(total):
+            temp = row[record][1].decode('utf8', 'surrogatepass')
+            entriesURL.append(temp)
+    #### entriesURL에 IT기사 URL 저장 ####
+    isFirstShown = -1
+    url = ""
+    for n in range(len(entriesURL)):
+        if cur.execute("SELECT * FROM shown WHERE uid = " + str(cid) + " AND url = \'" + entriesURL[n] + "\';") <1:
+            isFirstShown = n
+            url = entriesURL[n]
+            break;
 
-    bot.send_message(cid, "http://news.naver.com/main/read.nhn?mode=LS2D&mid=shm&sid1=101&sid2=262&oid=003&aid=0007233619", reply_markup=articleKeyboard)
+    if isFirstShown is not -1:
+        lastShown[cid] = url
+        cur.execute("INSERT INTO shown (uid, url) VALUES (\'" + str(cid) +"\',\'" + url + "\');")
+        conn.commit()
+        articleKeyboard = types.InlineKeyboardMarkup(3)
+        articleKeyboardDetail = types.InlineKeyboardButton('자세히', callback_data="aDetail")
+        articleKeyboardNext = types.InlineKeyboardButton('다른 기사', callback_data="120-1")
+        articleKeyboardLink = types.InlineKeyboardButton('링크로 이동', url=WEBSERVER_DNS + "?url=" + url + "&tb=information")
+        articleKeyboard.row(articleKeyboardDetail, articleKeyboardLink, articleKeyboardNext)
+        bot.send_message(cid, WEBSERVER_DNS + "?url=" + url + "&tb=information", reply_markup=articleKeyboard)
+    else :
+        bot.send_message(cid, "아직 준비중입니다.")
+        bot.send_message(cid, "어떤 종류의 사회 글을 원하시나요?", reply_markup=step120Keyboard)
 
 """사회 -> 구인정보"""
 @bot.callback_query_handler(func=lambda call: call.data == "120-2" and get_user_step(call.from_user.id) == 120)
@@ -446,10 +470,23 @@ def stepDetail(call):
 
         else :
             userStep[cid] = 120
+            cur.execute("SELECT * FROM information WHERE high = \'경제\' AND url = \'" + url + "\';")
+            row = cur.fetchall()
+            total = len(row)
+            detail = ""
+            if total < 1:
+                print('No entries')
+            else:
+                for record in range(total):
+                    temp = row[record][5].decode('utf8', 'surrogatepass')
+                    detail = temp
+            if len(detail)>2047:
+                detail = detail[0:2040]
+                detil = detail +"..."
             articleKeyboardNext = types.InlineKeyboardButton('다른 기사', callback_data="120-1")
-            articleKeyboardLink = types.InlineKeyboardButton('링크로 이동', url="http://news.naver.com/main/read.nhn?mode=LS2D&mid=shm&sid1=101&sid2=262&oid=003&aid=0007233619")
+            articleKeyboardLink = types.InlineKeyboardButton('링크로 이동', url=WEBSERVER_DNS + "?url=" + url + "&tb=information")
             articleKeyboard2.row(articleKeyboardLink, articleKeyboardNext)
-            bot.send_message(cid, "4월 미국 산업생산은 전월 대비 0.7% 증가해 3개월 만에 반등에 성공했다고 연방준비제도이사회(Fed 연준)가 17일 발표했다.", reply_markup=articleKeyboard2)
+            bot.send_message(cid, detail, reply_markup=articleKeyboard2)
     except Exception as e:
     	        print(e)
 
