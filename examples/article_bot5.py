@@ -74,7 +74,7 @@ articleSelect.add('IT', '사회')
 
 serviceSelect = types.ReplyKeyboardMarkup(one_time_keyboard=True)
 serviceSelect.row('/잡장')
-serviceSelect.row('/키워드 검색')
+serviceSelect.row('/키워드검색')
 serviceSelect.row('/도움말','/재시작')
 
 
@@ -167,7 +167,7 @@ def command_jobjang(m):
         bot.send_message(cid, "당신이 관심있는 분야를 선택하세요.", reply_markup=articleSelectInline, parse_mode='Markdown')
         userStep[cid] = 100
 
-@bot.message_handler(commands=['키워드 검색'])
+@bot.message_handler(commands=['키워드검색'])
 def command_jobnews(m):
     cid = m.chat.id
     userStep[cid] = 200
