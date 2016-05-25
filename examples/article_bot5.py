@@ -34,8 +34,10 @@ try:
 except pymysql.Error as e:
     print ("Error %d: %s" % (e.args[0], e.args[1]))
     sys.exit(1)
-
-TOKEN = '207944330:AAGdpOvswmHangYooE8wBEf1p-vYP2skyL0'
+# @yongjang_bot
+#TOKEN = '207944330:AAGdpOvswmHangYooE8wBEf1p-vYP2skyL0'
+# @JobJangBot
+TOKEN = '207840488:AAEf42L9r0V2tHrX1lVm0QTRnj1e6m5y5bQ'
 WEBSERVER_DNS = 'TelegramRedirect-982942058.ap-northeast-1.elb.amazonaws.com/'
 
 # uid 가져오기
