@@ -59,11 +59,11 @@ lastShown = {}
 
 commands = {
               'start': '봇 사용을 시작합니다.',
-              '도움말': '사용 가능한 명령어들을 봅니다.',
+              'help': '사용 가능한 명령어들을 봅니다.',
               'broadcasting':'이 봇을 사용하는 모든 유저에게 메세지를 전달합니다.',
               'getImage': '이미지를 가져옵니다.',
-              '잡장':'잡장 서비스 시작하기',
-              '키워드검색':'키워드검색 서비스 시작하기'
+              'JobJang':'잡장 서비스 시작하기',
+              'keyword':'키워드검색 서비스 시작하기'
 }
 
 imageSelect = types.ReplyKeyboardMarkup(one_time_keyboard=True)
@@ -155,7 +155,7 @@ def command_start(m):
     except Exception as e:
 	        print(e)
 
-@bot.message_handler(commands=['잡장'])
+@bot.message_handler(commands=['잡장','JobJang'])
 def command_jobjang(m):
     cid = m.chat.id
     if get_user_step(cid) == 110:
@@ -167,7 +167,7 @@ def command_jobjang(m):
         bot.send_message(cid, "당신이 관심있는 분야를 선택하세요.", reply_markup=articleSelectInline, parse_mode='Markdown')
         userStep[cid] = 100
 
-@bot.message_handler(commands=['키워드검색'])
+@bot.message_handler(commands=['키워드검색','keyword'])
 def command_jobnews(m):
     cid = m.chat.id
     userStep[cid] = 200
@@ -176,7 +176,7 @@ def command_jobnews(m):
 
 
 # help page
-@bot.message_handler(commands=['도움말'])
+@bot.message_handler(commands=['도움말','help'])
 def command_help(m):
     cid = m.chat.id
     help_text = "사용가능한 명령어 목록 입니다.: \n"
