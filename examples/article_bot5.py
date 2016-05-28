@@ -265,7 +265,11 @@ def command_News_Search(m):
             sendText = sendText[0:2040]
         cur.execute("INSERT INTO shown (uid, url) VALUES (\'" + str(cid) +"\',\'" + url.link + "\');")
         conn.commit()
-        bot.send_message(cid, sendText, parse_mode='HTML')
+        KeywordKeyboard = types.InlineKeyboardMarkup(3)
+        KeywordButton1 = types.InlineKeyboardButton('같은 키워드로 다시 검색', callback_data="201?"+keyword)
+        KeywordButton2 = types.InlineKeyboardButton('계속 검색', callback_data="202")
+        KeywordKeyboard.row(KeywordButton1,KeywordButton2)
+        bot.send_message(cid, sendText, parse_mode='HTML',reply_markup=KeywordKeyboard)
     else :
         bot.send_message(cid, "검색 결과를 찾을 수 없습니다.")
 
@@ -436,6 +440,42 @@ def step120Social_2(call):
         bot.send_message(cid, "아직 준비중입니다.")
         bot.send_message(cid, "어떤 종류의 사회 글을 원하시나요?", reply_markup=step120Keyboard)
 
+"""============================================================================================================="""
+"""====================================================SET======================================================"""
+@bot.callback_query_handler(func=lambda call: call.data[0:3] == "201?")
+def step201(call):
+    cid = m.chat.id
+    userStep[cid] = 0
+    keyword = str(call.data[4:len(call.data)-1])
+    d = feedparser.parse('http://newssearch.naver.com/search.naver?where=rss&query=' + urllib.parse.quote(keyword.encode("utf-8")) + '&field=0')
+    sendText = ""
+    isFirstShown = -1
+    url = ""
+    for post in d.entries:
+        if cur.execute("SELECT * FROM shown WHERE uid = " + str(cid) + " AND url = \'" + post.link + "\';") <1:
+            isFirstShown = 1
+            url = post
+            break;
+    if isFirstShown is not -1:
+        sendText = "[제목] : " + url.title + "\n[키워드가 포함되어 있는 문장] : " + url.summary + "\n[발간일자] : " + url.published + "\n" + url.link
+        if len(sendText) > 2047:
+            sendText = sendText[0:2040]
+        cur.execute("INSERT INTO shown (uid, url) VALUES (\'" + str(cid) +"\',\'" + url.link + "\');")
+        conn.commit()
+        KeywordKeyboard = types.InlineKeyboardMarkup(3)
+        KeywordButton1 = types.InlineKeyboardButton('같은 키워드로 다시 검색', callback_data="201?"+keyword)
+        KeywordButton2 = types.InlineKeyboardButton('계속 검색', callback_data="202")
+        KeywordKeyboard.row(KeywordButton1,KeywordButton2)
+        bot.send_message(cid, sendText, parse_mode='HTML',reply_markup=KeywordKeyboard)
+    else :
+        bot.send_message(cid, "검색 결과를 찾을 수 없습니다.")
+
+@bot.callback_query_handler(func=lambda call: call.data == "202")
+def step202(call):
+    cid = call.from_user.id
+    userStep[cid] = 200
+    text = "검색하실 키워드를 입력하세요."
+    bot.send_message(cid, text, reply_markup=forceBoard)
 """============================================================================================================="""
 @bot.callback_query_handler(func=lambda call: call.data == "aDetail")
 def stepDetail(call):
