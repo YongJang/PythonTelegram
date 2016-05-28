@@ -260,16 +260,19 @@ def command_News_Search(m):
             url = post
             break;
     if isFirstShown is not -1:
-        sendText = "[제목] : " + url.title + "\n[키워드가 포함되어 있는 문장] : " + url.summary + "\n[발간일자] : " + url.published + "\n" + url.link
+        sendText = keyword + "에 대한 검색 결과 입니다.\n[제목] : " + url.title + "\n[키워드가 포함되어 있는 문장] : " + url.summary + "\n[발간일자] : " + url.published + "\n" + url.link
         if len(sendText) > 2047:
             sendText = sendText[0:2040]
         cur.execute("INSERT INTO shown (uid, url) VALUES (\'" + str(cid) +"\',\'" + url.link + "\');")
         conn.commit()
-        KeywordKeyboard = types.InlineKeyboardMarkup(3)
-        KeywordButton1 = types.InlineKeyboardButton('같은 키워드로 다시 검색', callback_data="201?"+keyword)
-        KeywordButton2 = types.InlineKeyboardButton('계속 검색', callback_data="202")
-        KeywordKeyboard.row(KeywordButton1,KeywordButton2)
-        bot.send_message(cid, keyword + "에 대한 검색 결과 입니다.")
+            KeywordKeyboard = types.InlineKeyboardMarkup(3)
+            KeywordButton1 = types.InlineKeyboardButton('같은 키워드로 다시 검색', callback_data="201?"+keyword)
+            KeywordButton2 = types.InlineKeyboardButton('계속 검색', callback_data="202")
+            KeywordButton3 = types.InlineKeyboardButton('처음으로', callback_data="203")
+            KeywordButton4 = types.InlineKeyboardButton('공유하기', switch_inline_query=""+sendText)
+            KeywordKeyboard.row(KeywordButton1)
+            KeywordKeyboard.row(KeywordButton2)
+            KeywordKeyboard.row(KeywordButton3,KeywordButton4)
         bot.send_message(cid, sendText, parse_mode='HTML',reply_markup=KeywordKeyboard)
     else :
         bot.send_message(cid, "검색 결과를 찾을 수 없습니다.")
@@ -458,7 +461,7 @@ def step201(call):
             url = post
             break;
     if isFirstShown is not -1:
-        sendText = "[제목] : " + url.title + "\n[키워드가 포함되어 있는 문장] : " + url.summary + "\n[발간일자] : " + url.published + "\n" + url.link
+        sendText = keyword + "에 대한 검색 결과 입니다.\n[제목] : " + url.title + "\n[키워드가 포함되어 있는 문장] : " + url.summary + "\n[발간일자] : " + url.published + "\n" + url.link
         if len(sendText) > 2047:
             sendText = sendText[0:2040]
         cur.execute("INSERT INTO shown (uid, url) VALUES (\'" + str(cid) +"\',\'" + url.link + "\');")
@@ -466,8 +469,11 @@ def step201(call):
         KeywordKeyboard = types.InlineKeyboardMarkup(3)
         KeywordButton1 = types.InlineKeyboardButton('같은 키워드로 다시 검색', callback_data="201?"+keyword)
         KeywordButton2 = types.InlineKeyboardButton('계속 검색', callback_data="202")
-        KeywordKeyboard.row(KeywordButton1,KeywordButton2)
-        bot.send_message(cid, keyword + "에 대한 검색 결과 입니다.")
+        KeywordButton3 = types.InlineKeyboardButton('처음으로', callback_data="203")
+        KeywordButton4 = types.InlineKeyboardButton('공유하기', switch_inline_query=""+sendText)
+        KeywordKeyboard.row(KeywordButton1)
+        KeywordKeyboard.row(KeywordButton2)
+        KeywordKeyboard.row(KeywordButton3,KeywordButton4)
         bot.send_message(cid, sendText, parse_mode='HTML',reply_markup=KeywordKeyboard)
     else :
         bot.send_message(cid, "검색 결과를 찾을 수 없습니다.")
@@ -478,6 +484,11 @@ def step202(call):
     userStep[cid] = 200
     text = "검색하실 키워드를 입력하세요."
     bot.send_message(cid, text, reply_markup=forceBoard)
+
+@bot.callback_query_handler(func=lambda call: call.data == "203")
+def step203(call):
+    cid = call.from_user.id
+    bot.send_message(cid, "사용하실 서비스를 선택하세요.", reply_markup=serviceSelect)
 """============================================================================================================="""
 @bot.callback_query_handler(func=lambda call: call.data == "aDetail")
 def stepDetail(call):
