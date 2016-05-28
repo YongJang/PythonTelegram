@@ -291,7 +291,6 @@ def step001(call):
 @bot.callback_query_handler(func=lambda call: call.data == "002")
 def step001(call):
     cid = call.from_user.id
-    bot.send_message(cid, "분야별로 필요한 정보를 받으실 수 있습니다.")
     bot.send_message(cid, "당신이 관심있는 분야를 선택하세요.", reply_markup=articleSelectInline, parse_mode='Markdown')
     userStep[cid] = 100
 """====================================================SET======================================================"""
