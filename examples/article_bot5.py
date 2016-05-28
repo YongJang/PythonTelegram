@@ -88,16 +88,19 @@ step100Button2 = types.InlineKeyboardButton('사회', callback_data="100-2")
 #articleSelectInline.add(step100Button1, step100Button2, step100Button3)
 articleSelectInline.add(step100Button1, step100Button2)
 
+reSelect = types.InlineKeyboardButton('분야 다시 선택하기', callback_data="002")
 
 step110Keyboard = types.InlineKeyboardMarkup(2)
 step110Button1 = types.InlineKeyboardButton('기사', callback_data="110-1")
 step110Button2 = types.InlineKeyboardButton('구인 정보', callback_data="110-2")
-step110Keyboard.add(step110Button1, step110Button2)
+step110Keyboard.row(step110Button1, step110Button2)
+step110Keyboard.row(reSelect)
 
 step120Keyboard = types.InlineKeyboardMarkup(2)
 step120Button1 = types.InlineKeyboardButton('기사', callback_data="120-1")
 step120Button2 = types.InlineKeyboardButton('구인 정보', callback_data="120-2")
-step120Keyboard.add(step120Button1, step120Button2)
+step120Keyboard.row(step120Button1, step120Button2)
+step120Keyboard.row(reSelect)
 
 
 """ 예제 결과화면 만들기 위해 잠시 수정
@@ -284,6 +287,13 @@ def command_News_Search(m):
 def step001(call):
     cid = call.from_user.id
     bot.send_message(cid, "사용하실 서비스를 선택하세요.", reply_markup=serviceSelect)
+
+@bot.callback_query_handler(func=lambda call: call.data == "002")
+def step001(call):
+    cid = call.from_user.id
+    bot.send_message(cid, "분야별로 필요한 정보를 받으실 수 있습니다.")
+    bot.send_message(cid, "당신이 관심있는 분야를 선택하세요.", reply_markup=articleSelectInline, parse_mode='Markdown')
+    userStep[cid] = 100
 """====================================================SET======================================================"""
 @bot.callback_query_handler(func=lambda call: call.data == "100-1" and get_user_step(call.from_user.id) == 100)
 def step100IT(call):
