@@ -280,6 +280,10 @@ def command_News_Search(m):
 
 
 # 여기서 부터 callback_query 핸들러
+@bot.callback_query_handler(func=lambda call: call.data == "001")
+def step001(call):
+    cid = call.from_user.id
+    bot.send_message(cid, "사용하실 서비스를 선택하세요.", reply_markup=serviceSelect)
 """====================================================SET======================================================"""
 @bot.callback_query_handler(func=lambda call: call.data == "100-1" and get_user_step(call.from_user.id) == 100)
 def step100IT(call):
@@ -328,7 +332,10 @@ def step110IT_1(call):
         articleKeyboardDetail = types.InlineKeyboardButton('자세히', callback_data="aDetail")
         articleKeyboardNext = types.InlineKeyboardButton('다른 기사', callback_data="110-1")
         articleKeyboardLink = types.InlineKeyboardButton('링크로 이동', url=WEBSERVER_DNS + "?url=" + url + "&tb=information")
+        KeywordButton3 = types.InlineKeyboardButton('처음으로', callback_data="001")
+        KeywordButton4 = types.InlineKeyboardButton('공유하기', switch_inline_query="으로부터의 검색결과 입니다.\n"+WEBSERVER_DNS + "?url=" + url + "&tb=information)
         articleKeyboard.row(articleKeyboardDetail, articleKeyboardLink, articleKeyboardNext)
+        articleKeyboard.row(KeywordButton3,KeywordButton4)
         bot.send_message(cid, WEBSERVER_DNS + "?url=" + url + "&tb=information", reply_markup=articleKeyboard)
     else :
         bot.send_message(cid, "아직 준비중입니다.")
@@ -363,7 +370,10 @@ def step110IT_2(call):
         articleKeyboard = types.InlineKeyboardMarkup(2)
         articleKeyboardNext = types.InlineKeyboardButton('다른 정보', callback_data="110-2")
         articleKeyboardLink = types.InlineKeyboardButton('링크로 이동', url=WEBSERVER_DNS + "?url=" + url + "&tb=jobs")
+        KeywordButton3 = types.InlineKeyboardButton('처음으로', callback_data="001")
+        KeywordButton4 = types.InlineKeyboardButton('공유하기', switch_inline_query="으로부터의 검색결과 입니다.\n"+WEBSERVER_DNS + "?url=" + url + "&tb=jobs)
         articleKeyboard.row(articleKeyboardLink, articleKeyboardNext)
+        articleKeyboard.row(KeywordButton3,KeywordButton4)
         bot.send_message(cid, WEBSERVER_DNS + "?url=" + url + "&tb=jobs", reply_markup=articleKeyboard)
     else :
         bot.send_message(cid, "아직 준비중입니다.")
@@ -403,7 +413,10 @@ def step120Social_1(call):
         articleKeyboardDetail = types.InlineKeyboardButton('자세히', callback_data="aDetail")
         articleKeyboardNext = types.InlineKeyboardButton('다른 기사', callback_data="120-1")
         articleKeyboardLink = types.InlineKeyboardButton('링크로 이동', url=WEBSERVER_DNS + "?url=" + url + "&tb=information")
+        KeywordButton3 = types.InlineKeyboardButton('처음으로', callback_data="001")
+        KeywordButton4 = types.InlineKeyboardButton('공유하기', switch_inline_query="으로부터의 검색결과 입니다.\n"+WEBSERVER_DNS + "?url=" + url + "&tb=information)
         articleKeyboard.row(articleKeyboardDetail, articleKeyboardLink, articleKeyboardNext)
+        articleKeyboard.row(KeywordButton3,KeywordButton4)
         bot.send_message(cid, WEBSERVER_DNS + "?url=" + url + "&tb=information", reply_markup=articleKeyboard)
     else :
         bot.send_message(cid, "아직 준비중입니다.")
@@ -438,7 +451,10 @@ def step120Social_2(call):
         articleKeyboard = types.InlineKeyboardMarkup(2)
         articleKeyboardNext = types.InlineKeyboardButton('다른 정보', callback_data="120-2")
         articleKeyboardLink = types.InlineKeyboardButton('링크로 이동', url=WEBSERVER_DNS + "?url=" + url + "&tb=society")
+        KeywordButton3 = types.InlineKeyboardButton('처음으로', callback_data="001")
+        KeywordButton4 = types.InlineKeyboardButton('공유하기', switch_inline_query="으로부터의 검색결과 입니다.\n"+WEBSERVER_DNS + "?url=" + url + "&tb=society)
         articleKeyboard.row(articleKeyboardLink, articleKeyboardNext)
+        articleKeyboard.row(KeywordButton3,KeywordButton4)
         bot.send_message(cid, WEBSERVER_DNS + "?url=" + url + "&tb=society", reply_markup=articleKeyboard)
     else :
         bot.send_message(cid, "아직 준비중입니다.")
@@ -469,7 +485,7 @@ def step201(call):
         KeywordKeyboard = types.InlineKeyboardMarkup(3)
         KeywordButton1 = types.InlineKeyboardButton('같은 키워드로 다시 검색', callback_data="201?"+keyword)
         KeywordButton2 = types.InlineKeyboardButton('계속 검색', callback_data="202")
-        KeywordButton3 = types.InlineKeyboardButton('처음으로', callback_data="203")
+        KeywordButton3 = types.InlineKeyboardButton('처음으로', callback_data="001")
         KeywordButton4 = types.InlineKeyboardButton('공유하기', switch_inline_query="으로부터의 검색결과 입니다.\n"+sendText)
         KeywordKeyboard.row(KeywordButton1)
         KeywordKeyboard.row(KeywordButton2)
@@ -485,10 +501,6 @@ def step202(call):
     text = "검색하실 키워드를 입력하세요."
     bot.send_message(cid, text, reply_markup=forceBoard)
 
-@bot.callback_query_handler(func=lambda call: call.data == "203")
-def step203(call):
-    cid = call.from_user.id
-    bot.send_message(cid, "사용하실 서비스를 선택하세요.", reply_markup=serviceSelect)
 """============================================================================================================="""
 @bot.callback_query_handler(func=lambda call: call.data == "aDetail")
 def stepDetail(call):
@@ -516,7 +528,10 @@ def stepDetail(call):
                 detil = detail +"..."
             articleKeyboardNext = types.InlineKeyboardButton('다른 기사', callback_data="110-1")
             articleKeyboardLink = types.InlineKeyboardButton('링크로 이동', url=WEBSERVER_DNS + "?url=" + url + "&tb=information")
+            KeywordButton3 = types.InlineKeyboardButton('처음으로', callback_data="001")
+            KeywordButton4 = types.InlineKeyboardButton('공유하기', switch_inline_query="으로부터의 검색결과 입니다.\n"+WEBSERVER_DNS + "?url=" + url + "&tb=information)
             articleKeyboard2.row(articleKeyboardLink, articleKeyboardNext)
+            articleKeyboard2.row(KeywordButton3,KeywordButton4)
             bot.send_message(cid, detail, reply_markup=articleKeyboard2)
 
     #"""사회 -> 기사 -> 자세히"""
@@ -538,7 +553,10 @@ def stepDetail(call):
                 detil = detail +"..."
             articleKeyboardNext = types.InlineKeyboardButton('다른 기사', callback_data="120-1")
             articleKeyboardLink = types.InlineKeyboardButton('링크로 이동', url=WEBSERVER_DNS + "?url=" + url + "&tb=information")
+            KeywordButton3 = types.InlineKeyboardButton('처음으로', callback_data="001")
+            KeywordButton4 = types.InlineKeyboardButton('공유하기', switch_inline_query="으로부터의 검색결과 입니다.\n"+WEBSERVER_DNS + "?url=" + url + "&tb=information)
             articleKeyboard2.row(articleKeyboardLink, articleKeyboardNext)
+            articleKeyboard2.row(KeywordButton3,KeywordButton4)
             bot.send_message(cid, detail, reply_markup=articleKeyboard2)
     except Exception as e:
     	        print(e)
