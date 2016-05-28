@@ -269,6 +269,7 @@ def command_News_Search(m):
         KeywordButton1 = types.InlineKeyboardButton('같은 키워드로 다시 검색', callback_data="201?"+keyword)
         KeywordButton2 = types.InlineKeyboardButton('계속 검색', callback_data="202")
         KeywordKeyboard.row(KeywordButton1,KeywordButton2)
+        bot.send_message(cid, keyword + "에 대한 검색 결과 입니다.")
         bot.send_message(cid, sendText, parse_mode='HTML',reply_markup=KeywordKeyboard)
     else :
         bot.send_message(cid, "검색 결과를 찾을 수 없습니다.")
@@ -446,7 +447,7 @@ def step120Social_2(call):
 def step201(call):
     cid = call.from_user.id
     userStep[cid] = 0
-    keyword = str(call.data[4:len(call.data)-1])
+    keyword = str(call.data[4:len(call.data)])
     d = feedparser.parse('http://newssearch.naver.com/search.naver?where=rss&query=' + urllib.parse.quote(keyword.encode("utf-8")) + '&field=0')
     sendText = ""
     isFirstShown = -1
