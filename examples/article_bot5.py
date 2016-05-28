@@ -442,7 +442,7 @@ def step120Social_2(call):
 
 """============================================================================================================="""
 """====================================================SET======================================================"""
-@bot.callback_query_handler(func=lambda call: call.data[0:3] == "201?")
+@bot.callback_query_handler(func=lambda call: call.data[:4] == "201?")
 def step201(call):
     cid = m.chat.id
     userStep[cid] = 0
