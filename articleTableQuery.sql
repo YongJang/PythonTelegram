@@ -26,10 +26,12 @@ CREATE TABLE article (PK_aid INT UNSIGNED PRIMARY KEY AUTO_INCREMENT, url varcha
 CREATE TABLE tags (high varchar(40), low varchar(40))default character set utf8;
 set character_set_connection=utf8;
 set names utf8;
+DELETE FROM tags where high='IT';
+DELETE FROM tags where high='사회';
 load data local infile 'D:\\Github\\PythonTelegram\\ITtags4.csv' into table tags fields terminated by ',' enclosed by '"' lines terminated by '\r\n';
-load data local infile 'C:\\Users\\Administrator\\Documents\\GitHub\\PythonTelegram\\SocialTags.csv' into table tags fields terminated by ',' enclosed by '"' lines terminated by '\r\n';
+load data local infile 'D:\\Github\\PythonTelegram\\SocialTags.csv' into table tags fields terminated by ',' enclosed by '"' lines terminated by '\r\n';
 CREATE TABLE tags (high varchar(40), low varchar(40))default character set utf8;
-select * from tags;
+select * from tags LIMIT 2000;
 /*
 ========================================================================================
 */
