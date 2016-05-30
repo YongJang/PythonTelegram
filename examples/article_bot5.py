@@ -134,6 +134,17 @@ def get_user_step(uid):
         print ("새로운 시작 \"/start\"")
         return 0
 
+def get_user_like(uid):
+    if uid in userLike:
+        return userLike[uid]
+    else:
+        if uid not in knownUsers:
+            knownUsers.append(uid)
+            cur.execute("INSERT INTO users (PK_uid, step, high, kgroup) VALUES (\'" + str(uid) + "\',\'0\','\'0\',\'0\')" )
+            conn.commit()
+        userLike[uid] = 0
+        print ("새로운 시작 \"/start\"")
+        return 0
 
 def listener(messages):
     """
@@ -166,9 +177,9 @@ def command_start(m):
 @bot.message_handler(commands=['잡장','JobJang'])
 def command_jobjang(m):
     cid = m.chat.id
-    if get_user_step(cid) == 110:
+    if get_user_like(cid) == 110:
         bot.send_message(cid, "어떤 종류의 IT 글을 원하시나요?", reply_markup=step110Keyboard)
-    elif get_user_step(cid) == 120:
+    elif get_user_like(cid) == 120:
         bot.send_message(cid, "어떤 종류의 사회 글을 원하시나요?", reply_markup=step120Keyboard)
     else :
         bot.send_message(cid, "분야별로 필요한 정보를 받으실 수 있습니다.")
