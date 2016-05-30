@@ -55,6 +55,7 @@ else:
 ######
 
 userStep = {}
+userLike = {}
 lastShown = {}
 
 commands = {
