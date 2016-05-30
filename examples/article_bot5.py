@@ -297,8 +297,16 @@ def step001(call):
 """====================================================SET======================================================"""
 @bot.callback_query_handler(func=lambda call: call.data == "100-1" and get_user_step(call.from_user.id) == 100)
 def step100IT(call):
+    """
+    분야가 바뀐거니까 여기서 업데이트를 해야돼
+    """
     cid = call.from_user.id
     userStep[cid] = 110
+    userLike[cid] = 110
+    sql = "UPDATE users SET high = %s WHERE uid = %s"
+    values = (str(userLike[cid]), str(cid))
+    cur.execute(sql, values)
+    conn.commit()
     bot.send_message(cid, "어떤 종류의 IT 글을 원하시나요?", reply_markup=step110Keyboard)
 
 
@@ -306,6 +314,11 @@ def step100IT(call):
 def step100Social(call):
     cid = call.from_user.id
     userStep[cid] = 120
+    userLike[cid] = 120
+    sql = "UPDATE users SET high = %s WHERE uid = %s"
+    values = (str(userLike[cid]), str(cid))
+    cur.execute(sql, values)
+    conn.commit()
     bot.send_message(cid, "어떤 종류의 사회 글을 원하시나요?", reply_markup=step120Keyboard)
 
 """============================================================================================================="""
