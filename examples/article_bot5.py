@@ -179,8 +179,10 @@ def command_jobjang(m):
     cid = m.chat.id
     if get_user_like(cid) == 110:
         bot.send_message(cid, "어떤 종류의 IT 글을 원하시나요?", reply_markup=step110Keyboard)
+        userStep[cid] = 100
     elif get_user_like(cid) == 120:
         bot.send_message(cid, "어떤 종류의 사회 글을 원하시나요?", reply_markup=step120Keyboard)
+        userStep[cid] = 100
     else :
         bot.send_message(cid, "분야별로 필요한 정보를 받으실 수 있습니다.")
         bot.send_message(cid, "당신이 관심있는 분야를 선택하세요.", reply_markup=articleSelectInline, parse_mode='Markdown')
