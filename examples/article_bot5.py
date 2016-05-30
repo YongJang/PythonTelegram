@@ -40,6 +40,11 @@ except pymysql.Error as e:
 TOKEN = '207840488:AAEf42L9r0V2tHrX1lVm0QTRnj1e6m5y5bQ'
 WEBSERVER_DNS = 'TelegramRedirect-982942058.ap-northeast-1.elb.amazonaws.com/'
 
+userStep = {}
+userLike = {}
+lastShown = {}
+kGroup = {}
+
 # uid 가져오기
 cur.execute("SELECT * FROM users")
 row = cur.fetchall()
@@ -50,13 +55,12 @@ if total < 1:
 else:
     for record in range(total):
         temp = row[record][0]
+        high = row[record][2]
+        k = row[record][3]
         knownUsers.append(temp)
-
+        userLike[temp] = high
+        kGroup[temp] = k
 ######
-
-userStep = {}
-userLike = {}
-lastShown = {}
 
 commands = {
               'start': '봇 사용을 시작합니다.',
