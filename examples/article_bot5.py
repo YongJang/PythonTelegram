@@ -318,7 +318,7 @@ def step100IT(call):
     cid = call.from_user.id
     userStep[cid] = 110
     userLike[cid] = 110
-    sql = "UPDATE users SET high = %s WHERE uid = %s"
+    sql = "UPDATE users SET high = %s WHERE PK_uid = %s"
     values = (userLike[cid], cid)
     cur.execute(sql, values)
     conn.commit()
@@ -330,7 +330,7 @@ def step100Social(call):
     cid = call.from_user.id
     userStep[cid] = 120
     userLike[cid] = 120
-    sql = "UPDATE users SET high = %s WHERE uid = %s"
+    sql = "UPDATE users SET high = %s WHERE PK_uid = %s"
     values = (userLike[cid], cid)
     cur.execute(sql, values)
     conn.commit()
