@@ -128,7 +128,7 @@ def get_user_step(uid):
     else:
         if uid not in knownUsers:
             knownUsers.append(uid)
-            cur.execute("INSERT INTO users (PK_uid, step, high, kgroup) VALUES (\'" + str(uid) + "\',\'0\','\'0\',\'0\')" )
+            cur.execute("INSERT INTO users (PK_uid, step, high, kgroup) VALUES (" + str(uid) + ",0,0,0)" )
             conn.commit()
         userStep[uid] = 0
         print ("새로운 시작 \"/start\"")
@@ -140,7 +140,7 @@ def get_user_like(uid):
     else:
         if uid not in knownUsers:
             knownUsers.append(uid)
-            cur.execute("INSERT INTO users (PK_uid, step, high, kgroup) VALUES (\'" + str(uid) + "\',\'0\','\'0\',\'0\')" )
+            cur.execute("INSERT INTO users (PK_uid, step, high, kgroup) VALUES (" + str(uid) + ",0,0,0)" )
             conn.commit()
         userLike[uid] = 0
         print ("새로운 시작 \"/start\"")
