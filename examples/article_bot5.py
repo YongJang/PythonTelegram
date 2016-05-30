@@ -319,7 +319,7 @@ def step100IT(call):
     userStep[cid] = 110
     userLike[cid] = 110
     sql = "UPDATE users SET high = %s WHERE uid = %s"
-    values = (str(userLike[cid]), str(cid))
+    values = (userLike[cid], cid)
     cur.execute(sql, values)
     conn.commit()
     bot.send_message(cid, "어떤 종류의 IT 글을 원하시나요?", reply_markup=step110Keyboard)
@@ -331,7 +331,7 @@ def step100Social(call):
     userStep[cid] = 120
     userLike[cid] = 120
     sql = "UPDATE users SET high = %s WHERE uid = %s"
-    values = (str(userLike[cid]), str(cid))
+    values = (userLike[cid], cid)
     cur.execute(sql, values)
     conn.commit()
     bot.send_message(cid, "어떤 종류의 사회 글을 원하시나요?", reply_markup=step120Keyboard)
