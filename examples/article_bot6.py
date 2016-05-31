@@ -239,7 +239,10 @@ def command_help(m):
     for key in commands:
         help_text += "/" + key + ": "
         help_text += commands[key] + "\n"
-    bot.send_message(cid, help_text)
+    helpInline = types.InlineKeyboardMarkup(2)
+    recommandButton = types.InlineKeyboardButton('친구에게 봇 추천하기', switch_inline_query="<-- [클릭] 필요한 취업정보를 받으실 수 있습니다!!")
+    helpInline.row(recommandButton)
+    bot.send_message(cid, help_text, reply_markup=helpInline)
 
 # broadcasting
 @bot.message_handler(commands=['broadcasting'])
@@ -330,6 +333,8 @@ def command_News_Search(m):
         KeywordKeyboard.row(KeywordButton2)
         KeywordKeyboard.row(KeywordButton3,KeywordButton4)
         bot.send_message(cid, sendText, parse_mode='HTML',reply_markup=KeywordKeyboard)
+        # 키워드 추가
+        
     else :
         bot.send_message(cid, "검색 결과를 찾을 수 없습니다.")
 
@@ -605,7 +610,7 @@ def step201(call):
         conn.commit()
         KeywordKeyboard = types.InlineKeyboardMarkup(3)
         KeywordButton1 = types.InlineKeyboardButton('같은 키워드로 다시 검색', callback_data="201?"+keyword)
-        KeywordButton2 = types.InlineKeyboardButton('계속 검색', callback_data="202")
+        KeywordButton2 = types.InlineKeyboardButton('새로운 검색', callback_data="202")
         KeywordButton3 = types.InlineKeyboardButton('처음으로', callback_data="001")
         KeywordButton4 = types.InlineKeyboardButton('공유하기', switch_inline_query="으로부터의 검색결과 입니다.\n"+sendText)
         KeywordKeyboard.row(KeywordButton1)
