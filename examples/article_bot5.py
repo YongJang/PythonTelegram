@@ -190,14 +190,14 @@ def command_start(m):
     cid = m.chat.id
     try:
         if cid not in knownUsers:
-            knownUsers.append(cid)
-            cur.execute("SELECT * FROM users WHERE PK_uid="+str(cid))
-            row = cur.fetchall()
-            knownUsers = []
-            total = len(row)
-            if total < 1:
-                cur.execute("INSERT INTO users (PK_uid, step, high, kgroupIT, kgroupEconomy) VALUES (" + str(uid) + ",0,0,0,0)" )
-                conn.commit()
+            #knownUsers.append(cid)
+            #cur.execute("SELECT * FROM users WHERE PK_uid="+str(cid))
+            #row = cur.fetchall()
+            #knownUsers = []
+            #total = len(row)
+            #if total < 1:
+            #    cur.execute("INSERT INTO users (PK_uid, step, high, kgroupIT, kgroupEconomy) VALUES (" + str(uid) + ",0,0,0,0)" )
+            #    conn.commit()
             userStep[cid] = 0
             bot.send_message(cid, m.chat.first_name + "님 안녕하세요. 처음 뵙겠습니다.")
             bot.send_message(cid, "사용자 등록이 완료되었습니다.")
