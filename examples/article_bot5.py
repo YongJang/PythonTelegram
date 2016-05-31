@@ -150,7 +150,7 @@ def get_user_kgroup(uid, category):
     k = ""
     k2 = ""
     if uid in knownUsers:
-        cur.execute("SELECT * FROM users WHERE PK_uid="+str(cid))
+        cur.execute("SELECT * FROM users WHERE PK_uid="+str(uid))
         row = cur.fetchall()
         total = len(row)
         if total < 1:
