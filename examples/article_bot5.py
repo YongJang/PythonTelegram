@@ -380,7 +380,7 @@ def step100Social(call):
 @bot.callback_query_handler(func=lambda call: call.data == "110-1" and get_user_step(call.from_user.id) == 110)
 def step110IT_1(call):
     cid = call.from_user.id
-    ukg = get_user_kgroup(cid)
+    ukg = get_user_kgroup(cid,'IT')
     if ukg is 0:
         symbols = string.digits
         randomK = ''.join(random.choice(symbols) for _ in range(1))
