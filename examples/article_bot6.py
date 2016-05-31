@@ -406,6 +406,15 @@ def step110IT_1(call):
 
     if isFirstShown is not -1:
         lastShown[cid] = url
+        aid = ""
+        cur.execute("SELECT * FROM information WHERE url=\'"+url+"\';")
+        row = cur.fetchall()
+        total = len(row)
+        if total < 1:
+            print('No entries')
+        else:
+            for record in range(total):
+                aid = row[record][0].decode('utf8', 'surrogatepass')
         cur.execute("INSERT INTO shown (uid, url) VALUES (\'" + str(cid) +"\',\'" + url + "\');")
         conn.commit()
         articleKeyboard = types.InlineKeyboardMarkup(3)
@@ -445,6 +454,15 @@ def step110IT_2(call):
             break;
     if isFirstShown is not -1:
         lastShown[cid] = url
+        aid = ""
+        cur.execute("SELECT * FROM jobs WHERE url=\'"+url+"\';")
+        row = cur.fetchall()
+        total = len(row)
+        if total < 1:
+            print('No entries')
+        else:
+            for record in range(total):
+                aid = row[record][0].decode('utf8', 'surrogatepass')
         cur.execute("INSERT INTO shown (uid, url) VALUES (\'" + str(cid) +"\',\'" + url + "\');")
         conn.commit()
         articleKeyboard = types.InlineKeyboardMarkup(2)
@@ -492,6 +510,15 @@ def step120Social_1(call):
 
     if isFirstShown is not -1:
         lastShown[cid] = url
+        aid = ""
+        cur.execute("SELECT * FROM information WHERE url=\'"+url+"\';")
+        row = cur.fetchall()
+        total = len(row)
+        if total < 1:
+            print('No entries')
+        else:
+            for record in range(total):
+                aid = row[record][0].decode('utf8', 'surrogatepass')
         cur.execute("INSERT INTO shown (uid, url) VALUES (\'" + str(cid) +"\',\'" + url + "\');")
         conn.commit()
         articleKeyboard = types.InlineKeyboardMarkup(3)
@@ -531,6 +558,15 @@ def step120Social_2(call):
             break;
     if isFirstShown is not -1:
         lastShown[cid] = url
+        aid = ""
+        cur.execute("SELECT * FROM society WHERE url=\'"+url+"\';")
+        row = cur.fetchall()
+        total = len(row)
+        if total < 1:
+            print('No entries')
+        else:
+            for record in range(total):
+                aid = row[record][0].decode('utf8', 'surrogatepass')
         cur.execute("INSERT INTO shown (uid, url) VALUES (\'" + str(cid) +"\',\'" + url + "\');")
         conn.commit()
         articleKeyboard = types.InlineKeyboardMarkup(2)
@@ -593,6 +629,15 @@ def stepDetail(call):
     url = lastShown[cid]
     #bot.answer_callback_query(call.id, text="사회 기사!!")
     articleKeyboard2 = types.InlineKeyboardMarkup(2)
+    aid = ""
+    cur.execute("SELECT * FROM information WHERE url=\'"+url+"\';")
+    row = cur.fetchall()
+    total = len(row)
+    if total < 1:
+        print('No entries')
+    else:
+        for record in range(total):
+            aid = row[record][0].decode('utf8', 'surrogatepass')
 
 #"""IT -> 기사 -> 자세히"""
     try:
