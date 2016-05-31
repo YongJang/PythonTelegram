@@ -155,10 +155,10 @@ def get_user_kgroup(uid, category):
             print ("get_user_kgroup 함수 에러: 유저 정보 없음 ")
             return 0
         else:
-
             for record in range(total):
                 k = row[record][3]
-                k2 = row[record[4]
+                k2 = row[record][4]
+
     else:
         knownUsers.append(uid)
         cur.execute("INSERT INTO users (PK_uid, step, high, kgroupIT, kgroupEconomy) VALUES (" + str(uid) + ",0,0,0,0)" )
