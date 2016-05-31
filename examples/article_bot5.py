@@ -56,8 +56,6 @@ else:
     for record in range(total):
         temp = row[record][0]
         high = row[record][2]
-        k = row[record][3]
-        k2 = row[record][4]
         knownUsers.append(temp)
         userLike[temp] = high
 ######
@@ -158,10 +156,10 @@ def get_user_kgroup(uid, category):
             for record in range(total):
                 k = row[record][3]
                 k2 = row[record[4]
-        if str(category) == 'IT':
-            return k
-        else :
-            return k2
+            if category == 'IT':
+                return k
+            else :
+                return k2
     else:
         knownUsers.append(uid)
         cur.execute("INSERT INTO users (PK_uid, step, high, kgroupIT, kgroupEconomy) VALUES (" + str(uid) + ",0,0,0,0)" )
