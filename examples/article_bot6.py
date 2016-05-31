@@ -414,7 +414,7 @@ def step110IT_1(call):
             print('No entries')
         else:
             for record in range(total):
-                aid = row[record][0].decode('utf8', 'surrogatepass')
+                aid = row[record][0]
         cur.execute("INSERT INTO shown (uid, url) VALUES (\'" + str(cid) +"\',\'" + url + "\');")
         conn.commit()
         articleKeyboard = types.InlineKeyboardMarkup(3)
@@ -462,7 +462,7 @@ def step110IT_2(call):
             print('No entries')
         else:
             for record in range(total):
-                aid = row[record][0].decode('utf8', 'surrogatepass')
+                aid = row[record][0]
         cur.execute("INSERT INTO shown (uid, url) VALUES (\'" + str(cid) +"\',\'" + url + "\');")
         conn.commit()
         articleKeyboard = types.InlineKeyboardMarkup(2)
@@ -518,7 +518,7 @@ def step120Social_1(call):
             print('No entries')
         else:
             for record in range(total):
-                aid = row[record][0].decode('utf8', 'surrogatepass')
+                aid = row[record][0]
         cur.execute("INSERT INTO shown (uid, url) VALUES (\'" + str(cid) +"\',\'" + url + "\');")
         conn.commit()
         articleKeyboard = types.InlineKeyboardMarkup(3)
@@ -566,7 +566,7 @@ def step120Social_2(call):
             print('No entries')
         else:
             for record in range(total):
-                aid = row[record][0].decode('utf8', 'surrogatepass')
+                aid = row[record][0]
         cur.execute("INSERT INTO shown (uid, url) VALUES (\'" + str(cid) +"\',\'" + url + "\');")
         conn.commit()
         articleKeyboard = types.InlineKeyboardMarkup(2)
@@ -637,7 +637,7 @@ def stepDetail(call):
         print('No entries')
     else:
         for record in range(total):
-            aid = row[record][0].decode('utf8', 'surrogatepass')
+            aid = row[record][0]
 
 #"""IT -> 기사 -> 자세히"""
     try:
