@@ -145,6 +145,8 @@ def get_user_like(uid):
         return 0
 
 def get_user_kgroup(uid, category):
+    k = ""
+    k2 = ""
     if uid in knownUsers:
         cur.execute("SELECT * FROM users WHERE PK_uid="+str(cid))
         row = cur.fetchall()
@@ -153,6 +155,7 @@ def get_user_kgroup(uid, category):
             print ("get_user_kgroup 함수 에러: 유저 정보 없음 ")
             return 0
         else:
+
             for record in range(total):
                 k = row[record][3]
                 k2 = row[record[4]
