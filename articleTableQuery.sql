@@ -65,6 +65,7 @@ DELETE FROM shown where uid LIKE '2%';
 
 
 SELECT * from information;
+SELECT * from information ORDER BY (k_group+10)%16 ASC,click_num DESC LIMIT 3000;
 UPDATE information SET click_num = 0 WHERE click_num > 0;
 UPDATE jobs SET click_num = 0 WHERE click_num > 0;
 UPDATE society SET click_num = 0 WHERE click_num > 0;
