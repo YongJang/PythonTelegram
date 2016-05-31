@@ -326,7 +326,7 @@ def command_News_Search(m):
         conn.commit()
         KeywordKeyboard = types.InlineKeyboardMarkup(3)
         KeywordButton1 = types.InlineKeyboardButton('같은 키워드로 다시 검색', callback_data="201?"+keyword)
-        KeywordButton2 = types.InlineKeyboardButton('계속 검색', callback_data="202")
+        KeywordButton2 = types.InlineKeyboardButton('새로운 검색', callback_data="202")
         KeywordButton3 = types.InlineKeyboardButton('처음으로', callback_data="203")
         KeywordButton4 = types.InlineKeyboardButton('공유하기', switch_inline_query="으로부터의 검색결과 입니다.\n"+sendText)
         KeywordKeyboard.row(KeywordButton1)
@@ -334,7 +334,7 @@ def command_News_Search(m):
         KeywordKeyboard.row(KeywordButton3,KeywordButton4)
         bot.send_message(cid, sendText, parse_mode='HTML',reply_markup=KeywordKeyboard)
         # 키워드 추가
-        
+
     else :
         bot.send_message(cid, "검색 결과를 찾을 수 없습니다.")
 
