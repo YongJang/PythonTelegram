@@ -21,6 +21,8 @@ import pymysql
 import sys
 import feedparser
 import urllib.parse
+import random
+import string
 
 
 
@@ -378,7 +380,12 @@ def step100Social(call):
 @bot.callback_query_handler(func=lambda call: call.data == "110-1" and get_user_step(call.from_user.id) == 110)
 def step110IT_1(call):
     cid = call.from_user.id
-    cur.execute("SELECT * FROM information WHERE high = \'IT\' ORDER BY click_num DESC;")
+    ukg = get_user_kgroup(cid)
+    if ukg is 0:
+        symbols = string.digits
+        randomK = ''.join(random.choice(symbols) for _ in range(1))
+        ukg = randomK
+    cur.execute("SELECT * FROM information WHERE high = \'IT\' ORDER BY (k_group+10)%(10+"+ ukg +") ASC, click_num DESC;")
     row = cur.fetchall()
     total = len(row)
     entriesURL = []
