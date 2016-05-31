@@ -43,8 +43,11 @@ DELETE FROM users where step=0;
 DELETE FROM information where url = '테스트';
 SELECT * FROM jobs order by click_num DESC;
 desc jobs;
+/*
+테스트 코드
+//UPDATE users SET kgroupIT=5 WHERE PK_uid LIKE '2%';
+*/
 
-UPDATE users SET kgroupIT=5 WHERE PK_uid LIKE '2%';
 /*
 ========================================================================================
 */
