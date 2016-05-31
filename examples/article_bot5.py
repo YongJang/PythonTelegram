@@ -385,7 +385,7 @@ def step110IT_1(call):
         symbols = string.digits
         randomK = ''.join(random.choice(symbols) for _ in range(1))
         ukg = randomK
-    cur.execute("SELECT * FROM information WHERE high = \'IT\' ORDER BY (k_group+10)%(10+"+ ukg +") ASC, click_num DESC;")
+    cur.execute("SELECT * FROM information WHERE high = \'IT\' ORDER BY (k_group+10)%(10+"+ str(ukg) +") ASC, click_num DESC;")
     row = cur.fetchall()
     total = len(row)
     entriesURL = []
@@ -471,7 +471,7 @@ def step120Social_1(call):
         symbols = string.digits
         randomK = ''.join(random.choice(symbols) for _ in range(1))
         ukg = randomK
-    cur.execute("SELECT * FROM information WHERE high = \'경제\' ORDER BY (k_group+10)%(10+"+ ukg +") ASC, click_num DESC;")
+    cur.execute("SELECT * FROM information WHERE high = \'경제\' ORDER BY (k_group+10)%(10+"+ str(ukg) +") ASC, click_num DESC;")
     row = cur.fetchall()
     total = len(row)
     entriesURL = []

@@ -43,6 +43,8 @@ DELETE FROM users where step=0;
 DELETE FROM information where url = '테스트';
 SELECT * FROM jobs order by click_num DESC;
 desc jobs;
+
+UPDATE users SET kgroupIT=5 WHERE PK_uid LIKE '2%';
 /*
 ========================================================================================
 */
@@ -66,6 +68,7 @@ DELETE FROM shown where uid LIKE '2%';
 
 SELECT * from information;
 SELECT * from information ORDER BY (k_group+10)%16 ASC,click_num DESC LIMIT 3000;
+SELECT * from information ORDER BY click_num DESC LIMIT 1000;
 UPDATE information SET click_num = 0 WHERE click_num > 0;
 UPDATE jobs SET click_num = 0 WHERE click_num > 0;
 UPDATE society SET click_num = 0 WHERE click_num > 0;
