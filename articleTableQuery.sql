@@ -79,3 +79,11 @@ UPDATE society SET click_num = 0 WHERE click_num > 0;
 
 CREATE TABLE bot (name varchar(200))default character set utf8;
 SELECT * from bot;
+
+desc information;
+CREATE TABLE information_new (PK_aid INT UNSIGNED PRIMARY KEY AUTO_INCREMENT, url varchar(250) UNIQUE KEY, high VARCHAR(20), low text, title varchar(200), content TEXT, click_num INT, a_type VARCHAR(20), k_group INT, p_date varchar(20), meta text)default character set utf8;
+INSERT INTO information_new (PK_aid, url, high, low, title, content, click_num, a_type, k_group, p_date, meta) SELECT * FROM information;
+RENAME TABLE information TO information_old, information_new TO information;
+
+
+
