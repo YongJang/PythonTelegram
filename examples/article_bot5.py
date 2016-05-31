@@ -43,7 +43,7 @@ WEBSERVER_DNS = 'TelegramRedirect-982942058.ap-northeast-1.elb.amazonaws.com/'
 userStep = {}
 userLike = {}
 lastShown = {}
-kGroup = {}
+
 
 # uid 가져오기
 cur.execute("SELECT * FROM users")
@@ -57,9 +57,9 @@ else:
         temp = row[record][0]
         high = row[record][2]
         k = row[record][3]
+        k2 = row[record][4]
         knownUsers.append(temp)
         userLike[temp] = high
-        kGroup[temp] = k
 ######
 
 commands = {
@@ -128,10 +128,10 @@ def get_user_step(uid):
     else:
         if uid not in knownUsers:
             knownUsers.append(uid)
-            cur.execute("INSERT INTO users (PK_uid, step, high, kgroup) VALUES (" + str(uid) + ",0,0,0)" )
+            cur.execute("INSERT INTO users (PK_uid, step, high, kgroupIT, kgroupEconomy) VALUES (" + str(uid) + ",0,0,0,0)" )
             conn.commit()
         userStep[uid] = 0
-        print ("새로운 시작 \"/start\"")
+        print ("새로운 user_step \"/start\"")
         return 0
 
 def get_user_like(uid):
@@ -140,10 +140,34 @@ def get_user_like(uid):
     else:
         if uid not in knownUsers:
             knownUsers.append(uid)
-            cur.execute("INSERT INTO users (PK_uid, step, high, kgroup) VALUES (" + str(uid) + ",0,0,0)" )
+            cur.execute("INSERT INTO users (PK_uid, step, high, kgroupIT, kgroupEconomy) VALUES (" + str(uid) + ",0,0,0,0)" )
             conn.commit()
         userLike[uid] = 0
-        print ("새로운 시작 \"/start\"")
+        print ("새로운 user_like \"/start\"")
+        return 0
+
+def get_user_kgroup(uid, category):
+    if uid in knownUsers:
+        cur.execute("SELECT * FROM users WHERE PK_uid="+str(cid))
+        row = cur.fetchall()
+        total = len(row)
+        if total < 1:
+            print ("get_user_kgroup 함수 에러: 유저 정보 없음 ")
+            return 0
+        else:
+            for record in range(total):
+                k = row[record][3]
+                k2 = row[record[4]
+            if category is 'IT':
+                return k
+            else:
+                return k2
+    else:
+        knownUsers.append(uid)
+        cur.execute("INSERT INTO users (PK_uid, step, high, kgroupIT, kgroupEconomy) VALUES (" + str(uid) + ",0,0,0,0)" )
+        conn.commit()
+        userStep[uid] = 0
+        print ("새로운 user_kgroup \"/start\"")
         return 0
 
 def listener(messages):
@@ -163,6 +187,13 @@ def command_start(m):
     try:
         if cid not in knownUsers:
             knownUsers.append(cid)
+            cur.execute("SELECT * FROM users WHERE PK_uid="+str(cid))
+            row = cur.fetchall()
+            knownUsers = []
+            total = len(row)
+            if total < 1:
+                cur.execute("INSERT INTO users (PK_uid, step, high, kgroupIT, kgroupEconomy) VALUES (" + str(uid) + ",0,0,0,0)" )
+                conn.commit()
             userStep[cid] = 0
             bot.send_message(cid, m.chat.first_name + "님 안녕하세요. 처음 뵙겠습니다.")
             bot.send_message(cid, "사용자 등록이 완료되었습니다.")
