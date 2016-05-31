@@ -158,7 +158,7 @@ def get_user_kgroup(uid, category):
             for record in range(total):
                 k = row[record][3]
                 k2 = row[record[4]
-        if category == 'IT':
+        if str(category) == 'IT':
             return k
         else :
             return k2
