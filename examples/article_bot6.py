@@ -40,7 +40,7 @@ except pymysql.Error as e:
 #TOKEN = '207944330:AAGdpOvswmHangYooE8wBEf1p-vYP2skyL0'
 # @JobJangBot
 TOKEN = '207840488:AAEf42L9r0V2tHrX1lVm0QTRnj1e6m5y5bQ'
-WEBSERVER_DNS = 'TelegramRedirect-982942058.ap-northeast-1.elb.amazonaws.com/'
+WEBSERVER_DNS = 'http://TelegramRedirect-982942058.ap-northeast-1.elb.amazonaws.com/'
 BITLY_API_USER = 'yongjang'
 BITLY_API_KEY = 'R_2aa28870a1c440498cf13385c9fdaa16'
 
@@ -491,7 +491,7 @@ def step110IT_1(call):
         articleKeyboard.row(KeywordButton3,KeywordButton4)
         longurl = WEBSERVER_DNS + "?url=" + str(aid) + "&tb=information&uid=" + str(cid)
         longurl = longurl.replace("%26","&")
-        longurl = 'TelegramRedirect-982942058.ap-northeast-1.elb.amazonaws.com/index.php'
+        #longurl = 'http://TelegramRedirect-982942058.ap-northeast-1.elb.amazonaws.com/index.php'
         #longurl = longurl.replace("/","%2F")
         #longurl = longurl.replace("?","%3F")
         #longurl = longurl.replace("=","%3D")
