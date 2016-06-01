@@ -58,7 +58,8 @@ SELECT * FROM society;
 /*
 ========================================================================================
 */
-CREATE TABLE relationKeyword (PK_uid INT NOT NULL, keyword VARCHAR(1000), k_group INT)default character set utf8;
+CREATE TABLE relationKeyword (PK_uid INT NOT NULL, keyword varchar(40), k_group INT)default character set utf8;
+DROP TABLE relationKeyword;
 CREATE TABLE relation (PK_uid INT NOT NULL, url VARCHAR(1000), k_group INT)default character set utf8;
 CREATE TABLE relationIT (PK_uid INT NOT NULL, G1 INT, G2 INT, G3 INT, G4 INT, G5 INT, G6 INT, G7 INT, G8 INT, G9 INT, G10 INT, ETC INT)default character set utf8; 
 CREATE TABLE relationEconomy (PK_uid INT NOT NULL, G1 INT, G2 INT, G3 INT, G4 INT, G5 INT, G6 INT, G7 INT, G8 INT, G9 INT, G10 INT, ETC INT)default character set utf8; 

@@ -361,7 +361,18 @@ def command_News_Search(m):
         KeywordKeyboard.row(KeywordButton3,KeywordButton4)
         bot.send_message(cid, sendText, parse_mode='HTML',reply_markup=KeywordKeyboard)
         # 키워드 추가
-
+        if len(keyword) < 40:
+            high = ''
+            if get_user_like(cid) == 'IT':
+                high = 'IT'
+            else :
+                high = '경제'
+            cur.execute("INSERT INTO relationKeyword (PK_uid, keyword, high) VALUES (\'" + str(cid) +"\',\'" + keyword + "\',\'" + high + "\');")
+            conn.commit()
+            if cur.execute("SELECT * FROM relationKeyword WHERE keyword=\'"+ keyword +"\' and high=\'"+ high +"\';") >= 10:
+                if cur.execute("SELECT * FROM tags WHERE low=\'"+ keyword +"\' and high=\'"+ high +"\';") <1:
+                    cur.execute("INSERT INTO tags (high, low) VALUES (\'" + high +"\',\'" + low + "\');")
+                    conn.commit()
     else :
         bot.send_message(cid, "검색 결과를 찾을 수 없습니다.")
 
