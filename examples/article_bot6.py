@@ -491,8 +491,8 @@ def step110IT_1(call):
         articleKeyboard.row(KeywordButton3,KeywordButton4)
         longurl = WEBSERVER_DNS + "?url=" + str(aid) + "&tb=information&uid=" + str(cid)
 
-        query_params = {'access_token': BITLY_API_KEY,
-                        'longUrl': longurl}
+        query_params = {'access_token': str(BITLY_API_KEY),
+                        'longUrl': str(longurl)}
 
         endpoint = 'https://api-ssl.bitly.com/v3/shorten'
         response = requests.get(endpoint, params=query_params, verify=False)
