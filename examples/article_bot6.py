@@ -491,19 +491,6 @@ def step110IT_1(call):
         articleKeyboard.row(KeywordButton3,KeywordButton4)
         longurl = WEBSERVER_DNS + "?url=" + str(aid) + "&tb=information&uid=" + str(cid)
         longurl = longurl.replace("%26","&")
-        #longurl = 'http://TelegramRedirect-982942058.ap-northeast-1.elb.amazonaws.com/index.php'
-        #longurl = longurl.replace("/","%2F")
-        #longurl = longurl.replace("?","%3F")
-        #longurl = longurl.replace("=","%3D")
-
-        #query_params = {'access_token': str(BITLY_API_KEY),
-        #                'longUrl': str(longurl)}
-
-        #endpoint = 'https://api-ssl.bitly.com/v3/shorten'
-        #response = requests.get(endpoint, params=query_params, verify=False)
-
-        #biturl = json.loads(response.content)
-
         response = bit.shorten(uri=longurl)
         biturl = response['url']
         bot.send_message(cid, biturl + "\n눈에 띄는 키워드 : " + get_hash_tag('information',aid,'IT'), reply_markup=articleKeyboard)
