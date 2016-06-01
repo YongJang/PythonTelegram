@@ -505,7 +505,7 @@ def step110IT_1(call):
         #biturl = json.loads(response.content)
 
         response = bit.shorten(uri=longurl)
-        #biturl = response['url']
+        biturl = response['url']
         bot.send_message(cid, biturl + "\n눈에 띄는 키워드 : " + get_hash_tag('information',aid,'IT'), reply_markup=articleKeyboard)
     else :
         bot.send_message(cid, "아직 준비중입니다.")
