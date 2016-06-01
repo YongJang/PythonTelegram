@@ -188,9 +188,9 @@ def get_hash_tag(tb, pk_aid, high):
     temps = []
     for row in json_obj:
         for element in row:
-            key = str(element.keys()).replace("dict_keys([\'", ""). replace("\'])", "")
-            temp = [key, element.get(key)]
-            temps.append(temp)
+            key = element.replace("dict_keys([\'", ""). replace("\'])", "")
+            #temp = [key, element.get(key)]
+            temps.append(key)
     temps.sort(reverse=True)
     result = ""
     if len(temps) < 3:
