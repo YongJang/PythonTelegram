@@ -194,10 +194,11 @@ def get_hash_tag(tb, pk_aid, high):
     result = ""
     if len(temps) < 3:
         for element in temps:
-            result += element[0] + " "
+            result += element[0] + ","
     else:
         for index in range(3):
-            result += temps[index][0] + " "
+            result += temps[index][0] + ","
+    result = result[:-1]
     return result
 
 def listener(messages):
@@ -480,7 +481,7 @@ def step110IT_1(call):
         KeywordButton4 = types.InlineKeyboardButton('공유하기', switch_inline_query="으로부터의 검색결과 입니다.\n"+WEBSERVER_DNS + "?url=" + str(aid) + "&tb=information&uid=" + str(cid))
         articleKeyboard.row(articleKeyboardDetail, articleKeyboardLink, articleKeyboardNext)
         articleKeyboard.row(KeywordButton3,KeywordButton4)
-        bot.send_message(cid, WEBSERVER_DNS + "?url=" + str(aid) + "&tb=information&uid=" + str(cid) + "\n태그 : " + get_hash_tag('information',aid,'IT'), reply_markup=articleKeyboard)
+        bot.send_message(cid, WEBSERVER_DNS + "?url=" + str(aid) + "&tb=information&uid=" + str(cid) + "\n눈에 띄는 키워드 : " + get_hash_tag('information',aid,'IT'), reply_markup=articleKeyboard)
     else :
         bot.send_message(cid, "아직 준비중입니다.")
         bot.send_message(cid, "어떤 종류의 IT 글을 원하시나요?", reply_markup=step110Keyboard)
