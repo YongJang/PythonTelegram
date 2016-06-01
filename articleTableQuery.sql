@@ -51,6 +51,7 @@ desc jobs;
 /*
 ========================================================================================
 */
+SELECT * FROM jobs;
 SELECT * FROM jobs WHERE url = 'http://www.jobkorea.co.kr//Recruit/GI_Read/17169773?Oem_Code=C1&rPageCode=ST&PageGbn=ST' LIMIT 1;
 SELECT * FROM jobs WHERE url = 'http://www.jobkorea.co.kr//Recruit/GI_Read/17169773?Oem_Code=C1' LIMIT 1;
 SELECT * FROM society;
@@ -91,5 +92,7 @@ CREATE TABLE information_new (PK_aid INT UNSIGNED PRIMARY KEY AUTO_INCREMENT, ur
 INSERT INTO information_new (PK_aid, url, high, low, title, content, click_num, a_type, k_group, p_date, meta) SELECT * FROM information;
 RENAME TABLE information TO information_old, information_new TO information;
 
-
+SELECT * from jobs;
+UPDATE jobs SET high = 'IT' WHERE high = ' IT ';
+desc jobs;
 

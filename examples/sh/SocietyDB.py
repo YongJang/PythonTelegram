@@ -108,7 +108,7 @@ try:
                         break
 
                     if cur.execute("""SELECT url from society where url = %s""", 'http://www.jobkorea.co.kr/' + str(hrefs[index])) < 1 and  len(tag_str) > 4:
-                        cur.execute("INSERT INTO society (url, high , low , title, content, click_num, aType, k_group, pDate, meta) VALUES (\'http://www.jobkorea.co.kr/" + str(hrefs[index])  +"\',\' Society \',\'[" + str(tag_str) + "]\',\'"+ str(db_title) + "\' ,\' contents \' , 0, \'Job\', 0, \'" + pDate + "\',\'"+ meta_all + "\');")
+                        cur.execute("INSERT INTO society (url, high , low , title, content, click_num, aType, k_group, pDate, meta) VALUES (\'http://www.jobkorea.co.kr/" + str(hrefs[index])  +"\',\'Society\',\'[" + str(tag_str) + "]\',\'"+ str(db_title) + "\' ,\'contents\' , 0, \'Job\', 0, \'" + pDate + "\',\'"+ meta_all + "\');")
                         conn.commit()
                     else :
                         continue
