@@ -23,7 +23,7 @@ import feedparser
 import urllib.parse
 import random
 import string
-import bitlyapi
+import bitly_api
 
 
 
