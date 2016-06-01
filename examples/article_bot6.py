@@ -434,7 +434,7 @@ def step110IT_1(call):
     else:
         symbols = string.digits
         randomK = ''.join(random.choice(symbols) for _ in range(2))
-        if randomK < probability:
+        if int(randomK) < probability:
             randomK = ''.join(random.choice(symbols) for _ in range(1))
             ukg = randomK
             recommand = 0
