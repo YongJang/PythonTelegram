@@ -483,22 +483,23 @@ def step110IT_1(call):
                 aid = row[record][0]
         cur.execute("INSERT INTO shown (uid, url) VALUES (\'" + str(cid) +"\',\'" + url + "\');")
         conn.commit()
+        longurl = ""
+        try:
+            longurl = WEBSERVER_DNS + "?url=" + str(aid) + "&tb=information&uid=" + str(cid)
+            longurl = longurl.replace("%26","&")
+            response = bit.shorten(uri=longurl, preferred_domain='j.mp')
+            longurl = response['url']
+        except:
+            longurl = WEBSERVER_DNS + "?url=" + str(aid) + "&tb=information&uid=" + str(cid)
         articleKeyboard = types.InlineKeyboardMarkup(3)
         articleKeyboardDetail = types.InlineKeyboardButton('자세히', callback_data="aDetail")
         articleKeyboardNext = types.InlineKeyboardButton('다른 기사', callback_data="110-1")
         articleKeyboardLink = types.InlineKeyboardButton('링크로 이동', url=WEBSERVER_DNS + "?url=" + str(aid) + "&tb=information&uid=" + str(cid))
         KeywordButton3 = types.InlineKeyboardButton('처음으로', callback_data="001")
-        KeywordButton4 = types.InlineKeyboardButton('공유하기', switch_inline_query="으로부터의 검색결과 입니다.\n"+WEBSERVER_DNS + "?url=" + str(aid) + "&tb=information&uid=" + str(cid))
+        KeywordButton4 = types.InlineKeyboardButton('공유하기', switch_inline_query="으로부터의 검색결과 입니다.\n"+longurl)
         articleKeyboard.row(articleKeyboardDetail, articleKeyboardLink, articleKeyboardNext)
         articleKeyboard.row(KeywordButton3,KeywordButton4)
-        longurl = WEBSERVER_DNS + "?url=" + str(aid) + "&tb=information&uid=" + str(cid)
-        try:
-            longurl = longurl.replace("%26","&")
-            response = bit.shorten(uri=longurl, preferred_domain='j.mp')
-            biturl = response['url']
-            bot.send_message(cid, biturl + "\n눈에 띄는 키워드 : " + get_hash_tag('information',aid,'IT'), reply_markup=articleKeyboard)
-        except:
-            bot.send_message(cid, longurl + "\n눈에 띄는 키워드 : " + get_hash_tag('information',aid,'IT'), reply_markup=articleKeyboard)
+        bot.send_message(cid, longurl + "\n눈에 띄는 키워드 : " + get_hash_tag('information',aid,'IT'), reply_markup=articleKeyboard)
     else :
         bot.send_message(cid, "아직 준비중입니다.")
         bot.send_message(cid, "어떤 종류의 IT 글을 원하시나요?", reply_markup=step110Keyboard)
