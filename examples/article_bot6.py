@@ -43,8 +43,10 @@ TOKEN = '207840488:AAEf42L9r0V2tHrX1lVm0QTRnj1e6m5y5bQ'
 WEBSERVER_DNS = 'http://TelegramRedirect-982942058.ap-northeast-1.elb.amazonaws.com/'
 BITLY_API_USER = 'yongjang'
 BITLY_API_KEY = 'R_2aa28870a1c440498cf13385c9fdaa16'
+BITLY_ACCESS_TOKEN = '205b5db4edb8ec0d9e776d343a64291082fe94b7'
 
-bit = bitly_api.Connection(login=BITLY_API_USER, api_key=BITLY_API_KEY)
+#bit = bitly_api.Connection(login=BITLY_API_USER, api_key=BITLY_API_KEY)
+bit = bitly_api.Connection(access_token=BITLY_ACCESS_TOKEN)
 #if len(sys.argv) != 2:
 #    print ("bitLy 에러")
 #    sys.exit(0)
@@ -490,10 +492,13 @@ def step110IT_1(call):
         articleKeyboard.row(articleKeyboardDetail, articleKeyboardLink, articleKeyboardNext)
         articleKeyboard.row(KeywordButton3,KeywordButton4)
         longurl = WEBSERVER_DNS + "?url=" + str(aid) + "&tb=information&uid=" + str(cid)
-        longurl = longurl.replace("%26","&")
-        response = bit.shorten(uri=longurl, preferred_domain='j.mp')
-        biturl = response['url']
-        bot.send_message(cid, biturl + "\n눈에 띄는 키워드 : " + get_hash_tag('information',aid,'IT'), reply_markup=articleKeyboard)
+        try:
+            longurl = longurl.replace("%26","&")
+            response = bit.shorten(uri=longurl, preferred_domain='j.mp')
+            biturl = response['url']
+            bot.send_message(cid, biturl + "\n눈에 띄는 키워드 : " + get_hash_tag('information',aid,'IT'), reply_markup=articleKeyboard)
+        except:
+            bot.send_message(cid, longurl + "\n눈에 띄는 키워드 : " + get_hash_tag('information',aid,'IT'), reply_markup=articleKeyboard)
     else :
         bot.send_message(cid, "아직 준비중입니다.")
         bot.send_message(cid, "어떤 종류의 IT 글을 원하시나요?", reply_markup=step110Keyboard)
