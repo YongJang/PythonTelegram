@@ -186,10 +186,11 @@ def get_hash_tag(tb, pk_aid, high):
     rows = cur.fetchone()
     json_obj = json.loads(rows[0].decode('utf8', 'surrogatepass'), encoding="utf-8")
     temps = []
-    for element in row:
-        key = element.replace("dict_keys([\'", ""). replace("\'])", "")
-        #temp = [key, element.get(key)]
-        temps.append(key)
+    for row in json_obj:
+        for element in row:
+            key = element.replace("dict_keys([\'", ""). replace("\'])", "")
+            #temp = [key, element.get(key)]
+            temps.append(key)
     temps.sort(reverse=True)
     result = ""
     if len(temps) < 3:
