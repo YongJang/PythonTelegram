@@ -490,7 +490,7 @@ def step110IT_1(call):
         articleKeyboard.row(articleKeyboardDetail, articleKeyboardLink, articleKeyboardNext)
         articleKeyboard.row(KeywordButton3,KeywordButton4)
         longurl = WEBSERVER_DNS + "?url=" + str(aid) + "&tb=information&uid=" + str(cid)
-        response = bit.shorten(longUrl=longurl)
+        response = bit.shorten(uri=longurl)
         biturl = response['url']
         bot.send_message(cid, biturl + "\n눈에 띄는 키워드 : " + get_hash_tag('information',aid,'IT'), reply_markup=articleKeyboard)
     else :
