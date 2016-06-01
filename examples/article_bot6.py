@@ -545,7 +545,14 @@ def step110IT_2(call):
         KeywordButton4 = types.InlineKeyboardButton('공유하기', switch_inline_query="으로부터의 검색결과 입니다.\n"+WEBSERVER_DNS + "?url=" + str(aid) + "&tb=jobs&uid=" + str(cid))
         articleKeyboard.row(articleKeyboardLink, articleKeyboardNext)
         articleKeyboard.row(KeywordButton3,KeywordButton4)
-        bot.send_message(cid, WEBSERVER_DNS + "?url=" + str(aid) + "&tb=jobs&uid=" + str(cid) + "\n눈에 띄는 키워드 : " + get_hash_tag('jobs',aid,'IT'), reply_markup=articleKeyboard)
+        longurl = WEBSERVER_DNS + "?url=" + str(aid) + "&tb=jobs&uid=" + str(cid)
+        try:
+            longurl = longurl.replace("%26","&")
+            response = bit.shorten(uri=longurl, preferred_domain='j.mp')
+            biturl = response['url']
+            bot.send_message(cid, biturl + "\n눈에 띄는 키워드 : " + get_hash_tag('jobs',aid,'IT'), reply_markup=articleKeyboard)
+        except:
+            bot.send_message(cid, longurl + "\n눈에 띄는 키워드 : " + get_hash_tag('jobs',aid,'IT'), reply_markup=articleKeyboard)
     else :
         bot.send_message(cid, "아직 준비중입니다.")
         bot.send_message(cid, "어떤 종류의 IT 글을 원하시나요?", reply_markup=step110Keyboard)
@@ -615,7 +622,14 @@ def step120Social_1(call):
         KeywordButton4 = types.InlineKeyboardButton('공유하기', switch_inline_query="으로부터의 검색결과 입니다.\n"+WEBSERVER_DNS + "?url=" + str(aid) + "&tb=information&uid=" + str(cid))
         articleKeyboard.row(articleKeyboardDetail, articleKeyboardLink, articleKeyboardNext)
         articleKeyboard.row(KeywordButton3,KeywordButton4)
-        bot.send_message(cid, WEBSERVER_DNS + "?url=" + str(aid) + "&tb=information&uid=" + str(cid) + "\n눈에 띄는 키워드 : " + get_hash_tag('information',aid,'경제'), reply_markup=articleKeyboard)
+        longurl = WEBSERVER_DNS + "?url=" + str(aid) + "&tb=information&uid=" + str(cid)
+        try:
+            longurl = longurl.replace("%26","&")
+            response = bit.shorten(uri=longurl, preferred_domain='j.mp')
+            biturl = response['url']
+            bot.send_message(cid, biturl + "\n눈에 띄는 키워드 : " + get_hash_tag('information',aid,'경제'), reply_markup=articleKeyboard)
+        except:
+            bot.send_message(cid, longurl + "\n눈에 띄는 키워드 : " + get_hash_tag('information',aid,'경제'), reply_markup=articleKeyboard)
     else :
         bot.send_message(cid, "아직 준비중입니다.")
         bot.send_message(cid, "어떤 종류의 사회 글을 원하시나요?", reply_markup=step120Keyboard)
@@ -662,7 +676,14 @@ def step120Social_2(call):
         KeywordButton4 = types.InlineKeyboardButton('공유하기', switch_inline_query="으로부터의 검색결과 입니다.\n"+WEBSERVER_DNS + "?url=" + str(aid) + "&tb=society&uid=" + str(cid))
         articleKeyboard.row(articleKeyboardLink, articleKeyboardNext)
         articleKeyboard.row(KeywordButton3,KeywordButton4)
-        bot.send_message(cid, WEBSERVER_DNS + "?url=" + str(aid) + "&tb=society&uid=" + str(cid) + "\n눈에 띄는 키워드 : " + get_hash_tag('society',aid,'Society'), reply_markup=articleKeyboard)
+        longurl = WEBSERVER_DNS + "?url=" + str(aid) + "&tb=society&uid=" + str(cid)
+        try:
+            longurl = longurl.replace("%26","&")
+            response = bit.shorten(uri=longurl, preferred_domain='j.mp')
+            biturl = response['url']
+            bot.send_message(cid, biturl + "\n눈에 띄는 키워드 : " + get_hash_tag('society',aid,'Society'), reply_markup=articleKeyboard)
+        except:
+            bot.send_message(cid, longurl + "\n눈에 띄는 키워드 : " + get_hash_tag('society',aid,'Society'), reply_markup=articleKeyboard)
     else :
         bot.send_message(cid, "아직 준비중입니다.")
         bot.send_message(cid, "어떤 종류의 사회 글을 원하시나요?", reply_markup=step120Keyboard)
