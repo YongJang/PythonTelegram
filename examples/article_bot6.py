@@ -23,7 +23,7 @@ import feedparser
 import urllib.parse
 import random
 import string
-
+import bitlyapi
 
 
 
@@ -41,6 +41,14 @@ except pymysql.Error as e:
 # @JobJangBot
 TOKEN = '207840488:AAEf42L9r0V2tHrX1lVm0QTRnj1e6m5y5bQ'
 WEBSERVER_DNS = 'TelegramRedirect-982942058.ap-northeast-1.elb.amazonaws.com/'
+BITLY_API_USER = 'yongjang'
+BITLY_API_KEY = 'R_2aa28870a1c440498cf13385c9fdaa16'
+
+bit = bitlyapi.BitLy(BITLY_API_USER, BITLY_API_KEY)
+if len(sys.argv) != 2:
+    print "bitLy 에러"
+    sys.exit(0)
+
 
 userStep = {}
 userLike = {}
@@ -481,7 +489,10 @@ def step110IT_1(call):
         KeywordButton4 = types.InlineKeyboardButton('공유하기', switch_inline_query="으로부터의 검색결과 입니다.\n"+WEBSERVER_DNS + "?url=" + str(aid) + "&tb=information&uid=" + str(cid))
         articleKeyboard.row(articleKeyboardDetail, articleKeyboardLink, articleKeyboardNext)
         articleKeyboard.row(KeywordButton3,KeywordButton4)
-        bot.send_message(cid, WEBSERVER_DNS + "?url=" + str(aid) + "&tb=information&uid=" + str(cid) + "\n눈에 띄는 키워드 : " + get_hash_tag('information',aid,'IT'), reply_markup=articleKeyboard)
+        longurl = WEBSERVER_DNS + "?url=" + str(aid) + "&tb=information&uid=" + str(cid)
+        response = bit.shorten(longUrl=longurl)
+        biturl = response['url']
+        bot.send_message(cid, biturl + "\n눈에 띄는 키워드 : " + get_hash_tag('information',aid,'IT'), reply_markup=articleKeyboard)
     else :
         bot.send_message(cid, "아직 준비중입니다.")
         bot.send_message(cid, "어떤 종류의 IT 글을 원하시나요?", reply_markup=step110Keyboard)
