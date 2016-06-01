@@ -491,7 +491,7 @@ def step110IT_1(call):
         articleKeyboard.row(KeywordButton3,KeywordButton4)
         longurl = WEBSERVER_DNS + "?url=" + str(aid) + "&tb=information&uid=" + str(cid)
         longurl = longurl.replace("%26","&")
-        longurl = 'TelegramRedirect-982942058.ap-northeast-1.elb.amazonaws.com/?url=9654&tb=information&uid=202899924'
+        longurl = 'TelegramRedirect-982942058.ap-northeast-1.elb.amazonaws.com/'
         #longurl = longurl.replace("/","%2F")
         #longurl = longurl.replace("?","%3F")
         #longurl = longurl.replace("=","%3D")
