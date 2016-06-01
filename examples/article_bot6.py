@@ -195,10 +195,10 @@ def get_hash_tag(tb, pk_aid, high):
     result = ""
     if len(temps) < 3:
         for element in temps:
-            result += element[0] + " "
+            result += element + " "
     else:
-        for index in range(3):
-            result += temps[index][0] + " "
+        for element in range(3):
+            result += element + " "
     return result
 
 def listener(messages):
