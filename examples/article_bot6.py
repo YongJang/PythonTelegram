@@ -553,11 +553,24 @@ def step110IT_2(call):
 def step120Social_1(call):
     cid = call.from_user.id
     ukg = get_user_kgroup(cid,'Economy')
+    probability = 30  # 지정된 kGroup 기사 외 다른 기사를 전달할 확률
+    recommand = 1
     if ukg is 0:
         symbols = string.digits
         randomK = ''.join(random.choice(symbols) for _ in range(1))
         ukg = randomK
-    cur.execute("SELECT * FROM information WHERE high = \'경제\' ORDER BY (k_group+10)%(10+"+ str(ukg) +") ASC, click_num DESC;")
+        recommand = 0
+    else:
+        symbols = string.digits
+        randomK = ''.join(random.choice(symbols) for _ in range(2))
+        if int(randomK) < probability:
+            randomK = ''.join(random.choice(symbols) for _ in range(1))
+            ukg = randomK
+            recommand = 0
+    if recommand == 1:
+        cur.execute("SELECT * FROM information WHERE high = \'경제\' ORDER BY (k_group+10)%(10+"+ str(ukg) +") ASC, click_num DESC;")
+    else:
+        cur.execute("SELECT * FROM information WHERE high = \'경제\' ORDER BY (k_group+10)%(10+"+ str(ukg) +") ASC, p_date DESC;")
     row = cur.fetchall()
     total = len(row)
     entriesURL = []
