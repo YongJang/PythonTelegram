@@ -36,7 +36,6 @@ select * from tags LIMIT 3000;
 ========================================================================================
 */
 CREATE TABLE users (PK_uid INT PRIMARY KEY NOT NULL, step INT, high INT, kgroupIT INT, kgroupEconomy INT);
-DROP TABLE users;
 SELECT * FROM users;
 SET SQL_SAFE_UPDATES=0;
 DELETE FROM users where step=0;
