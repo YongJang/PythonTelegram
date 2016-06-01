@@ -179,7 +179,7 @@ def get_hash_tag(tb, pk_aid, high):
     태그의 출현빈도수가 높은 순으로 1, 2, 3위까지 표현한다.
     return : key key key (string)
     """
-    sql = "SELECT low FROM "+ tb +" WHERE PK_aid = %s and high = "+high
+    sql = "SELECT low FROM "+ tb +" WHERE PK_aid = %s and high = '"+high+"';"
     values = (pk_aid)
     cur.execute(sql, values)
     conn.commit()
