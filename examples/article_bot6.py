@@ -491,10 +491,10 @@ def step110IT_1(call):
         articleKeyboard.row(KeywordButton3,KeywordButton4)
         longurl = WEBSERVER_DNS + "?url=" + str(aid) + "&tb=information&uid=" + str(cid)
         longurl = "http://www.naver.com/"
-        longurl = longurl.replace(":","%3A")
-        longurl = longurl.replace("/","%2F")
-        longurl = longurl.replace("?","%3F")
-        longurl = longurl.replace("=","%3D")
+        #longurl = longurl.replace(":","%3A")
+        #longurl = longurl.replace("/","%2F")
+        #longurl = longurl.replace("?","%3F")
+        #longurl = longurl.replace("=","%3D")
 
         #query_params = {'access_token': str(BITLY_API_KEY),
         #                'longUrl': str(longurl)}
