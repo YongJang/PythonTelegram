@@ -184,7 +184,7 @@ def get_hash_tag(tb, pk_aid, high):
     cur.execute(sql, values)
     conn.commit()
     rows = cur.fetchone()
-    json_obj = json.loads(rows.decode('utf8', 'surrogatepass'), encoding="utf-8")
+    json_obj = json.loads(rows[0].decode('utf8', 'surrogatepass'), encoding="utf-8")
     temps = []
     for row in json_obj:
         for element in row:
