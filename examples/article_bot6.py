@@ -44,7 +44,7 @@ WEBSERVER_DNS = 'TelegramRedirect-982942058.ap-northeast-1.elb.amazonaws.com/'
 BITLY_API_USER = 'yongjang'
 BITLY_API_KEY = 'R_2aa28870a1c440498cf13385c9fdaa16'
 
-bit = bitly_api.Connection(api_key=BITLY_API_KEY)
+bit = bitly_api.Connection(login=BITLY_API_USER, api_key=BITLY_API_KEY)
 #if len(sys.argv) != 2:
 #    print ("bitLy 에러")
 #    sys.exit(0)
