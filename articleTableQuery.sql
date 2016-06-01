@@ -93,6 +93,6 @@ INSERT INTO information_new (PK_aid, url, high, low, title, content, click_num, 
 RENAME TABLE information TO information_old, information_new TO information;
 
 SELECT * from jobs;
-UPDATE jobs SET high = 'IT' WHERE high = ' IT ';
+UPDATE society SET high = 'Society' WHERE high = ' Society ';
 desc jobs;
 

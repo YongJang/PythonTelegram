@@ -561,7 +561,7 @@ def step120Social_1(call):
         KeywordButton4 = types.InlineKeyboardButton('공유하기', switch_inline_query="으로부터의 검색결과 입니다.\n"+WEBSERVER_DNS + "?url=" + str(aid) + "&tb=information&uid=" + str(cid))
         articleKeyboard.row(articleKeyboardDetail, articleKeyboardLink, articleKeyboardNext)
         articleKeyboard.row(KeywordButton3,KeywordButton4)
-        bot.send_message(cid, WEBSERVER_DNS + "?url=" + str(aid) + "&tb=information&uid=" + str(cid) + "\n태그 : " + get_hash_tag('jobs',aid,'경제'), reply_markup=articleKeyboard)
+        bot.send_message(cid, WEBSERVER_DNS + "?url=" + str(aid) + "&tb=information&uid=" + str(cid) + "\n태그 : " + get_hash_tag('information',aid,'경제'), reply_markup=articleKeyboard)
     else :
         bot.send_message(cid, "아직 준비중입니다.")
         bot.send_message(cid, "어떤 종류의 사회 글을 원하시나요?", reply_markup=step120Keyboard)
