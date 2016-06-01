@@ -174,6 +174,33 @@ def get_user_kgroup(uid, category):
     else :
         return k2
 
+def get_hash_tag(pk_aid):
+    """
+    태그의 출현빈도수가 높은 순으로 1, 2, 3위까지 표현한다.
+    return : key key key (string)
+    """
+    sql = "SELECT low FROM information WHERE PK_aid = %s"
+    values = (pk_aid)
+    cur.execute(sql, values)
+    conn.commit()
+    rows = cur.fetchone()
+    json_obj = json.loads(rows.decode('utf8', 'surrogatepass'), encoding="utf-8")
+    temps = []
+    for row in json_obj:
+        for element in row:
+            key = str(element.keys()).replace("dict_keys([\'", ""). replace("\'])", "")
+            temp = [key, element.get(key)]
+            temps.append(temp)
+    temps.sort(reverse=True)
+    result = ""
+    if len(temps) < 3:
+        for element in temps:
+            result += element[0] + " "
+    else:
+        for index in range(3):
+            result += temps[index][0] + " "
+    return result
+
 def listener(messages):
     """
     When new messages arrive TeleBot will call this function.
