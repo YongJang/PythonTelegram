@@ -174,13 +174,13 @@ def get_user_kgroup(uid, category):
     else :
         return k2
 
-def get_hash_tag(pk_aid):
+def get_hash_tag(tb, pk_aid, high):
     """
     태그의 출현빈도수가 높은 순으로 1, 2, 3위까지 표현한다.
     return : key key key (string)
     """
-    sql = "SELECT low FROM information WHERE PK_aid = %s"
-    values = (pk_aid)
+    sql = "SELECT low FROM %s WHERE PK_aid = %s and high = %s"
+    values = (tb, pk_aid, high)
     cur.execute(sql, values)
     conn.commit()
     rows = cur.fetchone()
@@ -457,7 +457,7 @@ def step110IT_1(call):
         KeywordButton4 = types.InlineKeyboardButton('공유하기', switch_inline_query="으로부터의 검색결과 입니다.\n"+WEBSERVER_DNS + "?url=" + str(aid) + "&tb=information&uid=" + str(cid))
         articleKeyboard.row(articleKeyboardDetail, articleKeyboardLink, articleKeyboardNext)
         articleKeyboard.row(KeywordButton3,KeywordButton4)
-        bot.send_message(cid, WEBSERVER_DNS + "?url=" + str(aid) + "&tb=information&uid=" + str(cid), reply_markup=articleKeyboard)
+        bot.send_message(cid, WEBSERVER_DNS + "?url=" + str(aid) + "&tb=information&uid=" + str(cid) + "\n태그 : " + get_hash_tag('information',aid,'IT'), reply_markup=articleKeyboard)
     else :
         bot.send_message(cid, "아직 준비중입니다.")
         bot.send_message(cid, "어떤 종류의 IT 글을 원하시나요?", reply_markup=step110Keyboard)
@@ -504,7 +504,7 @@ def step110IT_2(call):
         KeywordButton4 = types.InlineKeyboardButton('공유하기', switch_inline_query="으로부터의 검색결과 입니다.\n"+WEBSERVER_DNS + "?url=" + str(aid) + "&tb=jobs&uid=" + str(cid))
         articleKeyboard.row(articleKeyboardLink, articleKeyboardNext)
         articleKeyboard.row(KeywordButton3,KeywordButton4)
-        bot.send_message(cid, WEBSERVER_DNS + "?url=" + str(aid) + "&tb=jobs&uid=" + str(cid), reply_markup=articleKeyboard)
+        bot.send_message(cid, WEBSERVER_DNS + "?url=" + str(aid) + "&tb=jobs&uid=" + str(cid) + "\n태그 : " + get_hash_tag('jobs',aid,'IT'), reply_markup=articleKeyboard)
     else :
         bot.send_message(cid, "아직 준비중입니다.")
         bot.send_message(cid, "어떤 종류의 IT 글을 원하시나요?", reply_markup=step110Keyboard)
@@ -561,7 +561,7 @@ def step120Social_1(call):
         KeywordButton4 = types.InlineKeyboardButton('공유하기', switch_inline_query="으로부터의 검색결과 입니다.\n"+WEBSERVER_DNS + "?url=" + str(aid) + "&tb=information&uid=" + str(cid))
         articleKeyboard.row(articleKeyboardDetail, articleKeyboardLink, articleKeyboardNext)
         articleKeyboard.row(KeywordButton3,KeywordButton4)
-        bot.send_message(cid, WEBSERVER_DNS + "?url=" + str(aid) + "&tb=information&uid=" + str(cid), reply_markup=articleKeyboard)
+        bot.send_message(cid, WEBSERVER_DNS + "?url=" + str(aid) + "&tb=information&uid=" + str(cid) + "\n태그 : " + get_hash_tag('jobs',aid,'경제'), reply_markup=articleKeyboard)
     else :
         bot.send_message(cid, "아직 준비중입니다.")
         bot.send_message(cid, "어떤 종류의 사회 글을 원하시나요?", reply_markup=step120Keyboard)
@@ -608,7 +608,7 @@ def step120Social_2(call):
         KeywordButton4 = types.InlineKeyboardButton('공유하기', switch_inline_query="으로부터의 검색결과 입니다.\n"+WEBSERVER_DNS + "?url=" + str(aid) + "&tb=society&uid=" + str(cid))
         articleKeyboard.row(articleKeyboardLink, articleKeyboardNext)
         articleKeyboard.row(KeywordButton3,KeywordButton4)
-        bot.send_message(cid, WEBSERVER_DNS + "?url=" + str(aid) + "&tb=society&uid=" + str(cid), reply_markup=articleKeyboard)
+        bot.send_message(cid, WEBSERVER_DNS + "?url=" + str(aid) + "&tb=society&uid=" + str(cid) + "\n태그 : " + get_hash_tag('society',aid,'Society'), reply_markup=articleKeyboard)
     else :
         bot.send_message(cid, "아직 준비중입니다.")
         bot.send_message(cid, "어떤 종류의 사회 글을 원하시나요?", reply_markup=step120Keyboard)
