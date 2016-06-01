@@ -371,7 +371,7 @@ def command_News_Search(m):
             conn.commit()
             if cur.execute("SELECT * FROM relationKeyword WHERE keyword=\'"+ keyword +"\' and high=\'"+ high +"\';") >= 10:
                 if cur.execute("SELECT * FROM tags WHERE low=\'"+ keyword +"\' and high=\'"+ high +"\';") <1:
-                    cur.execute("INSERT INTO tags (high, low) VALUES (\'" + high +"\',\'" + low + "\');")
+                    cur.execute("INSERT INTO tags (high, low) VALUES (\'" + high +"\',\'" + keyword + "\');")
                     conn.commit()
     else :
         bot.send_message(cid, "검색 결과를 찾을 수 없습니다.")
