@@ -27,9 +27,10 @@ CREATE TABLE tags (high varchar(40), low varchar(40))default character set utf8;
 set character_set_connection=utf8;
 set names utf8;
 DELETE FROM tags where high='IT';
+DELETE FROM tags where low='CPI';
 DELETE FROM tags where high='사회';
-load data local infile 'D:\\Github\\PythonTelegram\\ITtags4.csv' into table tags fields terminated by ',' enclosed by '"' lines terminated by '\r\n';
-load data local infile 'D:\\Github\\PythonTelegram\\SocialTags.csv' into table tags fields terminated by ',' enclosed by '"' lines terminated by '\r\n';
+load data local infile 'D:\\PythonTelegram\\ITtags05.csv' into table tags fields terminated by ',' enclosed by '"' lines terminated by '\r\n';
+load data local infile 'D:\\PythonTelegram\\Economy.csv' into table tags fields terminated by ',' enclosed by '"' lines terminated by '\r\n';
 CREATE TABLE tags (high varchar(40), low varchar(40))default character set utf8;
 select * from tags LIMIT 3000;
 /*
@@ -39,7 +40,8 @@ CREATE TABLE users (PK_uid INT PRIMARY KEY NOT NULL, step INT, high INT, kgroupI
 SELECT * FROM users;
 SET SQL_SAFE_UPDATES=0;
 DELETE FROM users where step=0;
-DELETE FROM information where url = '테스트';
+DELETE FROM information where k_group >= 0;
+SELECT * FROM information;
 SELECT * FROM jobs order by click_num DESC;
 desc jobs;
 /*
@@ -59,8 +61,9 @@ SELECT * FROM society;
 */
 CREATE TABLE relationKeyword (PK_uid INT NOT NULL, keyword varchar(40), high varchar(40))default character set utf8;
 SELECT * FROM relationKeyword;
-SELECT * FROM tags WHERE low='123' and high='경제';
-DELETE FROM tags WHERE low='123';
+SELECT * FROM tags;
+DELETE FROM tags WHERE high='경제';
+
 
 CREATE TABLE relation (PK_uid INT NOT NULL, url VARCHAR(1000), k_group INT)default character set utf8;
 CREATE TABLE relationIT (PK_uid INT NOT NULL, G1 INT, G2 INT, G3 INT, G4 INT, G5 INT, G6 INT, G7 INT, G8 INT, G9 INT, G10 INT, ETC INT)default character set utf8; 
@@ -71,12 +74,12 @@ SELECT * FROM relationEconomy;
 /*
 ========================================================================================
 */
-SELECT * FROM information WHERE high = 'IT' ORDER BY click_num DESC;
+SELECT * FROM information WHERE high = 'IT' ORDER BY click_num DESC, k_group ASC;
 SELECT * FROM shown;
+SELECT * FROM tags LIMIT 3000;
 
 SET SQL_SAFE_UPDATES=0;
-DELETE FROM shown where uid=202899924;
-DELETE FROM shown where uid LIKE '2%';
+DELETE FROM shown where uid>0;
 
 
 SELECT * from information;
