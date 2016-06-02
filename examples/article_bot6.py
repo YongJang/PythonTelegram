@@ -75,7 +75,7 @@ else:
 commands = {
               'start': '봇 사용을 시작합니다.',
               'help': '사용 가능한 명령어들을 봅니다.',
-              'broadcasting':'이 봇을 사용하는 모든 유저에게 메세지를 전달합니다.',
+              #'broadcasting':'이 봇을 사용하는 모든 유저에게 메세지를 전달합니다.',
               'getImage': '이미지를 가져옵니다.',
               'JobJang':'잡장 서비스 시작하기',
               'keyword':'키워드검색 서비스 시작하기'
@@ -289,9 +289,13 @@ def command_help(m):
 @bot.message_handler(commands=['broadcasting'])
 def command_broadcast(m):
     sender = m.chat.first_name
-    for uid in knownUsers:
-        cid = uid
-        bot.send_message(cid, sender + "님의 Broadcasting 메세지 입니다.")
+    isadmin = m.chat.id
+    if isadmin = 202899924:
+        for uid in knownUsers:
+            cid = uid
+            bot.send_message(cid, sender + "님의 Broadcasting 메세지 입니다.")
+    else:
+        bot.send_message(isadmin, "준비중인 기능입니다.")
 
 @bot.message_handler(commands=['getImage'])
 def command_image(m):
@@ -313,21 +317,21 @@ def msg_image_select(m):
         bot.send_photo(cid, open('kitten.jpg', 'rb'), reply_markup=hideBoard)
         userStep[cid] = 0
     else:
-        url = "http://runezone.com/imagehost/images/5741/Cute-Kitten.jpg"
-        #imgdata = urlopen(url).read()
-        #response = Request(url, headers={'User-Agent':'Mozilla/5.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1; .NET CLR 1.1.4322; .NET CLR 2.0.50727; .NET CLR 3.0.04506.30)'})
-        req = Request(url, headers={'User-Agent':'Mozilla/5.0'})
-        response = urlopen(req)
-        #img = Image.open(BytesIO(urlopen(response).read()))
-        img = response.read()
+        #url = "http://runezone.com/imagehost/images/5741/Cute-Kitten.jpg"
+        ##imgdata = urlopen(url).read()
+        ##response = Request(url, headers={'User-Agent':'Mozilla/5.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1; .NET CLR 1.1.4322; .NET CLR 2.0.50727; .NET CLR 3.0.04506.30)'})
+        #req = Request(url, headers={'User-Agent':'Mozilla/5.0'})
+        #response = urlopen(req)
+        ##img = Image.open(BytesIO(urlopen(response).read()))
+        #img = response.read()
 
-        """
-        에러 발생(미해결)
-        Photo has unsupported extension. Use one of .jpg, .jpeg, .gif, .png, .tif or .bmp
-        """
-        bot.send_photo(cid, img, reply_markup = hideBoard)
-        bot.send_message(cid, "Success!!")
-        bot.send_message(cid, "Please try again")
+        #"""
+        #에러 발생(미해결)
+        #Photo has unsupported extension. Use one of .jpg, .jpeg, .gif, .png, .tif or .bmp
+        #"""
+        #bot.send_photo(cid, img, reply_markup = hideBoard)
+        #bot.send_message(cid, "Success!!")
+        bot.send_message(cid, "준비중입니다.")
 
 
 @bot.message_handler(func=lambda message: message.text == "hi")
