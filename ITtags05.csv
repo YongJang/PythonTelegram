@@ -1,0 +1,521 @@
+﻿IT,통신
+IT,통신기술
+IT,텔레콤
+IT,테스터 검증
+IT,컨텐츠관리
+IT,조사
+IT,분석
+IT,통계
+IT,시스템트레이딩
+IT,금융공학
+IT,데이터분석
+IT,네트워크
+IT,네트워크 구축
+IT,네트워크 엔지니어
+IT,개발
+IT,보안
+IT,인증서버
+IT,소프트웨어개발
+IT,모바일앱개발
+IT,모바일
+IT,Phone
+IT,WindowsMobile
+IT,모바일App
+IT,스마트폰
+IT,아이폰
+IT,안드로이드
+IT,Application
+IT,어플리케이션
+IT,Windows
+IT,Unix
+IT,Linux
+IT,Java
+IT,응용프로그래머
+IT,VisualC
+IT,VisualC++
+IT,VisualBasicCC++
+IT,.NET
+IT,C#
+IT,VB.NET
+IT,ASP
+IT,MES
+IT,php
+IT,MFC
+IT,WAS
+IT,서버관리자
+IT,시스템운영
+IT,VoIP
+IT,IPT
+IT,네트워크관리
+IT,서버구축
+IT,CCNA
+IT,CCNP
+IT,시스템프로그래머
+IT,웹프로그래머
+IT,IDC
+IT,정보통신
+IT,전자통신
+IT,네트워크엔지니어
+IT,웹디자인
+IT,포토샵
+IT,HTML
+IT,자바스크립트
+IT,javascript
+IT,방화벽
+IT,정보보안
+IT,LAN
+IT,데이터베이스
+IT,시스템엔지니어
+IT,백신프로그램
+IT,하드웨어
+IT,마이크로프로세서
+IT,펌웨어
+IT,PCB
+IT,임베디드
+IT,DSP
+IT,Micom
+IT,PADS
+IT,OrCAD
+IT,Analog
+IT,Digital
+IT,S/W
+IT,인공지능
+IT,머신러닝
+IT,빅데이터
+IT,딥러닝
+IT,머하웃
+IT,AI
+IT,Mahout
+IT,Apache
+IT,Spark
+IT,Apache Spark
+IT,하둡
+IT,hadoop
+IT,Ruby
+IT,dJango
+IT,Ruby on Rails
+IT,Python
+IT,NoSQL
+IT,MySQL
+IT,MSSQL
+IT,Oracle
+IT,DynamoDB
+IT,Azure
+IT,Cloud
+IT,클라우드
+IT,VR
+IT,가상현실
+IT,AR
+IT,증강현실
+IT,Hololens
+IT,로봇
+IT,API
+IT,jQuery
+IT,AWS
+IT,appengine
+IT,구글앱엔진
+IT,NginX
+IT,tomcat
+IT,Algoritm
+IT,다익스트라
+IT,Dijkstra
+IT,드론
+IT,VPN
+IT,Router
+IT,Switch
+IT,라우터
+IT,스위치
+IT,RJ45
+IT,Atmega
+IT,Lambda
+IT,Spring
+IT,CloudWatch
+IT,git
+IT,github
+IT,MariaDB
+IT,gitblit
+IT,gitbucket
+IT,Cygwin
+IT,Ubuntu
+IT,CentOS
+IT,해킹
+IT,Hackerthon
+IT,kali
+IT,BackTrack
+IT,btr5
+IT,ethernet
+IT,Vlan
+IT,XML
+IT,JSON
+IT,해커톤
+IT,화이트해커
+IT,Hold Security
+IT,IoT
+IT,사물인터넷
+IT,PaaS
+IT,SaaS
+IT,IaaS
+IT,CISSP
+IT,SCJP
+IT,OCJP
+IT,알파고
+IT,딥마인드
+IT,구글X
+IT,GoogleX
+IT,eclipse
+IT,VisualStudio
+IT,AndroidStudio
+IT,안드로이드스튜디오
+IT,Watson
+IT,왓슨
+IT,Atom
+IT,putty
+IT,IntelliJ
+IT,CLR
+IT,EC2
+IT,RDS
+IT,chatbot
+IT,push notification
+IT,미디어 스트리밍
+IT,Active Directory
+IT,VMWare
+IT,가상머신
+IT,VirtualBox
+IT,bs4
+IT,Beautifulsoup
+IT,RSS
+IT,feedparser
+IT,hackerrank
+IT,Redhat
+IT,Jenkins
+IT,Wireshark
+IT,TCP
+IT,UDP
+IT,OSI7
+IT,Bluetooth
+IT,Trello
+IT,QUIC
+IT,TLS
+IT,SSL
+IT,NBNS
+IT,SSDP
+IT,ARP
+IT,ICMP
+IT,DHCP
+IT,DNS
+IT,Epoch
+IT,DSCP
+IT,ECN
+IT,telnet
+IT,SSH
+IT,Payload
+IT,LLMNR
+IT,GeoIP
+IT,TTL
+IT,Time to live
+IT,ECT
+IT,SYN
+IT,FIN
+IT,ACK
+IT,PacketTracer
+IT,POP3
+IT,SMTP
+IT,FTP
+IT,Bracket
+IT,RFC
+IT,오픈소스
+IT,opensource
+IT,libpcap
+IT,CaseStudy
+IT,소프트웨어공학
+IT,Agile
+IT,waterfall
+IT,Forensic
+IT,포렌식
+IT,리버스엔지니어링
+IT,pcap
+IT,scapy
+IT,winpcap
+IT,editcap
+IT,스페이스X
+IT,SAP
+IT,코드게이트
+IT,Adobe
+IT,핀테크
+IT,랜섬웨어
+IT,암호화
+IT,복호화
+IT,Angler
+IT,카스퍼스키랩
+IT,핵티비스트
+IT,UTM
+IT,KISA
+IT,DBMS
+IT,서버호스팅
+IT,ICT
+IT,데미스 하사비스
+IT,공간지능
+IT,코타나
+IT,S보이스
+IT,Tensor Flow
+IT,텐소플로우
+IT,코드카데미
+IT,codecademy
+IT,codeschool
+IT,RESTful
+IT,w3c
+IT,VoLTE
+IT,삼성
+IT,Samsung
+IT,샤오미
+IT,LG
+IT,LGU+
+IT,KT
+IT,SKT
+IT,ios
+IT,화웨이
+IT,알리바바
+IT,넥슨
+IT,Nexon
+IT,소프트뱅크
+IT,리누스 토발즈
+IT,팀 버너스리
+IT,제프리 M 자페
+IT,페이스북
+IT,트위터
+IT,ELB
+IT,Elastic Load Balancing
+IT,Redshift
+IT,ElastiCache
+IT,Kinesis
+IT,SNS
+IT,CloudSearch
+IT,Transcoder
+IT,SQS
+IT,CloudFront
+IT,Glacier
+IT,Auto Scaling
+IT,EMR
+IT,VCS
+IT,마이크로컨트롤러
+IT,MCU
+IT,로옴
+IT,WLCSP
+IT,반도체
+IT,클러스터
+IT,미래부
+IT,미래창조과학부
+IT,깃허브
+IT,보스턴다이내믹스
+IT,MIT
+IT,매사추세츠
+IT,5G
+IT,가간섭성
+IT,피보나치
+IT,다이오드
+IT,OSI 7계층
+IT,스키마
+IT,미디어
+IT,특수문자
+IT,유니코드
+IT,용지 사이즈
+IT,게이트웨이
+IT,인터페이스
+IT,하이브리드
+IT,키오스크
+IT,column
+IT,표준편차
+IT,폴리프로필렌
+IT,모듈
+IT,버블 정렬
+IT,bubble sort
+IT,지역 번호
+IT,흐름도
+IT,flow chart
+IT,콘덴서
+IT,condenser
+IT,capacitor
+IT,중앙처리장치
+IT,퀵 정렬
+IT,quick sort
+IT,cpu
+IT,선택 정렬
+IT,selection sort
+IT,국제 표준 기구
+IT,ISO
+IT,간트 차트
+IT,Gantt chart
+IT,계층 모델
+IT,PID
+IT,PID 제어
+IT,픽토그램
+IT,Pictogram
+IT,에이전트
+IT,agent
+IT,자바 스크립트
+IT,제너 다이오드
+IT,Zener diode
+IT,융합
+IT,convergence
+IT,IP 주소
+IT,USB OTG
+IT,SNMP
+IT,노드
+IT,node
+IT,레이저
+IT,Laser
+IT,레지스터
+IT,register
+IT,삽입 정렬
+IT,insertion sort
+IT,프록시
+IT,proxy
+IT,빅데이터 분석 기술
+IT,미러링크
+IT,MirrorLink
+IT,병목 현상
+IT,bottleneck
+IT,다중 회귀 분석
+IT,플립플롭
+IT,flip-flop
+IT,굴절률
+IT,Refractive Index
+IT,클라이언트
+IT,client
+IT,전가산기
+IT,반가산기
+IT,full adder
+IT,다중 공선성
+IT,소프트웨어
+IT,불법주정차 단속시스템
+IT,호스팅
+IT,유닉스
+IT,케슬리
+IT,플로차트
+IT,Flowchart
+IT,MAC 주소
+IT,MAC address
+IT,인바운드
+IT,inbound
+IT,적정 기술
+IT,캐시
+IT,cache
+IT,이진 트리
+IT,binary tree
+IT,절대온도
+IT,서브넷 마스크
+IT,subnet mask
+IT,와일드 마스크
+IT,wild mask
+IT,레귤레이터
+IT,regulator
+IT,국가 번호
+IT,country code
+IT,스레드
+IT,쓰레드
+IT,EMC
+IT,RGB
+IT,도메인 이름
+IT,트래픽
+IT,Hypertext Preprocessor
+IT,산화
+IT,연역적
+IT,가시광선
+IT,이동평균법
+IT,데이터 웨어하우스
+IT,data warehouse
+IT,TPM
+IT,스카이프
+IT,skype
+IT,조건부 확률
+IT,아키텍쳐
+IT,Architecture
+IT,인공 지능
+IT,artificial intelligence
+IT,하이퍼링크
+IT,hyperlink
+IT,감가 상각비
+IT,국제 전화 번호
+IT,그래핀
+IT,Graphene
+IT,Complement
+IT,커넥티드 카
+IT,커넥티드카
+IT,connected car
+IT,IGBT
+IT,액세스
+IT,Access
+IT,파라미터
+IT,parameter
+IT,SD 카드
+IT,Secure Digital Card
+IT,유전율
+IT,라즈베리파이
+IT,Rasberry Pi
+IT,RAID
+IT,양극성 접합 트랜지스터
+IT,헤르츠
+IT,데이터베이스 관리 시스템
+IT,딥 블루
+IT,Deep Blue
+IT,H.264
+IT,MPEG-4/AVC
+IT,MPEG-4 Part 10
+IT,ASCII 코드표
+IT,코흐 곡선
+IT,Koch curve
+IT,SMT
+IT,가상 메모리
+IT,PDF
+IT,레거시
+IT,Legacy
+IT,액추에이터
+IT,Actuator
+IT,인스턴스
+IT,NTFS
+IT,객체 지향 프로그래밍
+IT,FPGA
+IT,전자 여권
+IT,2의 보수
+IT,스마트TV
+IT,대시보드
+IT,프로파일
+IT,CRC
+IT,반응형 웹
+IT,반응형웹
+IT,키 투 디스크
+IT,RFQ
+IT,RPM
+IT,파이프라인
+IT,pipeline
+IT,secure shell
+IT,패널
+IT,panel
+IT,TCO
+IT,XOR
+IT,디버깅
+IT,세그먼트
+IT,프레임워크
+IT,백도어
+IT,CCD
+IT,파싱
+IT,parsing
+IT,MPEG-H
+IT,MTBF
+IT,멀티 플렉서
+IT,멀티플렉서
+IT,데이터마이닝
+IT,데이터 마이닝
+IT,data mining
+IT,스풀링
+IT,스푸핑
+IT,spoofing
+IT,인스턴트 앱
+IT,instant app
+IT,나델라
+IT,마크 주커버그
+IT,팀 쿡
+IT,테슬라
+IT,빌 게이츠
+IT,빌게이츠
+IT,스티브 잡스
