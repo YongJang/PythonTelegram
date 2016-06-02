@@ -55,7 +55,7 @@ bit = bitly_api.Connection(access_token=BITLY_ACCESS_TOKEN)
 userStep = {}
 userLike = {}
 lastShown = {}
-
+lastbitShown = {}
 
 # uid 가져오기
 cur.execute("SELECT * FROM users")
@@ -491,6 +491,7 @@ def step110IT_1(call):
             longurl = response['url']
         except:
             longurl = WEBSERVER_DNS + "?url=" + str(aid) + "&tb=information&uid=" + str(cid)
+        lastbitShown[cid] = longurl
         articleKeyboard = types.InlineKeyboardMarkup(3)
         articleKeyboardDetail = types.InlineKeyboardButton('자세히', callback_data="aDetail")
         articleKeyboardNext = types.InlineKeyboardButton('다른 기사', callback_data="110-1")
@@ -622,6 +623,7 @@ def step120Social_1(call):
             longurl = response['url']
         except:
             longurl = WEBSERVER_DNS + "?url=" + str(aid) + "&tb=information&uid=" + str(cid)
+        lastbitShown[cid] = longurl
         articleKeyboard = types.InlineKeyboardMarkup(3)
         articleKeyboardDetail = types.InlineKeyboardButton('자세히', callback_data="aDetail")
         articleKeyboardNext = types.InlineKeyboardButton('다른 기사', callback_data="120-1")
@@ -735,6 +737,7 @@ def step202(call):
 def stepDetail(call):
     cid = call.from_user.id
     url = lastShown[cid]
+    biturl = lastbitShown[cid]
     #bot.answer_callback_query(call.id, text="사회 기사!!")
     articleKeyboard2 = types.InlineKeyboardMarkup(2)
     aid = ""
@@ -767,7 +770,7 @@ def stepDetail(call):
             articleKeyboardNext = types.InlineKeyboardButton('다른 기사', callback_data="110-1")
             articleKeyboardLink = types.InlineKeyboardButton('링크로 이동', url=WEBSERVER_DNS + "?url=" + str(aid) + "&tb=information&uid=" + str(cid))
             KeywordButton3 = types.InlineKeyboardButton('처음으로', callback_data="001")
-            KeywordButton4 = types.InlineKeyboardButton('공유하기', switch_inline_query="으로부터의 검색결과 입니다.\n"+WEBSERVER_DNS + "?url=" + str(aid) + "&tb=information&uid=" + str(cid))
+            KeywordButton4 = types.InlineKeyboardButton('공유하기', switch_inline_query="으로부터의 검색결과 입니다.\n"+biturl)
             articleKeyboard2.row(articleKeyboardLink, articleKeyboardNext)
             articleKeyboard2.row(KeywordButton3,KeywordButton4)
             bot.send_message(cid, detail, reply_markup=articleKeyboard2)
@@ -792,7 +795,7 @@ def stepDetail(call):
             articleKeyboardNext = types.InlineKeyboardButton('다른 기사', callback_data="120-1")
             articleKeyboardLink = types.InlineKeyboardButton('링크로 이동', url=WEBSERVER_DNS + "?url=" + str(aid) + "&tb=information&uid=" + str(cid))
             KeywordButton3 = types.InlineKeyboardButton('처음으로', callback_data="001")
-            KeywordButton4 = types.InlineKeyboardButton('공유하기', switch_inline_query="으로부터의 검색결과 입니다.\n"+WEBSERVER_DNS + "?url=" + str(aid) + "&tb=information&uid=" + str(cid))
+            KeywordButton4 = types.InlineKeyboardButton('공유하기', switch_inline_query="으로부터의 검색결과 입니다.\n"+biturl)
             articleKeyboard2.row(articleKeyboardLink, articleKeyboardNext)
             articleKeyboard2.row(KeywordButton3,KeywordButton4)
             bot.send_message(cid, detail, reply_markup=articleKeyboard2)
