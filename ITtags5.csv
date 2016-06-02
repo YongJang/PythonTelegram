@@ -1,0 +1,521 @@
+IT,__
+IT,____
+IT,___
+IT,___ __
+IT,_____
+IT,__
+IT,__
+IT,__
+IT,_______
+IT,____
+IT,_____
+IT,____
+IT,____ __
+IT,____ ____
+IT,__
+IT,__
+IT,____
+IT,_______
+IT,______
+IT,___
+IT,Phone
+IT,WindowsMobile
+IT,___App
+IT,____
+IT,___
+IT,_____
+IT,Application
+IT,______
+IT,Windows
+IT,Unix
+IT,Linux
+IT,Java
+IT,_______
+IT,VisualC
+IT,VisualC++
+IT,VisualBasicCC++
+IT,.NET
+IT,C#
+IT,VB.NET
+IT,ASP
+IT,MES
+IT,php
+IT,MFC
+IT,WAS
+IT,_____
+IT,_____
+IT,VoIP
+IT,IPT
+IT,______
+IT,____
+IT,CCNA
+IT,CCNP
+IT,________
+IT,______
+IT,IDC
+IT,____
+IT,____
+IT,________
+IT,____
+IT,___
+IT,HTML
+IT,______
+IT,javascript
+IT,___
+IT,____
+IT,LAN
+IT,______
+IT,_______
+IT,______
+IT,____
+IT,________
+IT,___
+IT,PCB
+IT,____
+IT,DSP
+IT,Micom
+IT,PADS
+IT,OrCAD
+IT,Analog
+IT,Digital
+IT,S/W
+IT,____
+IT,____
+IT,____
+IT,___
+IT,___
+IT,AI
+IT,Mahout
+IT,Apache
+IT,Spark
+IT,Apache Spark
+IT,__
+IT,hadoop
+IT,Ruby
+IT,dJango
+IT,Ruby on Rails
+IT,Python
+IT,NoSQL
+IT,MySQL
+IT,MSSQL
+IT,Oracle
+IT,DynamoDB
+IT,Azure
+IT,Cloud
+IT,____
+IT,VR
+IT,____
+IT,AR
+IT,____
+IT,Hololens
+IT,__
+IT,API
+IT,jQuery
+IT,AWS
+IT,appengine
+IT,_____
+IT,NginX
+IT,tomcat
+IT,Algoritm
+IT,_____
+IT,Dijkstra
+IT,__
+IT,VPN
+IT,Router
+IT,Switch
+IT,___
+IT,___
+IT,RJ45
+IT,Atmega
+IT,Lambda
+IT,Spring
+IT,CloudWatch
+IT,git
+IT,github
+IT,MariaDB
+IT,gitblit
+IT,gitbucket
+IT,Cygwin
+IT,Ubuntu
+IT,CentOS
+IT,__
+IT,Hackerthon
+IT,kali
+IT,BackTrack
+IT,btr5
+IT,ethernet
+IT,Vlan
+IT,XML
+IT,JSON
+IT,___
+IT,_____
+IT,Hold Security
+IT,IoT
+IT,_____
+IT,PaaS
+IT,SaaS
+IT,IaaS
+IT,CISSP
+IT,SCJP
+IT,OCJP
+IT,___
+IT,____
+IT,__X
+IT,GoogleX
+IT,eclipse
+IT,VisualStudio
+IT,AndroidStudio
+IT,_________
+IT,Watson
+IT,__
+IT,Atom
+IT,putty
+IT,IntelliJ
+IT,CLR
+IT,EC2
+IT,RDS
+IT,chatbot
+IT,push notification
+IT,___ ____
+IT,Active Directory
+IT,VMWare
+IT,____
+IT,VirtualBox
+IT,bs4
+IT,Beautifulsoup
+IT,RSS
+IT,feedparser
+IT,hackerrank
+IT,Redhat
+IT,Jenkins
+IT,Wireshark
+IT,TCP
+IT,UDP
+IT,OSI7
+IT,Bluetooth
+IT,Trello
+IT,QUIC
+IT,TLS
+IT,SSL
+IT,NBNS
+IT,SSDP
+IT,ARP
+IT,ICMP
+IT,DHCP
+IT,DNS
+IT,Epoch
+IT,DSCP
+IT,ECN
+IT,telnet
+IT,SSH
+IT,Payload
+IT,LLMNR
+IT,GeoIP
+IT,TTL
+IT,Time to live
+IT,ECT
+IT,SYN
+IT,FIN
+IT,ACK
+IT,PacketTracer
+IT,POP3
+IT,SMTP
+IT,FTP
+IT,Bracket
+IT,RFC
+IT,____
+IT,opensource
+IT,libpcap
+IT,CaseStudy
+IT,_______
+IT,Agile
+IT,waterfall
+IT,Forensic
+IT,___
+IT,________
+IT,pcap
+IT,scapy
+IT,winpcap
+IT,editcap
+IT,____X
+IT,SAP
+IT,_____
+IT,Adobe
+IT,___
+IT,____
+IT,___
+IT,___
+IT,Angler
+IT,______
+IT,_____
+IT,UTM
+IT,KISA
+IT,DBMS
+IT,_____
+IT,ICT
+IT,___ ____
+IT,____
+IT,___
+IT,S___
+IT,Tensor Flow
+IT,_____
+IT,_____
+IT,codecademy
+IT,codeschool
+IT,RESTful
+IT,w3c
+IT,VoLTE
+IT,__
+IT,Samsung
+IT,___
+IT,LG
+IT,LGU+
+IT,KT
+IT,SKT
+IT,ios
+IT,___
+IT,____
+IT,__
+IT,Nexon
+IT,_____
+IT,___ ___
+IT,_ ____
+IT,___ M __
+IT,____
+IT,___
+IT,ELB
+IT,Elastic Load Balancing
+IT,Redshift
+IT,ElastiCache
+IT,Kinesis
+IT,SNS
+IT,CloudSearch
+IT,Transcoder
+IT,SQS
+IT,CloudFront
+IT,Glacier
+IT,Auto Scaling
+IT,EMR
+IT,VCS
+IT,________
+IT,MCU
+IT,__
+IT,WLCSP
+IT,___
+IT,____
+IT,___
+IT,_______
+IT,___
+IT,________
+IT,MIT
+IT,_____
+IT,5G
+IT,____
+IT,____
+IT,____
+IT,OSI 7__
+IT,___
+IT,___
+IT,____
+IT,____
+IT,__ ___
+IT,_____
+IT,_____
+IT,_____
+IT,____
+IT,column
+IT,____
+IT,______
+IT,__
+IT,__ __
+IT,bubble sort
+IT,__ __
+IT,___
+IT,flow chart
+IT,___
+IT,condenser
+IT,capacitor
+IT,______
+IT,_ __
+IT,quick sort
+IT,cpu
+IT,__ __
+IT,selection sort
+IT,__ __ __
+IT,ISO
+IT,__ __
+IT,Gantt chart
+IT,__ __
+IT,PID
+IT,PID __
+IT,____
+IT,Pictogram
+IT,____
+IT,agent
+IT,__ ____
+IT,__ ____
+IT,Zener diode
+IT,__
+IT,convergence
+IT,IP __
+IT,USB OTG
+IT,SNMP
+IT,__
+IT,node
+IT,___
+IT,Laser
+IT,____
+IT,register
+IT,__ __
+IT,insertion sort
+IT,___
+IT,proxy
+IT,____ __ __
+IT,____
+IT,MirrorLink
+IT,__ __
+IT,bottleneck
+IT,__ __ __
+IT,____
+IT,flip-flop
+IT,___
+IT,Refractive Index
+IT,_____
+IT,client
+IT,____
+IT,____
+IT,full adder
+IT,__ ___
+IT,_____
+IT,_____ _____
+IT,___
+IT,___
+IT,___
+IT,____
+IT,Flowchart
+IT,MAC __
+IT,MAC address
+IT,____
+IT,inbound
+IT,__ __
+IT,__
+IT,cache
+IT,__ __
+IT,binary tree
+IT,____
+IT,___ ___
+IT,subnet mask
+IT,___ ___
+IT,wild mask
+IT,_____
+IT,regulator
+IT,__ __
+IT,country code
+IT,___
+IT,___
+IT,EMC
+IT,RGB
+IT,___ __
+IT,___
+IT,Hypertext Preprocessor
+IT,__
+IT,___
+IT,____
+IT,_____
+IT,___ _____
+IT,data warehouse
+IT,TPM
+IT,____
+IT,skype
+IT,___ __
+IT,____
+IT,Architecture
+IT,__ __
+IT,artificial intelligence
+IT,_____
+IT,hyperlink
+IT,__ ___
+IT,__ __ __
+IT,___
+IT,Graphene
+IT,Complement
+IT,____ _
+IT,_____
+IT,connected car
+IT,IGBT
+IT,___
+IT,Access
+IT,____
+IT,parameter
+IT,SD __
+IT,Secure Digital Card
+IT,___
+IT,______
+IT,Rasberry Pi
+IT,RAID
+IT,___ __ _____
+IT,___
+IT,______ __ ___
+IT,_ __
+IT,Deep Blue
+IT,H.264
+IT,MPEG-4/AVC
+IT,MPEG-4 Part 10
+IT,ASCII ___
+IT,__ __
+IT,Koch curve
+IT,SMT
+IT,__ ___
+IT,PDF
+IT,___
+IT,Legacy
+IT,_____
+IT,Actuator
+IT,____
+IT,NTFS
+IT,__ __ _____
+IT,FPGA
+IT,__ __
+IT,2_ __
+IT,___TV
+IT,____
+IT,____
+IT,CRC
+IT,___ _
+IT,____
+IT,_ _ ___
+IT,RFQ
+IT,RPM
+IT,_____
+IT,pipeline
+IT,secure shell
+IT,__
+IT,panel
+IT,TCO
+IT,XOR
+IT,___
+IT,____
+IT,_____
+IT,___
+IT,CCD
+IT,__
+IT,parsing
+IT,MPEG-H
+IT,MTBF
+IT,__ ___
+IT,_____
+IT,______
+IT,___ ___
+IT,data mining
+IT,___
+IT,___
+IT,spoofing
+IT,____ _
+IT,instant app
+IT,___
+IT,__ ____
+IT,_ _
+IT,___
+IT,_ ___
+IT,____
+IT,___ __
