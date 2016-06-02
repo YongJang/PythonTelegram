@@ -290,7 +290,7 @@ def command_help(m):
 def command_broadcast(m):
     sender = m.chat.first_name
     isadmin = m.chat.id
-    if isadmin = 202899924:
+    if isadmin == 202899924:
         for uid in knownUsers:
             cid = uid
             bot.send_message(cid, "관리자 " + sender + "님의 Broadcasting 메세지 입니다.")
