@@ -748,22 +748,24 @@ def step202(call):
 """============================================================================================================="""
 @bot.callback_query_handler(func=lambda call: call.data == "aDetail")
 def stepDetail(call):
-    cur = conn.cursor()
-    cid = call.from_user.id
-    url = lastShown[cid]
-    biturl = lastbitShown[cid]
-    #bot.answer_callback_query(call.id, text="사회 기사!!")
-    articleKeyboard2 = types.InlineKeyboardMarkup(2)
-    aid = ""
-    cur.execute("SELECT * FROM information WHERE url=\'"+url+"\';")
-    row = cur.fetchall()
-    total = len(row)
-    if total < 1:
-        print('No entries')
-    else:
-        for record in range(total):
-            aid = row[record][0]
-
+    try:
+        cur = conn.cursor()
+        cid = call.from_user.id
+        url = lastShown[cid]
+        biturl = lastbitShown[cid]
+        #bot.answer_callback_query(call.id, text="사회 기사!!")
+        articleKeyboard2 = types.InlineKeyboardMarkup(2)
+        aid = ""
+        cur.execute("SELECT * FROM information WHERE url=\'"+url+"\';")
+        row = cur.fetchall()
+        total = len(row)
+        if total < 1:
+            print('No entries')
+        else:
+            for record in range(total):
+                aid = row[record][0]
+    except Exception as e:
+	        print(e)
 #"""IT -> 기사 -> 자세히"""
     try:
         if get_user_step(call.from_user.id) == 110:
