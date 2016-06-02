@@ -133,6 +133,7 @@ hideBoard = types.ReplyKeyboardHide()
 forceBoard = types.ForceReply()
 
 def get_user_step(uid):
+    cur = conn.cursor()
     if uid in userStep:
         return userStep[uid]
     else:
@@ -145,6 +146,7 @@ def get_user_step(uid):
         return 0
 
 def get_user_like(uid):
+    cur = conn.cursor()
     if uid in userLike:
         return userLike[uid]
     else:
@@ -157,6 +159,7 @@ def get_user_like(uid):
         return 0
 
 def get_user_kgroup(uid, category):
+    cur = conn.cursor()
     k = ""
     k2 = ""
     if uid in knownUsers:
@@ -189,6 +192,7 @@ def get_hash_tag(tb, pk_aid, high):
     태그의 출현빈도수가 높은 순으로 1, 2, 3위까지 표현한다.
     return : key key key (string)
     """
+    cur = conn.cursor()
     sql = "SELECT low FROM "+ tb +" WHERE PK_aid = %s and high = '"+high+"';"
     values = (pk_aid)
     cur.execute(sql, values)
@@ -343,6 +347,7 @@ def command_default(m):
         bot.send_message(m.chat.id, "무슨 뜻인지 모르겠습니다. \"" + m.text + "\"\n여기서 사용가능한 명령어를 확인하세요! /help")
 #@bot.message_handler(func=lambda message: get_user_step(message.chat.id) == 200 , content_types=['text'])
 def command_News_Search(m):
+    cur = conn.cursor()
     cid = m.chat.id
     userStep[cid] = 0
     keyword = m.text
@@ -405,6 +410,7 @@ def step100IT(call):
     """
     분야가 바뀐거니까 여기서 업데이트를 해야돼
     """
+    cur = conn.cursor()
     cid = call.from_user.id
     userStep[cid] = 110
     userLike[cid] = 110
@@ -417,6 +423,7 @@ def step100IT(call):
 
 @bot.callback_query_handler(func=lambda call: call.data == "100-2" and get_user_step(call.from_user.id) == 100)
 def step100Social(call):
+    cur = conn.cursor()
     cid = call.from_user.id
     userStep[cid] = 120
     userLike[cid] = 120
@@ -432,6 +439,7 @@ def step100Social(call):
 """IT -> 기사"""
 @bot.callback_query_handler(func=lambda call: call.data == "110-1" and get_user_step(call.from_user.id) == 110)
 def step110IT_1(call):
+    cur = conn.cursor()
     cid = call.from_user.id
     ukg = get_user_kgroup(cid,'IT')
     probability = 30  # 지정된 kGroup 기사 외 다른 기사를 전달할 확률
@@ -508,6 +516,7 @@ def step110IT_1(call):
 """IT -> 구인정보"""
 @bot.callback_query_handler(func=lambda call: call.data == "110-2" and get_user_step(call.from_user.id) == 110)
 def step110IT_2(call):
+    cur = conn.cursor()
     cid = call.from_user.id
     cur.execute("SELECT * FROM jobs WHERE aType = \'Job\' ORDER BY click_num DESC;")
     row = cur.fetchall()
@@ -565,6 +574,7 @@ def step110IT_2(call):
 """사회 -> 기사"""
 @bot.callback_query_handler(func=lambda call: call.data == "120-1" and get_user_step(call.from_user.id) == 120)
 def step120Social_1(call):
+    cur = conn.cursor()
     cid = call.from_user.id
     ukg = get_user_kgroup(cid,'Economy')
     probability = 30  # 지정된 kGroup 기사 외 다른 기사를 전달할 확률
@@ -640,6 +650,7 @@ def step120Social_1(call):
 """사회 -> 구인정보"""
 @bot.callback_query_handler(func=lambda call: call.data == "120-2" and get_user_step(call.from_user.id) == 120)
 def step120Social_2(call):
+    cur = conn.cursor()
     cid = call.from_user.id
     cur.execute("SELECT * FROM society WHERE aType = \'Job\' ORDER BY click_num DESC;")
     row = cur.fetchall()
@@ -695,6 +706,7 @@ def step120Social_2(call):
 """====================================================SET======================================================"""
 @bot.callback_query_handler(func=lambda call: call.data[:4] == "201?")
 def step201(call):
+    cur = conn.cursor()
     cid = call.from_user.id
     userStep[cid] = 0
     keyword = str(call.data[4:len(call.data)])
@@ -727,6 +739,7 @@ def step201(call):
 
 @bot.callback_query_handler(func=lambda call: call.data == "202")
 def step202(call):
+    cur = conn.cursor()
     cid = call.from_user.id
     userStep[cid] = 200
     text = "검색하실 키워드를 입력하세요."
@@ -735,6 +748,7 @@ def step202(call):
 """============================================================================================================="""
 @bot.callback_query_handler(func=lambda call: call.data == "aDetail")
 def stepDetail(call):
+    cur = conn.cursor()
     cid = call.from_user.id
     url = lastShown[cid]
     biturl = lastbitShown[cid]
