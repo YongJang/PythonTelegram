@@ -286,17 +286,23 @@ def command_help(m):
     bot.send_message(cid, help_text, reply_markup=helpInline)
 
 # broadcasting
-@bot.message_handler(commands=['broadcasting'])
-def command_broadcast(m):
-    sender = m.chat.first_name
-    isadmin = m.chat.id
-    if isadmin == 202899924:
-        for uid in knownUsers:
-            cid = uid
-            bot.send_message(cid, "관리자 " + sender + "님의 Broadcasting 메세지 입니다.")
-            bot.send_message(cid, "봇 서버를 재시작하였습니다. 다시 사용하실 때 /start 버튼을 누르고 사용하세요.")
-    else:
-        bot.send_message(isadmin, "준비중인 기능입니다.")
+#@bot.message_handler(commands=['broadcasting'])
+#def command_broadcast(m):
+#    sender = m.chat.first_name
+#<<<<<<< HEAD
+#    isadmin = m.chat.id
+#    if isadmin == 202899924:
+#        for uid in knownUsers:
+#            cid = uid
+#            bot.send_message(cid, "관리자 " + sender + "님의 Broadcasting 메세지 입니다.")
+#            bot.send_message(cid, "봇 서버를 재시작하였습니다. 다시 사용하실 때 /start 버튼을 누르고 사용하세요.")
+#    else:
+#        bot.send_message(isadmin, "준비중인 기능입니다.")
+#=======
+#    for uid in knownUsers:
+#        cid = uid
+#        bot.send_message(cid, sender + "님의 Broadcasting 메세지 입니다.")
+#>>>>>>> parent of df9a8f3... 사용하면 안되는 기능 제한
 
 @bot.message_handler(commands=['getImage'])
 def command_image(m):
@@ -319,11 +325,11 @@ def msg_image_select(m):
         userStep[cid] = 0
     else:
         #url = "http://runezone.com/imagehost/images/5741/Cute-Kitten.jpg"
-        ##imgdata = urlopen(url).read()
-        ##response = Request(url, headers={'User-Agent':'Mozilla/5.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1; .NET CLR 1.1.4322; .NET CLR 2.0.50727; .NET CLR 3.0.04506.30)'})
+        #imgdata = urlopen(url).read()
+        #response = Request(url, headers={'User-Agent':'Mozilla/5.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1; .NET CLR 1.1.4322; .NET CLR 2.0.50727; .NET CLR 3.0.04506.30)'})
         #req = Request(url, headers={'User-Agent':'Mozilla/5.0'})
         #response = urlopen(req)
-        ##img = Image.open(BytesIO(urlopen(response).read()))
+        #img = Image.open(BytesIO(urlopen(response).read()))
         #img = response.read()
 
         #"""
