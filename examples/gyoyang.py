@@ -372,6 +372,8 @@ def command_default(m):
         articleKeyboardNext = types.InlineKeyboardButton('다른정보', callback_data="110-1")
         InlineKeyboardButton.row(articleKeyboardDetail, articleKeyboardNext)
         bot.send_message(cid, "성북구에 위치한 헤어샵 목록입니다.", reply_markup=InlineKeyboardButton)
+    elif text == "예약":
+        bot.send_message(cid, "조용장 고객님 도착 30분 전입니다.")
     elif step == 200:
         command_News_Search(m)
     else:
