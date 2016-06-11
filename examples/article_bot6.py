@@ -286,6 +286,7 @@ def command_help(m):
     bot.send_message(cid, help_text, reply_markup=helpInline)
 
 # broadcasting
+<<<<<<< HEAD
 #@bot.message_handler(commands=['broadcasting'])
 #def command_broadcast(m):
 #    sender = m.chat.first_name
@@ -303,6 +304,19 @@ def command_help(m):
 #        cid = uid
 #        bot.send_message(cid, sender + "님의 Broadcasting 메세지 입니다.")
 #>>>>>>> parent of df9a8f3... 사용하면 안되는 기능 제한
+=======
+@bot.message_handler(commands=['broadcasting'])
+def command_broadcast(m):
+    sender = m.chat.first_name
+    isadmin = m.chat.id
+    if isadmin = 202899924:
+        for uid in knownUsers:
+            cid = uid
+            bot.send_message(cid, "관리자 " + sender + "님의 Broadcasting 메세지 입니다.")
+            bot.send_message(cid, "봇 서버를 재시작하였습니다. 다시 사용하실 때 /start 버튼을 누르고 사용하세요.")
+    else:
+        bot.send_message(isadmin, "준비중인 기능입니다.")
+>>>>>>> parent of acffbec... equal
 
 @bot.message_handler(commands=['getImage'])
 def command_image(m):
