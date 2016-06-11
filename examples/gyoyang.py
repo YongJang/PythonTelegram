@@ -362,16 +362,16 @@ def command_text_hi(m):
 def command_default(m):
     cid = m.chat.id
     step = get_user_step(cid)
-    text = m.chat
+    text = m.text
     if text == "헤어":
-        bot.send_message(cid, "헤어샵 예약을 진행할 지역을 선택해주세요.", reply_markup=InlineKeyboardButton)
-    if text == "성북구":
+        bot.send_message(cid, "헤어샵 예약을 진행할 지역을 선택해주세요.")
+    elif text == "성북구":
         bot.send_photo(cid, open('exam.jpg', 'rb'),reply_markup=hideBoard)
         articleKeyboardDetail = types.InlineKeyboardButton('웹사이트', callback_data="aDetail")
         articleKeyboardNext = types.InlineKeyboardButton('다른정보', callback_data="110-1")
         InlineKeyboardButton.row(articleKeyboardDetail, articleKeyboardNext)
         bot.send_message(cid, "성북구에 위치한 헤어샵 목록입니다.", reply_markup=InlineKeyboardButton)
-    if step == 200:
+    elif step == 200:
         command_News_Search(m)
     else:
         text = m.text
