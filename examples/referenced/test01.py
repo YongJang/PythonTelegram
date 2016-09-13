@@ -1,247 +1,291 @@
+"""
+This is a detailed example using almost every command of the API
+참고하고 있는 사이트
+https://github.com/eternnoir/pyTelegramBotAPI/issues?utf8=%E2%9C%93&q=to_dic
+https://github.com/eternnoir/pyTelegramBotAPI/releases/tag/2.0.5
+InlineKeyboardButton : https://github.com/eternnoir/pyTelegramBotAPI/issues/130
+CallbackQuery : https://github.com/eternnoir/pyTelegramBotAPI/pull/148/commits/4cb8f14a20c77ce2662ab343b27f4118181293fa
+"""
 
-
-# This is a simple echo bot using the decorator mechanism.
-# It echoes any incoming text messages.
-# INLINE KEYBOARD REFERENCED FROM https://github.com/yagop/node-telegram-bot-api/issues/109 -- yongjang
-# https://github.com/eternnoir/pyTelegramBotAPI/blob/bot20/examples/bot20-pass_generator-example.py
-
-
-import pymysql
-import sys
 import telebot
 from telebot import types
+import time
+from io import BytesIO
+from PIL import Image
 import json
-import logging
-import requests
-import re
-
-API_TOKEN = '207944330:AAGdpOvswmHangYooE8wBEf1p-vYP2skyL0'
-
-BASE_URL = 'https://api.telegram.org/bot' + API_TOKEN + '/'
-bot = telebot.TeleBot(API_TOKEN)
-
-markup = types.ReplyKeyboardMarkup()
-itembtn1 = types.KeyboardButton('1')
-itembtn2 = types.KeyboardButton('2')
-itembtn3 = types.KeyboardButton('3')
-itembtn4 = types.KeyboardButton('4')
-markup.row(itembtn1,itembtn2)
-markup.row(itembtn3,itembtn4)
-
-hideBoard = types.ReplyKeyboardHide()
+import pymysql
+import sys
 
 
-# 봇이 응답할 명령어
-CMD_START     = '/start'
-CMD_STOP      = '/stop'
-CMD_HELP      = '/help'
-CMD_USER      = '/user'
-CMD_BROADCAST = '/broadcast'
+print(sys.stdin.encoding)
 
-# 커스텀 키보드
-CUSTOM_KEYBOARD = [
-        [CMD_START],
-        [CMD_STOP],
-        [CMD_HELP],
-        [CMD_USER],
-        ]
+try:
+    conn = pymysql.connect(host='telegramdb.cjks7yer9qjg.ap-northeast-2.rds.amazonaws.com', port=3306, user='yongjang', passwd='yongjang', db='telegramdb', charset='utf8')
+    print("Database Connection Success!!")
+    cur = conn.cursor()
+except pymysql.Error as e:
+    print ("Error %d: %s" % (e.args[0], e.args[1]))
+    sys.exit(1)
+
+TOKEN = '207944330:AAGdpOvswmHangYooE8wBEf1p-vYP2skyL0'
 
 
-json_keyboard = json.dumps({'keyboard': [["1"], ["2"], ["3"], ["4"]],
-                            'one_time_keyboard': False,
-                            'resize_keyboard': True})
+# uid 가져오기
+cur.execute("SELECT * FROM users")
+row = cur.fetchall()
+knownUsers = []
+total = len(row)
+if total < 1:
+    print('no users')
+else:
+    for record in range(total):
+        temp = row[record][0]
+        knownUsers.append(temp)
 
-"""
-bot.post(BASE_URL + "sendMessage",
-                 data=dict(chat_id=CHAT_ID,
-                           text="Has to be non-empty",
-                           reply_markup=json_keyboard))
-"""
+######
 
+userStep = {}  # so they won't reset every time the bot restarts
 
-# 메시지 발송 관련 함수들
-def send_msg(chat_id, text, reply_to=None, no_preview=True, keyboard=None):
-    u"""send_msg: 메시지 발송
-    chat_id:    (integer) 메시지를 보낼 채팅 ID
-    text:       (string)  메시지 내용
-    reply_to:   (integer) ~메시지에 대한 답장
-    no_preview: (boolean) URL 자동 링크(미리보기) 끄기
-    keyboard:   (list)    커스텀 키보드 지정
-    """
-    params = {
-        'chat_id': str(chat_id),
-        'text': text.encode('utf-8'),
-        }
-    if reply_to:
-        params['reply_to_message_id'] = reply_to
-    if no_preview:
-        params['disable_web_page_preview'] = no_preview
-    if keyboard:
-        reply_markup = json.dumps({
-            'keyboard': keyboard,
-            'resize_keyboard': True,
-            'one_time_keyboard': False,
-            'selective': (reply_to != None),
-            })
-        params['reply_markup'] = reply_markup
-    try:
-        requests(BASE_URL + 'sendMessage', requests.get(params)).read()
-    except Exception as e:
-        logging.exception(e)
+commands = {  # command description used in the "help" command
+              'start': '봇 사용을 시작합니다.',
+              'help': '사용 가능한 명령어들을 봅니다.',
+              #'sendLongText': 'A test using the \'send_chat_action\' command',
+              'broadcasting':'이 봇을 사용하는 모든 유저에게 메세지를 전달합니다.',
+              'getImage': '이미지를 가져옵니다.',
+              'getArticle': '네이버 기사 크롤링 테스트'
+}
+
+imageSelect = types.ReplyKeyboardMarkup(one_time_keyboard=True)  # create the image selection keyboard
+imageSelect.add('닭', '고양이')
+
+articleSelect = types.ReplyKeyboardMarkup(one_time_keyboard=True)
+articleSelect.add('IT', '사회')
 
 
-
-# Handle '/start' and '/help'
-@bot.message_handler(commands=['start'])
-def send_welcome(message):
-    chat_id = message.chat.id
-    bot.reply_to(message, "Wellcome!! This is an article bot!")
-
-@bot.message_handler(commands=['help'])
-def help_message(message):
-    bot.reply_to(message, "This is a help message!")
-
-@bot.message_handler(commands=['user'])
-def user_message(message):
-    bot.reply_to(message, "Hi " + message.from_user.first_name + "!!")
+# 타인한테 전달하는 버튼
+# inlineButton1 = types.InlineKeyboardButton('1', switch_inline_query="a")
+# inlineButton2 = types.InlineKeyboardButton('2', switch_inline_query="b")
+articleSelectInline = types.InlineKeyboardMarkup(2)
+step100Button1 = types.InlineKeyboardButton('IT', callback_data="100-1")
+step100Button2 = types.InlineKeyboardButton('사회', callback_data="100-2")
+step100Button3 = types.InlineKeyboardButton('친구에게 봇 추천하기', switch_inline_query="<-- [클릭] 이건 짱 좋은 봇입니다. 기사도 가져다주고 구인 정보도 가져다줌")
+articleSelectInline.add(step100Button1, step100Button2, step100Button3)
 
 
+step110Keyboard = types.InlineKeyboardMarkup(2)
+step110Button1 = types.InlineKeyboardButton('기사', callback_data="110-1")
+step110Button2 = types.InlineKeyboardButton('구인 정보', callback_data="110-2")
+step110Keyboard.add(step110Button1, step110Button2)
 
-# Handle all other messages with content_type 'text' (content_types defaults to ['text'])
-@bot.message_handler(func=lambda message: True)
-def echo_message(message):
-    chat_id = message.chat.id
-    if message.text == "Hello" or message.text ==  "Hi" or message.text ==  "안녕" or message.text ==  "안녕하세요" :
-        bot.reply_to(message, "Hello " + message.from_user.first_name + "!!")
-        #bot.send_message(chat_id, "button", keyboard = CUSTOM_KEYBOARD)
-        send_msg(chat_id, "abc123", keyboard=CUSTOM_KEYBOARD)
+step120Keyboard = types.InlineKeyboardMarkup(2)
+step120Button1 = types.InlineKeyboardButton('기사', callback_data="120-1")
+step120Button2 = types.InlineKeyboardButton('구인 정보', callback_data="120-2")
+step120Keyboard.add(step120Button1, step120Button2)
+
+
+hideBoard = types.ReplyKeyboardHide()  # if sent as reply_markup, will hide the keyboard
+
+
+# error handling if user isn't known yet
+# (obsolete once known users are saved to file, because all users
+#   had to use the /start command and are therefore known to the bot)
+def get_user_step(uid):
+    if uid in userStep:
+        return userStep[uid]
     else:
-        bot.reply_to(message, message.text)
-        process_cmds(message)
+        knownUsers.append(uid)
+        cur.execute("INSERT INTO users (PK_uid, step) VALUES (\'" + str(uid) + "\',\'0\')" )
+        conn.commit()
+        userStep[uid] = 0
+        print ("New user detected, who hasn't used \"/start\" yet")
+        return 0
 
 
-u"""
-=============================================================================================================
-"""
-
-# 봇 명령 처리 함수들
-def cmd_start(chat_id):
-    u"""cmd_start: 봇을 활성화하고, 활성화 메시지 발송
-    chat_id: (integer) 채팅 ID
+# only used for console output now
+def listener(messages):
     """
-    send_msg(chat_id, MSG_START, keyboard=CUSTOM_KEYBOARD)
-
-def cmd_stop(chat_id):
-    u"""cmd_stop: 봇을 비활성화하고, 비활성화 메시지 발송
-    chat_id: (integer) 채팅 ID
+    When new messages arrive TeleBot will call this function.
     """
-    send_msg(chat_id, MSG_STOP)
+    for m in messages:
+        if m.content_type == 'text':
+            # print the sent message to the console
+            print (str(m.chat.first_name) + " [" + str(m.chat.id) + "]: " + m.text)
 
-def cmd_help(chat_id):
-    u"""cmd_help: 봇 사용법 메시지 발송
-    chat_id: (integer) 채팅 ID
-    """
-    send_msg(chat_id, USAGE, keyboard=CUSTOM_KEYBOARD)
 
-def cmd_broadcast(chat_id, text):
-    u"""cmd_broadcast: 봇이 활성화된 모든 채팅에 메시지 방송
-    chat_id: (integer) 채팅 ID
-    text:    (string)  방송할 메시지
-    """
-    send_msg(chat_id, u'메시지를 방송합니다.', keyboard=CUSTOM_KEYBOARD)
-    broadcast(text)
+bot = telebot.TeleBot(TOKEN)
+bot.set_update_listener(listener)  # register listener
 
-def cmd_echo(chat_id, text, reply_to):
-    u"""cmd_echo: 사용자의 메시지를 따라서 답장
-    chat_id:  (integer) 채팅 ID
-    text:     (string)  사용자가 보낸 메시지 내용
-    reply_to: (integer) 답장할 메시지 ID
-    """
-    send_msg(chat_id, text, reply_to=reply_to)
 
-def process_cmds(msg):
-    u"""사용자 메시지를 분석해 봇 명령을 처리
-    chat_id: (integer) 채팅 ID
-    text:    (string)  사용자가 보낸 메시지 내용
-    """
-    msg_id = msg.message_id
-    chat_id = msg.chat.id
-    text = msg.text
-    if (not text):
-        return
-    if CMD_START == text:
-        cmd_start(chat_id)
-        return
-        u"""
-    if (not get_enabled(chat_id)):
-        return
-        """
-    if CMD_STOP == text:
-        cmd_stop(chat_id)
-        return
-    if CMD_HELP == text:
-        cmd_help(chat_id)
-        return
-    cmd_broadcast_match = re.match('^' + CMD_BROADCAST + ' (.*)', text)
-    if cmd_broadcast_match:
-        cmd_broadcast(chat_id, cmd_broadcast_match.group(1))
-        return
-    cmd_echo(chat_id, text, reply_to=msg_id)
-    return
+# handle the "/start" command
+@bot.message_handler(commands=['start'])
+def command_start(m):
+    cid = m.chat.id
+    if cid not in knownUsers:  # if user hasn't used the "/start" command yet:
+        knownUsers.append(cid)  # save user id, so you could brodcast messages to all users of this bot later
+        userStep[cid] = 0  # save user id and his current "command level", so he can use the "/getImage" command
+        bot.send_message(cid, "안녕하세요. 처음 뵙겠습니다.")
+        bot.send_message(cid, "사용자 등록이 완료되었습니다.")
+        command_help(m)  # show the new user the help page
+    else:
+        bot.send_message(cid, "다시 오신 것을 환영합니다.")
+
+
+# help page
+@bot.message_handler(commands=['help'])
+def command_help(m):
+    cid = m.chat.id
+    help_text = "사용가능한 명령어 목록 입니다.: \n"
+    for key in commands:  # generate help text out of the commands dictionary defined at the top
+        help_text += "/" + key + ": "
+        help_text += commands[key] + "\n"
+    bot.send_message(cid, help_text)  # send the generated help page
+
+# broadcasting
+@bot.message_handler(commands=['broadcasting'])
+def command_help(m):
+    for uid in knownUsers:
+        cid = uid
+        bot.send_message(cid, "Broadcasting 메세지 입니다.")  # send the generated help page
 
 
 
-u"""
-========================================================================================================================
-"""
+# chat_action example (not a good one...)
+@bot.message_handler(commands=['sendLongText'])
+def command_long_text(m):
+    cid = m.chat.id
+    bot.send_message(cid, "If you think so...")
+    bot.send_chat_action(cid, 'typing')  # show the bot "typing" (max. 5 secs)
+    time.sleep(3)
+    bot.send_message(cid, ".")
 
 
+# user can chose an image (multi-stage command example)
+@bot.message_handler(commands=['getImage'])
+def command_image(m):
+    cid = m.chat.id
+    bot.send_message(cid, "이미지를 선택하세요.", reply_markup=imageSelect)  # show the keyboard
+    userStep[cid] = 1  # set the user to the next step (expecting a reply in the listener now)
+
+# 기사 가져오기
+@bot.message_handler(commands=['getArticle'])
+def command_image(m):
+    cid = m.chat.id
+    bot.send_message(cid, "당신이 관심있는 분야를 선택하세요.", reply_markup=articleSelectInline)  # show the keyboard
+    userStep[cid] = 100  # set the user to the next step (expecting a reply in the listener now)
+
+
+# if the user has issued the "/getImage" command, process the answer
 @bot.message_handler(func=lambda message: get_user_step(message.chat.id) == 1)
-def msg_button_select(m):
+def msg_image_select(m):
     cid = m.chat.id
     text = m.text
 
     # for some reason the 'upload_photo' status isn't quite working (doesn't show at all)
     bot.send_chat_action(cid, 'typing')
 
-    if text == "1":  # send the appropriate image based on the reply to the "/getImage" command
-        bot.send_message(cid, "1", reply_markup = hideBoard)
-    elif text == "2":
-        bot.send_message(cid, "2", reply_markup = hideBoard)
-    elif text == "3":
-        bot.send_message(cid, "3", reply_markup = hideBoard)
-    elif text == "4":
-        bot.send_message(cid, "4", reply_markup = hideBoard)
-    else :
-        bot.send_message(cid, "Don't type bullsh*t, if I give you a predefined keyboard!")
+    if text == "닭":  # send the appropriate image based on the reply to the "/getImage" command
+        bot.send_photo(cid, open('rooster.jpg', 'rb'),
+                       reply_markup=hideBoard)  # send file and hide keyboard, after image is sent
+        userStep[cid] = 0  # reset the users step back to 0
+    elif text == "고양이":
+        bot.send_photo(cid, open('kitten.jpg', 'rb'), reply_markup=hideBoard)
+        userStep[cid] = 0
+    else:
+        url = "http://runezone.com/imagehost/images/5741/Cute-Kitten.jpg"
+        #imgdata = urlopen(url).read()
+        #response = Request(url, headers={'User-Agent':'Mozilla/5.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1; .NET CLR 1.1.4322; .NET CLR 2.0.50727; .NET CLR 3.0.04506.30)'})
+        #req = Request(url, headers={'User-Agent':'Mozilla/5.0'})
+        #response = urlopen(req)
+        #img = Image.open(BytesIO(urlopen(response).read()))
+        #img = response.read()
+
+        """
+        에러 발생(미해결)
+        Photo has unsupported extension. Use one of .jpg, .jpeg, .gif, .png, .tif or .bmp
+        """
+        bot.send_photo(cid, img, reply_markup = hideBoard)
+        bot.send_message(cid, "Success!!")
         bot.send_message(cid, "Please try again")
 
-u"""
-# 웹 요청에 대한 핸들러 정의
-# /me 요청시
-class MeHandler(webapp2.RequestHandler):
-    def get(self):
-        self.response.write(json.dumps(json.load(urllib.parse.request(BASE_URL + 'getMe'))))
+# if the user has issued the "/getImage" command, process the answer
+@bot.message_handler(func=lambda message: get_user_step(message.chat.id) == 100)
+def msg_image_select(m):
+    cid = m.chat.id
+    text = m.text
 
-# /updates 요청시
-class GetUpdatesHandler(webapp2.RequestHandler):
-    def get(self):
-        self.response.write(json.dumps(json.load(urllib.parse.request(BASE_URL + 'getUpdates'))))
+    # for some reason the 'upload_photo' status isn't quite working (doesn't show at all)
+    bot.send_chat_action(cid, 'typing')
 
-# /set-wehook 요청시
-class SetWebhookHandler(webapp2.RequestHandler):
-    def get(self):
-        url = self.request.get('url')
-        if url:
-            self.response.write(json.dumps(json.load(urllib.parse.request(BASE_URL + 'setWebhook', urllib.urlencode({'url': url})))))
+    if text == "IT":  # send the appropriate image based on the reply to the "/getImage" command
+        bot.send_message(cid, "IT Article!!")
+        userStep[cid] = 0  # reset the users step back to 0
+    elif text == "사회":
+        bot.send_message(cid, "사회 기사!!")
+        userStep[cid] = 0
+    else:
+        bot.send_message(cid, "잘못 입력하였습니다.")
+        userStep[cid] = 0
 
-# /webhook 요청시 (텔레그램 봇 API)
-class WebhookHandler(webapp2.RequestHandler):
-    def post(self):
-        body = json.loads(self.request.body)
-        self.response.write(json.dumps(body))
-        process_cmds(body['message'])
 
-"""
+# filter on a specific message
+@bot.message_handler(func=lambda message: message.text == "hi")
+def command_text_hi(m):
+    bot.send_message(m.chat.id, "안녕!")
+
+
+# default handler for every other text
+@bot.message_handler(func=lambda message: True, content_types=['text'])
+def command_default(m):
+    # this is the standard reply to a normal message
+    bot.send_message(m.chat.id, "무슨 말인지 모르겠습니다. \"" + m.text + "\"\n여기서 사용가능한 명령어를 확인하세요! /help")
+
+# 여기서 부터 callback_query 핸들러
+"""====================================================SET======================================================"""
+@bot.callback_query_handler(func=lambda call: call.data == "100-1" and get_user_step(call.from_user.id) == 100)
+def step100IT(call):
+    cid = call.from_user.id
+    #bot.answer_callback_query(call.id, text="IT 기사!!")
+    bot.send_message(cid, "어떤 종류의 IT 글을 원하시나요?", reply_markup=step110Keyboard)
+    userStep[cid] = 110
+
+@bot.callback_query_handler(func=lambda call: call.data == "100-2" and get_user_step(call.from_user.id) == 100)
+def step100Social(call):
+    cid = call.from_user.id
+    #bot.answer_callback_query(call.id, text="사회 기사!!")
+    bot.send_message(cid, "어떤 종류의 사회 글을 원하시나요?", reply_markup=step120Keyboard)
+    userStep[cid] = 120
+"""============================================================================================================="""
+
+"""====================================================SET======================================================"""
+@bot.callback_query_handler(func=lambda call: call.data == "110-1" and get_user_step(call.from_user.id) == 110)
+def step100Social(call):
+    cid = call.from_user.id
+    #bot.answer_callback_query(call.id, text="사회 기사!!")
+    bot.send_message(cid, "IT 기사 목록입니다.")
+    userStep[cid] = 0
+
+@bot.callback_query_handler(func=lambda call: call.data == "110-2" and get_user_step(call.from_user.id) == 110)
+def step100Social(call):
+    cid = call.from_user.id
+    #bot.answer_callback_query(call.id, text="사회 기사!!")
+    bot.send_message(cid, "IT 구인 정보 목록입니다.")
+    userStep[cid] = 0
+"""============================================================================================================="""
+
+"""====================================================SET======================================================"""
+@bot.callback_query_handler(func=lambda call: call.data == "120-1" and get_user_step(call.from_user.id) == 120)
+def step100Social(call):
+    cid = call.from_user.id
+    #bot.answer_callback_query(call.id, text="사회 기사!!")
+    bot.send_message(cid, "사회 기사 목록입니다.")
+    userStep[cid] = 0
+
+@bot.callback_query_handler(func=lambda call: call.data == "120-2" and get_user_step(call.from_user.id) == 120)
+def step100Social(call):
+    cid = call.from_user.id
+    #bot.answer_callback_query(call.id, text="사회 기사!!")
+    bot.send_message(cid, "사회 구인 정보 목록입니다.")
+    userStep[cid] = 0
+"""============================================================================================================="""
 
 bot.polling()
