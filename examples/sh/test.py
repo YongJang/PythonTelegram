@@ -9,7 +9,7 @@ import time
 
 try:
         print(sys.stdin.encoding)
-        conn = pymysql.connect(host='telegramdb.cctjzlx6kmlc.ap-northeast-1.rds.amazonaws.com', port=3306, user='yongjang', passwd='yongjang', db='telegramdb', charset='utf8')
+        conn = pymysql.connect(host='telegramdb.cjks7yer9qjg.ap-northeast-2.rds.amazonaws.com', port=3306, user='yongjang', passwd='yongjang', db='telegramdb', charset='utf8')
         print("connection success!!")
         cur = conn.cursor()
 # -*- coding: utf-8 -*-
