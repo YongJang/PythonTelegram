@@ -1,12 +1,13 @@
 #!/usr/bin/env python
 from setuptools import setup
+from io import open
 
 def readme():
-    with open('README.rst') as f:
+    with open('README.rst', encoding='utf-8') as f:
         return f.read()
 
 setup(name='pyTelegramBotAPI',
-      version='1.4.2',
+      version='2.1.6',
       description='Python Telegram bot api. ',
       long_description=readme(),
       author='eternnoir',
@@ -16,6 +17,9 @@ setup(name='pyTelegramBotAPI',
       license='GPL2',
       keywords='telegram bot api tools',
       install_requires=['requests', 'six'],
+      extras_require={
+          'json': 'ujson',
+      },
       classifiers=[
           'Development Status :: 5 - Production/Stable',
           'Programming Language :: Python :: 2',

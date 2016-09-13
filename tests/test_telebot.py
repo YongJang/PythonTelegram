@@ -16,6 +16,7 @@ should_skip = 'TOKEN' and 'CHAT_ID' not in os.environ
 if not should_skip:
     TOKEN = os.environ['TOKEN']
     CHAT_ID = os.environ['CHAT_ID']
+    GROUP_ID = os.environ['GROUP_ID']
 
 
 @pytest.mark.skipif(should_skip, reason="No environment variables configured")
@@ -129,6 +130,15 @@ class TestTeleBot:
         ret_msg = tb.send_document(CHAT_ID, ret_msg.document.file_id)
         assert ret_msg.message_id
 
+    def test_send_file_caption(self):
+        file_data = open('../examples/detailed_example/kitten.jpg', 'rb')
+        tb = telebot.TeleBot(TOKEN)
+        ret_msg = tb.send_document(CHAT_ID, file_data, caption="Test")
+        assert ret_msg.message_id
+
+        ret_msg = tb.send_document(CHAT_ID, ret_msg.document.file_id)
+        assert ret_msg.message_id
+
     def test_send_video(self):
         file_data = open('./test_data/test_video.mp4', 'rb')
         tb = telebot.TeleBot(TOKEN)
@@ -236,6 +246,35 @@ class TestTeleBot:
         ret_msg = tb.send_message(CHAT_ID, text, disable_notification=True)
         assert ret_msg.message_id
 
+    def test_send_message_with_markup(self):
+        text = 'CI Test Message'
+        tb = telebot.TeleBot(TOKEN)
+        markup = types.ReplyKeyboardMarkup()
+        markup.add(types.KeyboardButton("1"))
+        markup.add(types.KeyboardButton("2"))
+        ret_msg = tb.send_message(CHAT_ID, text, disable_notification=True, reply_markup=markup)
+        assert ret_msg.message_id
+
+    def test_send_message_with_markup_use_string(self):
+        text = 'CI Test Message'
+        tb = telebot.TeleBot(TOKEN)
+        markup = types.ReplyKeyboardMarkup()
+        markup.add("1")
+        markup.add("2")
+        markup.add("3")
+        markup.add("4")
+        ret_msg = tb.send_message(CHAT_ID, text, disable_notification=True, reply_markup=markup)
+        assert ret_msg.message_id
+
+    def test_send_message_with_inlinemarkup(self):
+        text = 'CI Test Message'
+        tb = telebot.TeleBot(TOKEN)
+        markup = types.InlineKeyboardMarkup()
+        markup.add(types.InlineKeyboardButton("Google", url="http://www.google.com"))
+        markup.add(types.InlineKeyboardButton("Yahoo", url="http://www.yahoo.com"))
+        ret_msg = tb.send_message(CHAT_ID, text, disable_notification=True, reply_markup=markup)
+        assert ret_msg.message_id
+
     def test_forward_message(self):
         text = 'CI forward_message Test Message'
         tb = telebot.TeleBot(TOKEN)
@@ -286,12 +325,66 @@ class TestTeleBot:
         assert int(ret_msg.location.longitude) == int(lon)
         assert int(ret_msg.location.latitude) == int(lat)
 
+    def test_send_venue(self):
+        tb = telebot.TeleBot(TOKEN)
+        lat = 26.3875591
+        lon = -161.2901042
+        ret_msg = tb.send_venue(CHAT_ID, lat, lon, "Test Venue", "1123 Test Venue address")
+        assert ret_msg.venue.title == "Test Venue"
+
+    def test_send_venue_dis_noti(self):
+        tb = telebot.TeleBot(TOKEN)
+        lat = 26.3875591
+        lon = -161.2901042
+        ret_msg = tb.send_venue(CHAT_ID, lat, lon, "Test Venue", "1123 Test Venue address", disable_notification=True)
+        assert ret_msg.venue.title == "Test Venue"
+
     def test_Chat(self):
         tb = telebot.TeleBot(TOKEN)
         me = tb.get_me()
         msg = tb.send_message(CHAT_ID, 'Test')
         assert me.id == msg.from_user.id
         assert msg.chat.id == int(CHAT_ID)
+
+    def test_edit_message_text(self):
+        tb = telebot.TeleBot(TOKEN)
+        msg = tb.send_message(CHAT_ID, 'Test')
+        new_msg = tb.edit_message_text('Edit test', chat_id=CHAT_ID, message_id=msg.message_id)
+        assert new_msg.text == 'Edit test'
+
+    def test_edit_message_caption(self):
+        file_data = open('../examples/detailed_example/kitten.jpg', 'rb')
+        tb = telebot.TeleBot(TOKEN)
+        msg = tb.send_document(CHAT_ID, file_data, caption="Test")
+        new_msg = tb.edit_message_caption(caption='Edit test', chat_id=CHAT_ID, message_id=msg.message_id)
+        assert new_msg.caption == 'Edit test'
+
+    def test_get_chat(self):
+        tb = telebot.TeleBot(TOKEN)
+        ch = tb.get_chat(GROUP_ID)
+        assert str(ch.id) == GROUP_ID
+
+    def test_get_chat_administrators(self):
+        tb = telebot.TeleBot(TOKEN)
+        cas = tb.get_chat_administrators(GROUP_ID)
+        assert len(cas) > 0
+
+    def test_get_chat_members_count(self):
+        tb = telebot.TeleBot(TOKEN)
+        cn = tb.get_chat_members_count(GROUP_ID)
+        assert cn > 1
+
+    def test_edit_markup(self):
+        text = 'CI Test Message'
+        tb = telebot.TeleBot(TOKEN)
+        markup = types.InlineKeyboardMarkup()
+        markup.add(types.InlineKeyboardButton("Google", url="http://www.google.com"))
+        markup.add(types.InlineKeyboardButton("Yahoo", url="http://www.yahoo.com"))
+        ret_msg = tb.send_message(CHAT_ID, text, disable_notification=True, reply_markup=markup)
+        markup.add(types.InlineKeyboardButton("Google2", url="http://www.google.com"))
+        markup.add(types.InlineKeyboardButton("Yahoo2", url="http://www.yahoo.com"))
+        new_msg = tb.edit_message_reply_markup(chat_id=CHAT_ID, message_id=ret_msg.message_id, reply_markup=markup)
+        assert new_msg.message_id
 
     def create_text_message(self, text):
         params = {'text': text}

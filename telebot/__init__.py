@@ -66,8 +66,10 @@ class TeleBot:
         self.pre_message_subscribers_next_step = {}
 
         self.message_handlers = []
+        self.edited_message_handlers = []
         self.inline_handlers = []
         self.chosen_inline_handlers = []
+        self.callback_query_handlers = []
 
         self.threaded = threaded
         if self.threaded:
@@ -122,24 +124,34 @@ class TeleBot:
 
     def process_new_updates(self, updates):
         new_messages = []
+        edited_new_messages = []
         new_inline_querys = []
         new_chosen_inline_results = []
+        new_callback_querys = []
         for update in updates:
             if update.update_id > self.last_update_id:
                 self.last_update_id = update.update_id
             if update.message:
                 new_messages.append(update.message)
+            if update.edited_message:
+                edited_new_messages.append(update.edited_message)
             if update.inline_query:
                 new_inline_querys.append(update.inline_query)
             if update.chosen_inline_result:
                 new_chosen_inline_results.append(update.chosen_inline_result)
+            if update.callback_query:
+                new_callback_querys.append(update.callback_query)
         logger.debug('Received {0} new updates'.format(len(updates)))
         if len(new_messages) > 0:
             self.process_new_messages(new_messages)
+        if len(edited_new_messages) > 0:
+            self.process_new_edited_messages(edited_new_messages)
         if len(new_inline_querys) > 0:
             self.process_new_inline_query(new_inline_querys)
         if len(new_chosen_inline_results) > 0:
             self.process_new_chosen_inline_query(new_chosen_inline_results)
+        if len(new_callback_querys) > 0:
+            self.process_new_callback_query(new_callback_querys)
 
     def process_new_messages(self, new_messages):
         self._append_pre_next_step_handler()
@@ -148,15 +160,21 @@ class TeleBot:
         self._notify_message_subscribers(new_messages)
         self._notify_message_next_handler(new_messages)
 
+    def process_new_edited_messages(self, edited_message):
+        self._notify_command_handlers(self.edited_message_handlers, edited_message)
+
     def process_new_inline_query(self, new_inline_querys):
         self._notify_command_handlers(self.inline_handlers, new_inline_querys)
 
     def process_new_chosen_inline_query(self, new_chosen_inline_querys):
         self._notify_command_handlers(self.chosen_inline_handlers, new_chosen_inline_querys)
 
+    def process_new_callback_query(self, new_callback_querys):
+        self._notify_command_handlers(self.callback_query_handlers, new_callback_querys)
+
     def __notify_update(self, new_messages):
         for listener in self.update_listener:
-            self.__exec_task(listener, new_messages)
+            self._exec_task(listener, new_messages)
 
     def polling(self, none_stop=False, interval=0, timeout=20):
         """
@@ -242,7 +260,7 @@ class TeleBot:
 
         logger.info('Stopped polling.')
 
-    def __exec_task(self, task, *args, **kwargs):
+    def _exec_task(self, task, *args, **kwargs):
         if self.threaded:
             self.worker_pool.put(task, *args, **kwargs)
         else:
@@ -275,6 +293,57 @@ class TeleBot:
         """
         result = apihelper.get_user_profile_photos(self.token, user_id, offset, limit)
         return types.UserProfilePhotos.de_json(result)
+
+    def get_chat(self, chat_id):
+        """
+        Use this method to get up to date information about the chat (current name of the user for one-on-one
+        conversations, current username of a user, group or channel, etc.). Returns a Chat object on success.
+        :param chat_id:
+        :return:
+        """
+        result = apihelper.get_chat(self.token, chat_id)
+        return types.Chat.de_json(result)
+
+    def leave_chat(self, chat_id):
+        """
+        Use this method for your bot to leave a group, supergroup or channel. Returns True on success.
+        :param chat_id:
+        :return:
+        """
+        result = apihelper.leave_chat(self.token, chat_id)
+        return result
+
+    def get_chat_administrators(self, chat_id):
+        """
+        Use this method to get a list of administrators in a chat. On success, returns an Array of ChatMember objects
+        that contains information about all chat administrators except other bots.
+        :param chat_id:
+        :return:
+        """
+        result = apihelper.get_chat_administrators(self.token, chat_id)
+        ret = []
+        for r in result:
+            ret.append(types.ChatMember.de_json(r))
+        return ret
+
+    def get_chat_members_count(self, chat_id):
+        """
+        Use this method to get the number of members in a chat. Returns Int on success.
+        :param chat_id:
+        :return:
+        """
+        result = apihelper.get_chat_members_count(self.token, chat_id)
+        return result
+
+    def get_chat_member(self, chat_id, user_id):
+        """
+        Use this method to get information about a member of a chat. Returns a ChatMember object on success.
+        :param chat_id:
+        :param user_id:
+        :return:
+        """
+        result = apihelper.get_chat_member(self.token, chat_id, user_id)
+        return types.ChatMember.de_json(result)
 
     def send_message(self, chat_id, text, disable_web_page_preview=None, reply_to_message_id=None, reply_markup=None,
                      parse_mode=None, disable_notification=None):
@@ -325,7 +394,7 @@ class TeleBot:
                                  disable_notification))
 
     def send_audio(self, chat_id, audio, duration=None, performer=None, title=None, reply_to_message_id=None,
-                   reply_markup=None, disable_notification=None):
+                   reply_markup=None, disable_notification=None, timeout=None):
         """
         Use this method to send audio files, if you want Telegram clients to display them in the music player. Your audio must be in the .mp3 format.
         :param chat_id:Unique identifier for the message recipient
@@ -339,10 +408,10 @@ class TeleBot:
         """
         return types.Message.de_json(
             apihelper.send_audio(self.token, chat_id, audio, duration, performer, title, reply_to_message_id,
-                                 reply_markup, disable_notification))
+                                 reply_markup, disable_notification, timeout))
 
     def send_voice(self, chat_id, voice, duration=None, reply_to_message_id=None, reply_markup=None,
-                   disable_notification=None):
+                   disable_notification=None, timeout=None):
         """
         Use this method to send audio files, if you want Telegram clients to display the file as a playable voice message.
         :param chat_id:Unique identifier for the message recipient.
@@ -354,9 +423,10 @@ class TeleBot:
         """
         return types.Message.de_json(
             apihelper.send_voice(self.token, chat_id, voice, duration, reply_to_message_id, reply_markup,
-                                 disable_notification))
+                                 disable_notification, timeout))
 
-    def send_document(self, chat_id, data, reply_to_message_id=None, reply_markup=None, disable_notification=None):
+    def send_document(self, chat_id, data, reply_to_message_id=None, caption=None, reply_markup=None,
+                      disable_notification=None, timeout=None):
         """
         Use this method to send general files.
         :param chat_id:
@@ -367,9 +437,10 @@ class TeleBot:
         """
         return types.Message.de_json(
             apihelper.send_data(self.token, chat_id, data, 'document', reply_to_message_id, reply_markup,
-                                disable_notification))
+                                disable_notification, timeout, caption=caption))
 
-    def send_sticker(self, chat_id, data, reply_to_message_id=None, reply_markup=None, disable_notification=None):
+    def send_sticker(self, chat_id, data, reply_to_message_id=None, reply_markup=None, disable_notification=None,
+                     timeout=None):
         """
         Use this method to send .webp stickers.
         :param chat_id:
@@ -380,10 +451,10 @@ class TeleBot:
         """
         return types.Message.de_json(
             apihelper.send_data(self.token, chat_id, data, 'sticker', reply_to_message_id, reply_markup,
-                                disable_notification))
+                                disable_notification, timeout))
 
     def send_video(self, chat_id, data, duration=None, caption=None, reply_to_message_id=None, reply_markup=None,
-                   disable_notification=None):
+                   disable_notification=None, timeout=None):
         """
         Use this method to send video files, Telegram clients support mp4 videos.
         :param chat_id: Integer : Unique identifier for the message recipient — User or GroupChat id
@@ -396,7 +467,7 @@ class TeleBot:
         """
         return types.Message.de_json(
             apihelper.send_video(self.token, chat_id, data, duration, caption, reply_to_message_id, reply_markup,
-                                 disable_notification))
+                                 disable_notification, timeout))
 
     def send_location(self, chat_id, latitude, longitude, reply_to_message_id=None, reply_markup=None,
                       disable_notification=None):
@@ -413,6 +484,33 @@ class TeleBot:
             apihelper.send_location(self.token, chat_id, latitude, longitude, reply_to_message_id, reply_markup,
                                     disable_notification))
 
+    def send_venue(self, chat_id, latitude, longitude, title, address, foursquare_id=None, disable_notification=None,
+                   reply_to_message_id=None, reply_markup=None):
+        """
+        Use this method to send information about a venue.
+        :param chat_id: Integer or String : Unique identifier for the target chat or username of the target channel
+        :param latitude: Float : Latitude of the venue
+        :param longitude: Float : Longitude of the venue
+        :param title: String : Name of the venue
+        :param address: String : Address of the venue
+        :param foursquare_id: String : Foursquare identifier of the venue
+        :param disable_notification:
+        :param reply_to_message_id:
+        :param reply_markup:
+        :return:
+        """
+        return types.Message.de_json(
+            apihelper.send_venue(self.token, chat_id, latitude, longitude, title, address, foursquare_id,
+                                 disable_notification, reply_to_message_id, reply_markup)
+        )
+
+    def send_contact(self, chat_id, phone_number, first_name, last_name=None, disable_notification=None,
+                     reply_to_message_id=None, reply_markup=None):
+        return types.Message.de_json(
+            apihelper.send_contact(self.token, chat_id, phone_number, first_name, last_name, disable_notification,
+                                   reply_to_message_id, reply_markup)
+        )
+
     def send_chat_action(self, chat_id, action):
         """
         Use this method when you need to tell the user that something is happening on the bot's side.
@@ -425,13 +523,46 @@ class TeleBot:
         """
         return apihelper.send_chat_action(self.token, chat_id, action)
 
+    def kick_chat_member(self, chat_id, user_id):
+        """
+        Use this method to kick a user from a group or a supergroup.
+        :param chat_id: Int or string : Unique identifier for the target group or username of the target supergroup
+        :param user_id: Int : Unique identifier of the target user
+        :return: types.Message
+        """
+        return apihelper.kick_chat_member(self.token, chat_id, user_id)
+
+    def unban_chat_member(self, chat_id, user_id):
+        return apihelper.unban_chat_member(self.token, chat_id, user_id)
+
+    def edit_message_text(self, text, chat_id=None, message_id=None, inline_message_id=None, parse_mode=None,
+                          disable_web_page_preview=None, reply_markup=None):
+        result = apihelper.edit_message_text(self.token, text, chat_id, message_id, inline_message_id, parse_mode,
+                                             disable_web_page_preview, reply_markup)
+        if type(result) == bool:  # if edit inline message return is bool not Message.
+            return result
+        return types.Message.de_json(result)
+
+    def edit_message_reply_markup(self, chat_id=None, message_id=None, inline_message_id=None, reply_markup=None):
+        result = apihelper.edit_message_reply_markup(self.token, chat_id, message_id, inline_message_id, reply_markup)
+        if type(result) == bool:
+            return result
+        return types.Message.de_json(result)
+
+    def edit_message_caption(self, caption, chat_id=None, message_id=None, inline_message_id=None, reply_markup=None):
+        result = apihelper.edit_message_caption(self.token, caption, chat_id, message_id, inline_message_id, reply_markup)
+        if type(result) == bool:
+            return result
+        return types.Message.de_json(result)
+
     def reply_to(self, message, text, **kwargs):
         """
         Convenience function for `send_message(message.chat.id, text, reply_to_message_id=message.message_id, **kwargs)`
         """
         return self.send_message(message.chat.id, text, reply_to_message_id=message.message_id, **kwargs)
 
-    def answer_inline_query(self, inline_query_id, results, cache_time=None, is_personal=None, next_offset=None):
+    def answer_inline_query(self, inline_query_id, results, cache_time=None, is_personal=None, next_offset=None,
+                            switch_pm_text=None, switch_pm_parameter=None):
         """
         Use this method to send answers to an inline query. On success, True is returned.
         No more than 50 results per query are allowed.
@@ -440,9 +571,24 @@ class TeleBot:
         :param cache_time: The maximum amount of time in seconds that the result of the inline query may be cached on the server.
         :param is_personal: Pass True, if results may be cached on the server side only for the user that sent the query.
         :param next_offset: Pass the offset that a client should send in the next query with the same text to receive more results.
+        :param switch_pm_parameter: If passed, clients will display a button with specified text that switches the user
+         to a private chat with the bot and sends the bot a start message with the parameter switch_pm_parameter
+        :param switch_pm_text: 	Parameter for the start message sent to the bot when user presses the switch button
         :return: True means success.
         """
-        return apihelper.answer_inline_query(self.token, inline_query_id, results, cache_time, is_personal, next_offset)
+        return apihelper.answer_inline_query(self.token, inline_query_id, results, cache_time, is_personal, next_offset,
+                                             switch_pm_text, switch_pm_parameter)
+
+    def answer_callback_query(self, callback_query_id, text=None, show_alert=None):
+        """
+        Use this method to send answers to callback queries sent from inline keyboards. The answer will be displayed to
+        the user as a notification at the top of the chat screen or as an alert.
+        :param callback_query_id:
+        :param text:
+        :param show_alert:
+        :return:
+        """
+        return apihelper.answer_callback_query(self.token, callback_query_id, text, show_alert)
 
     def register_for_reply(self, message, callback):
         """
@@ -496,7 +642,7 @@ class TeleBot:
             if chat_id in self.message_subscribers_next_step:
                 handlers = self.message_subscribers_next_step[chat_id]
                 for handler in handlers:
-                    self.__exec_task(handler, message)
+                    self._exec_task(handler, message)
                 self.message_subscribers_next_step.pop(chat_id, None)
 
     def _append_pre_next_step_handler(self):
@@ -507,7 +653,13 @@ class TeleBot:
                 self.message_subscribers_next_step[k] = self.pre_message_subscribers_next_step[k]
         self.pre_message_subscribers_next_step = {}
 
-    def message_handler(self, commands=None, regexp=None, func=None, content_types=['text']):
+    def _build_handler_dict(self, handler, **filters):
+        return {
+            'function': handler,
+            'filters': filters
+        }
+
+    def message_handler(self, commands=None, regexp=None, func=None, content_types=['text'], **kwargs):
         """
         Message handler decorator.
         This decorator can be used to decorate functions that must handle certain types of messages.
@@ -538,88 +690,95 @@ class TeleBot:
         """
 
         def decorator(handler):
-            self.add_message_handler(handler, commands, regexp, func, content_types)
+            handler_dict = self._build_handler_dict(handler,
+                                                    commands=commands,
+                                                    regexp=regexp,
+                                                    func=func,
+                                                    content_types=content_types,
+                                                    **kwargs)
+
+            self.add_message_handler(handler_dict)
+
             return handler
 
         return decorator
 
-    def add_message_handler(self, handler, commands=None, regexp=None, func=None, content_types=None):
-        if content_types is None:
-            content_types = ['text']
-
-        filters = {'content_types': content_types}
-        if regexp:
-            filters['regexp'] = regexp
-        if func:
-            filters['lambda'] = func
-        if commands:
-            filters['commands'] = commands
-
-        handler_dict = {
-            'function': handler,
-            'filters': filters
-        }
-
+    def add_message_handler(self, handler_dict):
         self.message_handlers.append(handler_dict)
 
-    def inline_handler(self, func):
+    def edited_message_handler(self, commands=None, regexp=None, func=None, content_types=['text'], **kwargs):
         def decorator(handler):
-            self.add_inline_handler(handler, func)
+            handler_dict = self._build_handler_dict(handler,
+                                                    commands=commands,
+                                                    regexp=regexp,
+                                                    func=func,
+                                                    content_types=content_types,
+                                                    **kwargs)
+            self.add_edited_message_handler(handler_dict)
             return handler
 
         return decorator
 
-    def add_inline_handler(self, handler, func):
-        filters = {'lambda': func}
+    def add_edited_message_handler(self, handler_dict):
+        self.edited_message_handlers.append(handler_dict)
 
-        handler_dict = {
-            'function': handler,
-            'filters': filters
-        }
+    def inline_handler(self, func, **kwargs):
+        def decorator(handler):
+            handler_dict = self._build_handler_dict(handler, func=func, **kwargs)
+            self.add_inline_handler(handler_dict)
+            return handler
 
+        return decorator
+
+    def add_inline_handler(self, handler_dict):
         self.inline_handlers.append(handler_dict)
 
-    def chosen_inline_handler(self, func):
+    def chosen_inline_handler(self, func, **kwargs):
         def decorator(handler):
-            self.add_chosen_inline_handler(handler, func)
+            handler_dict = self._build_handler_dict(handler, func=func, **kwargs)
+            self.add_chosen_inline_handler(handler_dict)
             return handler
 
         return decorator
 
-    def add_chosen_inline_handler(self, handler, func):
-        filters = {'lambda': func}
-
-        handler_dict = {
-            'function': handler,
-            'filters': filters
-        }
-
+    def add_chosen_inline_handler(self, handler_dict):
         self.chosen_inline_handlers.append(handler_dict)
 
-    @staticmethod
-    def _test_message_handler(message_handler, message):
+    def callback_query_handler(self, func, **kwargs):
+        def decorator(handler):
+            handler_dict = self._build_handler_dict(handler, func=func, **kwargs)
+            self.add_callback_query_handler(handler_dict)
+
+        return decorator
+
+    def add_callback_query_handler(self, handler_dict):
+        self.callback_query_handlers.append(handler_dict)
+
+    def _test_message_handler(self, message_handler, message):
         for filter, filter_value in six.iteritems(message_handler['filters']):
-            if not TeleBot._test_filter(filter, filter_value, message):
+            if filter_value is None:
+                continue
+
+            if not self._test_filter(filter, filter_value, message):
                 return False
+
         return True
 
-    @staticmethod
-    def _test_filter(filter, filter_value, message):
-        if filter == 'content_types':
-            return message.content_type in filter_value
-        if filter == 'regexp':
-            return message.content_type == 'text' and re.search(filter_value, message.text)
-        if filter == 'commands':
-            return message.content_type == 'text' and util.extract_command(message.text) in filter_value
-        if filter == 'lambda':
-            return filter_value(message)
-        return False
+    def _test_filter(self, filter, filter_value, message):
+        test_cases = {
+            'content_types': lambda msg: msg.content_type in filter_value,
+            'regexp': lambda msg: msg.content_type == 'text' and re.search(filter_value, msg.text),
+            'commands': lambda msg: msg.content_type == 'text' and util.extract_command(msg.text) in filter_value,
+            'func': lambda msg: filter_value(msg)
+        }
+
+        return test_cases.get(filter, lambda msg: False)(message)
 
     def _notify_command_handlers(self, handlers, new_messages):
         for message in new_messages:
             for message_handler in handlers:
                 if self._test_message_handler(message_handler, message):
-                    self.__exec_task(message_handler['function'], message)
+                    self._exec_task(message_handler['function'], message)
                     break
 
 
