@@ -13,7 +13,7 @@ import urllib.request
 
 html = urllib.request.urlopen('http://www.nlotto.co.kr/common.do?method=main&#8217;')
 
-soup = BeautifulSoup(html)
+soup = BeautifulSoup(html,"html5lib")
 
 hoi = soup.find("span", id="lottoDrwNo")
 
