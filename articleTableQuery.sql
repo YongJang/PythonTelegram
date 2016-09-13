@@ -23,6 +23,9 @@ set collation_server = utf8_general_ci;
 ========================================================================================
 */
 CREATE TABLE article (PK_aid INT UNSIGNED PRIMARY KEY AUTO_INCREMENT, url varchar(1000) NOT NULL, high VARCHAR(40), low VARCHAR(40), title TEXT, content TEXT, click_num INT, aType VARCHAR(40), k_group INT, pDate char(8))default character set utf8;
+CREATE TABLE information(PK_aid INT UNSIGNED PRIMARY KEY AUTO_INCREMENT, url varchar(250) UNIQUE KEY, high VARCHAR(20), low text, title varchar(200), content TEXT, click_num INT, a_type VARCHAR(20), k_group INT, p_date varchar(20), meta text)default character set utf8;
+CREATE TABLE society(PK_aid INT UNSIGNED PRIMARY KEY AUTO_INCREMENT, url varchar(250) UNIQUE KEY, high VARCHAR(20), low text, title varchar(200), content TEXT, click_num INT, a_type VARCHAR(20), k_group INT, p_date varchar(20), meta text)default character set utf8;
+CREATE TABLE jobs(PK_aid INT UNSIGNED PRIMARY KEY AUTO_INCREMENT, url varchar(250) UNIQUE KEY, high VARCHAR(20), low text, title varchar(200), content TEXT, click_num INT, a_type VARCHAR(20), k_group INT, p_date varchar(20), meta text)default character set utf8;
 CREATE TABLE tags (high varchar(40), low varchar(40))default character set utf8;
 set character_set_connection=utf8;
 set names utf8;
