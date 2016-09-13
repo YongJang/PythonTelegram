@@ -29,8 +29,8 @@ set names utf8;
 DELETE FROM tags where high='IT';
 DELETE FROM tags where low='CPI';
 DELETE FROM tags where high='사회';
-load data local infile 'D:\\PythonTelegram\\ITtags05.csv' into table tags fields terminated by ',' enclosed by '"' lines terminated by '\r\n';
-load data local infile 'D:\\PythonTelegram\\Economy.csv' into table tags fields terminated by ',' enclosed by '"' lines terminated by '\r\n';
+load data local infile 'D:\\Github\\PythonTelegram\\ITtags05.csv' into table tags fields terminated by ',' enclosed by '"' lines terminated by '\r\n';
+load data local infile 'D:\\Github\\PythonTelegram\\Economy.csv' into table tags fields terminated by ',' enclosed by '"' lines terminated by '\r\n';
 CREATE TABLE tags (high varchar(40), low varchar(40))default character set utf8;
 select * from tags LIMIT 3000;
 /*
