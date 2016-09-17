@@ -81,7 +81,7 @@ try:
                             k_list.append(k.text) # k_list에 키워드text 넣기
 
                         for k_count in range(len(k_list)) :
-                            if cur.execute("""SELECT * from tags where low = %s""", str(k_list[k_count])) > 0 :
+                            if cur.execute("""SELECT * from tags where high = 'IT' and low = %s""", str(k_list[k_count])) > 0 :
                                 db_tags.append(k_list[k_count]) # low == tags
 
                         for n in range(len(db_tags)) :
