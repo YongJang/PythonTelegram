@@ -7,6 +7,7 @@ from bs4 import BeautifulSoup
 import time
 import json
 import collections
+import re
 
 try:
         print(sys.stdin.encoding)
@@ -35,7 +36,7 @@ try:
                 webpage = urlopen(html).read()
                 #soup = BeautifulSoup(webpage , from_encoding="utf-8")
                 soup = BeautifulSoup(webpage , "html5lib")
-                info = soup.find_all("a" ,onclick="javascrpit:giClickCount('ST', 'B02');giSpecificClickCount('0', '18427968', '6', '0');") # href 찾기
+                info = soup.find_all("a" ,onclick=re.compile("giClickCount('ST', 'B02')")) # href 찾기
                 print("페이지 내 기사의 수" + str(len(info)))
                 for t in info :
                     if t.get("href") is not None :
