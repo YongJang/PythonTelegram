@@ -19,7 +19,8 @@ try:
         firsthtml = Request('http://www.jobkorea.co.kr/Starter/Recruit/SS/engineering?psTab=40&rOrderTab=10&Page=1#JobList', headers={'User-Agent':'Mozilla/5.0 (compatible; MSIE 5.0; Windows NT 5.1; SV1; .NET CLR 1.1.4322; .NET CLR 2.0.50727; .NET CLR 3.0.04506.30)'})
         sleep_i = sleep_i + 1
         firstpage = urlopen(firsthtml).read()
-        firstsoup = BeautifulSoup(firstpage , from_encoding="utf-8")
+        #firstsoup = BeautifulSoup(firstpage , from_encoding="utf-8")
+        firstsoup = BeautifulSoup(firstpage , "html5lib")
         page_num = firstsoup.find("div" , { "tplPagination devTplPgn" }).find_all('li') #page개수
         print("페이지 수" + str(len(page_num)))
         #href 가져오기 40 개
@@ -32,8 +33,9 @@ try:
                 html = Request('http://www.jobkorea.co.kr/Starter/Recruit/SS/engineering?psTab=40&rOrderTab=10&Page=' + str(page) + '  #JobList', headers={'User-Agent':'Mozilla/5.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1; .NET CLR 1.1.4322; .NET CLR 2.0.50727; .NET CLR 3.0.04506.30)'})
                 sleep_i = sleep_i + 1
                 webpage = urlopen(html).read()
-                soup = BeautifulSoup(webpage , from_encoding="utf-8")
-                info = soup.find_all("a" ,onclick="^giClickCount('ST', 'B02')") # href 찾기
+                #soup = BeautifulSoup(webpage , from_encoding="utf-8")
+                soup = BeautifulSoup(webpage , "html5lib")
+                info = soup.find_all("a" ,onclick="^javascrpit:giClickCount('ST', 'B02')") # href 찾기
                 print("페이지 내 기사의 수" + str(len(info)))
                 for t in info :
                     if t.get("href") is not None :
@@ -53,7 +55,8 @@ try:
                     detail_html = Request('http://www.jobkorea.co.kr/' + str(hrefs[index]), headers={'User-Agent':'Mozilla/5.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1; .NET CLR 1.1.4322; .NET CLR 2.0.50727; .NET CLR 3.0.04506.30)'})
                     sleep_i = sleep_i + 1 # 상세페이지 들어가기
                     detailpage = urlopen(detail_html).read()
-                    detailsoup = BeautifulSoup(detailpage , from_encoding="utf-8")
+                    #detailsoup = BeautifulSoup(detailpage , from_encoding="utf-8")
+                    detailsoup = BeautifulSoup(detailpage , "html5lib")
                     titles = detailsoup.find("span",{"class" : "title"})
                     meta_title = detailsoup.find("meta", {"name" : "title"})
                     meta_desc = detailsoup.find("meta",{"name":"description"})
