@@ -85,6 +85,7 @@ SELECT * FROM tags LIMIT 3000;
 
 SET SQL_SAFE_UPDATES=0;
 DELETE FROM shown where uid>0;
+delete from jobs where url='http://www.jobkorea.co.kr//Recruit/GI_Read/18301865?Oem_Code=C1%26rPageCode=ST';
 
 
 SELECT * from information;
