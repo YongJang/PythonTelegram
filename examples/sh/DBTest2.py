@@ -36,14 +36,14 @@ try:
                 webpage = urlopen(html).read()
                 #soup = BeautifulSoup(webpage , from_encoding="utf-8")
                 soup = BeautifulSoup(webpage , "html5lib")
-                info = soup.find_all("a" ,onclick=re.compile("giClickCount('ST', 'B02')")) # href 찾기
+                info = soup.find_all("a" ,onclick=re.compile("giClickCount")) # href 찾기
                 print("페이지 내 기사의 수" + str(len(info)))
                 for t in info :
                     if t.get("href") is not None :
                         hrefs.append(t.get("href"))
                     #words = [word.replace('[br]','<br />') for word in words]
                 hrefs = [re.replace('&',"%26") for re in hrefs]
-                #print(hrefs)
+                print(hrefs)
 
                 for index in range(0,len(hrefs)): # 40
                     db_tags = []
