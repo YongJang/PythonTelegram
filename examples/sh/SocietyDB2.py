@@ -6,10 +6,11 @@ from bs4 import BeautifulSoup
 import time
 import json
 import collections
+import re
 
 try:
         print(sys.stdin.encoding)
-        conn = pymysql.connect(host='telegramdb.cctjzlx6kmlc.ap-northeast-1.rds.amazonaws.com', port=3306, user='yongjang', passwd='yongjang', db='telegramdb', charset='utf8')
+        conn = pymysql.connect(host='telegramdb.cjks7yer9qjg.ap-northeast-2.rds.amazonaws.com', port=3306, user='yongjang', passwd='yongjang', db='telegramdb', charset='utf8')
         print("connection success!!")
         cur = conn.cursor()
 # -*- coding: utf-8 -*-
@@ -18,7 +19,7 @@ try:
         firsthtml = Request('http://www.jobkorea.co.kr/Starter/Recruit/SS/society?psTab=40&rOrderTab=10&Page=1#JobList', headers={'User-Agent':'Mozilla/5.0 (compatible; MSIE 5.0; Windows NT 5.1; SV1; .NET CLR 1.1.4322; .NET CLR 2.0.50727; .NET CLR 3.0.04506.30)'})
         sleep_i = sleep_i + 1
         firstpage = urlopen(firsthtml).read()
-        firstsoup = BeautifulSoup(firstpage , from_encoding="utf-8")
+        firstsoup = BeautifulSoup(firstpage , "html5lib")
         page_num = firstsoup.find("div" , { "class" : "tplPagination devTplPgn" }).find_all('li') #page개수
         #href 가져오기 40 개
         def getPost(sleep_i) :
@@ -30,8 +31,8 @@ try:
                 html = Request('http://www.jobkorea.co.kr/Starter/Recruit/SS/society?psTab=40&rOrderTab=10&Page=' + str(page) + '  #JobList', headers={'User-Agent':'Mozilla/5.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1; .NET CLR 1.1.4322; .NET CLR 2.0.50727; .NET CLR 3.0.04506.30)'})
                 sleep_i = sleep_i + 1
                 webpage = urlopen(html).read()
-                soup = BeautifulSoup(webpage , from_encoding="utf-8")
-                info = soup.find_all("a" ,onclick="GI_Click_Cnt('ST','B02');") # href 찾기
+                soup = BeautifulSoup(webpage , "html5lib")
+                info = soup.find_all("a" ,onclick=re.compile("giClickCount")) # href 찾기
                 for t in info :
                     if t.get("href") is not None :
                         hrefs.append(t.get("href"))
@@ -48,7 +49,7 @@ try:
                     detail_html = Request('http://www.jobkorea.co.kr/' + str(hrefs[index]), headers={'User-Agent':'Mozilla/5.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1; .NET CLR 1.1.4322; .NET CLR 2.0.50727; .NET CLR 3.0.04506.30)'})
                     sleep_i = sleep_i + 1 # 상세페이지 들어가기
                     detailpage = urlopen(detail_html).read()
-                    detailsoup = BeautifulSoup(detailpage , from_encoding="utf-8")
+                    detailsoup = BeautifulSoup(detailpage , "html5lib")
                     titles = detailsoup.find("span",{"class" : "title"})
                     meta_title = detailsoup.find("meta", {"name" : "title"})
                     meta_desc = detailsoup.find("meta",{"name":"description"})
@@ -63,7 +64,10 @@ try:
 
                     calendar = detailsoup.find_all("dl", class_="day") # 상세페이지의 마감일 찾기 (달력 형식)
                     date_second = detailsoup.find_all("p", class_="regular") # 다른 형식의 상세페이지의 마감일 (달력없는 형식)
-                    keyword = detailsoup.find('dt', text = '키워드').next_element.next_element.next_element.find_all("a", href = True , target ="_top") # 상세페이지의 키워드 찾기
+                    if detailsoup.find('dt', text = '키워드') is not None :
+                        keyword = detailsoup.find('dt', text = '키워드').next_element.next_element.next_element.find_all("a", href = True , target ="_top") # 상세페이지의 키워드 찾기
+                    else :
+                        continue
                     #keyword = detailsoup.find("meta", {"name" : "keywords"})
                     print(keyword)
                     if keyword is not None :
@@ -72,7 +76,7 @@ try:
                             k_list.append(k.text) # k_list에 키워드text 넣기
 
                         for k_count in range(len(k_list)) :
-                            if cur.execute("""SELECT * from tags where low = %s""", str(k_list[k_count])) > 0 :
+                            if cur.execute("""SELECT * from tags where high = '경제' and low = %s""", str(k_list[k_count])) > 0 :
                                 db_tags.append(k_list[k_count]) # low == tags
 
                         for n in range(len(db_tags)) :

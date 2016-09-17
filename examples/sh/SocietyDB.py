@@ -19,7 +19,7 @@ try:
         sleep_i = sleep_i + 1
         firstpage = urlopen(firsthtml).read()
         firstsoup = BeautifulSoup(firstpage , from_encoding="utf-8")
-        page_num = firstsoup.find("div" , { "class" : "tplPagination devTplPgn" }).find_all('li') #page개수
+        page_num = firstsoup.find("div" , { "class" : "lgiSec lgiPagination lgiPagination1" }).find_all('li') #page개수
         #href 가져오기 40 개
         def getPost(sleep_i) :
             hrefs=[]  #href 가져오기 40 개
