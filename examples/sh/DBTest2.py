@@ -33,7 +33,7 @@ try:
                 sleep_i = sleep_i + 1
                 webpage = urlopen(html).read()
                 soup = BeautifulSoup(webpage , from_encoding="utf-8")
-                info = soup.find_all("a" ,onclick="giClickCount('ST', 'B02');") # href 찾기
+                info = soup.find_all("a" ,onclick="^giClickCount('ST', 'B02')") # href 찾기
                 print("페이지 내 기사의 수" + str(len(info)))
                 for t in info :
                     if t.get("href") is not None :
