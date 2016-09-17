@@ -56,15 +56,17 @@ desc jobs;
 ========================================================================================
 */
 SELECT * FROM jobs;
+SELECT * FROM society;
 SELECT * FROM jobs WHERE url = 'http://www.jobkorea.co.kr//Recruit/GI_Read/17169773?Oem_Code=C1&rPageCode=ST&PageGbn=ST' LIMIT 1;
 SELECT * FROM jobs WHERE url = 'http://www.jobkorea.co.kr//Recruit/GI_Read/17169773?Oem_Code=C1' LIMIT 1;
-SELECT * FROM society;
+
 /*
 ========================================================================================
 */
 CREATE TABLE relationKeyword (PK_uid INT NOT NULL, keyword varchar(40), high varchar(40))default character set utf8;
 SELECT * FROM relationKeyword;
-SELECT * FROM tags;
+SELECT * FROM tags WHERE high='경제' and low='영업관리';
+Insert INTO tags(high, low) values ('경제','영업관리');
 DELETE FROM tags WHERE high='경제';
 
 
