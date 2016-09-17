@@ -21,7 +21,7 @@ try:
         firstpage = urlopen(firsthtml).read()
         firstsoup = BeautifulSoup(firstpage , from_encoding="utf-8")
         page_num = firstsoup.find("div" , { "tplPagination devTplPgn" }).find_all('li') #page개수
-        print("페이지 수" + len(page_num))
+        print("페이지 수" + str(len(page_num)))
         #href 가져오기 40 개
         def getPost(sleep_i) :
             hrefs=[]  #href 가져오기 40 개
@@ -34,7 +34,7 @@ try:
                 webpage = urlopen(html).read()
                 soup = BeautifulSoup(webpage , from_encoding="utf-8")
                 info = soup.find_all("a" ,onclick="giClickCount('ST', 'B02');") # href 찾기
-                print("페이지 내 기사의 수" + len(info))
+                print("페이지 내 기사의 수" + str(len(info)))
                 for t in info :
                     if t.get("href") is not None :
                         hrefs.append(t.get("href"))
