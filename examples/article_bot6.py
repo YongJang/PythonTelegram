@@ -383,7 +383,8 @@ def command_News_Search(m):
         KeywordKeyboard.row(KeywordButton1)
         KeywordKeyboard.row(KeywordButton2)
         KeywordKeyboard.row(KeywordButton3,KeywordButton4)
-        bot.send_message(cid, sendText, parse_mode='HTML',reply_markup=KeywordKeyboard)
+        #bot.send_message(cid, sendText, parse_mode='HTML',reply_markup=KeywordKeyboard)
+        bot.send_message(cid, sendText,reply_markup=KeywordKeyboard)
         # 키워드 추가
         if len(keyword) < 40:
             high = ''
@@ -742,7 +743,8 @@ def step201(call):
         KeywordKeyboard.row(KeywordButton1)
         KeywordKeyboard.row(KeywordButton2)
         KeywordKeyboard.row(KeywordButton3,KeywordButton4)
-        bot.send_message(cid, sendText, parse_mode='HTML',reply_markup=KeywordKeyboard)
+        #bot.send_message(cid, sendText, parse_mode='HTML',reply_markup=KeywordKeyboard)
+        bot.send_message(cid, sendText,reply_markup=KeywordKeyboard)
     else :
         bot.send_message(cid, "검색 결과를 찾을 수 없습니다.")
 
