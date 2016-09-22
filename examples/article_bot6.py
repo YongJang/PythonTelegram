@@ -40,7 +40,7 @@ except pymysql.Error as e:
 #TOKEN = '207944330:AAGdpOvswmHangYooE8wBEf1p-vYP2skyL0'
 # @JobJangBot
 TOKEN = '207840488:AAEf42L9r0V2tHrX1lVm0QTRnj1e6m5y5bQ'
-WEBSERVER_DNS = 'http://TelegramRedirect-982942058.ap-northeast-1.elb.amazonaws.com/'
+WEBSERVER_DNS = 'http://TelegramRedirect-809913891.ap-northeast-2.elb.amazonaws.com/'
 BITLY_API_USER = 'yongjang'
 BITLY_API_KEY = 'R_2aa28870a1c440498cf13385c9fdaa16'
 BITLY_ACCESS_TOKEN = '205b5db4edb8ec0d9e776d343a64291082fe94b7'
