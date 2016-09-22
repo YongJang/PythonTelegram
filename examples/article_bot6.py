@@ -527,7 +527,7 @@ def step110IT_1(call):
 def step110IT_2(call):
     #cur = conn.cursor()
     cid = call.from_user.id
-    cur.execute("SELECT * FROM jobs WHERE aType = \'Job\' ORDER BY click_num DESC;")
+    cur.execute("SELECT * FROM jobs WHERE a_type = \'Job\' ORDER BY click_num DESC;")
     row = cur.fetchall()
     total = len(row)
     jobsURL = []
@@ -661,7 +661,7 @@ def step120Social_1(call):
 def step120Social_2(call):
     #cur = conn.cursor()
     cid = call.from_user.id
-    cur.execute("SELECT * FROM society WHERE aType = \'Job\' ORDER BY click_num DESC;")
+    cur.execute("SELECT * FROM society WHERE a_type = \'Job\' ORDER BY click_num DESC;")
     row = cur.fetchall()
     total = len(row)
     jobsURL = []
