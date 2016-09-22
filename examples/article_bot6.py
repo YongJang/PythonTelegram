@@ -24,7 +24,7 @@ import urllib.parse
 import random
 import string
 import bitly_api
-
+import traceback
 
 
 print(sys.stdin.encoding)
@@ -828,5 +828,8 @@ def stepDetail(call):
             bot.send_message(cid, detail, reply_markup=articleKeyboard2)
     except Exception as e:
     	        print(e)
-
-bot.polling()
+try:
+    bot.polling()
+except:
+    traceback.format_exc()
+    pass
