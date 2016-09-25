@@ -829,7 +829,7 @@ def stepDetail(call):
     except Exception as e:
     	        print(e)
 try:
-    bot.polling()
+    bot.polling(none_stop=True)
 except:
     traceback.format_exc()
     pass
